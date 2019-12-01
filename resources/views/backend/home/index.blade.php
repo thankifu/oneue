@@ -78,7 +78,7 @@
 </div>
 <footer class="sl-footer navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid row">
-        <p class="navbar-text text-lowercase">COPYRIGHT © 2015-2019 STARSLABS.COM ALL RIGHTS RESERVED</p>
+        <p class="navbar-text text-lowercase">© 2015-2019 福州星科创想网络科技有限公司 版权所有</p>
     </div>
 </footer>
 @include('backend.common.foot')
