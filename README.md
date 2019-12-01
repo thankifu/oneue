@@ -58,7 +58,7 @@ i@thankifu.com
 
 ## 版权信息
 
-该项目签署了MIT 授权许可，详情请参阅 [LICENSE.md](https://github.com/thankifu/oneue/blob/master/LICENSE)
+该项目签署了MIT 授权许可，详情请参阅 [LICENSE.md](/thankifu/oneue/blob/master/LICENSE)
 
 ## 更新日志
 
