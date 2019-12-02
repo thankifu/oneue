@@ -51,10 +51,11 @@
 				</label>
 			</div>
 
-		</div>		
-
-		<button type="button" class="btn sl-button-primary" onclick="slMenuSave();">保存</button>
-		<button type="button" class="btn sl-button-danger" onclick="slAddCancel();">取消</button>
+		</div>
+		<div class="form-group text-center">
+			<button type="button" class="btn btn-secondary" onclick="starCancel();">取消</button>
+			<button type="button" class="btn btn-primary" onclick="starMenuSave();">保存</button>
+		</div>
 		<input type="hidden" id="parent" name="parent" value="{{isset($parent_menu['id'])?$parent_menu['id']:0}}">
 		<input type="hidden" id="id" name="id" value="{{$menu['id']}}">
 	</form>

@@ -11,15 +11,15 @@
 </head>
 <body>
 <div class="container-fluid">
-	<div class="clearfix sl-mt-20 sl-mb-20">
+	<div class="clearfix star-mt-20 star-mb-20">
 		<div class="pull-left">
 			
 		</div>
 		<div class="pull-right">
 			@if($parent)
-			<button type="button" class="btn sl-button-primary" onclick="slMenuGo({{$back_id}});">返回上一级</button>
+			<button type="button" class="btn btn-sm btn-default" onclick="starMenuGoto({{$back_id}});">返回上一级</button>
 			@endif
-			<button type="button" class="btn sl-button-primary" onclick="slAdd('menu', 0, {{$parent}});">新增</button>
+			<button type="button" class="btn btn-sm btn-primary" onclick="starAdd('menu', 0, {{$parent}});">新增</button>
 		</div>
 	</div>
 	{{csrf_field()}}
@@ -50,11 +50,11 @@
 				<td>{{$item['action']}}</td>
 				<td>{{$item['modified']?date('Y-m-d H:i:s',$item['modified']):'-'}}</td>
 				<td>{{$item['hidden']?'是':'否'}}</td>
-				<td>{!!$item['state']==1?'<span class="sl-green">启用</span>':'<span class="sl-red">禁用</span>'!!}</td>
+				<td>{!!$item['state']==1?'<span class="label label-success">启用</span>':'<span class="label label-danger">禁用</span>'!!}</td>
 				<td>
-					<button type="button" class="btn btn-sm" onclick="slMenuGo({{$item['id']}});">子菜单</button>
-					<button type="button" class="btn btn-sm sl-button-primary" onclick="slAdd('menu', {{$item['id']}}, {{$parent}});">修改</button>
-					<button type="button" class="btn btn-sm sl-button-danger" onclick="slDelete('menu', {{$item['id']}});">删除</button>
+					<button type="button" class="btn btn-sm btn-default" onclick="starMenuGoto({{$item['id']}});">子菜单</button>
+					<button type="button" class="btn btn-sm btn-primary" onclick="starAdd('menu', {{$item['id']}}, {{$parent}});">修改</button>
+					<button type="button" class="btn btn-sm btn-danger" onclick="starDelete('menu', {{$item['id']}});">删除</button>
 				</td>
 			</tr>
 			@endforeach
@@ -71,8 +71,8 @@
 			<td width="10"><input type="checkbox"/></td>
 			<td colspan="9">
 				<div class="pull-left">
-					<button class="btn btn-sm" disabled="disabled">禁用</button>
-					<button class="btn btn-sm">启用</button>
+					<button class="btn btn-sm btn-default" disabled="disabled">禁用</button>
+					<button class="btn btn-sm btn-default">启用</button>
 				</div>
 				<div class="pull-right">
 					

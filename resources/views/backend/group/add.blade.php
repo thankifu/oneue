@@ -28,7 +28,7 @@
 			</div>
 
 			@if($menu['children'])
-			<div class="checkbox sl-ml-20">
+			<div class="checkbox star-ml-20">
 				@foreach($menu['children'] as $child)
 				<label class="checkbox-inline">
 					<input type="checkbox" name="menu[{{$child['id']}}]" value="" {{isset($group['permission']) && $group['permission'] && in_array($child['id'],$group['permission'])?'checked':''}}> {{$child['name']}}
@@ -39,9 +39,10 @@
 
 		</div>
 		@endforeach					
-
-		<button type="button" class="btn sl-button-primary" onclick="slGroupSave();">保存</button>
-		<button type="button" class="btn sl-button-danger" onclick="slAddCancel();">取消</button>
+		<div class="form-group text-center">
+			<button type="button" class="btn btn-secondary" onclick="starCancel();">取消</button>
+			<button type="button" class="btn btn-primary" onclick="starGroupSave();">保存</button>
+		</div>
 		<input type="hidden" id="id" name="id" value="{{$group['id']}}">
 	</form>
 

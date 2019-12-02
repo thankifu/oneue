@@ -1,4 +1,4 @@
-<div class="modal fade bs-example-modal-sm sl-dialog-delete" tabindex="-1" role="dialog" aria-labelledby="dialog">
+<!-- <div class="modal fade bs-example-modal-sm sl-dialog-delete" tabindex="-1" role="dialog" aria-labelledby="dialog">
 	<div class="modal-dialog modal-sm" role="document">
 		<div class="modal-content">
 			<div class="modal-body">
@@ -29,8 +29,9 @@
 			<input type="hidden" name="sl_parent" value=""/>
 		</div>
 	</div>
-</div>
+</div> -->
 
 <script type="text/javascript" src="/js/jquery.min.js"></script>
 <script type="text/javascript" src="/packages/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/packages/bootbox/bootbox.min.js"></script>
 <script type="text/javascript" src="/js/common.js"></script>

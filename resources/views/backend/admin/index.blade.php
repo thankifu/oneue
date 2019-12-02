@@ -12,18 +12,18 @@
 <body>
 <div class="container-fluid">
 	
-	<div class="clearfix sl-mt-20 sl-mb-20">
+	<div class="clearfix star-mt-20 star-mb-20">
 		<div class="pull-left">
 			<form class="form-inline" method="get">
-				<div class="form-group sl-mr-20">
+				<div class="form-group form-group-sm star-mr-10">
 					<label for="username">用户名：</label>
 					<input type="text" class="form-control" name="username" value="{{request()->get('username')}}" placeholder="请输入用户名">
 				</div>
-				<div class="form-group sl-mr-20">
+				<div class="form-group form-group-sm star-mr-10">
 					<label for="name">真实姓名：</label>
 					<input type="text" class="form-control" name="name" value="{{request()->get('name')}}" placeholder="请输入真实姓名">
 				</div>
-				<div class="form-group sl-mr-20">
+				<div class="form-group form-group-sm star-mr-10">
 					<label for="group_id">管理组：</label>
 					<select class="form-control" id="group_id" name="group_id" autocomplete="off">
 						<option value="0">请选择</option>
@@ -32,11 +32,11 @@
 						@endforeach
 					</select>
 				</div>
-				<button type="submit" class="btn btn-default">查询</button>
+				<button type="submit" class="btn btn-sm btn-default">查询</button>
 			</form>
 		</div>
 		<div class="pull-right">
-			<button type="button" class="btn sl-button-primary" onclick="slAdd('admin', 0);">新增</button>
+			<button type="button" class="btn btn-sm btn-primary" onclick="starAdd('admin');">新增</button>
 		</div>
 	</div>
 	
@@ -64,10 +64,10 @@
 				<td>{{$item['name']}}</td>
 				<td>{{isset($groups[$item['group_id']])?$groups[$item['group_id']]['name']:''}}</td>
 				<td>{{$item['logined']?date('Y-m-d H:i:s',$item['logined']):'-'}}</td>
-				<td>{!!$item['state']==1?'<span class="sl-green">启用</span>':'<span class="sl-red">禁用</span>'!!}</td>
+				<td>{!!$item['state']==1?'<span class="label label-success">启用</span>':'<span class="label label-danger">禁用</span>'!!}</td>
 				<td>
-					<button type="button" class="btn btn-sm sl-button-primary" onclick="slAdd('admin', {{$item['id']}});">修改</button>
-					<button type="button" class="btn btn-sm sl-button-danger" onclick="slDelete('admin', {{$item['id']}});">删除</button>
+					<button type="button" class="btn btn-sm btn-primary" onclick="starAdd('admin', {{$item['id']}});">修改</button>
+					<button type="button" class="btn btn-sm btn-danger" onclick="starDelete('admin', {{$item['id']}});">删除</button>
 				</td>
 			</tr>
 			@endforeach
@@ -84,8 +84,8 @@
 			<td width="10"><input type="checkbox"/></td>
 			<td colspan="7">
 				<div class="pull-left">
-					<button class="btn btn-sm" disabled="disabled">禁用</button>
-					<button class="btn btn-sm">启用</button>
+					<button class="btn btn-sm btn-default" disabled="disabled">禁用</button>
+					<button class="btn btn-sm btn-default">启用</button>
 				</div>
 				<div class="pull-right">
 					{{$links}}

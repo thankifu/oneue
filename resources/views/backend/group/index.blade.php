@@ -11,19 +11,19 @@
 </head>
 <body>
 <div class="container-fluid">
-	<div class="clearfix sl-mt-20 sl-mb-20">
+	<div class="clearfix star-mt-20 star-mb-20">
 		<div class="pull-left">
 			<form class="form-inline" method="get">
-				<div class="form-group sl-mr-20">
+				<div class="form-group form-group-sm star-mr-10">
 					<label for="name">管理组名：</label>
 					<input type="text" class="form-control" name="name" value="{{request()->get('name')}}" placeholder="请输入管理组名">
 				</div>
 				
-				<button type="submit" class="btn btn-default">查询</button>
+				<button type="submit" class="btn btn-sm btn-default">查询</button>
 			</form>
 		</div>
 		<div class="pull-right">
-			<button type="button" class="btn sl-button-primary" onclick="slAdd('group', 0);">新增</button>
+			<button type="button" class="btn btn-sm btn-primary" onclick="starAdd('group');">新增</button>
 		</div>
 	</div>
 
@@ -49,9 +49,9 @@
 				<td>{{$item['name']}}</td>
 				<td>{{$item['created']?date('Y-m-d H:i:s',$item['created']):'-'}}</td>
 				<td>{{$item['modified']?date('Y-m-d H:i:s',$item['modified']):'-'}}</td>
-				<td>{!!$item['state']==1?'<span class="sl-green">启用</span>':'<span class="sl-red">禁用</span>'!!}</td>
+				<td>{!!$item['state']==1?'<span class="label label-success">启用</span>':'<span class="label label-danger">禁用</span>'!!}</td>
 				<td>
-					<button type="button" class="btn btn-sm sl-button-primary" onclick="slAdd('group', {{$item['id']}});">修改</button>
+					<button type="button" class="btn btn-sm btn-primary" onclick="starAdd('group', {{$item['id']}});">修改</button>
 				</td>
 			</tr>
 			@endforeach
@@ -66,10 +66,10 @@
 		@endif
 		<tfoot>
 			<td width="10"><input type="checkbox"/></td>
-			<td colspan="7">
+			<td colspan="6">
 				<div class="pull-left">
-					<button class="btn btn-sm" disabled="disabled">禁用</button>
-					<button class="btn btn-sm">启用</button>
+					<button class="btn btn-sm btn-default" disabled="disabled">禁用</button>
+					<button class="btn btn-sm btn-default">启用</button>
 				</div>
 				<div class="pull-right">
 					{{$links}}
