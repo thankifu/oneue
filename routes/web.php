@@ -59,4 +59,7 @@ Route::namespace('Backend')->middleware(['auth.admin:admin','auth.menus'])->grou
 
 	Route::get('admin/article/category','Article@category');
 
+	//上传
+	Route::post('admin/upload/native','Upload@native');
+
 });

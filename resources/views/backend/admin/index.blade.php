@@ -27,8 +27,8 @@
 					<label for="group_id">管理组：</label>
 					<select class="form-control" id="group_id" name="group_id" autocomplete="off">
 						<option value="0">请选择</option>
-						@foreach($groups as $group)
-						<option value="{{$group['id']}}" {{request()->get('group_id') == $group['id']?'selected':''}}>{{$group['name']}}</option>
+						@foreach($groups as $item)
+						<option value="{{$item['id']}}" {{request()->get('group_id') == $item['id']?'selected':''}}>{{$item['name']}}</option>
 						@endforeach
 					</select>
 				</div>

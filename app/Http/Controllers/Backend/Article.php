@@ -54,7 +54,6 @@ class Article extends Common
 		$data['article'] = Db::table('article')->where(array('id'=>$id))->item();
 		//分类
 		$data['categories'] = DB::table('article_category')->select(['id','name'])->cates('id');
-		$data['users'] = DB::table('user')->select(['id','username'])->cates('id');
 		return view('backend.article.add',$data);
 	}
 
@@ -117,19 +116,8 @@ class Article extends Common
 		if(isset($request->state)){
 			$where = [['state', '=', $state]];
 		}
-
-		$appends = [];
-		if($name){
-			$appends['name'] = $name;
-		}
-		if(isset($request->state)){
-			$appends['state'] = $state;
-		}
-
-		/*print_r($where);
-		die();*/
 		
-		$data = Db::table('article_category')->where($where)->orderBy('id','desc')->pages($appends);
+		$data = Db::table('article_category')->where($where)->orderBy('id','desc');
 
 		return view('backend.article.category',$data);
 	}

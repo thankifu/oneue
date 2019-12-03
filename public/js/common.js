@@ -53,7 +53,7 @@ function starLoadScreen(){
 
 //提示弹窗
 function starToast(state, message, timeout){
-	timeout=timeout||1000;
+	
 	var i = '';
 	if(state=='loading'){
 		i = '<i class="fa fa-spinner fa-spin" aria-hidden="true"></i>';
@@ -64,13 +64,17 @@ function starToast(state, message, timeout){
 	if(state=='fail'){
 		i = '<i class="fa fa-times-circle-o" aria-hidden="true"></i>';
 	}
-	var dialog = bootbox.dialog({ 
+	var toast = bootbox.dialog({ 
 		size: 'small', 
 	    message: '<div class="star-toast">'+i+' <span>'+message+'</span></div>', 
 	    closeButton: false
 	});
+	if(timeout == 0){
+		return;
+	}
+	timeout=timeout||1000;
 	setTimeout(function(){
-		dialog.modal('hide');
+		toast.modal('hide');
 	},timeout);
 };
 
@@ -171,6 +175,16 @@ function starAdd(type, id, parent){
 //添加修改退出
 function starCancel(){
 	parent.bootbox.hideAll();
+}
+
+//添加修改跳转
+function starAddJump(id){
+	window.location.href = backend_path+'/article/add?id='+id;
+}
+
+//添加修改跳转退出
+function starCancelJump(){
+	history.go(-1);
 }
 
 //删除
@@ -328,9 +342,72 @@ function starSettingSave(){
 	},'json');
 }
 
+//文章保存
+function starArticleSave(){
+	var data = new Object();
+	data._token = $('input[name="_token"]').val();
+	data.id = parseInt($('input[name="id"]').val());
+	data.title = $.trim($('input[name="title"]').val());
+	data.content = CKEDITOR.instances.content.getData();
+	data.author = $.trim($('input[name="author"]').val());
+	data.picture = $.trim($('input[name="picture"]').val());
+	data.seo_title = $.trim($('input[name="seo_title"]').val());
+	data.seo_description = $.trim($('input[name="seo_description"]').val());
+	data.seo_keywords = $.trim($('input[name="seo_keywords"]').val());
+	data.category_id = parseInt($('[name="category_id"]').val());
+	data.state = $('#state').is(':checked')?0:1;
+
+	if(data.title==''){
+		starToast('fail', '请输入文章标题');
+		return;
+	}
+
+	$.post(backend_path+'/article/save',data,function(res){
+		if(res.code === 200){
+			starToast('success', res.text);
+			setTimeout(function(){
+				window.location.href = document.referrer;
+			},1000);
+		}else{
+			starToast('fail', res.text);
+		}
+	},'json');
+}
+
+//图片上传
+function starPicture(place){
+	$('#upload_file').click();
+	$('#upload_place').val(place);
+}
+//原生上传方式
+function starUploadNative(){
+	starToast('loading', '上传中...', 0);
+	$('#upload_form').submit();
+}
+//原生上传成功
+function starUploadNativeSuccess(place, url){
+	bootbox.hideAll();
+	starToast('success', '上传成功');
+
+	$('input[name="'+place+'"]').val(url).trigger('change');
+}
+//原生上传失败
+function starUploadNativeFail(message){
+	bootbox.hideAll();
+	starToast('fail', message);
+}
+
 $(document).ready(function() {
 	starLoadScreen();
 	window.onresize = function(){
 		starLoadScreen();
 	}
+	
+	$('input[name^="picture"]').on('change',function(){
+		var url = $(this).val();
+		$(this).parent().css({
+			'background-image':'url('+url+')',
+		});
+	});
+
 });
