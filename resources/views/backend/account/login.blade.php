@@ -7,37 +7,38 @@
 <title>登录</title>
 <meta name="keywords" content="" />
 <meta name="description" content="" />
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-<link href="/packages/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-<link href="/css/common.css" rel="stylesheet" type="text/css" />
+@include('backend.common.head')
 </head>
-<body id="sl-login">
-
+<body id="star-login">
 <main class="container">
-	<div class="sl-login">
-		<div class="sl-login-logo">ONEUE</div>
+	<div class="star-login">
+		<div class="star-login-logo">ONEUE</div>
         <form >
             <div class="form-group">
-                <label class="sr-only" for="username">用户名</label>
-                <input type="text" class="form-control" id="username" name="username" value="" placeholder="用户名">
+                <label class="sr-only" for="username">帐号</label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                    <input type="text" class="form-control" id="username" name="username" value="" placeholder="请输入帐号">
+                </div>
             </div>
             <div class="form-group">
                 <label class="sr-only" for="password">密码</label>
-                <input type="password" class="form-control" id="password" name="password" value="" placeholder="密码">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                    <input type="password" class="form-control" id="password" name="password" value="" placeholder="请输入密码">
+                </div>
             </div>
-            <button type="button" class="btn btn-block sl-button-primary" onclick="login()">登　录</button>
+            <button type="button" class="btn btn-block star-button-primary" onclick="login()">登　录</button>
             {{csrf_field()}}
         </form>
 	</div>
 </main>
-<script type="text/javascript" src="/js/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/js/common.js"></script>
+@include('backend.common.foot')
 <script type="text/javascript">
-    $('.sl-login #username').focus();
+    $('.star-login #username').focus();
     
     // 回车登录
-    $('.sl-login input').keydown(function(e){
+    $('.star-login input').keydown(function(e){
         if(e.keyCode==13){
            login();
         }
@@ -49,11 +50,11 @@
         data.username = $.trim($('input[name="username"]').val());
         data.password = $.trim($('input[name="password"]').val());
         if(data.username == ''){
-            slToast('fail', '用户名不能为空');
+            starToast('fail', '用户名不能为空');
             return false;
         }
         if(data.password == ''){
-            slToast('fail', '密码不能为空');
+            starToast('fail', '密码不能为空');
             return;
         }
 
@@ -65,24 +66,24 @@
             timeout:2000,
             success:function(data,status){
                 if(data.code === 200){
-                    slToast("success", data.text);
+                    starToast("success", data.text);
                     setTimeout(function(){
                         window.location.href = '/admin/home/index#/home/welcome';
                     },1000);
 
                 }else{
-                    slToast("fail", data.text);
+                    starToast("fail", data.text);
                 }
             },
             error:function(XMLHttpRequest,textStatus,errorThrown){
                 if(textStatus==='timeout'){
-                    toast("fail", '請求超時');
+                    starToast("fail", '请求超时');
                     setTimeout(function(){
-                        slToast("fail", '重新请求');
+                        starToast("fail", '重新请求');
                     },2000);
                 }
                 if(errorThrown==='Too Many Requests'){
-                    slToast("fail", '尝试次数太多，请稍后再试');
+                    starToast("fail", '尝试次数太多，请稍后再试');
                 }
             }
         })

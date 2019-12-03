@@ -66,8 +66,8 @@ function starToast(state, message, timeout){
 	}
 	var dialog = bootbox.dialog({ 
 		size: 'small', 
-	    message: '<div class="text-center">'+i+' '+message+'</div>', 
-	    closeButton: false 
+	    message: '<div class="star-toast">'+i+' <span>'+message+'</span></div>', 
+	    closeButton: false
 	});
 	setTimeout(function(){
 		dialog.modal('hide');
@@ -78,11 +78,11 @@ function starToast(state, message, timeout){
 function starSetSide(){
 	//$("body").toggleClass('side-mini');
 	if($("body").hasClass('star-side-mini')){
-		$('.star-side-state').removeClass('glyphicon-indent-right').addClass('glyphicon-indent-left');
+		$('.star-side-state').removeClass('glyphicon-indent-left').addClass('glyphicon-indent-right');
 		$("body").removeClass('star-side-mini');
 		clearCookie('_side', '/');
 	}else{
-		$('.star-side-state').removeClass('glyphicon-indent-left').addClass('glyphicon-indent-right');
+		$('.star-side-state').removeClass('glyphicon-indent-right').addClass('glyphicon-indent-left');
 		$("body").addClass('star-side-mini');
 		setCookie('_side','star-side-mini',365, '/');
 	}
@@ -313,13 +313,24 @@ function starMenuSave(){
 	},'json');
 }
 
+//设置保存
+function starSettingSave(){
+	$.post(backend_path+'/setting/save',$('form').serialize(),function(res){
+		if(res.code === 200){
+			starToast('success', res.text);
+			setTimeout(function(){
+				window.location.reload();
+			},1000);
+
+		}else{
+			starToast('fail', res.text);
+		}
+	},'json');
+}
+
 $(document).ready(function() {
 	starLoadScreen();
 	window.onresize = function(){
 		starLoadScreen();
 	}
-	$(".header li").hover(
-		function(){$(this).find("dl").show();$(this).find('.arrow').removeClass('fa-angle-down').addClass('fa-angle-up')},
-		function(){$(this).find("dl").hide();$(this).find('.arrow').removeClass('fa-angle-up').addClass('fa-angle-down')}
-	);
 });

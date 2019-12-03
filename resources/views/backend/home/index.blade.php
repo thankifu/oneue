@@ -22,7 +22,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="#"><span>ONEUE</span></a>
-            <a class="star-header-item star-ml-10" href="javascript:void(0);" onclick="starSetSide();"><span class="glyphicon{{$_side?' glyphicon-indent-right':' glyphicon-indent-left'}} star-side-state"></span></a>
+            <a class="star-header-item star-ml-10" href="javascript:void(0);" onclick="starSetSide();"><span class="glyphicon{{$_side?' glyphicon-indent-left':' glyphicon-indent-right'}} star-side-state"></span></a>
             <a class="star-header-item" href="javascript:void(0);"><span class="glyphicon glyphicon-home"></span></a>
         </div>
         <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1">
