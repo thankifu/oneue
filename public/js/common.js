@@ -410,4 +410,9 @@ $(document).ready(function() {
 		});
 	});
 
+	$('input[name^="editor"]').on('change',function(){
+		var url = $(this).val();
+		editor.insertElement(CKEDITOR.dom.element.createFromHtml('<img style="max-width:100%" src="' + url + '" border="0" title="image">'));
+	});
+
 });

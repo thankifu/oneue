@@ -21,18 +21,24 @@ use Illuminate\Support\Facades\Storage;
 
 class Upload extends Common
 {
-    //图片上传
+    //原生上传
     public function native(Request $request){
-    	if($_FILES['upload_file']['error'] == 4){
+		$place = trim($request->upload_place);
+
+		if($place === 'editor') {
+			$path = $request->file('upload')->store('public/avatars');
+			$url = Storage::url($path);
+			exit(json_encode(array('uploaded'=>1, 'url'=>$url)));
+
+		}
+		
+		if($_FILES['upload_file']['error'] == 4){
 			exit('<script>parent.window.starUploadNativeFail("没有选择图片")</script>');
 		}
-		//print_r('11');
-		$place = trim($request->upload_place);
 		$path = $request->file('upload_file')->store('public/avatars');
 		$url = Storage::url($path);
-		//exit($path);
-
 		exit('<script>parent.starUploadNativeSuccess("'.$place.'","'.$url.'")</script>');
+		
 	}
 
 }
