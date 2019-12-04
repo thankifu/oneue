@@ -45,6 +45,7 @@ Route::namespace('Backend')->middleware(['auth.admin:admin','auth.menus'])->grou
 	Route::post('admin/menu/delete','Menu@delete');
 
 	Route::get('admin/setting/index','Setting@index');
+	Route::get('admin/setting/annex','Setting@annex');
 	Route::post('admin/setting/save','Setting@save');
 
 	// 后台首页
@@ -57,7 +58,10 @@ Route::namespace('Backend')->middleware(['auth.admin:admin','auth.menus'])->grou
 	Route::post('admin/article/save','Article@save');
 	Route::post('admin/article/delete','Article@delete');
 
-	Route::get('admin/article/category','Article@category');
+	Route::get('admin/article/category/index','Article@category');
+	Route::get('admin/article/category/add','Article@categoryAdd');
+	Route::post('admin/article/category/save','Article@categorySave');
+	Route::post('admin/article/category/delete','Article@categoryDelete');
 
 	//上传
 	Route::post('admin/upload/native','Upload@native');

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>管理员</title>
+<title>网站设置</title>
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 @include('backend.common.head')
@@ -35,10 +35,12 @@
 		<div class="form-group">
 			<label for="copyright">网站版权信息：</label>
 			<input class="form-control" type="text" id="copyright" name="copyright" value="{{isset($value['copyright'])?$value['copyright']:''}}" placeholder="网站版权信息" autocomplete="off"/>
+			<span class="help-block">网站的版权信息设置，在网站底部显示。</span>
 		</div>
 		<div class="form-group">
 			<label for="miitbeian">网站备案号码：</label>
 			<input class="form-control" type="text" id="miitbeian" name="miitbeian" value="{{isset($value['miitbeian'])?$value['miitbeian']:''}}" placeholder="网站备案号码" autocomplete="off"/>
+			<span class="help-block">网站备案号，可以在<a target="_blank" href="http://www.miitbeian.gov.cn">备案管理中心</a>查询获取。</span>
 		</div>
 		<div class="form-group">
 			<label>状态：</label>

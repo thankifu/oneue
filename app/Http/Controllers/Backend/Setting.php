@@ -28,6 +28,12 @@ class Setting extends Common
 		return view('backend/setting/index',$data);
 	}
 
+	//附件配置
+	public function annex(){
+		$data = $this->_getSeting('annex');
+		return view('backend/setting/annex',$data);
+	}
+
 	// seo设置
 	public function seo(){
 		$data = $this->_getSeting('site_seo');
@@ -76,11 +82,7 @@ class Setting extends Common
 		}
 	}
 
-	//附件配置
-	public function annex(){
-		$data = $this->_getSeting('site_annex');
-		return view('backend/setting/annex',$data);
-	}
+	
 
 	//检测GD库
 	public function checkGd(){
@@ -190,7 +192,7 @@ class Setting extends Common
 		if($seo){
 			Db::table('admin_setting')->where(array('key'=>$key))->update(array('value'=>json_encode($data)));
 		}else{
-			Db::table('admin_setting')->insert(array('key'=>$key,'values'=>json_encode($data)));
+			Db::table('admin_setting')->insert(array('key'=>$key,'value'=>json_encode($data)));
 		}
 		//exit(json_encode(array('code'=>0,'msg'=>'保存成功')));
 		$this->returnMessage(200,'保存成功');

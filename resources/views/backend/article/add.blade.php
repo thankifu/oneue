@@ -37,15 +37,15 @@
 		<div class="form-group">
 			<label for="picture">文章图片：</label>
 			<div class="form-inline">
-				<div class="form-group star-form-picture star-mr-10">
-					<span class="star-picture star-picture-rectangle" style="background-image:url({{isset($article['picture'])?$article['picture']:''}});">
+				<div class="form-group">
+					<span class="star-picture star-picture-rectangle star-mr-10" style="background-image:url({{isset($article['picture'])?$article['picture']:''}});">
 						<i class="star-picture-hd">首图</i>
 						<i class="star-picture-bd" onclick="starPicture('picture');"></i>
 						<i class="star-picture-ft"></i>
 						<input class="form-control" type="hidden" id="picture" name="picture" value="{{isset($article['picture'])?$article['picture']:''}}"/>
 					</span>
 				</div>
-				<!-- <div class="form-group star-form-pictures">
+				<!-- <div class="form-group">
 					<span class="star-picture star-picture-rectangle star-mr-10" style="background-image:url();">
 						<i class="star-picture-bd" onclick="starPicture('pictures[0]');"></i>
 						<input class="form-control" type="hidden" name="pictures[0]" value="" />
@@ -64,6 +64,7 @@
 					</span>
 				</div> -->
 			</div>
+			
 		</div>
 
 
@@ -72,7 +73,7 @@
 			<textarea class="textarea" name="content" id="content"/>{{$article['content']}}</textarea>
 		</div>
 		<div class="form-group">
-			<label for="author">作者：</label>
+			<label for="author">文章作者：</label>
 			<input class="form-control" type="text" id="author" name="author" value="{{$article['author']}}" placeholder="文章作者" autocomplete="off"/>
 		</div>
 		<div class="form-group">
@@ -88,6 +89,7 @@
 			<input class="form-control" type="text" id="seo_keywords" name="seo_keywords" value="{{$article['seo_keywords']}}" placeholder="SEO关键字" autocomplete="off"/>
 		</div>
 		<div class="form-group">
+			<label>文章状态：</label>
 			<div class="checkbox">
 				<label>
 					<input type="checkbox" id="state" name="state" value="" {{$article['state']===0?'checked':''}}>

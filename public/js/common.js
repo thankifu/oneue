@@ -178,8 +178,8 @@ function starCancel(){
 }
 
 //添加修改跳转
-function starAddJump(id){
-	window.location.href = backend_path+'/article/add?id='+id;
+function starAddJump(type, id){
+	window.location.href = backend_path+'/'+type+'/add?id='+id;
 }
 
 //添加修改跳转退出
@@ -218,6 +218,11 @@ function starDelete(type, id){
 	        console.log('This was logged in the callback: ' + result);
 	    }
 	});
+}
+
+//子级/返回上级
+function starGoto(type, id){
+	window.location.href = backend_path+'/'+type+'/index?parent='+id;
 }
 
 //管理员保存
@@ -279,10 +284,6 @@ function starGroupSave(){
 	},'json');
 }
 
-//子菜单/返回上级
-function starMenuGoto(id){
-	window.location.href = backend_path+'/menu/index?parent='+id;
-}
 //菜单保存
 function starMenuSave(){
 	var data = new Object();
@@ -296,23 +297,10 @@ function starMenuSave(){
 	data.hidden = $('#hidden').is(':checked')?1:0;
 	data.state = $('#state').is(':checked')?0:1;
 
-	/*console.log(data);
-	return;*/
-
-	if(data.title==''){
-		toast('fail', '请输入菜单名称');
+	if(data.name==''){
+		starToast('fail', '请输入菜单名称');
 		return;
 	}
-  
-	/*if(data.pid>0 && data.controller==''){
-		toast('fail', '请输入控制器');
-		return;
-	}
-
-	if(data.pid>0 && data.action==''){
-		toast('fail', '请输入方法名称');
-		return;
-	}*/
 
 	$.post(backend_path+'/menu/save',data,function(res){
 		if(res.code === 200){
@@ -367,6 +355,33 @@ function starArticleSave(){
 			starToast('success', res.text);
 			setTimeout(function(){
 				window.location.href = document.referrer;
+			},1000);
+		}else{
+			starToast('fail', res.text);
+		}
+	},'json');
+}
+
+//分类保存
+function starCategorySave(type){
+	var data = new Object();
+	data._token = $('input[name="_token"]').val();
+	data.parent = parseInt($('input[name="parent"]').val());
+	data.id = parseInt($('input[name="id"]').val());
+	data.name = $.trim($('input[name="name"]').val());
+	data.position = parseInt($('input[name="position"]').val());
+	data.state = $('#state').is(':checked')?0:1;
+
+	if(data.name==''){
+		starToast('fail', '请输入分类名称');
+		return;
+	}
+
+	$.post(backend_path+'/'+type+'/category/save',data,function(res){
+		if(res.code === 200){
+			starToast('success', res.text);
+			setTimeout(function(){
+				parent.window.location.reload();
 			},1000);
 		}else{
 			starToast('fail', res.text);

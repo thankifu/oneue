@@ -116,10 +116,67 @@ class Article extends Common
 		if(isset($request->state)){
 			$where = [['state', '=', $state]];
 		}
-		
-		$data = Db::table('article_category')->where($where)->orderBy('id','desc');
 
-		return view('backend.article.category',$data);
+		$data['parent'] = (int)$request->parent;
+		$data['lists'] = DB::table('article_category')->where(array('parent'=>$data['parent']))->where($where)->orderBy('position','asc')->orderBy('id','asc')->lists();
+		// 返回上一级菜单
+		$data['back_id'] = 0;
+		if($data['parent'] > 0){
+			$parent = DB::table('article_category')->where(array('id'=>$data['parent']))->where($where)->item();
+			$data['back_id'] = $parent['parent'];
+		}
+
+		return view('backend.article.category.index',$data);
+	}
+
+	//添加修改分类
+	public function categoryAdd(Request $request){
+		$parent = (int)$request->parent;
+		$id = (int)$request->id;
+		$data['parent'] = Db::table('article_category')->where(array('id'=>$parent))->item();
+		$data['category'] = Db::table('article_category')->where(array('id'=>$id))->item();
+		return view('backend.article.category.add',$data);
+	}
+
+	// 保存菜单
+	public function categorySave(Request $request){
+		$id = (int)$request->id;
+		$data['parent'] = (int)$request->parent;
+		$data['name'] = trim($request->name);
+		$data['position'] = (int)$request->position;
+		$data['state'] = (int)$request->state;
+		
+		if($data['name'] == ''){
+			$this->returnMessage(400,'请输入菜单名称');
+		}
+
+		if($id){
+			$data['modified'] = time();
+			$res = Db::table('article_category')->where(array('id'=>$id))->update($data);
+			$descs = '修改文章分类：《'.$data['name'].'》,ID：'.$id;
+		}else{
+			$data['created'] = time();
+			$res = Db::table('article_category')->insertGetId($data);
+			$descs = '添加文章分类：《'.$data['name'].'》,ID：'.$res;
+		}
+
+		//添加操作日志
+		//$this->oplog($request->_admin['id'],$descs);
+		$this->returnMessage(200,'保存成功');
+	}
+
+	public function categoryDelete(Request $request){
+		$id = (int)$request->id;
+		$menu = Db::table('article_category')->where(array('id'=>$id))->item();
+		if(!$menu){
+			$this->returnMessage(400,'菜单不存在');
+		}
+		Db::table('article_category')->where(array('id'=>$id))->delete();
+
+		//添加操作日志
+		//$this->oplog($request->_admin['id'],'删除菜单：《'.$menu['title'].'》,ID：'.$mid);
+
+		$this->returnMessage(200,'删除成功');
 	}
 
 }
