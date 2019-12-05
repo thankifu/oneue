@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>管理员</title>
+<title>商品管理</title>
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 @include('backend.common.head')
@@ -15,11 +15,11 @@
 		<div class="pull-left">
 			<form class="form-inline" method="get">
 				<div class="form-group form-group-sm star-mr-10">
-					<label for="username">文章标题：</label>
-					<input type="text" class="form-control" name="title" value="{{request()->get('title')}}" placeholder="请输入标题">
+					<label for="username">商品名称：</label>
+					<input type="text" class="form-control" name="name" value="{{request()->get('name')}}" placeholder="请输入商品名称">
 				</div>
 				<div class="form-group form-group-sm star-mr-10">
-					<label for="category_id">文章分类：</label>
+					<label for="category_id">商品分类：</label>
 					<select class="form-control" id="category_id" name="category_id" autocomplete="off">
 						<option value="0">请选择</option>
 						@foreach($categories as $item)
@@ -31,7 +31,7 @@
 			</form>
 		</div>
 		<div class="pull-right">
-			<button type="button" class="btn btn-sm btn-primary" onclick="starAddJump('article');">新增</button>
+			<button type="button" class="btn btn-sm btn-primary" onclick="starAddJump('product');">新增</button>
 		</div>
 	</div>
 
@@ -42,7 +42,9 @@
 				<th width="10"><input type="checkbox"/></th>
 				<th>ID</th>
 				<th>图片</th>
-				<th>标题</th>
+				<th>名称</th>
+				<th>规格</th>
+				<th>售价</th>
 				<th>分类</th>
 				<th>发布时间</th>
 				<th>状态</th>
@@ -56,15 +58,17 @@
 				<td width="10"><input type="checkbox"/></td>
 				<td>{{$item['id']}}</td>
 				<td>
-					<span class="star-picture-rectangle" style="background-image:url({{$item['picture']}});"></span>
+					<span class="star-picture-square" style="background-image:url({{$item['picture']}});"></span>
 				</td>
-				<td>{{$item['title']}}</td>
+				<td>{{$item['name']}}</td>
+				<td>-</td>
+				<td>{{$item['selling']}}</td>
 				<td>{{isset($categories[$item['category_id']])?$categories[$item['category_id']]['name']:''}}</td>
 				<td>{{$item['created']?date('Y-m-d H:i:s',$item['created']):'-'}}</td>
 				<td>{!!$item['state']==1?'<span class="label label-success">启用</span>':'<span class="label label-danger">禁用</span>'!!}</td>
 				<td>
-					<button type="button" class="btn btn-sm btn-primary" onclick="starAddJump('article', {{$item['id']}});">修改</button>
-					<button type="button" class="btn btn-sm btn-danger" onclick="starDelete('article', {{$item['id']}});">删除</button>
+					<button type="button" class="btn btn-sm btn-primary" onclick="starAddJump('product', {{$item['id']}});">修改</button>
+					<button type="button" class="btn btn-sm btn-danger" onclick="starDelete('product', {{$item['id']}});">删除</button>
 				</td>
 			</tr>
 			@endforeach

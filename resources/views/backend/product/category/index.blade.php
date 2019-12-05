@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>管理员</title>
+<title>文章分类</title>
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 @include('backend.common.head')
@@ -15,23 +15,25 @@
 		<div class="pull-left">
 			<form class="form-inline" method="get">
 				<div class="form-group form-group-sm star-mr-10">
-					<label for="username">文章标题：</label>
-					<input type="text" class="form-control" name="title" value="{{request()->get('title')}}" placeholder="请输入标题">
+					<label for="name">分类名称：</label>
+					<input type="text" class="form-control" name="name" value="{{request()->get('name')}}" placeholder="请输入分类名称" autocomplete="off">
 				</div>
 				<div class="form-group form-group-sm star-mr-10">
-					<label for="category_id">文章分类：</label>
-					<select class="form-control" id="category_id" name="category_id" autocomplete="off">
-						<option value="0">请选择</option>
-						@foreach($categories as $item)
-						<option value="{{$item['id']}}" {{request()->get('category_id') == $item['id']?'selected':''}}>{{$item['name']}}</option>
-						@endforeach
+					<label for="state">分类状态：</label>
+					<select class="form-control" id="state" name="state" autocomplete="off">
+						<option value="">请选择</option>
+						<option value="0" {{request()->get('state') == 0 && request()->get('state') != ''?'selected':''}}>禁用</option>
+						<option value="1" {{request()->get('state') == 1?'selected':''}}>正常</option>
 					</select>
 				</div>
 				<button type="submit" class="btn btn-sm btn-default">查询</button>
 			</form>
 		</div>
 		<div class="pull-right">
-			<button type="button" class="btn btn-sm btn-primary" onclick="starAddJump('article');">新增</button>
+			@if($parent)
+			<button type="button" class="btn btn-sm btn-default" onclick="starGoto('article/category', {{$back_id}});">返回上一级</button>
+			@endif
+			<button type="button" class="btn btn-sm btn-primary" onclick="starAdd('article/category', 0, {{$parent}});">新增</button>
 		</div>
 	</div>
 
@@ -41,10 +43,10 @@
 			<tr>
 				<th width="10"><input type="checkbox"/></th>
 				<th>ID</th>
-				<th>图片</th>
-				<th>标题</th>
-				<th>分类</th>
+				<th>排序</th>
+				<th>分类名称</th>
 				<th>发布时间</th>
+				<th>修改时间</th>
 				<th>状态</th>
 				<th>操作</th>
 			</tr>
@@ -55,16 +57,15 @@
 			<tr>
 				<td width="10"><input type="checkbox"/></td>
 				<td>{{$item['id']}}</td>
-				<td>
-					<span class="star-picture-rectangle" style="background-image:url({{$item['picture']}});"></span>
-				</td>
-				<td>{{$item['title']}}</td>
-				<td>{{isset($categories[$item['category_id']])?$categories[$item['category_id']]['name']:''}}</td>
+				<td>{{$item['position']}}</td>
+				<td>{{$item['name']}}</td>
 				<td>{{$item['created']?date('Y-m-d H:i:s',$item['created']):'-'}}</td>
+				<td>{{$item['modified']?date('Y-m-d H:i:s',$item['modified']):'-'}}</td>
 				<td>{!!$item['state']==1?'<span class="label label-success">启用</span>':'<span class="label label-danger">禁用</span>'!!}</td>
 				<td>
-					<button type="button" class="btn btn-sm btn-primary" onclick="starAddJump('article', {{$item['id']}});">修改</button>
-					<button type="button" class="btn btn-sm btn-danger" onclick="starDelete('article', {{$item['id']}});">删除</button>
+					<button type="button" class="btn btn-sm btn-default" onclick="starGoto('article/category', {{$item['id']}});">子分类</button>
+					<button type="button" class="btn btn-sm btn-primary" onclick="starAdd('article/category', {{$item['id']}}, {{$parent}});">修改</button>
+					<button type="button" class="btn btn-sm btn-danger" onclick="starDelete('article/category', {{$item['id']}});">删除</button>
 				</td>
 			</tr>
 			@endforeach
@@ -85,12 +86,11 @@
 					<button class="btn btn-sm btn-default">启用</button>
 				</div>
 				<div class="pull-right">
-					{{$links}}
+					
 				</div>
 			</td>
 		</tfoot>
 	</table>
-
 </div>
 @include('backend.common.foot')
 </body>

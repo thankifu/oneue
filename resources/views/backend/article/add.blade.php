@@ -45,29 +45,8 @@
 						<input class="form-control" type="hidden" id="picture" name="picture" value="{{isset($article['picture'])?$article['picture']:''}}"/>
 					</span>
 				</div>
-				<!-- <div class="form-group">
-					<span class="star-picture star-picture-rectangle star-mr-10" style="background-image:url();">
-						<i class="star-picture-bd" onclick="starPicture('pictures[0]');"></i>
-						<input class="form-control" type="hidden" name="pictures[0]" value="" />
-					</span>
-					<span class="star-picture star-picture-rectangle star-mr-10" style="background-image:url();">
-						<i class="star-picture-bd" onclick="starPicture('pictures[1]');"></i>
-						<input class="form-control" type="hidden" name="pictures[1]" value="" />
-					</span>
-					<span class="star-picture star-picture-rectangle star-mr-10" style="background-image:url();">
-						<i class="star-picture-bd" onclick="starPicture('pictures[2]');"></i>
-						<input class="form-control" type="hidden" name="pictures[2]" value="" />
-					</span>
-					<span class="star-picture star-picture-rectangle star-mr-10" style="background-image:url();">
-						<i class="star-picture-bd" onclick="starPicture('pictures[3]');"></i>
-						<input class="form-control" type="hidden" name="pictures[3]" value="" />
-					</span>
-				</div> -->
 			</div>
-			
 		</div>
-
-
 		<div class="form-group">
 			<label for="content">文章内容：</label>
 			<textarea class="textarea" name="content" id="content"/>{{$article['content']}}</textarea>

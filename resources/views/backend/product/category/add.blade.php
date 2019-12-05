@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>添加修改文章分类</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+@include('backend.common.head')
+</head>
+<body>
+<div class="container-fluid">
+	<form>
+		{{csrf_field()}}
+
+		@if($parent)
+		<div class="form-group">
+			<label for="">上级分类：</label>
+			<input class="form-control" type="text" id="" name="" value="{{$parent['name']}}" placeholder="上级菜单" autocomplete="off" disabled="true">
+		</div>
+		@endif
+
+		<div class="form-group">
+			<label for="name">分类名称：</label>
+			<input class="form-control" type="text" id="name" name="name" value="{{$category['name']}}" placeholder="分类名称" autocomplete="off">
+		</div>
+
+		<div class="form-group">
+			<label for="position">分类排序：</label>
+			<input class="form-control" type="text" id="position" name="position" value="{{$category['position']}}" placeholder="分类排序" autocomplete="off">
+		</div>
+
+		<div class="form-group">
+			<label>状态：</label>
+			<div class="checkbox">
+				<label class="checkbox-inline">
+					<input type="checkbox" id="state" name="state" value="" {{isset($category['state']) && $category['state']==0?'checked':''}}/>禁用
+				</label>
+			</div>
+
+		</div>
+		<div class="form-group text-center">
+			<button type="button" class="btn btn-secondary" onclick="starCancel();">取消</button>
+			<button type="button" class="btn btn-primary" onclick="starCategorySave('article');">保存</button>
+		</div>
+		<input type="hidden" id="parent" name="parent" value="{{isset($parent['id'])?$parent['id']:0}}">
+		<input type="hidden" id="id" name="id" value="{{$category['id']}}">
+	</form>
+
+</div>
+@include('backend.common.foot')
+</body>
+</html>

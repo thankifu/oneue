@@ -63,6 +63,17 @@ Route::namespace('Backend')->middleware(['auth.admin:admin','auth.menus'])->grou
 	Route::post('admin/article/category/save','Article@categorySave');
 	Route::post('admin/article/category/delete','Article@categoryDelete');
 
+	//商品管理
+	Route::get('admin/product/index','Product@index');
+	Route::get('admin/product/add','Product@add');
+	Route::post('admin/product/save','Product@save');
+	Route::post('admin/product/delete','Product@delete');
+
+	Route::get('admin/product/category/index','Product@category');
+	Route::get('admin/product/category/add','Product@categoryAdd');
+	Route::post('admin/product/category/save','Product@categorySave');
+	Route::post('admin/product/category/delete','Product@categoryDelete');
+
 	//上传
 	Route::post('admin/upload/native','Upload@native');
 

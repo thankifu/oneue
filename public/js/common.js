@@ -362,6 +362,30 @@ function starArticleSave(){
 	},'json');
 }
 
+//商品保存
+function starProductSave(){
+	var data = new Object();
+	data.name = $.trim($('input[name="name"]').val());
+	/*console.log($('form').serialize());
+	return;*/
+
+	if(data.name==''){
+		starToast('fail', '请输入商品名称');
+		return;
+	}
+
+	$.post(backend_path+'/product/save',$('form').serialize(),function(res){
+		if(res.code === 200){
+			starToast('success', res.text);
+			setTimeout(function(){
+				window.location.href = document.referrer;
+			},1000);
+		}else{
+			starToast('fail', res.text);
+		}
+	},'json');
+}
+
 //分类保存
 function starCategorySave(type){
 	var data = new Object();
