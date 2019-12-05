@@ -68,30 +68,30 @@ class Menu extends Common
 		if($id){
 			$data['modified'] = time();
 			$res = Db::table('admin_menu')->where(array('id'=>$id))->update($data);
-			$descs = '修改后台菜单：《'.$data['name'].'》,ID：'.$id;
+			$log = '修改后台菜单：'.$data['name'].'，ID：'.$id.'。';
 		}else{
 			$data['created'] = time();
 			$res = Db::table('admin_menu')->insertGetId($data);
-			$descs = '添加后台菜单：《'.$data['name'].'》,ID：'.$res;
+			$log = '添加后台菜单：'.$data['name'].'，ID：'.$res.'。';
 		}
 
 		//添加操作日志
-		//$this->oplog($request->_admin['id'],$descs);
+		$this->log($log);
 		//exit(json_encode(array('code'=>0,'msg'=>'保存成功')));
 		$this->returnMessage(200,'保存成功');
 	}
 
 	public function delete(Request $request){
 		$id = (int)$request->id;
-		$menu = Db::table('admin_menu')->where(array('id'=>$id))->item();
-		if(!$menu){
+		$is = Db::table('admin_menu')->where(array('id'=>$id))->item();
+		if(!$is){
 			//exit(json_encode(array('code'=>1,'msg'=>'菜单不存在')));
 			$this->returnMessage(400,'菜单不存在');
 		}
 		Db::table('admin_menu')->where(array('id'=>$id))->delete();
 
 		//添加操作日志
-		//$this->oplog($request->_admin['id'],'删除菜单：《'.$menu['title'].'》,ID：'.$mid);
+		$this->oplog('删除后台菜单：'.$is['name'].'，ID：'.$id.'。');
 
 		//exit(json_encode(array('code'=>0,'msg'=>'删除成功')));
 		$this->returnMessage(200,'删除成功');

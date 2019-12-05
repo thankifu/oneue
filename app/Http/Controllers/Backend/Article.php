@@ -75,32 +75,32 @@ class Article extends Common
 		if($id){
 			$data['modified'] = time();
 			$res = Db::table('article')->where(array('id'=>$id))->update($data);
-			//$descs = '修改后台菜单：《'.$data['name'].'》,ID：'.$id;
+			$log = '修改文章：'.$data['name'].'，ID：'.$id.'。';
 		}else{
 			$data['created'] = time();
 			$res = Db::table('article')->insertGetId($data);
-			//$descs = '添加后台菜单：《'.$data['name'].'》,ID：'.$res;
+			$log = '添加文章：'.$data['name'].'，ID：'.$res.'。';
 		}
 
 		//添加操作日志
-		//$this->oplog($request->_admin['id'],$descs);
+		$this->log($log);
 		$this->returnMessage(200,'保存成功');
 	}
 
 	//删除
 	public function delete(Request $request){
 		$id = (int)$request->id;
-		$is = DB::table('admin')->where(array('id'=>$id))->item();
+		$is = DB::table('article')->where(array('id'=>$id))->item();
 		if(!$is){
-			$this->returnMessage(400,'管理员不存在');
+			$this->returnMessage(400,'文章不存在');
 		}
-		$res = DB::table('admin')->where(array('id'=>$id))->delete();
+		$res = DB::table('article')->where(array('id'=>$id))->delete();
 		if(!$res){
 			$this->returnMessage(400,'删除失败');
 		}
 
 		//添加操作日志
-		//$this->oplog($request->_admin['id'],'删除管理员：《'.$admins['name'].'》,ID：'.$id);
+		$this->log('删除文章：'.$is['title'].'，ID：'.$id.'。');
 		$this->returnMessage(200,'删除成功');
 	}
 
@@ -153,28 +153,28 @@ class Article extends Common
 		if($id){
 			$data['modified'] = time();
 			$res = Db::table('article_category')->where(array('id'=>$id))->update($data);
-			$descs = '修改文章分类：《'.$data['name'].'》,ID：'.$id;
+			$log = '修改文章分类：'.$data['name'].'，ID：'.$id.'。';
 		}else{
 			$data['created'] = time();
 			$res = Db::table('article_category')->insertGetId($data);
-			$descs = '添加文章分类：《'.$data['name'].'》,ID：'.$res;
+			$log = '添加文章分类：'.$data['name'].'，ID：'.$res.'。';
 		}
 
 		//添加操作日志
-		//$this->oplog($request->_admin['id'],$descs);
+		$this->log($log);
 		$this->returnMessage(200,'保存成功');
 	}
 
 	public function categoryDelete(Request $request){
 		$id = (int)$request->id;
-		$menu = Db::table('article_category')->where(array('id'=>$id))->item();
-		if(!$menu){
-			$this->returnMessage(400,'菜单不存在');
+		$is = Db::table('article_category')->where(array('id'=>$id))->item();
+		if(!$is){
+			$this->returnMessage(400,'文章分类不存在');
 		}
 		Db::table('article_category')->where(array('id'=>$id))->delete();
 
 		//添加操作日志
-		//$this->oplog($request->_admin['id'],'删除菜单：《'.$menu['title'].'》,ID：'.$mid);
+		$this->log('删除文章分类：'.$is['name'].'，ID：'.$id.'。');
 
 		$this->returnMessage(200,'删除成功');
 	}

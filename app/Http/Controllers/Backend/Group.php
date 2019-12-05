@@ -76,7 +76,7 @@ class Group extends Common
 		if($id){
 			$data['modified'] = time();
 			DB::table('admin_group')->where(array('id'=>$id))->update($data);
-			$descs = '修改管理组：《'.$data['name'].'》,ID：'.$id;
+			$log = '修改管理组：'.$data['name'].'，ID：'.$id.'。';
 		}else{
 			$is = DB::table('admin_group')->where('name',$name)->item();
 			if($is){
@@ -85,11 +85,11 @@ class Group extends Common
 			}
 			$data['created'] = time();
 			$id = DB::table('admin_group')->insertGetId($data);
-			$descs = '添加管理组：《'.$data['name'].'》,ID：'.$id;
+			$log = '添加管理组：'.$data['name'].'，ID：'.$id.'。';
 		}
 
 		//添加操作日志
-		//$this->oplog($request->_admin['id'],$descs);
+		$this->log($log);
 
 		//exit(json_encode(array('code'=>0,'msg'=>'保存成功')));
 		$this->returnMessage(200,'保存成功');

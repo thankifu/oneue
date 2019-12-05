@@ -92,7 +92,7 @@ class Admin extends Common
 				$data['password'] = password_hash($password,PASSWORD_DEFAULT);
 			}
 			DB::table('admin')->where('id',$id)->update($data);
-			$descs = '编辑管理员：《'.$data['name'].'》,ID：'.$id;
+			$log = '编辑管理员：'.$data['name'].'，ID：'.$id.'。';
 		}else{
 			$is = DB::table('admin')->where('username',$username)->item();
 			if($is){
@@ -102,11 +102,12 @@ class Admin extends Common
 			$data['username'] = $username;
 			$data['password'] = password_hash($password,PASSWORD_DEFAULT);
 			$id = DB::table('admin')->insertGetId($data);
-			$descs = '添加管理员：《'.$data['name'].'》,ID：'.$id;
+			$log = '添加管理员：'.$data['name'].'，ID：'.$id.'。';
 		}
 
 		//添加操作日志
-		//$this->oplog($request->_admin['id'],$descs);
+		$this->log($log);
+		
 		$this->returnMessage(200,'保存成功');
 	}
 
@@ -123,17 +124,7 @@ class Admin extends Common
 		}
 
 		//添加操作日志
-		//$this->oplog($request->_admin['id'],'删除管理员：《'.$admins['name'].'》,ID：'.$id);
+		$this->log('删除管理员：'.$is['username'].'，ID：'.$id.'。');
 		$this->returnMessage(200,'删除成功');
-	}
-
-	//禁用
-	public function forbid(){
-
-	}
-
-	//启用
-	public function resume(){
-
 	}
 }

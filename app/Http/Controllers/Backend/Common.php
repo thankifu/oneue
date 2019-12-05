@@ -24,6 +24,13 @@ class Common extends Controller
         
     }
 
+    public function log($abstract){
+    	$admin_id = auth()->guard('admin')->user()['id'];
+    	$model = new \App\Http\Models\Log();
+		$data = $model->backend(['admin_id'=>$admin_id,'abstract'=>$abstract]);
+
+    }
+
     public function returnMessage($code, $text='', $data=[]){
         $return_data['code'] = $code;
         $return_data['text'] = $text;

@@ -74,7 +74,9 @@ Route::namespace('Backend')->middleware(['auth.admin:admin','auth.menus'])->grou
 	Route::post('admin/product/category/save','Product@categorySave');
 	Route::post('admin/product/category/delete','Product@categoryDelete');
 
+	Route::post('admin/product/specification/delete','Product@specificationDelete');
+
 	//上传
-	Route::post('admin/upload/native','Upload@native');
+	Route::post('admin/upload/index','Upload@index');
 
 });

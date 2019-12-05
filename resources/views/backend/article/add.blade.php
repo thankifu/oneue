@@ -12,9 +12,9 @@
 <body>
 <div class="container-fluid">
 
-	<form id="upload_form" target="upload_iframe" enctype="multipart/form-data" action="/admin/upload/native" method="post" style="display:none;">
+	<form id="upload_form" target="upload_iframe" enctype="multipart/form-data" action="/admin/upload/index" method="post" style="display:none;">
 		{{csrf_field()}}
-		<input type="file" name="upload_file" id="upload_file" onchange="starUploadNative()">
+		<input type="file" name="upload_file" id="upload_file" onchange="starUpload()">
 		<input type="hidden" name="upload_place" id="upload_place" value="">
 		<iframe name="upload_iframe" id="upload_iframe" style="display: none;"></iframe>
 	</form>
@@ -38,7 +38,7 @@
 			<label for="picture">文章图片：</label>
 			<div class="form-inline">
 				<div class="form-group">
-					<span class="star-picture star-picture-rectangle star-mr-10" style="background-image:url({{isset($article['picture'])?$article['picture']:''}});">
+					<span class="star-picture star-picture-rectangle star-mr-10" style="background-image:url({{isset($article['picture'])?$article['picture']:'/images/upload-image.png'}});">
 						<i class="star-picture-hd">首图</i>
 						<i class="star-picture-bd" onclick="starPicture('picture');"></i>
 						<i class="star-picture-ft"></i>
@@ -69,10 +69,12 @@
 		</div>
 		<div class="form-group">
 			<label>文章状态：</label>
-			<div class="checkbox">
-				<label>
-					<input type="checkbox" id="state" name="state" value="" {{$article['state']===0?'checked':''}}>
-					禁用
+			<div class="radio">
+				<label class="radio-inline">
+					<input type="radio" name="state" value="1" {{isset($article['state']) && $article['state']==1?'checked':''}}>启用
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="state" value="0" {{isset($article['state']) && $article['state']==0?'checked':''}}>禁用
 				</label>
 			</div>
 		</div>
@@ -89,7 +91,7 @@
 @include('backend.common.foot')
 <script src="/packages/ckeditor/ckeditor.js"></script>
 <script>
-	CKEDITOR.replace('content', {height: 500, filebrowserUploadUrl: '{{url('/admin/upload/native')}}?upload_place=editor&_token={{csrf_token()}}',});
+	CKEDITOR.replace('content', {height: 500, filebrowserUploadUrl: '{{url('/admin/upload/index')}}?upload_place=editor&_token={{csrf_token()}}',});
 </script>
 </body>
 </html>

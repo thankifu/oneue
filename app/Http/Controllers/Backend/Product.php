@@ -45,6 +45,20 @@ class Product extends Common
 		$data = Db::table('product')->where($where)->orderBy('id','desc')->pages($appends);
 		//商品分类
 		$data['categories'] = Db::table('product_category')->select(['id','name'])->cates('id');
+
+		//规格
+		$data['specifications'] = Db::table('product_specification')->lists();
+
+		foreach ($data['lists'] as &$value) {
+            list($value['specifications']) = [[]];
+            foreach ($data['specifications'] as $specification) 
+            	if ($specification['product_id'] === $value['id']) 
+            		array_push($value['specifications'], $specification);
+        }
+        /*echo '<pre>';
+		print_r($data);
+		exit();*/
+
 		return view('backend.product.index',$data);
 	}
 
@@ -57,6 +71,8 @@ class Product extends Common
 		$data['categories'] = DB::table('product_category')->select(['id','name'])->cates('id');
 		//图片
 		$data['pictures'] = DB::table('product_picture')->select(['id','picture','position'])->where('product_id',$id)->lists();
+		//图片
+		$data['specifications'] = DB::table('product_specification')->where('product_id',$id)->orderBy('position','asc')->orderBy('id','desc')->lists();
 
 		return view('backend.product.add',$data);
 	}
@@ -66,13 +82,12 @@ class Product extends Common
 		$id = (int)$request->id;
 		$data['name'] = trim($request->name);
 		$data['description'] = trim($request->description);
-		$data['sku'] = trim($request->sku);
+		$data['sku'] = (int)$request->sku;
 		$data['market'] = trim($request->market);
 		$data['selling'] = trim($request->selling);
 		$data['cost'] = trim($request->cost);
 		$data['picture'] = trim($request->picture);
-		$data['pictures'] = $request->pictures;
-		$data['quantity'] = trim($request->quantity);
+		$data['quantity'] = (int)$request->quantity;
 		$data['seo_title'] = trim($request->seo_title);
 		$data['seo_description'] = trim($request->seo_description);
 		$data['seo_keywords'] = trim($request->seo_keywords);
@@ -80,37 +95,86 @@ class Product extends Common
 		$data['brand_id'] = (int)$request->brand_id;
 		$data['state'] = (int)$request->state;
 
-		print_r($data['pictures']);
-		exit();
+		$pictures = $request->pictures;
+		$specifications = $request->specifications;
+
+		/*echo '<pre>';
+		print_r($pictures);
+		exit();*/
+
 		if($id){
 			$data['modified'] = time();
-			$res = Db::table('article')->where(array('id'=>$id))->update($data);
-			//$descs = '修改后台菜单：《'.$data['name'].'》,ID：'.$id;
+			$result = Db::table('product')->where(array('id'=>$id))->update($data);
+
+			if($result && $pictures){
+				foreach ($pictures as $value) {
+					$value['product_id'] = $id;
+
+					//判断是否存在
+					$has = DB::table('product_picture')->where('id',$value['id'])->where('product_id',$id)->item();
+					if($has){
+						Db::table('product_picture')->where('id',$value['id'])->where('product_id',$id)->update($value);
+					}else{
+						Db::table('product_picture')->insertGetId($value);
+					}
+				}
+			}
+
+			if($result && $specifications){
+				foreach ($specifications as $value) {
+					$value['product_id'] = $id;
+
+					//判断是否存在
+					$has = DB::table('product_specification')->where('id',$value['id'])->where('product_id',$id)->item();
+					if($has){
+						Db::table('product_specification')->where('id',$value['id'])->where('product_id',$id)->update($value);
+					}else{
+						Db::table('product_specification')->insertGetId($value);
+					}
+				}
+			}
+
+			$log = '修改商品：'.$data['name'].'，ID：'.$id.'。';
 		}else{
 			$data['created'] = time();
-			$res = Db::table('article')->insertGetId($data);
-			//$descs = '添加后台菜单：《'.$data['name'].'》,ID：'.$res;
+			$result = Db::table('product')->insertGetId($data);
+
+			if($result && $pictures){
+				foreach ($pictures as $value) {
+					$value['product_id'] = $result;
+					$res = Db::table('product_picture')->insertGetId($value);
+				}
+			}
+
+			if($result && $specifications){
+				foreach ($specifications as $value) {
+					$value['product_id'] = $result;
+					$res = Db::table('product_specification')->insertGetId($value);
+				}
+			}
+			
+			$log = '修改商品：'.$data['name'].'，ID：'.$result.'。';
 		}
 
 		//添加操作日志
-		//$this->oplog($request->_admin['id'],$descs);
+		$this->log($log);
 		$this->returnMessage(200,'保存成功');
 	}
 
 	//删除
 	public function delete(Request $request){
 		$id = (int)$request->id;
-		$is = DB::table('admin')->where(array('id'=>$id))->item();
+		$is = DB::table('product')->where(array('id'=>$id))->item();
 		if(!$is){
 			$this->returnMessage(400,'管理员不存在');
 		}
-		$res = DB::table('admin')->where(array('id'=>$id))->delete();
+		$res = DB::table('product')->where(array('id'=>$id))->delete();
 		if(!$res){
 			$this->returnMessage(400,'删除失败');
 		}
 
 		//添加操作日志
-		//$this->oplog($request->_admin['id'],'删除管理员：《'.$admins['name'].'》,ID：'.$id);
+		$this->log('删除商品：'.$is['name'].'，ID：'.$id.'。');
 		$this->returnMessage(200,'删除成功');
 	}
 
@@ -128,27 +192,27 @@ class Product extends Common
 		}
 
 		$data['parent'] = (int)$request->parent;
-		$data['lists'] = DB::table('article_category')->where(array('parent'=>$data['parent']))->where($where)->orderBy('position','asc')->orderBy('id','asc')->lists();
+		$data['lists'] = DB::table('product_category')->where(array('parent'=>$data['parent']))->where($where)->orderBy('position','asc')->orderBy('id','asc')->lists();
 		// 返回上一级菜单
 		$data['back_id'] = 0;
 		if($data['parent'] > 0){
-			$parent = DB::table('article_category')->where(array('id'=>$data['parent']))->where($where)->item();
+			$parent = DB::table('product_category')->where(array('id'=>$data['parent']))->where($where)->item();
 			$data['back_id'] = $parent['parent'];
 		}
 
-		return view('backend.article.category.index',$data);
+		return view('backend.product.category.index',$data);
 	}
 
 	//添加修改分类
 	public function categoryAdd(Request $request){
 		$parent = (int)$request->parent;
 		$id = (int)$request->id;
-		$data['parent'] = Db::table('article_category')->where(array('id'=>$parent))->item();
-		$data['category'] = Db::table('article_category')->where(array('id'=>$id))->item();
-		return view('backend.article.category.add',$data);
+		$data['parent'] = Db::table('product_category')->where(array('id'=>$parent))->item();
+		$data['category'] = Db::table('product_category')->where(array('id'=>$id))->item();
+		return view('backend.product.category.add',$data);
 	}
 
-	// 保存菜单
+	// 保存分类
 	public function categorySave(Request $request){
 		$id = (int)$request->id;
 		$data['parent'] = (int)$request->parent;
@@ -157,34 +221,48 @@ class Product extends Common
 		$data['state'] = (int)$request->state;
 		
 		if($data['name'] == ''){
-			$this->returnMessage(400,'请输入菜单名称');
+			$this->returnMessage(400,'请输入分类名称');
 		}
 
 		if($id){
 			$data['modified'] = time();
-			$res = Db::table('article_category')->where(array('id'=>$id))->update($data);
-			$descs = '修改文章分类：《'.$data['name'].'》,ID：'.$id;
+			$res = Db::table('product_category')->where(array('id'=>$id))->update($data);
+			$log = '修改商品分类：'.$data['name'].'，ID：'.$id.'。';
 		}else{
 			$data['created'] = time();
-			$res = Db::table('article_category')->insertGetId($data);
-			$descs = '添加文章分类：《'.$data['name'].'》,ID：'.$res;
+			$res = Db::table('product_category')->insertGetId($data);
+			$log = '添加商品分类：'.$data['name'].'，ID：'.$res.'。';
 		}
 
 		//添加操作日志
-		//$this->oplog($request->_admin['id'],$descs);
+		$this->log($log);
 		$this->returnMessage(200,'保存成功');
 	}
 
 	public function categoryDelete(Request $request){
 		$id = (int)$request->id;
-		$menu = Db::table('article_category')->where(array('id'=>$id))->item();
-		if(!$menu){
-			$this->returnMessage(400,'菜单不存在');
+		$is = Db::table('product_category')->where(array('id'=>$id))->item();
+		if(!$is){
+			$this->returnMessage(400,'商品分类不存在');
 		}
-		Db::table('article_category')->where(array('id'=>$id))->delete();
+		Db::table('product_category')->where(array('id'=>$id))->delete();
 
 		//添加操作日志
-		//$this->oplog($request->_admin['id'],'删除菜单：《'.$menu['title'].'》,ID：'.$mid);
+		$this->log('删除商品分类：'.$is['name'].'，ID：'.$id.'。');
+
+		$this->returnMessage(200,'删除成功');
+	}
+
+	public function specificationDelete(Request $request){
+		$id = (int)$request->id;
+		$specification = Db::table('product_specification')->where(array('id'=>$id))->item();
+		if(!$specification){
+			$this->returnMessage(400,'规格不存在');
+		}
+		Db::table('product_specification')->where(array('id'=>$id))->delete();
+
+		//添加操作日志
+		$this->log('删除规格：'.$specification['name'].'，ID：'.$id.'。');
 
 		$this->returnMessage(200,'删除成功');
 	}

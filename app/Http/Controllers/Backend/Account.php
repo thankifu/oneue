@@ -60,6 +60,9 @@ class Account extends Common
         }
         // 更新登录ip、时间
         Db::table('admin')->where(array('username'=>$username))->update(array('logined_ip'=>$request->getClientIp(),'logined'=>time()));
+
+        $this->log('登录系统。');
+
         echo json_encode(array('code'=>200,'text'=>'登录成功'));
     }
 

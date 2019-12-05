@@ -37,13 +37,75 @@ function clearCookie(name,path) {
     setCookie(name, "", -1, path);
 }
 
+
+
+
+function starAddSpecification(){
+	var i = $(".star-table-specification tbody tr").length;
+	var html = '';
+	html += '<tr>';
+		html += '<td>';
+			html += '<span class="star-picture star-picture-square star-mr-10" style="background-image:url(/images/upload-image.png);">';
+				html += '<i class="star-picture-bd" onclick=starPicture("specifications['+i+'][picture]")></i>';
+				html += '<i class="star-picture-ft"></i>';
+				html += '<input class="form-control" type="hidden" name="specifications['+i+'][picture]" value="" placeholder="" autocomplete="off">';
+			html += '</span>';
+		html += '</td>';
+		html += '<td><input class="form-control input-sm" type="text" name="specifications['+i+'][name]" value="规格" placeholder="" autocomplete="off"></td>';
+		html += '<td><input class="form-control input-sm" type="text" name="specifications['+i+'][sku]" value="0" placeholder="" autocomplete="off"></td>';
+		html += '<td><input class="form-control input-sm" type="text" name="specifications['+i+'][market]" value="0.00" placeholder="" autocomplete="off" data-type="price"></td>';
+		html += '<td><input class="form-control input-sm" type="text" name="specifications['+i+'][selling]" value="0.00" placeholder="" autocomplete="off" data-type="price"></td>';
+		html += '<td><input class="form-control input-sm" type="text" name="specifications['+i+'][cost]" value="0.00" placeholder="" autocomplete="off" data-type="price"></td>';
+		html += '<td><input class="form-control input-sm" type="text" name="specifications['+i+'][quantity]" value="0" placeholder="" autocomplete="off" data-type="number"></td>';
+		html += '<td><input class="form-control input-sm" type="text" name="specifications['+i+'][position]" value="0" placeholder="" autocomplete="off" data-type="number"></td>';
+		html += '<td>';
+			html += '<button type="button" class="btn btn-secondary btn-sm" onclick="starDeleteSpecification(this);">删除规格</button>';
+			html += '<input type="hidden" name="specifications['+i+'][id]" value="0">';
+		html += '</td>';
+	html += '</tr>';
+	$(".star-table-specification tbody").append(html);
+}
+function starDeleteSpecification(object, id){
+	if (id>0) {
+        bootbox.confirm({
+			size: "small", 
+		    message: "确认要删除吗？",
+		    buttons: {
+		        cancel: {
+		            label: '取消',
+		            className: 'btn-secondary'
+		        },
+		        confirm: {
+		            label: '确认'
+		        }
+		    },
+		    callback: function (result) {
+		    	if(result){
+		    		$.post(backend_path+'/product/specification/delete',{id:id,_token:$('input[name="_token"]').val()},function(res){
+				        if(res.code === 200){
+				        	starToast('success', res.text);
+				        	setTimeout(function(){
+				        		$(object).parent().parent().remove();
+				        	},1000);
+				        }else{
+				        	starToast('fail', res.text);
+				        }
+				    },'json');
+		    	}
+		    }
+		});
+		return;
+    }
+	$(object).parent().parent().remove();
+}
+
 //加载屏幕
 function starLoadScreen(){
 	var width_side = $('.star-side').width();
 	var width_foot = $(window).width() - width_side;
 	
 	$(".star-footer").width(width_foot);
-
+	$('.star-side').height( $(window).height() - 50 );
 	$('.star-main').height( $(window).height() - 100 );
 
 	$('.star-login').css({
@@ -343,7 +405,7 @@ function starArticleSave(){
 	data.seo_description = $.trim($('input[name="seo_description"]').val());
 	data.seo_keywords = $.trim($('input[name="seo_keywords"]').val());
 	data.category_id = parseInt($('[name="category_id"]').val());
-	data.state = $('#state').is(':checked')?0:1;
+	data.state = parseInt($('[name="state"]').val());
 
 	if(data.title==''){
 		starToast('fail', '请输入文章标题');
@@ -419,19 +481,19 @@ function starPicture(place){
 	$('#upload_place').val(place);
 }
 //原生上传方式
-function starUploadNative(){
+function starUpload(){
 	starToast('loading', '上传中...', 0);
 	$('#upload_form').submit();
 }
 //原生上传成功
-function starUploadNativeSuccess(place, url){
+function starUploadSuccess(place, url){
 	bootbox.hideAll();
 	starToast('success', '上传成功');
-
+	$('#upload_file').val('');
 	$('input[name="'+place+'"]').val(url).trigger('change');
 }
 //原生上传失败
-function starUploadNativeFail(message){
+function starUploadFail(message){
 	bootbox.hideAll();
 	starToast('fail', message);
 }
@@ -441,17 +503,56 @@ $(document).ready(function() {
 	window.onresize = function(){
 		starLoadScreen();
 	}
-	
-	$('input[name^="picture"]').on('change',function(){
+
+	$('input[name^="editor"]').on('change',function(){
+		var url = $(this).val();
+		editor.insertElement(CKEDITOR.dom.element.createFromHtml('<img style="max-width:100%" src="' + url + '" border="0" title="image">'));
+	});
+
+	$(document).on('change','input[name*="picture"]',function(){
 		var url = $(this).val();
 		$(this).parent().css({
 			'background-image':'url('+url+')',
 		});
 	});
 
-	$('input[name^="editor"]').on('change',function(){
-		var url = $(this).val();
-		editor.insertElement(CKEDITOR.dom.element.createFromHtml('<img style="max-width:100%" src="' + url + '" border="0" title="image">'));
+	$(document).on('blur','input[data-type="price"]',function(){
+		var value = $(this).val();
+		var pattern = /^\d+(\.\d+)?$/;
+		if (!pattern.test(value)) {
+	        $(this).val('0.00');
+	    }else{
+	    	value = Number(value);
+	    	$(this).val(value.toFixed(2));
+	    }
 	});
+
+	$(document).on('blur','input[data-type="number"]',function(){
+		var value = $(this).val();
+		var pattern = /^\d+$/;
+		if (!pattern.test(value)) {
+	        $(this).val('0');
+	        return;
+	    }
+	});
+
+	/*$('input[data-type="price"]').blur(function() {
+		var value = $(this).val();
+		var pattern = /^\d+(\.\d+)?$/;
+		if (!pattern.test(value)) {
+	        $(this).val('0.00');
+	    }else{
+	    	value = Number(value);
+	    	$(this).val(value.toFixed(2));
+	    }
+	});
+
+	$('input[data-type="number"]').blur(function() {
+		var value = $(this).val();
+		var pattern = /^\d+$/;
+		if (!pattern.test(value)) {
+	        $(this).val('0');
+	    }
+	});*/
 
 });

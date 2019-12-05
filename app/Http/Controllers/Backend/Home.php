@@ -18,7 +18,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
-class Home extends Controller
+class Home extends Common
 {
     //
     public function index(Request $request){

@@ -188,13 +188,23 @@ class Setting extends Common
 		$key = $data['key'];
 		unset($data['key']);
 		unset($data['_token']);
-		$seo = Db::table('admin_setting')->where(array('key'=>$key))->item();
-		if($seo){
+		$is = Db::table('admin_setting')->where(array('key'=>$key))->item();
+		if($is){
 			Db::table('admin_setting')->where(array('key'=>$key))->update(array('value'=>json_encode($data)));
 		}else{
 			Db::table('admin_setting')->insert(array('key'=>$key,'value'=>json_encode($data)));
 		}
-		//exit(json_encode(array('code'=>0,'msg'=>'保存成功')));
+
+		if($key === 'site'){
+			$log = '修改网站设置。';
+		}
+		if($key === 'annex'){
+			$log = '修改附件设置。';
+		}
+
+		//添加操作日志
+		$this->log($log);
+
 		$this->returnMessage(200,'保存成功');
 	}	
 
