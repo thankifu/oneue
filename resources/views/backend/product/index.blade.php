@@ -123,7 +123,7 @@
 				<td>{{$item['created']?date('Y-m-d H:i:s',$item['created']):'-'}}</td>
 				<td>{!!$item['state']==1?'<span class="label label-success">启用</span>':'<span class="label label-danger">禁用</span>'!!}</td>
 				<td width="160">
-					<button type="button" class="btn btn-sm btn-primary" onclick="starAddJump('product', {{$item['id']}});">修改</button>
+					<button type="button" class="btn btn-sm btn-primary" onclick="starAddJump('product', {{$item['id']}});">编辑</button>
 					<button type="button" class="btn btn-sm btn-danger" onclick="starDelete('product', {{$item['id']}});">删除</button>
 				</td>
 			</tr>

@@ -39,24 +39,35 @@
 			<label for="sku">商品SKU：</label>
 			<input class="form-control" type="text" id="sku" name="sku" value="{{isset($product['sku'])?$product['sku']:'0'}}" placeholder="商品SKU" autocomplete="off">
 		</div>
+		
+		<div class="row">
+			<div class="form-group col-sm-4 col-xs-12">
+				<label for="market">商品市场价：</label>
+				<input class="form-control" type="text" id="market" name="market" value="{{isset($product['market'])?$product['market']:'0.00'}}" placeholder="商品市场价" autocomplete="off" data-type="price">
+			</div>
 
-		<div class="form-group">
-			<label for="market">商品市场价：</label>
-			<input class="form-control" type="text" id="market" name="market" value="{{isset($product['market'])?$product['market']:'0.00'}}" placeholder="商品市场价" autocomplete="off" data-type="price">
+			<div class="form-group col-sm-4 col-xs-12">
+				<label for="selling">商品销售价：</label>
+				<input class="form-control" type="text" id="selling" name="selling" value="{{isset($product['selling'])?$product['selling']:'0.00'}}" placeholder="商品销售价" autocomplete="off" data-type="price">
+			</div>
+			<div class="form-group col-sm-4 col-xs-12">
+				<label for="cost">商品成本价：</label>
+				<input class="form-control" type="text" id="cost" name="cost" value="{{isset($product['cost'])?$product['cost']:'0.00'}}" placeholder="商品成本价" autocomplete="off" data-type="price">
+			</div>
+			<div class="form-group col-sm-4 col-xs-12">
+				<label for="quantity">商品库存数量：</label>
+				<input class="form-control" type="text" id="quantity" name="quantity" value="{{isset($product['quantity'])?$product['quantity']:'0'}}" placeholder="商品库存数量" autocomplete="off" data-type="number">
+			</div>
+			<div class="form-group col-sm-4 col-xs-12">
+				<label for="volume">商品销量：</label>
+				<input class="form-control" type="text" id="volume" name="volume" value="{{isset($product['volume'])?$product['volume']:'0'}}" placeholder="商品销量" autocomplete="off" data-type="number">
+			</div>
+			<div class="form-group col-sm-4 col-xs-12">
+				<label for="visit">商品浏览量：</label>
+				<input class="form-control" type="text" id="visit" name="visit" value="{{isset($product['visit'])?$product['visit']:'0'}}" placeholder="商品浏览量" autocomplete="off" data-type="number">
+			</div>
 		</div>
-
-		<div class="form-group">
-			<label for="selling">商品销售价：</label>
-			<input class="form-control" type="text" id="selling" name="selling" value="{{isset($product['selling'])?$product['selling']:'0.00'}}" placeholder="商品销售价" autocomplete="off" data-type="price">
-		</div>
-		<div class="form-group">
-			<label for="cost">商品成本价：</label>
-			<input class="form-control" type="text" id="cost" name="cost" value="{{isset($product['cost'])?$product['cost']:'0.00'}}" placeholder="商品成本价" autocomplete="off" data-type="price">
-		</div>
-		<div class="form-group">
-			<label for="quantity">商品库存数量：</label>
-			<input class="form-control" type="text" id="quantity" name="quantity" value="{{isset($product['quantity'])?$product['quantity']:'0'}}" placeholder="商品库存数量" autocomplete="off" data-type="number">
-		</div>
+		
 
 		<div class="form-group">
 			<label for="picture">商品图片：</label>
@@ -112,13 +123,13 @@
 								<input class="form-control" type="hidden" name="specifications[{{$i}}][picture]" value="{{$item['picture']}}" autocomplete="off">
 							</span>
 						</td>
-						<td><input class="form-control input-sm" type="text" name="specifications[{{$i}}][name]" value="{{$item['name']}}" autocomplete="off"></td>
-						<td><input class="form-control input-sm" type="text" name="specifications[{{$i}}][sku]" value="{{$item['sku']}}" autocomplete="off"></td>
-						<td><input class="form-control input-sm" type="text" name="specifications[{{$i}}][market]" value="{{$item['market']}}" autocomplete="off" data-type="price"></td>
-						<td><input class="form-control input-sm" type="text" name="specifications[{{$i}}][selling]" value="{{$item['selling']}}" autocomplete="off" data-type="price"></td>
-						<td><input class="form-control input-sm" type="text" name="specifications[{{$i}}][cost]" value="{{$item['cost']}}" autocomplete="off" data-type="price"></td>
-						<td><input class="form-control input-sm" type="text" name="specifications[{{$i}}][quantity]" value="{{$item['quantity']}}" autocomplete="off" data-type="number"></td>
-						<td><input class="form-control input-sm" type="text" name="specifications[{{$i}}][position]" value="{{$item['position']}}" autocomplete="off" data-type="number"></td>
+						<td><input class="form-control input-sm text-center" type="text" name="specifications[{{$i}}][name]" value="{{$item['name']}}" autocomplete="off"></td>
+						<td><input class="form-control input-sm text-center" type="text" name="specifications[{{$i}}][sku]" value="{{$item['sku']}}" autocomplete="off"></td>
+						<td><input class="form-control input-sm text-center" type="text" name="specifications[{{$i}}][market]" value="{{$item['market']}}" autocomplete="off" data-type="price"></td>
+						<td><input class="form-control input-sm text-center" type="text" name="specifications[{{$i}}][selling]" value="{{$item['selling']}}" autocomplete="off" data-type="price"></td>
+						<td><input class="form-control input-sm text-center" type="text" name="specifications[{{$i}}][cost]" value="{{$item['cost']}}" autocomplete="off" data-type="price"></td>
+						<td><input class="form-control input-sm text-center" type="text" name="specifications[{{$i}}][quantity]" value="{{$item['quantity']}}" autocomplete="off" data-type="number"></td>
+						<td><input class="form-control input-sm text-center" type="text" name="specifications[{{$i}}][position]" value="{{$item['position']}}" autocomplete="off" data-type="number"></td>
 						<td>
 							<button type="button" class="btn btn-secondary btn-sm" onclick="starDeleteSpecification(this, {{$item['id']}});">删除规格</button>
 							<input type="hidden" name="specifications[{{$i}}][id]" value="{{$item['id']}}">

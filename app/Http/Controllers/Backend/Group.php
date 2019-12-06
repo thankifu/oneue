@@ -76,7 +76,7 @@ class Group extends Common
 		if($id){
 			$data['modified'] = time();
 			DB::table('admin_group')->where(array('id'=>$id))->update($data);
-			$log = '修改管理组：'.$data['name'].'，ID：'.$id.'。';
+			$log = '编辑管理组：'.$data['name'].'，ID：'.$id.'。';
 		}else{
 			$is = DB::table('admin_group')->where('name',$name)->item();
 			if($is){
@@ -85,7 +85,7 @@ class Group extends Common
 			}
 			$data['created'] = time();
 			$id = DB::table('admin_group')->insertGetId($data);
-			$log = '添加管理组：'.$data['name'].'，ID：'.$id.'。';
+			$log = '新增管理组：'.$data['name'].'，ID：'.$id.'。';
 		}
 
 		//添加操作日志

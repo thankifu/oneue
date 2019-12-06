@@ -75,11 +75,11 @@ class Article extends Common
 		if($id){
 			$data['modified'] = time();
 			$res = Db::table('article')->where(array('id'=>$id))->update($data);
-			$log = '修改文章：'.$data['name'].'，ID：'.$id.'。';
+			$log = '编辑文章：'.$data['name'].'，ID：'.$id.'。';
 		}else{
 			$data['created'] = time();
 			$res = Db::table('article')->insertGetId($data);
-			$log = '添加文章：'.$data['name'].'，ID：'.$res.'。';
+			$log = '新增文章：'.$data['name'].'，ID：'.$res.'。';
 		}
 
 		//添加操作日志
@@ -153,11 +153,11 @@ class Article extends Common
 		if($id){
 			$data['modified'] = time();
 			$res = Db::table('article_category')->where(array('id'=>$id))->update($data);
-			$log = '修改文章分类：'.$data['name'].'，ID：'.$id.'。';
+			$log = '编辑文章分类：'.$data['name'].'，ID：'.$id.'。';
 		}else{
 			$data['created'] = time();
 			$res = Db::table('article_category')->insertGetId($data);
-			$log = '添加文章分类：'.$data['name'].'，ID：'.$res.'。';
+			$log = '新增文章分类：'.$data['name'].'，ID：'.$res.'。';
 		}
 
 		//添加操作日志

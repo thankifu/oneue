@@ -196,10 +196,10 @@ class Setting extends Common
 		}
 
 		if($key === 'site'){
-			$log = '修改网站设置。';
+			$log = '编辑网站设置。';
 		}
 		if($key === 'annex'){
-			$log = '修改附件设置。';
+			$log = '编辑附件设置。';
 		}
 
 		//添加操作日志

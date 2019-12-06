@@ -51,7 +51,7 @@
 				<td>{{$item['modified']?date('Y-m-d H:i:s',$item['modified']):'-'}}</td>
 				<td>{!!$item['state']==1?'<span class="label label-success">启用</span>':'<span class="label label-danger">禁用</span>'!!}</td>
 				<td>
-					<button type="button" class="btn btn-sm btn-primary" onclick="starAdd('group', {{$item['id']}});">修改</button>
+					<button type="button" class="btn btn-sm btn-primary" onclick="starAdd('group', {{$item['id']}});">编辑</button>
 				</td>
 			</tr>
 			@endforeach

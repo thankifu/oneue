@@ -102,12 +102,12 @@ class Admin extends Common
 			$data['username'] = $username;
 			$data['password'] = password_hash($password,PASSWORD_DEFAULT);
 			$id = DB::table('admin')->insertGetId($data);
-			$log = '添加管理员：'.$data['name'].'，ID：'.$id.'。';
+			$log = '新增管理员：'.$data['name'].'，ID：'.$id.'。';
 		}
 
 		//添加操作日志
 		$this->log($log);
-		
+
 		$this->returnMessage(200,'保存成功');
 	}
 

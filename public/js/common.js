@@ -37,9 +37,6 @@ function clearCookie(name,path) {
     setCookie(name, "", -1, path);
 }
 
-
-
-
 function starAddSpecification(){
 	var i = $(".star-table-specification tbody tr").length;
 	var html = '';
@@ -51,13 +48,13 @@ function starAddSpecification(){
 				html += '<input class="form-control" type="hidden" name="specifications['+i+'][picture]" value="" placeholder="" autocomplete="off">';
 			html += '</span>';
 		html += '</td>';
-		html += '<td><input class="form-control input-sm" type="text" name="specifications['+i+'][name]" value="规格" placeholder="" autocomplete="off"></td>';
-		html += '<td><input class="form-control input-sm" type="text" name="specifications['+i+'][sku]" value="0" placeholder="" autocomplete="off"></td>';
-		html += '<td><input class="form-control input-sm" type="text" name="specifications['+i+'][market]" value="0.00" placeholder="" autocomplete="off" data-type="price"></td>';
-		html += '<td><input class="form-control input-sm" type="text" name="specifications['+i+'][selling]" value="0.00" placeholder="" autocomplete="off" data-type="price"></td>';
-		html += '<td><input class="form-control input-sm" type="text" name="specifications['+i+'][cost]" value="0.00" placeholder="" autocomplete="off" data-type="price"></td>';
-		html += '<td><input class="form-control input-sm" type="text" name="specifications['+i+'][quantity]" value="0" placeholder="" autocomplete="off" data-type="number"></td>';
-		html += '<td><input class="form-control input-sm" type="text" name="specifications['+i+'][position]" value="0" placeholder="" autocomplete="off" data-type="number"></td>';
+		html += '<td><input class="form-control input-sm text-center" type="text" name="specifications['+i+'][name]" value="规格" placeholder="" autocomplete="off"></td>';
+		html += '<td><input class="form-control input-sm text-center" type="text" name="specifications['+i+'][sku]" value="0" placeholder="" autocomplete="off"></td>';
+		html += '<td><input class="form-control input-sm text-center" type="text" name="specifications['+i+'][market]" value="0.00" placeholder="" autocomplete="off" data-type="price"></td>';
+		html += '<td><input class="form-control input-sm text-center" type="text" name="specifications['+i+'][selling]" value="0.00" placeholder="" autocomplete="off" data-type="price"></td>';
+		html += '<td><input class="form-control input-sm text-center" type="text" name="specifications['+i+'][cost]" value="0.00" placeholder="" autocomplete="off" data-type="price"></td>';
+		html += '<td><input class="form-control input-sm text-center" type="text" name="specifications['+i+'][quantity]" value="0" placeholder="" autocomplete="off" data-type="number"></td>';
+		html += '<td><input class="form-control input-sm text-center" type="text" name="specifications['+i+'][position]" value="0" placeholder="" autocomplete="off" data-type="number"></td>';
 		html += '<td>';
 			html += '<button type="button" class="btn btn-secondary btn-sm" onclick="starDeleteSpecification(this);">删除规格</button>';
 			html += '<input type="hidden" name="specifications['+i+'][id]" value="0">';

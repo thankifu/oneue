@@ -68,11 +68,11 @@ class Menu extends Common
 		if($id){
 			$data['modified'] = time();
 			$res = Db::table('admin_menu')->where(array('id'=>$id))->update($data);
-			$log = '修改后台菜单：'.$data['name'].'，ID：'.$id.'。';
+			$log = '编辑后台菜单：'.$data['name'].'，ID：'.$id.'。';
 		}else{
 			$data['created'] = time();
 			$res = Db::table('admin_menu')->insertGetId($data);
-			$log = '添加后台菜单：'.$data['name'].'，ID：'.$res.'。';
+			$log = '新增后台菜单：'.$data['name'].'，ID：'.$res.'。';
 		}
 
 		//添加操作日志

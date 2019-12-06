@@ -134,7 +134,7 @@ class Product extends Common
 				}
 			}
 
-			$log = '修改商品：'.$data['name'].'，ID：'.$id.'。';
+			$log = '编辑商品：'.$data['name'].'，ID：'.$id.'。';
 		}else{
 			$data['created'] = time();
 			$result = Db::table('product')->insertGetId($data);
@@ -153,7 +153,7 @@ class Product extends Common
 				}
 			}
 			
-			$log = '修改商品：'.$data['name'].'，ID：'.$result.'。';
+			$log = '编辑商品：'.$data['name'].'，ID：'.$result.'。';
 		}
 
 		//添加操作日志
@@ -227,11 +227,11 @@ class Product extends Common
 		if($id){
 			$data['modified'] = time();
 			$res = Db::table('product_category')->where(array('id'=>$id))->update($data);
-			$log = '修改商品分类：'.$data['name'].'，ID：'.$id.'。';
+			$log = '编辑商品分类：'.$data['name'].'，ID：'.$id.'。';
 		}else{
 			$data['created'] = time();
 			$res = Db::table('product_category')->insertGetId($data);
-			$log = '添加商品分类：'.$data['name'].'，ID：'.$res.'。';
+			$log = '新增商品分类：'.$data['name'].'，ID：'.$res.'。';
 		}
 
 		//添加操作日志
@@ -262,7 +262,7 @@ class Product extends Common
 		Db::table('product_specification')->where(array('id'=>$id))->delete();
 
 		//添加操作日志
-		$this->log('删除规格：'.$specification['name'].'，ID：'.$id.'。');
+		$this->log('删除商品规格：'.$specification['name'].'，ID：'.$id.'。');
 
 		$this->returnMessage(200,'删除成功');
 	}

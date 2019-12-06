@@ -134,6 +134,8 @@ body{-moz-transition: all .5s ease;-o-transition:all .5s ease;-webkit-transition
 .star-side-mini .star-side .dropdown-menu{display:none}
 .star-side-mini .star-side li.star-open>a{background:#ff5c85;}
 
+.star-side-hide .star-footer,.star-side-hide .star-main{left:0px;}
+
 .star-button-primary{background:#ff5c85;color:#fff;outline:none !important;}
 .star-button-danger{background:#393d49;color:#fff;outline:none !important;}
 .star-button-primary:hover, .star-button-primary:active, .star-button-primary:focus{color:#fff;opacity:.9;}
