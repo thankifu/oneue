@@ -112,6 +112,7 @@ body{-moz-transition: all .5s ease;-o-transition:all .5s ease;-webkit-transition
 .star-side nav li a{color:#ddd;text-decoration:none;padding:10px 15px 10px 30px;display:block;}
 /* .star-side nav li.open:hover before{width:100%;-webkit-transition:width .2s ease-in;transition:width .2s ease-in;} */
 .star-side nav .dropdown-menu{background:#222;width:100%;border:none;border-radius:0;box-shadow:none;margin:0;padding:0;position:relative;}
+.star-side nav .dropdown-menu li a{padding-left:60px;}
 .star-side nav li.star-current a,.star-side nav li a:hover,.star-side nav li a:active,.star-side nav li a:focus,.star-side nav li.open a:hover,.star-side nav li.open a:active,.star-side nav li.open a:focus{background-color:transparent;color:#fff;text-decoration:none;}
 .star-side nav li:before{background-color:#ff5c85;}
 .star-side nav .open>a{background-color:transparent;}

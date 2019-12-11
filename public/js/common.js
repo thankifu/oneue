@@ -423,17 +423,22 @@ function starArticleSave(){
 
 //商品保存
 function starProductSave(){
-	var data = new Object();
-	data.name = $.trim($('input[name="name"]').val());
-	/*console.log($('form').serialize());
-	return;*/
 
-	if(data.name==''){
+	var name = $.trim($('input[name="name"]').val());
+	if(name==''){
 		starToast('fail', '请输入商品名称');
 		return;
 	}
 
-	$.post(backend_path+'/product/save',$('form').serialize(),function(res){
+	var description = CKEDITOR.instances.description.getData();
+
+	var data = $('form').serialize();
+	data += '&description=' + description;
+
+	/*console.log(data);
+	return;*/
+
+	$.post(backend_path+'/product/save',data,function(res){
 		if(res.code === 200){
 			starToast('success', res.text);
 			setTimeout(function(){
