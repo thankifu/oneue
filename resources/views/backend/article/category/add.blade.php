@@ -10,35 +10,49 @@
 @include('backend.common.head')
 </head>
 <body>
-<div class="container-fluid">
+<div class="container-fluid star-main-font">
 	<form>
 		{{csrf_field()}}
 
 		@if($parent)
 		<div class="form-group">
-			<label for="">上级分类：</label>
-			<input class="form-control" type="text" id="" name="" value="{{$parent['name']}}" placeholder="上级菜单" autocomplete="off" disabled="true">
+			<label for="">上级：</label>
+			<input class="form-control" type="text" value="{{$parent['name']}}" placeholder="上级" autocomplete="off" disabled="true">
 		</div>
 		@endif
 
 		<div class="form-group">
-			<label for="name">分类名称：</label>
-			<input class="form-control" type="text" id="name" name="name" value="{{$category['name']}}" placeholder="分类名称" autocomplete="off">
+			<label for="name">名称：</label>
+			<input class="form-control" type="text" id="name" name="name" value="{{$category['name']}}" placeholder="名称" autocomplete="off">
 		</div>
 
 		<div class="form-group">
-			<label for="position">分类排序：</label>
-			<input class="form-control" type="text" id="position" name="position" value="{{$category['position']}}" placeholder="分类排序" autocomplete="off">
+			<label for="position">排序：</label>
+			<input class="form-control" type="text" id="position" name="position" value="{{$category['position']}}" placeholder="排序" autocomplete="off">
+		</div>
+
+		<div class="form-group">
+			<label for="seo_title">SEO标题：</label>
+			<input class="form-control" type="text" id="seo_title" name="seo_title" value="{{$category['seo_title']}}" placeholder="SEO标题" autocomplete="off">
+		</div>
+
+		<div class="form-group">
+			<label for="seo_description">SEO描述：</label>
+			<input class="form-control" type="text" id="seo_description" name="seo_description" value="{{$category['seo_description']}}" placeholder="SEO描述" autocomplete="off">
+		</div>
+
+		<div class="form-group">
+			<label for="seo_keywords">SEO关键词：</label>
+			<input class="form-control" type="text" id="seo_keywords" name="seo_keywords" value="{{$category['seo_keywords']}}" placeholder="SEO关键词" autocomplete="off">
 		</div>
 
 		<div class="form-group">
 			<label>状态：</label>
 			<div class="checkbox">
 				<label class="checkbox-inline">
-					<input type="checkbox" id="state" name="state" value="" {{isset($category['state']) && $category['state']==0?'checked':''}}/>禁用
+					<input type="checkbox" id="state" value="" {{isset($category['state']) && $category['state']==0?'checked':''}}/>禁用
 				</label>
 			</div>
-
 		</div>
 		<div class="form-group text-center">
 			<button type="button" class="btn btn-secondary" onclick="starCancel();">取消</button>

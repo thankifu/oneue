@@ -10,7 +10,7 @@
 @include('backend.common.head')
 </head>
 <body>
-<div class="container-fluid">
+<div class="container-fluid star-main-font">
 	<div class="clearfix star-mt-20 star-mb-20">
 		<div class="pull-left">
 			<form class="form-inline" method="get">
@@ -44,7 +44,7 @@
 				<th>图片</th>
 				<th>标题</th>
 				<th>分类</th>
-				<th>发布时间</th>
+				<th>时间</th>
 				<th>状态</th>
 				<th>操作</th>
 			</tr>
@@ -59,8 +59,11 @@
 					<span class="star-picture-rectangle" style="background-image:url({{$item['picture']}});"></span>
 				</td>
 				<td>{{$item['title']}}</td>
-				<td>{{isset($categories[$item['category_id']])?$categories[$item['category_id']]['name']:''}}</td>
-				<td>{{$item['created']?date('Y-m-d H:i:s',$item['created']):'-'}}</td>
+				<td>{{isset($categories[$item['category_id']])?$categories[$item['category_id']]['name']:'-'}}</td>
+				<td>
+					创建 {{$item['created']?date('Y-m-d H:i:s',$item['created']):'-'}}<br/>
+					修改 {{$item['modified']?date('Y-m-d H:i:s',$item['modified']):'-'}}
+				</td>
 				<td>{!!$item['state']==1?'<span class="label label-success">启用</span>':'<span class="label label-danger">禁用</span>'!!}</td>
 				<td>
 					<button type="button" class="btn btn-sm btn-primary" onclick="starAddJump('article', {{$item['id']}});">编辑</button>

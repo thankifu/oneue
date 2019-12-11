@@ -10,7 +10,7 @@
 @include('backend.common.head')
 </head>
 <body>
-<div class="container-fluid">
+<div class="container-fluid star-main-font">
 
 	<form id="upload_form" target="upload_iframe" enctype="multipart/form-data" action="/admin/upload/index" method="post" style="display:none;">
 		{{csrf_field()}}
@@ -19,10 +19,10 @@
 		<iframe name="upload_iframe" id="upload_iframe" style="display: none;"></iframe>
 	</form>
 
-	<form class="star-mt-20">
+	<form id="form" class="star-mt-20">
 		{{csrf_field()}}
 		<div class="form-group">
-			<label for="category_id">商品分类：</label>
+			<label for="category_id">分类：</label>
 			<select class="form-control" id="category_id" name="category_id" autocomplete="off">
 				<option value="">请选择</option>
 				@foreach($categories as $item)
@@ -31,53 +31,61 @@
 			</select>
 		</div>
 		<div class="form-group">
-			<label for="name">商品标题：</label>
-			<input class="form-control" type="text" id="name" name="name" value="{{isset($product['name'])?$product['name']:''}}" placeholder="商品标题" autocomplete="off">
+			<label for="name">名称：</label>
+			<input class="form-control" type="text" id="name" name="name" value="{{$product['name']}}" placeholder="商品名称" autocomplete="off">
 		</div>
 
 		<div class="form-group">
-			<label for="sku">商品SKU：</label>
-			<input class="form-control" type="text" id="sku" name="sku" value="{{isset($product['sku'])?$product['sku']:'0'}}" placeholder="商品SKU" autocomplete="off">
+			<label for="sku">SKU：</label>
+			<input class="form-control" type="text" id="sku" name="sku" value="{{$product['sku']?$product['sku']:'0'}}" placeholder="商品SKU" autocomplete="off">
 		</div>
 		
 		<div class="row">
 			<div class="form-group col-sm-4 col-xs-12">
-				<label for="market">商品市场价：</label>
-				<input class="form-control" type="text" id="market" name="market" value="{{isset($product['market'])?$product['market']:'0.00'}}" placeholder="商品市场价" autocomplete="off" data-type="price">
-			</div>
-
-			<div class="form-group col-sm-4 col-xs-12">
-				<label for="selling">商品销售价：</label>
-				<input class="form-control" type="text" id="selling" name="selling" value="{{isset($product['selling'])?$product['selling']:'0.00'}}" placeholder="商品销售价" autocomplete="off" data-type="price">
+				<label for="market">市场价：</label>
+				<div class="input-group">
+					<div class="input-group-addon">&yen;</div>
+					<input class="form-control" type="text" id="market" name="market" value="{{$product['market']?$product['market']:'0.00'}}" placeholder="商品市场价" autocomplete="off" data-type="price">
+				</div>			
 			</div>
 			<div class="form-group col-sm-4 col-xs-12">
-				<label for="cost">商品成本价：</label>
-				<input class="form-control" type="text" id="cost" name="cost" value="{{isset($product['cost'])?$product['cost']:'0.00'}}" placeholder="商品成本价" autocomplete="off" data-type="price">
+				<label for="selling">销售价：</label>
+				<div class="input-group">
+					<div class="input-group-addon">&yen;</div>
+					<input class="form-control" type="text" id="selling" name="selling" value="{{$product['selling']?$product['selling']:'0.00'}}" placeholder="商品销售价" autocomplete="off" data-type="price">
+				</div>
 			</div>
 			<div class="form-group col-sm-4 col-xs-12">
-				<label for="quantity">商品库存数量：</label>
-				<input class="form-control" type="text" id="quantity" name="quantity" value="{{isset($product['quantity'])?$product['quantity']:'0'}}" placeholder="商品库存数量" autocomplete="off" data-type="number">
+				<label for="cost">成本价：</label>
+				<div class="input-group">
+					<div class="input-group-addon">&yen;</div>
+					<input class="form-control" type="text" id="cost" name="cost" value="{{$product['cost']?$product['cost']:'0.00'}}" placeholder="商品成本价" autocomplete="off" data-type="price">
+				</div>
 			</div>
 			<div class="form-group col-sm-4 col-xs-12">
-				<label for="volume">商品销量：</label>
-				<input class="form-control" type="text" id="volume" name="volume" value="{{isset($product['volume'])?$product['volume']:'0'}}" placeholder="商品销量" autocomplete="off" data-type="number">
+				<label for="quantity">库存数量：</label>
+				<input class="form-control" type="text" id="quantity" name="quantity" value="{{$product['quantity']?$product['quantity']:'0'}}" placeholder="商品库存数量" autocomplete="off" data-type="number">
 			</div>
 			<div class="form-group col-sm-4 col-xs-12">
-				<label for="visit">商品浏览量：</label>
-				<input class="form-control" type="text" id="visit" name="visit" value="{{isset($product['visit'])?$product['visit']:'0'}}" placeholder="商品浏览量" autocomplete="off" data-type="number">
+				<label for="volume">销量：</label>
+				<input class="form-control" type="text" id="volume" name="volume" value="{{$product['volume']?$product['volume']:'0'}}" placeholder="商品销量" autocomplete="off" data-type="number">
+			</div>
+			<div class="form-group col-sm-4 col-xs-12">
+				<label for="visit">浏览量：</label>
+				<input class="form-control" type="text" id="visit" name="visit" value="{{$product['visit']?$product['visit']:'0'}}" placeholder="商品浏览量" autocomplete="off" data-type="number">
 			</div>
 		</div>
 		
 
 		<div class="form-group">
-			<label for="picture">商品图片：</label>
+			<label for="picture">图片：</label>
 			<div class="form-inline">
 				<div class="form-group">
 					<span class="star-picture star-picture-square star-mr-10" style="background-image:url({{isset($product['picture'])?$product['picture']:'/images/upload-image.png'}});">
 						<i class="star-picture-hd">首图</i>
 						<i class="star-picture-bd" onclick="starPicture('picture');"></i>
 						<i class="star-picture-ft"></i>
-						<input class="form-control" type="hidden" id="picture" name="picture" value="{{isset($product['picture'])?$product['picture']:''}}"/>
+						<input class="form-control" type="hidden" id="picture" name="picture" value="{{$product['picture']}}"/>
 					</span>
 				</div>
 				<div class="form-group">
@@ -93,9 +101,9 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label>商品规格：</label>
+			<label>规格：</label>
 			<div class="form-group star-mb-10">
-				<button type="button" class="btn btn-secondary" onclick="starAddSpecification();">添加规格</button>
+				<button type="button" class="btn btn-secondary btn-sm" onclick="starAddSpecification();">添加规格</button>
 			</div>
 			<table class="table table-condensed table-hover star-table-specification">
 				<thead>
@@ -142,23 +150,23 @@
 			</table>
 		</div>
 		<div class="form-group">
-			<label for="content">商品详情：</label>
-			<textarea class="textarea" name="description" id="description"/>{{isset($product['description'])?$product['description']:''}}</textarea>
+			<label for="content">详情：</label>
+			<textarea class="textarea" id="description"/>{{isset($product['description'])?$product['description']:''}}</textarea>
 		</div>
 		<div class="form-group">
 			<label for="seo_title">SEO标题：</label>
-			<input class="form-control" type="text" id="seo_title" name="seo_title" value="{{isset($product['seo_title'])?$product['seo_title']:''}}" placeholder="SEO标题" autocomplete="off"/>
+			<input class="form-control" type="text" id="seo_title" name="seo_title" value="{{$product['seo_title']}}" placeholder="SEO标题" autocomplete="off"/>
 		</div>
 		<div class="form-group">
 			<label for="seo_description">SEO描述：</label>
-			<input class="form-control" type="text" id="seo_description" name="seo_description" value="{{isset($product['seo_description'])?$product['seo_description']:''}}" placeholder="SEO描述" autocomplete="off"/>
+			<input class="form-control" type="text" id="seo_description" name="seo_description" value="{{$product['seo_description']}}" placeholder="SEO描述" autocomplete="off"/>
 		</div>
 		<div class="form-group">
 			<label for="seo_keywords">SEO关键字：</label>
-			<input class="form-control" type="text" id="seo_keywords" name="seo_keywords" value="{{isset($product['seo_keywords'])?$product['seo_keywords']:''}}" placeholder="SEO关键字" autocomplete="off"/>
+			<input class="form-control" type="text" id="seo_keywords" name="seo_keywords" value="{{$product['seo_keywords']}}" placeholder="SEO关键字" autocomplete="off"/>
 		</div>
 		<div class="form-group">
-			<label>商品状态：</label>
+			<label>状态：</label>
 			<div class="radio">
 				<label class="radio-inline">
 					<input type="radio" name="state" value="1" {{isset($product['state']) && $product['state']==1?'checked':''}}>启用

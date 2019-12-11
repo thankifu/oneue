@@ -391,18 +391,15 @@ function starSettingSave(){
 
 //文章保存
 function starArticleSave(){
-	var data = new Object();
-	data._token = $('input[name="_token"]').val();
-	data.id = parseInt($('input[name="id"]').val());
-	data.title = $.trim($('input[name="title"]').val());
-	data.content = CKEDITOR.instances.content.getData();
-	data.author = $.trim($('input[name="author"]').val());
-	data.picture = $.trim($('input[name="picture"]').val());
-	data.seo_title = $.trim($('input[name="seo_title"]').val());
-	data.seo_description = $.trim($('input[name="seo_description"]').val());
-	data.seo_keywords = $.trim($('input[name="seo_keywords"]').val());
-	data.category_id = parseInt($('[name="category_id"]').val());
-	data.state = parseInt($('[name="state"]').val());
+	var title = $.trim($('input[name="title"]').val());
+	if(title==''){
+		starToast('fail', '请输入文章标题');
+		return;
+	}
+
+	var data = $('#form').serialize();
+	var content = CKEDITOR.instances.content.getData();
+	data += '&content=' + content;
 
 	if(data.title==''){
 		starToast('fail', '请输入文章标题');
@@ -430,13 +427,9 @@ function starProductSave(){
 		return;
 	}
 
+	var data = $('#form').serialize();
 	var description = CKEDITOR.instances.description.getData();
-
-	var data = $('form').serialize();
 	data += '&description=' + description;
-
-	/*console.log(data);
-	return;*/
 
 	$.post(backend_path+'/product/save',data,function(res){
 		if(res.code === 200){
@@ -452,18 +445,15 @@ function starProductSave(){
 
 //分类保存
 function starCategorySave(type){
-	var data = new Object();
-	data._token = $('input[name="_token"]').val();
-	data.parent = parseInt($('input[name="parent"]').val());
-	data.id = parseInt($('input[name="id"]').val());
-	data.name = $.trim($('input[name="name"]').val());
-	data.position = parseInt($('input[name="position"]').val());
-	data.state = $('#state').is(':checked')?0:1;
-
-	if(data.name==''){
+	var name = $.trim($('input[name="name"]').val());
+	if(name==''){
 		starToast('fail', '请输入分类名称');
 		return;
 	}
+
+	var data = $('form').serialize();
+	var state = $('#state').is(':checked')?0:1;
+	data += '&state=' + state;
 
 	$.post(backend_path+'/'+type+'/category/save',data,function(res){
 		if(res.code === 200){

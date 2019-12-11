@@ -10,7 +10,7 @@
 @include('backend.common.head')
 </head>
 <body>
-<div class="container-fluid">
+<div class="container-fluid star-main-font">
 
 	<form>
 		{{csrf_field()}}

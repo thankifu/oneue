@@ -10,7 +10,7 @@
 @include('backend.common.head')
 </head>
 <body>
-<div class="container-fluid">
+<div class="container-fluid star-main-font">
 	
 	<div class="clearfix star-mt-20 star-mb-20">
 		<div class="pull-left">

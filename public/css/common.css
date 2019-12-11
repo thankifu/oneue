@@ -104,6 +104,10 @@ body{-moz-transition: all .5s ease;-o-transition:all .5s ease;-webkit-transition
 
 .star-side{background:#393d49;height:100%;float:left;overflow:auto;position:fixed;top:50px;transition:width 0.1s;}
 .star-main{background:#fff;width:auto;position:absolute;top:50px;bottom:0px;right:0px;overflow:hidden;transition:width 0.1s;}
+
+.star-main-font, .star-main-font input, .star-main-font select, .star-main-font .input-group-addon{font-size:12px;}
+.star-main-font input[type=checkbox], .star-main-font input[type=radio]{margin-top:2px;}
+
 .star-header .navbar-brand{background:#23262E;color:#ff5c85;font-weight:normal;text-align:center;overflow:hidden;}
 .star-header .navbar-brand:hover{background:#23262E;color:#fff;}
 .star-side nav li{width:100%;line-height:20px;position:relative;display:inline-block;}

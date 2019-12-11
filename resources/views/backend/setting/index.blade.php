@@ -10,7 +10,7 @@
 @include('backend.common.head')
 </head>
 <body>
-<div class="container-fluid">
+<div class="container-fluid star-main-font">
 	<form class="star-mt-20">
 		<div class="form-group">
 			<label for="name">网站名称：</label>

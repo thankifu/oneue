@@ -10,16 +10,16 @@
 @include('backend.common.head')
 </head>
 <body>
-<div class="container-fluid">
+<div class="container-fluid star-main-font">
 	<div class="clearfix star-mt-20 star-mb-20">
 		<div class="pull-left">
 			<form class="form-inline" method="get">
 				<div class="form-group form-group-sm star-mr-10">
-					<label for="username">商品名称：</label>
+					<label for="username">名称：</label>
 					<input type="text" class="form-control" name="name" value="{{request()->get('name')}}" placeholder="请输入商品名称">
 				</div>
 				<div class="form-group form-group-sm star-mr-10">
-					<label for="category_id">商品分类：</label>
+					<label for="category_id">分类：</label>
 					<select class="form-control" id="category_id" name="category_id" autocomplete="off">
 						<option value="0">请选择</option>
 						@foreach($categories as $item)
@@ -49,7 +49,7 @@
 				<th>成本价</th>
 				<th>库存数量</th>
 				<th>分类</th>
-				<th>发布时间</th>
+				<th>时间</th>
 				<th>状态</th>
 				<th>操作</th>
 			</tr>
@@ -120,7 +120,10 @@
 					@endif
 				</td>
 				<td>{{isset($categories[$item['category_id']])?$categories[$item['category_id']]['name']:''}}</td>
-				<td>{{$item['created']?date('Y-m-d H:i:s',$item['created']):'-'}}</td>
+				<td>
+					创建 {{$item['created']?date('Y-m-d H:i:s',$item['created']):'-'}}<br/>
+					修改 {{$item['modified']?date('Y-m-d H:i:s',$item['modified']):'-'}}
+				</td>
 				<td>{!!$item['state']==1?'<span class="label label-success">启用</span>':'<span class="label label-danger">禁用</span>'!!}</td>
 				<td width="160">
 					<button type="button" class="btn btn-sm btn-primary" onclick="starAddJump('product', {{$item['id']}});">编辑</button>

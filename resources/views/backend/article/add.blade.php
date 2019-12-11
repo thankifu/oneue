@@ -10,7 +10,7 @@
 @include('backend.common.head')
 </head>
 <body>
-<div class="container-fluid">
+<div class="container-fluid star-main-font">
 
 	<form id="upload_form" target="upload_iframe" enctype="multipart/form-data" action="/admin/upload/index" method="post" style="display:none;">
 		{{csrf_field()}}
@@ -19,10 +19,10 @@
 		<iframe name="upload_iframe" id="upload_iframe" style="display: none;"></iframe>
 	</form>
 
-	<form class="star-mt-20">
+	<form id="form" class="star-mt-20">
 		{{csrf_field()}}
 		<div class="form-group">
-			<label for="category_id">文章分类：</label>
+			<label for="category_id">分类：</label>
 			<select class="form-control" id="category_id" name="category_id" autocomplete="off">
 				<option value="">请选择</option>
 				@foreach($categories as $item)
@@ -31,11 +31,11 @@
 			</select>
 		</div>
 		<div class="form-group">
-			<label for="title">文章标题：</label>
+			<label for="title">标题：</label>
 			<input class="form-control" type="text" id="title" name="title" value="{{$article['title']}}" placeholder="文章标题" autocomplete="off">
 		</div>
 		<div class="form-group">
-			<label for="picture">文章图片：</label>
+			<label for="picture">图片：</label>
 			<div class="form-inline">
 				<div class="form-group">
 					<span class="star-picture star-picture-rectangle star-mr-10" style="background-image:url({{isset($article['picture'])?$article['picture']:'/images/upload-image.png'}});">
@@ -48,11 +48,11 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="content">文章内容：</label>
+			<label for="content">内容：</label>
 			<textarea class="textarea" name="content" id="content"/>{{$article['content']}}</textarea>
 		</div>
 		<div class="form-group">
-			<label for="author">文章作者：</label>
+			<label for="author">作者：</label>
 			<input class="form-control" type="text" id="author" name="author" value="{{$article['author']}}" placeholder="文章作者" autocomplete="off"/>
 		</div>
 		<div class="form-group">
@@ -84,9 +84,6 @@
 		</div>
 		<input type="hidden" id="id" name="id" value="{{$article['id']}}">
 	</form>
-
-
-
 </div>
 @include('backend.common.foot')
 <script src="/packages/ckeditor/ckeditor.js"></script>

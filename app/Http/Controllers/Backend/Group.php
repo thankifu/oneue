@@ -27,7 +27,7 @@ class Group extends Common
 		
 		$where = [];
 		if($name){
-			$where = [['name', 'like', '%'.$name.'%']];
+			$where[] = ['name', 'like', '%'.$name.'%'];
 		}
 
 		$appends = [];
@@ -43,7 +43,7 @@ class Group extends Common
 	//添加修改
 	public function add(Request $request){
 		$id = (int)$request->id;
-		$data['group'] = DB::table('admin_group')->where(array('id'=>$id))->item();
+		$data['group'] = DB::table('admin_group')->where('id',$id)->item();
 		if($data['group']['permission']){
 			$data['group']['permission'] = json_decode($data['group']['permission']);
 		}
@@ -75,7 +75,7 @@ class Group extends Common
 
 		if($id){
 			$data['modified'] = time();
-			DB::table('admin_group')->where(array('id'=>$id))->update($data);
+			DB::table('admin_group')->where('id',$id)->update($data);
 			$log = '编辑管理组：'.$data['name'].'，ID：'.$id.'。';
 		}else{
 			$is = DB::table('admin_group')->where('name',$name)->item();

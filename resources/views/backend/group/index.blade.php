@@ -10,7 +10,7 @@
 @include('backend.common.head')
 </head>
 <body>
-<div class="container-fluid">
+<div class="container-fluid star-main-font">
 	<div class="clearfix star-mt-20 star-mb-20">
 		<div class="pull-left">
 			<form class="form-inline" method="get">
@@ -36,7 +36,6 @@
 				<th>管理组名</th>
 				<th>创建时间</th>
 				<th>修改时间</th>
-				<th>状态</th>
 				<th>操作</th>
 			</tr>
 		</thead>
@@ -49,7 +48,6 @@
 				<td>{{$item['name']}}</td>
 				<td>{{$item['created']?date('Y-m-d H:i:s',$item['created']):'-'}}</td>
 				<td>{{$item['modified']?date('Y-m-d H:i:s',$item['modified']):'-'}}</td>
-				<td>{!!$item['state']==1?'<span class="label label-success">启用</span>':'<span class="label label-danger">禁用</span>'!!}</td>
 				<td>
 					<button type="button" class="btn btn-sm btn-primary" onclick="starAdd('group', {{$item['id']}});">编辑</button>
 				</td>
@@ -60,13 +58,13 @@
 		@if(!$lists)
 		<tbody>
 			<tr>
-				<td class="text-center" colspan="7">啊~没有诶！</td>
+				<td class="text-center" colspan="6">啊~没有诶！</td>
 			</tr>
 		</tbody>
 		@endif
 		<tfoot>
 			<td width="10"><input type="checkbox"/></td>
-			<td colspan="6">
+			<td colspan="5">
 				<div class="pull-left">
 					<button class="btn btn-sm btn-default" disabled="disabled">禁用</button>
 					<button class="btn btn-sm btn-default">启用</button>

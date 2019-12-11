@@ -24,11 +24,11 @@ class Menu extends Common
 	public function index(Request $request){
 		// 下级菜单
 		$data['parent'] = (int)$request->parent;
-		$data['lists'] = DB::table('admin_menu')->where(array('parent'=>$data['parent']))->orderBy('position','asc')->orderBy('id','asc')->lists();
+		$data['lists'] = DB::table('admin_menu')->where('parent',$data['parent'])->orderBy('position','asc')->orderBy('id','asc')->lists();
 		// 返回上一级菜单
 		$data['back_id'] = 0;
 		if($data['parent'] > 0){
-			$parent = DB::table('admin_menu')->where(array('id'=>$data['parent']))->item();
+			$parent = DB::table('admin_menu')->where('id',$data['parent'])->item();
 			$data['back_id'] = $parent['parent'];
 		}
 		return view('backend/menu/index',$data);
@@ -38,8 +38,8 @@ class Menu extends Common
 	public function add(Request $request){
 		$parent = (int)$request->parent;
 		$id = (int)$request->id;
-		$data['parent_menu'] = Db::table('admin_menu')->where(array('id'=>$parent))->item();
-		$data['menu'] = Db::table('admin_menu')->where(array('id'=>$id))->item();
+		$data['parent_menu'] = Db::table('admin_menu')->where('id',$parent)->item();
+		$data['menu'] = Db::table('admin_menu')->where('id',$id)->item();
 		return view('backend/menu/add',$data);
 	}
 
@@ -67,7 +67,7 @@ class Menu extends Common
 
 		if($id){
 			$data['modified'] = time();
-			$res = Db::table('admin_menu')->where(array('id'=>$id))->update($data);
+			$res = Db::table('admin_menu')->where('id',$id)->update($data);
 			$log = '编辑后台菜单：'.$data['name'].'，ID：'.$id.'。';
 		}else{
 			$data['created'] = time();
@@ -83,12 +83,12 @@ class Menu extends Common
 
 	public function delete(Request $request){
 		$id = (int)$request->id;
-		$is = Db::table('admin_menu')->where(array('id'=>$id))->item();
+		$is = Db::table('admin_menu')->where('id',$id)->item();
 		if(!$is){
 			//exit(json_encode(array('code'=>1,'msg'=>'菜单不存在')));
 			$this->returnMessage(400,'菜单不存在');
 		}
-		Db::table('admin_menu')->where(array('id'=>$id))->delete();
+		Db::table('admin_menu')->where('id',$id)->delete();
 
 		//添加操作日志
 		$this->oplog('删除后台菜单：'.$is['name'].'，ID：'.$id.'。');

@@ -28,13 +28,13 @@ class Admin extends Common
 		
 		$where = [];
 		if($name){
-			$where = [['name', 'like', '%'.$name.'%']];
+			$where[] = ['name', 'like', '%'.$name.'%'];
 		}
 		if($username){
-			$where = [['username', 'like', '%'.$username.'%']];
+			$where[] = ['username', 'like', '%'.$username.'%'];
 		}
 		if($group_id){
-			$where = [['group_id', '=', $group_id]];
+			$where[] = ['group_id', '=', $group_id];
 		}
 
 		$appends = [];
@@ -49,7 +49,7 @@ class Admin extends Common
 		}
 		
 		$data = Db::table('admin')->where($where)->orderBy('id','desc')->pages($appends);
-		//管理员组
+		//管理组
 		$data['groups'] = Db::table('admin_group')->select(['id','name'])->cates('id');
 		return view('backend.admin.index',$data);
 	}
@@ -57,8 +57,8 @@ class Admin extends Common
 	//添加修改
 	public function add(Request $request){
 		$id = (int)$request->id;
-		$data['admin'] = Db::table('admin')->where(array('id'=>$id))->item();
-		// 管理员组
+		$data['admin'] = Db::table('admin')->where('id',$id)->item();
+		//管理组
 		$data['groups'] = DB::table('admin_group')->select(['id','name'])->cates('id');
 		return view('backend.admin.add',$data);
 	}
@@ -114,17 +114,17 @@ class Admin extends Common
 	//删除
 	public function delete(Request $request){
 		$id = (int)$request->id;
-		$is = DB::table('admin')->where(array('id'=>$id))->item();
-		if(!$is){
+		$has = DB::table('admin')->where('id',$id)->item();
+		if(!$has){
 			$this->returnMessage(400,'管理员不存在');
 		}
-		$res = DB::table('admin')->where(array('id'=>$id))->delete();
+		$res = DB::table('admin')->where('id',$id)->delete();
 		if(!$res){
 			$this->returnMessage(400,'删除失败');
 		}
 
 		//添加操作日志
-		$this->log('删除管理员：'.$is['username'].'，ID：'.$id.'。');
+		$this->log('删除管理员：'.$has['username'].'，ID：'.$id.'。');
 		$this->returnMessage(200,'删除成功');
 	}
 }

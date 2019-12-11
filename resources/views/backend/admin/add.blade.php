@@ -10,7 +10,7 @@
 @include('backend.common.head')
 </head>
 <body>
-<div class="container-fluid">
+<div class="container-fluid star-main-font">
 	<form>
 		{{csrf_field()}}
 		<div class="form-group">
@@ -39,6 +39,7 @@
 			<input class="form-control" type="text" id="phone" name="phone" value="{{$admin['phone']}}" placeholder="手机号码" autocomplete="off"/>
 		</div>
 		<div class="form-group">
+			<label for="state">状态：</label>
 			<div class="checkbox">
 				<label>
 					<input type="checkbox" id="state" name="state" value="" {{$admin['state']===0?'checked':''}}>
