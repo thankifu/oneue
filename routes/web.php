@@ -76,6 +76,16 @@ Route::namespace('Backend')->middleware(['auth.admin:admin','auth.menus'])->grou
 
 	Route::post('admin/product/specification/delete','Product@specificationDelete');
 
+	//用户管理
+	Route::get('admin/user/index','User@index');
+	Route::get('admin/user/add','User@add');
+	Route::post('admin/user/save','User@save');
+	Route::post('admin/user/delete','User@delete');
+	Route::get('admin/user/level/index','User@levelIndex');
+	Route::get('admin/user/level/add','User@levelAdd');
+	Route::post('admin/user/level/save','User@levelSave');
+	Route::post('admin/user/level/delete','User@levelDelete');
+
 	//上传
 	Route::post('admin/upload/index','Upload@index');
 

@@ -45,6 +45,14 @@
 .btn-secondary{color:#757575;background-color:#e9ecf0;border-color:#e9ecf0;}
 .btn-secondary:hover, .btn-secondary:active, .btn-secondary:focus{color:#757575;opacity:.8;}
 
+/*文本优化*/
+.text-muted{}
+.text-primary{}
+.text-success{color:#13ce66;}
+.text-info{}
+.text-warning{}
+.text-danger{}
+
 /* 标签优化 */
 .label{font-weight:normal;border:1px solid transparent;}
 .label-danger{color:#ff4949;background-color:rgba(255,73,73,.1);border-color:rgba(255,73,73,.2);}

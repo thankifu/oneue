@@ -37,7 +37,7 @@ function clearCookie(name,path) {
     setCookie(name, "", -1, path);
 }
 
-function starAddSpecification(){
+function starSpecificationAdd(){
 	var i = $(".star-table-specification tbody tr").length;
 	var html = '';
 	html += '<tr>';
@@ -56,13 +56,13 @@ function starAddSpecification(){
 		html += '<td><input class="form-control input-sm text-center" type="text" name="specifications['+i+'][quantity]" value="0" placeholder="" autocomplete="off" data-type="number"></td>';
 		html += '<td><input class="form-control input-sm text-center" type="text" name="specifications['+i+'][position]" value="0" placeholder="" autocomplete="off" data-type="number"></td>';
 		html += '<td>';
-			html += '<button type="button" class="btn btn-secondary btn-sm" onclick="starDeleteSpecification(this);">删除规格</button>';
+			html += '<button type="button" class="btn btn-secondary btn-sm" onclick="starSpecificationDelete(this);">删除规格</button>';
 			html += '<input type="hidden" name="specifications['+i+'][id]" value="0">';
 		html += '</td>';
 	html += '</tr>';
 	$(".star-table-specification tbody").append(html);
 }
-function starDeleteSpecification(object, id){
+function starSpecificationDelete(object, id){
 	if (id>0) {
         bootbox.confirm({
 			size: "small", 
@@ -467,6 +467,66 @@ function starCategorySave(type){
 	},'json');
 }
 
+//用户保存
+function starUserSave(){
+	var id = $.trim($('input[name="id"]').val());
+	var username = $.trim($('input[name="username"]').val());
+	var password = $.trim($('input[name="password"]').val());
+	if(username==''){
+		starToast('fail', '请输入用户名');
+		return;
+	}
+	if(id == 0 && password == ''){
+		starToast('fail', '请输入密码');
+		return;
+	}
+
+	var data = $('form').serialize();
+	var state = $('#state').is(':checked')?0:1;
+	data += '&state=' + state;
+
+	$.post(backend_path+'/user/save',data,function(res){
+		if(res.code === 200){
+			starToast('success', res.text);
+			setTimeout(function(){
+				parent.window.location.reload();
+			},1000);
+		}else{
+			starToast('fail', res.text);
+		}
+	},'json');
+}
+
+//用户等级保存
+function starUserLevelSave(){
+	var id = $.trim($('input[name="id"]').val());
+	var name = $.trim($('input[name="name"]').val());
+	var discount = $.trim($('input[name="discount"]').val());
+	if(name==''){
+		starToast('fail', '请输入等级名称');
+		return;
+	}
+	if(discount==''){
+		starToast('fail', '请输入等级折扣');
+		return;
+	}
+
+	var data = $('form').serialize();
+	var state = $('#state').is(':checked')?0:1;
+	data += '&state=' + state;
+
+	$.post(backend_path+'/user/level/save',data,function(res){
+		if(res.code === 200){
+			starToast('success', res.text);
+			setTimeout(function(){
+				parent.window.location.reload();
+			},1000);
+		}else{
+			starToast('fail', res.text);
+		}
+	},'json');
+}
+
 //图片上传
 function starPicture(place){
 	$('#upload_file').click();
@@ -525,6 +585,17 @@ $(document).ready(function() {
 		if (!pattern.test(value)) {
 	        $(this).val('0');
 	        return;
+	    }
+	});
+
+	$(document).on('blur','input[data-type="discount"]',function(){
+		var value = $(this).val();
+		var pattern = /^\d+(\.\d+)?$/;
+		if (!pattern.test(value)) {
+	        $(this).val('0.0');
+	    }else{
+	    	value = Number(value);
+	    	$(this).val(value.toFixed(1));
 	    }
 	});
 

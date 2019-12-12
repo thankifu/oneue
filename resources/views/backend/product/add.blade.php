@@ -103,7 +103,7 @@
 		<div class="form-group">
 			<label>规格：</label>
 			<div class="form-group star-mb-10">
-				<button type="button" class="btn btn-secondary btn-sm" onclick="starAddSpecification();">添加规格</button>
+				<button type="button" class="btn btn-secondary btn-sm" onclick="starSpecificationAdd();">添加规格</button>
 			</div>
 			<table class="table table-condensed table-hover star-table-specification">
 				<thead>
@@ -139,7 +139,7 @@
 						<td><input class="form-control input-sm text-center" type="text" name="specifications[{{$i}}][quantity]" value="{{$item['quantity']}}" autocomplete="off" data-type="number"></td>
 						<td><input class="form-control input-sm text-center" type="text" name="specifications[{{$i}}][position]" value="{{$item['position']}}" autocomplete="off" data-type="number"></td>
 						<td>
-							<button type="button" class="btn btn-secondary btn-sm" onclick="starDeleteSpecification(this, {{$item['id']}});">删除规格</button>
+							<button type="button" class="btn btn-secondary btn-sm" onclick="starSpecificationDelete(this, {{$item['id']}});">删除规格</button>
 							<input type="hidden" name="specifications[{{$i}}][id]" value="{{$item['id']}}">
 						</td>
 					</tr>

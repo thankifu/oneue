@@ -128,7 +128,7 @@ class Article extends Common
 		return view('backend.article.category.index',$data);
 	}
 
-	//添加修改分类
+	//分类添加修改
 	public function categoryAdd(Request $request){
 		$parent = (int)$request->parent;
 		$id = (int)$request->id;
@@ -137,7 +137,7 @@ class Article extends Common
 		return view('backend.article.category.add',$data);
 	}
 
-	// 保存菜单
+	//分类保存
 	public function categorySave(Request $request){
 		$id = (int)$request->id;
 		$data['name'] = trim($request->name);
@@ -167,6 +167,7 @@ class Article extends Common
 		$this->returnMessage(200,'保存成功');
 	}
 
+	//分类删除
 	public function categoryDelete(Request $request){
 		$id = (int)$request->id;
 		$has = Db::table('article_category')->where('id',$id)->item();

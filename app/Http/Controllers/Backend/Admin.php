@@ -73,11 +73,11 @@ class Admin extends Common
 		$data['phone'] = trim($request->phone);
 		$data['state']= (int)$request->state;
 
-		if($id == 0 && $password==''){
-			$this->returnMessage(400,'请输入密码');
-		}
 		if($id == 0 && !$username){
 			$this->returnMessage(400,'请输入用户名');
+		}
+		if($id == 0 && $password==''){
+			$this->returnMessage(400,'请输入密码');
 		}
 		if(!$data['group_id']){
 			$this->returnMessage(400,'请选择管理组');
@@ -94,8 +94,8 @@ class Admin extends Common
 			DB::table('admin')->where('id',$id)->update($data);
 			$log = '编辑管理员：'.$data['name'].'，ID：'.$id.'。';
 		}else{
-			$is = DB::table('admin')->where('username',$username)->item();
-			if($is){
+			$has = DB::table('admin')->where('username',$username)->item();
+			if($has){
 				$this->returnMessage(400,'用户已存在');
 			}
 			$data['created'] = time();
