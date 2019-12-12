@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('frontend/home/index');
 });
 
 // 后台登录
@@ -85,6 +85,13 @@ Route::namespace('Backend')->middleware(['auth.admin:admin','auth.menus'])->grou
 	Route::get('admin/user/level/add','User@levelAdd');
 	Route::post('admin/user/level/save','User@levelSave');
 	Route::post('admin/user/level/delete','User@levelDelete');
+
+	//订单管理
+	Route::get('admin/order/index','Order@index');
+	Route::get('admin/order/add','Order@add');
+	Route::post('admin/order/save','Order@save');
+	Route::post('admin/order/delete','Order@delete');
+	Route::get('admin/order/product','Order@product');
 
 	//上传
 	Route::post('admin/upload/index','Upload@index');
