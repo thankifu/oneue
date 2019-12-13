@@ -52,6 +52,8 @@ class Article extends Common
 		}
 
 		$data['article'] = Db::table('article')->where($where)->orderBy('id','desc')->item();
+		$data['article']['content'] = preg_replace( '#<img([^>]+?)src=[\'"]?([^\'"\s>]+)[\'"]?([^>]*)>#', sprintf( '<img${1}src="%s" data-original="${2}"${3}>', '/images/none.png' ), $data['article']['content'] );
+
 		//当前分类
 		$data['category'] = Db::table('article_category')->where('id',$data['article']['category_id'])->where('state',1)->select(['id','name'])->item();
 
