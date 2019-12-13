@@ -9,6 +9,7 @@
 <meta name="description" content="" />
 <link href="/packages/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <link href="/packages/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link href="/packages/swiper/css/swiper.min.css" rel="stylesheet" type="text/css" />
 <link href="/css/common.css" rel="stylesheet" type="text/css" />
 <link href="/css/frontend.css" rel="stylesheet" type="text/css" />
 </head>
@@ -59,40 +60,93 @@
 </div>
 
 <div class="container-fluid">
-    <div class="star-slides"></div>
-    <div class="star-floor container">
-        <div class="row">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <div class="pull-left">标题</div>
-                    <div class="pull-right">更多</div>
-                </div>
-                <div class="panel-body">
-                    <ul>
-                        <li class="col-md-2">1</li>
-                        <li class="col-md-2">1</li>
-                        <li class="col-md-2">1</li>
-                        <li class="col-md-2">1</li>
-                        <li class="col-md-2">1</li>
-                        <li class="col-md-2">1</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md-12">1111</div>
+    <div class="row star-slides">
+        <div class="swiper-container">
+            <ul class="list-unstyled swiper-wrapper">
+                <li class="swiper-slide">
+                    <a href="" style="background-image:url(https://www.oneue.com/images/slide-1.jpg);" title="">
+                        <div class="star-title">欢迎光临</div>
+                        <div class="star-content">精致生活、从ONEUE开始，给生活来一点不一样的色彩！</div>
+                    </a>
+                </li>
+            </ul>
+            <div class="swiper-pagination"></div>
         </div>
     </div>
-    <div class="star-floor container">
-        <div class="star-floor-hd row">
-            <div class="col-md-12">1111</div>
+    <div class="container star-floor">
+        <div class="clearfix star-hd">
+            <div class="pull-left">
+                <a href="/"><h2>新品上市</h2></a>
+            </div>
+            <div class="pull-right">
+                <a href="/">查看更多<span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span></a>
+            </div>
         </div>
-        <div class="star-floor-bd row">
-            <ul class="star-list-product">
-                <li class="col-md-2">1</li>
-                <li class="col-md-2">1</li>
-                <li class="col-md-2">1</li>
-                <li class="col-md-2">1</li>
-                <li class="col-md-2">1</li>
-                <li class="col-md-2">1</li>
+        <div class="row star-bd">
+            <ul class="list-unstyled star-list-product">
+                <li class="col-md-2">
+                    <a href="products/386.html" title="PHP 用户注册登录功能源码程序">
+                        <p class="star-image">
+                            <img src="https://img.starslabs.com/uploads/ea05ba640939b653/9d9032ad7ca2bb9b.jpg" data-original="" alt="PHP 用户注册登录功能源码程序"/>
+                            <span class="star-heart"><i class="fa fa-heart-o" aria-hidden="true"></i></span>
+                        </p>
+                        <p class="star-title">PHP 用户注册登录功能源码程序</p>
+                        <p class="star-price">
+                            <span class="star-normal"><i>¥</i><em>10.00</em></span>
+                            <span class="star-line-through"><i>¥</i><em>0.00</em></span>
+                        </p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container star-floor">
+        <div class="clearfix star-hd">
+            <div class="pull-left">
+                <a href="/"><h2>新品上市</h2></a>
+            </div>
+            <div class="pull-right">
+                <a href="/">查看更多<span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span></a>
+            </div>
+        </div>
+        <div class="row star-bd">
+            <ul class="list-unstyled star-list-article">
+                <li class="col-md-4">
+                    <a href="articles/252.html" title="Prada x Midori 推出限量系列">
+                        <p class="star-image">
+                            <img src="https://img.starslabs.com/uploads/f5135aaf84b693b8/64651bf0a9776a1d.jpg?x-oss-process=image/resize,m_fill,w_600,h_320" data-original="" alt="Prada x Midori 推出限量系列" />
+                            <span class="star-heart"><i class="fa fa-heart-o" aria-hidden="true"></i></span>
+                            <span class="star-views"><i class="fa fa-eye" aria-hidden="true"></i>1</span>
+                        </p>
+                        <p class="star-title">Prada x Midori 推出限量系列</p>
+                        <p class="star-conte">各种跨界联乘在现今的时尚圈已经屡见不鲜，不过 Prada 稍早所宣布，与来自日本的文具品牌 Midori（ミドリ）所推出的文具系…</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container star-floor">
+        <div class="clearfix star-hd">
+            <div class="pull-left">
+                <a href="/"><h2>新品上市</h2></a>
+            </div>
+            <div class="pull-right">
+                <a href="/">查看更多<span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span></a>
+            </div>
+        </div>
+        <div class="row star-bd">
+            <ul class="list-unstyled star-list-special">
+                <li class="col-md-4">
+                    <a href="specials/6.html" title="七夕">
+                        <p class="star-image">
+                            <img src="https://img.starslabs.com/uploads/0000000000000old/o_1cioho36gcmg6nv1v6acsu1ijrp.jpg?x-oss-process=image/resize,m_fill,w_600,h_243" data-original="" alt="七夕" />
+                        </p>
+                        <p class="star-title">七夕</p>
+                        <p class="star-mask"></p>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
@@ -149,9 +203,18 @@
 <script type="text/javascript" src="/js/jquery.min.js"></script>
 <script type="text/javascript" src="/packages/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/packages/bootbox/bootbox.min.js"></script>
+<script type="text/javascript" src="/packages/swiper/js/swiper.min.js"></script>
 <script type="text/javascript" src="/js/common.js"></script>
 <script type="text/javascript">
+    var mySwiper1 = new Swiper ('.star-slides .swiper-container', {
+        direction: 'horizontal', // 垂直切换选项
+        loop: true, // 循环模式选项
     
+        // 如果需要分页器
+        pagination: {
+        el: '.swiper-pagination',
+        },
+    });
 </script>
 </body>
 </html>

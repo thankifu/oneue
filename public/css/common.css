@@ -43,6 +43,8 @@ body{-moz-transition: all .5s ease;-o-transition:all .5s ease;-webkit-transition
 .star-text-left{text-align:left !important;}
 .star-text-right{text-align:right !important;}
 .star-text-center{text-align:center !important;}
+.star-font-18{font-size:18px !important;}
+.star-font-20{font-size:20px !important;}
 .star-font-20{font-size:20px !important;}
 .star-line-30{height:30px;line-height:30px;}
 ::-webkit-scrollbar{width:3px;height:3px;}
