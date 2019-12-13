@@ -11,9 +11,13 @@
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('frontend/home/index');
-});
+});*/
+Route::get('/', 'Frontend\Home@index');
+Route::get('/article', 'Frontend\Article@index');
+Route::get('/article/list/{id}.html', 'Frontend\Article@list');
+Route::get('/article/item/{id}.html', 'Frontend\Article@item');
 
 // 后台登录
 Route::get('admin', 'Backend\Account@showLogin')->name('admin.login');

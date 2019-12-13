@@ -176,6 +176,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         // 数据库扩展方法
         App\Providers\DbServiceProvider::class,
+        // 视图扩展方法
+        App\Providers\ViewServiceProvider::class,
 
     ],
 
