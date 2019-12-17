@@ -28,6 +28,8 @@ class Order extends Common
 
         $user_id = auth()->user()->id;
 
+        $payment_type = trim($request->payment);
+
         $checkout = Db::table('checkout')->where(array(['user_id', $user_id],['state', 1]))->item();
         $checkout_product = Db::table('checkout_product')->where(array(['checkout_id', $checkout['id']],['state', 1]))->lists();
 
@@ -75,7 +77,7 @@ class Order extends Common
         $data['address_name'] = $user_address['name'];
         $data['address_phone'] = $user_address['phone'];
         $data['address_content'] = $user_address['content'];
-        $data['payment_type'] = '';
+        $data['payment_type'] = $payment_type;
         $data['created'] = time();
         $data['modified'] = time();
         $data['state'] = 1;

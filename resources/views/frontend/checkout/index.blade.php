@@ -16,7 +16,7 @@
                     <dl>
                         <dt>收货地址</dt>
                         <dd>
-                            <a href="">
+                            <a href="javascript:void(0);" onclick="starAddressSelect();">
                                 <div class="star-text">
                                     <p><span class="star-name">{{$address['name']}}</span><span class="star-phone">{{$address['phone']}}</span></p>
                                     <p>{{$address['content']}}</p>
@@ -107,20 +107,19 @@
 
             <div class="star-payments">
                 <div class="star-bd">
-                    <dl data-payment="">
-                        <dt><i class="fa fa-circle" aria-hidden="true"></i><span>支付宝支付</span><img src="https://www.oneue.com/wp-content/plugins/xh-alipay-for-wc-2x/images/logo.png"></dt>
+                    <dl class="star-current" data-payment="alipay" onclick="starPaymentType(this);">
+                        <dt><i class="glyphicon glyphicon-record" aria-hidden="true"></i><span>支付宝</span><img src="/images/star-logo-alipay.png"></dt>
                         <dd>熟悉的支付宝，安全的保证，你懂的。</dd>
                     </dl>
-                    <dl data-payment="" class="current">
-                        <dt><i class="fa fa-check-circle" aria-hidden="true"></i><span>微信支付</span><img src="https://www.oneue.com/wp-content/plugins/xh-weixinpay-for-wc-hb-2x/images/logo.png"></dt>
+                    <dl data-payment="wxpay" onclick="starPaymentType(this);">
+                        <dt><i class="glyphicon glyphicon-record" aria-hidden="true"></i><span>微信支付</span><img src="/images/star-logo-wxpay.png"></dt>
                         <dd>熟悉的微信，快捷的支付，你懂的。</dd>
                     </dl>
                     
                 </div>
             </div>
             
-            <div class="actions">
-                <a href="javascript:void(0);" class="placeorder" data-payment=""></a>
+            <div class="star-actions">
                 <button type="button" class="btn btn-lg btn-block btn-primary" onclick="starPlaceOrder();">下　单</button>
             </div>
 
@@ -134,10 +133,19 @@
 
 @section('script')
 <script type="text/javascript">
+    function starAddressSelect(){
+        window.location.href = '/user/address?redirect_url='+encodeURI(window.location.href);
+    }
+    function starPaymentType(object){
+        $(object).addClass("star-current").siblings().removeClass("star-current");
+        var payment = $(object).attr('data-payment');
+        $('.actions button').attr('data-payment', payment);
+    };
     function starPlaceOrder(){
         starToast('loading', '请稍后...', 0);
         var data = new Object();
         data._token = $('input[name="_token"]').val();
+        data.payment = $('.actions button').attr('data-payment');
 
         $.post('/order/create',data,function(res){
             if(res.code === 200){
@@ -149,7 +157,10 @@
                 starToast('fail', res.text);
             }
         },'json');
-
     };
+
+    $(window).load(function(){
+        $('.actions button').attr('data-payment', $('.star-payments .star-bd').find('.star-current').attr('data-payment'));
+    });
 </script>
 @endsection

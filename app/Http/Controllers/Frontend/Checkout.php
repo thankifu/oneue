@@ -201,7 +201,22 @@ class Checkout extends Common
 	}
 
 	public function address(Request $request){
+		$id = (int)$request->id;
+		$user_id = auth()->user()->id;
+		if(!$id){
+			$this->returnMessage(400,'参数错误');
+		}
+		$user_address = Db::table('user_address')->where(array(['id', $id],['user_id',$user_id]))->item();
+		if(!$user_address){
+			$this->returnMessage(400,'地址不存在');
+		}
 
+		$data['address_id'] = $id;
+		$result = Db::table('checkout')->where(array(['user_id', $user_id]))->update($data);
+		if(!$result){
+			$this->returnMessage(400,'结算中已是当前地址');
+		}
+		$this->returnMessage(200,'地址修改成功');
 	}
 
 	/*public function create(Request $request){

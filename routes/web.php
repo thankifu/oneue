@@ -38,24 +38,26 @@ Route::namespace('Frontend')->middleware('auth')->group(function () {
 	Route::post('cart/delete', 'Cart@delete');
 
 	Route::get('checkout', 'Checkout@index');
-	Route::post('checkout/create', 'Checkout@create'); //创建
-	Route::post('checkout/address', 'Checkout@address'); //修改地址
+	Route::post('checkout/create', 'Checkout@create');
+	Route::post('checkout/address', 'Checkout@address');
 	Route::post('checkout/store', 'Checkout@store');
 
-	//Route::get('order', 'Order@index');
 	Route::post('order/create', 'Order@create'); //创建
 
 	Route::post('payment', 'Payment@index');
 
 	Route::get('user', 'User@index');
 	Route::get('user/setting', 'User@setting');
-	Route::get('user/setting/username', 'User@username');
-	Route::get('user/setting/password', 'User@password');
-	Route::get('user/setting/phone', 'User@phone');
+	Route::get('user/username', 'User@username');
+	Route::get('user/password', 'User@password');
+	Route::get('user/phone', 'User@phone');
+	Route::post('user/password/store', 'User@passwordStore');
+	Route::post('user/phone/check', 'User@phoneStore');
+	Route::post('user/phone/store', 'User@phoneStore');
 
-	Route::get('user/address/list', 'User@addressList');
-	Route::get('user/address/item/{id}', 'User@addressItem');
-	Route::post('user/address', 'User@address');
+	Route::get('user/address', 'User@address');
+	Route::get('user/address/{id}', 'User@addressItem');
+	Route::post('user/address/store', 'User@addressStore');
 
 	Route::get('user/favorite', 'User@favorite');
 
