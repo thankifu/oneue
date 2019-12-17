@@ -38,7 +38,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="#">资料修改</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="/admin/logout">退出</a></li>
+                        <li><a href="javascript:void(0)" onclick="logout();">退出</a>{{csrf_field()}}</li>
                     </ul>
                 </li>
             </ul>

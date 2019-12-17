@@ -18,24 +18,24 @@
     <div class="container star-floor">
         <div class="clearfix star-hd">
             <div class="pull-left">
-                <a href="/product"><h2>商品</h2></a>
+                <a href="{{route('product')}}"><h2>商品</h2></a>
             </div>
             <div class="pull-right">
-                <a href="/product">查看更多<span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span></a>
+                <a href="{{route('product')}}">查看更多<span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span></a>
             </div>
         </div>
         <div class="row star-bd">
             <ul class="list-unstyled star-list-product">
                 @foreach($product as $item)
-                <li class="col-md-2">
-                    <a href="{{$item['id']}}" title="{{$item['name']}}">
+                <li class="col-md-2 col-xs-6">
+                    <a href="{{route('product.item',$item['id'])}}" title="{{$item['name']}}">
                         <p class="star-image">
                             <img src="/images/none.png" data-original="{{$item['picture']}}?x-oss-process=image/resize,m_fill,w_600,h_600" alt="{{$item['name']}}"/>
                             <span class="star-heart"><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></span>
                         </p>
                         <p class="star-title">{{$item['name']}}</p>
                         <p class="star-price">
-                            <span class="star-normal"><i>¥</i><em>{{$item['selling']}}</em></span>
+                            <span class="star-normal"><i>¥</i><em>{{$item['price']}}</em></span>
                             <span class="star-line-through"><i>¥</i><em>{{$item['market']}}</em></span>
                         </p>
                     </a>
@@ -48,17 +48,17 @@
     <div class="container star-floor">
         <div class="clearfix star-hd">
             <div class="pull-left">
-                <a href="/article"><h2>图文</h2></a>
+                <a href="{{route('article')}}"><h2>图文</h2></a>
             </div>
             <div class="pull-right">
-                <a href="/article">查看更多<span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span></a>
+                <a href="{{route('article')}}">查看更多<span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span></a>
             </div>
         </div>
         <div class="row star-bd">
             <ul class="list-unstyled star-list-article">
                 @foreach($article as $item)
                 <li class="col-md-4">
-                    <a href="/article/item/{{$item['id']}}.html" title="{{$item['title']}}">
+                    <a href="{{route('article.item',$item['id'])}}" title="{{$item['title']}}">
                         <p class="star-image">
                             <img src="/images/none.png" data-original="{{$item['picture']}}?x-oss-process=image/resize,m_fill,w_600,h_320" alt="{{$item['title']}}" />
                             <span class="star-heart"><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></span>
@@ -73,29 +73,6 @@
         </div>
     </div>
 
-    <div class="container star-floor">
-        <div class="clearfix star-hd">
-            <div class="pull-left">
-                <a href="/special"><h2>专题</h2></a>
-            </div>
-            <div class="pull-right">
-                <a href="/special">查看更多<span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span></a>
-            </div>
-        </div>
-        <div class="row star-bd">
-            <ul class="list-unstyled star-list-special">
-                <li class="col-md-4">
-                    <a href="specials/6.html" title="七夕">
-                        <p class="star-image">
-                            <img src="https://img.starslabs.com/uploads/0000000000000old/o_1cioho36gcmg6nv1v6acsu1ijrp.jpg?x-oss-process=image/resize,m_fill,w_600,h_243" data-original="" alt="七夕" />
-                        </p>
-                        <p class="star-title">七夕</p>
-                        <p class="star-mask"></p>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
 </div>
 <!-- <div class="star-main">
     <div class="floor container">

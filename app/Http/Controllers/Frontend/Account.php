@@ -12,18 +12,15 @@
 * RELEASED ON: 2019.11.15
 * ----------------------------------------------------------------------
 */
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers\Frontend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 
 class Account extends Common
 {
-	use AuthenticatesUsers;
-
-	protected $table = 'admin';
 
     /**
      * Create a new controller instance.
@@ -33,61 +30,71 @@ class Account extends Common
     public function __construct()
     {
         //$this->middleware('guest:admin')->except('logout');
-        $this->middleware('guest.admin')->except('logout');
+        $this->middleware('guest')->except('logout');
     }
 
-	protected function guard()
-    {
-        return auth()->guard('admin');
-    }
-
-    // 登录首页
+    //登录页
     public function showLogin(){
-        return view('backend.account.login');
+        return view('frontend.account.login');
     }
 
-    // 登录验证
+    //登录验证
     public function login(Request $request){
         $username = trim($request->username);
         $password = trim($request->password);
 
-        $res = $this->guard()->attempt(
-            ['username' =>$username, 'password' => $password]
+        /*// 验证用户名登录方式
+        $usernameLogin = Auth::attempt(
+            ['username' => $username, 'password' => $password], $request->has('remember')
         );
+        if ($usernameLogin) {
+            return true;
+        }
+        // 验证手机号登录方式
+        $mobileLogin = Auth::attempt(
+            ['mobile' => $username, 'password' => $password], $request->has('remember')
+        );
+        if ($mobileLogin) {
+            return true;
+        }
+
+        // 验证邮箱登录方式
+        $emailLogin = Auth::attempt(
+            ['email' => $username, 'password' => $password], $request->has('remember')
+        );
+        if ($emailLogin) {
+            return true;
+        }*/
+
+        $res = Auth::attempt(
+            ['username' =>$username, 'password' => $password, 'state'=>1], $request->has('remember')
+        );
+
         if(!$res){
-            //exit(json_encode(array('code'=>1,'msg'=>'登录失败')));
             $this->returnMessage(400,'登录失败');
         }
         // 更新登录ip、时间
-        Db::table('admin')->where(array('username'=>$username))->update(array('logined_ip'=>$request->getClientIp(),'logined'=>time()));
+        Db::table('user')->where(array('username'=>$username))->update(array('logined_ip'=>$request->getClientIp(),'logined'=>time()));
 
-        $this->log('登录系统。');
+        //$this->log('登录系统。');
 
         echo json_encode(array('code'=>200,'text'=>'登录成功'));
     }
 
-    /**
-     * 后台管理员退出跳转到后台登录页面
-     * Log the user out of the application.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function logout(Request $request)
+    //退出
+    public function logout()
     {
-        /*$this->guard()->logout();
-
-        $request->session()->invalidate();
-
-        return redirect('/admin');*/
-
-        if($this->guard()->check()){
-            $this->guard()->logout();
+        if(Auth::check()){
+            Auth::logout();  //退出登录
         }
         echo json_encode(array('code'=>200,'text'=>'退出成功'));
-        
     }
 
+    /*public function checkName($name){
+        $is_name = ;
+        $is_email = ;
+        $is_phone = ;
+    }*/
     
 
 }

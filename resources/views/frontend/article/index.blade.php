@@ -18,7 +18,7 @@
 		<ul class="clearfix list-unstyled star-list-article">
             @foreach($lists as $item)
             <li class="col-md-4">
-                <a href="/article/item/{{$item['id']}}.html" title="{{$item['title']}}">
+                <a href="{{route('article.item',$item['id'])}}" title="{{$item['title']}}">
                     <p class="star-image">
                         <img src="/images/none.png" data-original="{{$item['picture']}}?x-oss-process=image/resize,m_fill,w_600,h_320" alt="{{$item['title']}}" />
                         <span class="star-heart"><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></span>

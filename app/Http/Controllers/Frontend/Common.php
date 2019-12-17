@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\DB;
 
 class Common extends Controller
 {
-    public function __construct(Request $request){
+    public function __construct(){
         
     }
 
@@ -37,5 +37,26 @@ class Common extends Controller
         $return_data['data'] = $data;
         echo json_encode($return_data);
         die;
+    }
+
+    public function getUserDiscount(){
+        if(!auth()->user()){
+            return 1;
+            exit();
+        }
+        $user_level = auth()->user()->level;
+        $user_discount = Db::table('user_level')->select(['discount'])->where('id', $user_level)->item();
+        $user_discount = $user_discount['discount'];
+        $result = number_format(floatval($user_discount) / 10, 2, '.', '');
+        return $result;
+    }
+
+    public function getProductPrice($price, $discount = 1){
+        if(!auth()->user()){
+            return $price;
+            exit();
+        }   
+        $result = number_format(floatval($price) * $discount, 2, '.', '');
+        return $result;
     }
 }

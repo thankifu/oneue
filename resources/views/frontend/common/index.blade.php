@@ -13,7 +13,7 @@
 </head>
 <body class="">
 
-<div class="star-header navbar navbar-default">
+<div class="navbar navbar-default star-header">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#star-header-collapse" aria-expanded="false">
@@ -35,7 +35,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">图文 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         @foreach($_article_category as $item)
-                        <li><a href="/article/list/{{$item['id']}}.html">{{$item['name']}}</a></li>
+                        <li><a href="/article/category/{{$item['id']}}">{{$item['name']}}</a></li>
                         @endforeach
                     </ul>
                 </li>
@@ -43,10 +43,21 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">商品 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         @foreach($_product_category as $item)
-                        <li><a href="/product/list/{{$item['id']}}.html">{{$item['name']}}</a></li>
+                        <li><a href="/product/category/{{$item['id']}}">{{$item['name']}}</a></li>
                         @endforeach
                     </ul>
                 </li>
+                @if(auth()->check()) 
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">我的 <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/user">{{$_user['username']}}</a></li>
+                        <li><a href="javascript:void(0);" onclick="logout();">退出</a>{{csrf_field()}}</li>
+                    </ul>
+                </li>
+                @else
+                <li><a href="javascript:void(0);" onclick="starGotoLogin();">登录</a></li>
+                @endif
             </ul>
             <form class="navbar-form">
                 <div class="form-group">
@@ -55,8 +66,8 @@
                 <button type="submit" class="btn btn-default"><i class="fa fa-search hidden-xs" aria-hidden="true"></i><span class="hidden-sm hidden-md hidden-lg">搜索</span></button>
             </form>
             <div class="star-header-cart hidden-xs">
-                <a href="/cart.html">
-                    <span class="star-count">0</span>
+                <a href="javascript:void(0);" onclick="starGotoCart();">
+                    <span class="star-count">{{$_cart['count']}}</span>
                     <span class="star-icon glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
                 </a>
             </div>

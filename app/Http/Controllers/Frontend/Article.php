@@ -26,7 +26,7 @@ class Article extends Common
 		return view('frontend.article.index', $data);
 	}
 
-	public function list(Request $request){
+	public function category(Request $request){
     	$id = (int)$request->id;
 
     	$where = [];

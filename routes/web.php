@@ -15,14 +15,67 @@
     return view('frontend/home/index');
 });*/
 Route::get('/', 'Frontend\Home@index');
-Route::get('/article', 'Frontend\Article@index');
-Route::get('/article/list/{id}.html', 'Frontend\Article@list');
-Route::get('/article/item/{id}.html', 'Frontend\Article@item');
+
+Route::get('login', 'Frontend\Account@showLogin')->name('login');
+Route::post('login', 'Frontend\Account@login')->middleware('throttle:5,1');
+Route::post('logout', 'Frontend\Account@logout')->name('logout');
+Route::get('register', 'Frontend\Account@showRegister')->name('register');
+Route::post('register', 'Frontend\Account@register')->middleware('throttle:5,1');
+
+Route::get('article', 'Frontend\Article@index')->name('article');
+Route::get('article/category/{id}', 'Frontend\Article@category')->name('article.category');
+Route::get('article/{id}', 'Frontend\Article@item')->name('article.item');
+
+Route::get('product', 'Frontend\Product@index')->name('product');
+Route::get('product/category/{id}', 'Frontend\Product@category')->name('product.category');
+Route::get('product/{id}', 'Frontend\Product@item')->name('product.item');
+
+Route::namespace('Frontend')->middleware('auth')->group(function () {
+	Route::get('cart', 'Cart@index');
+	Route::post('cart/create', 'Cart@create');
+	Route::post('cart/increment', 'Cart@increment');
+	Route::post('cart/decrement', 'Cart@decrement');
+	Route::post('cart/delete', 'Cart@delete');
+
+	Route::get('checkout', 'Checkout@index');
+	Route::post('checkout/create', 'Checkout@create'); //创建
+	Route::post('checkout/address', 'Checkout@address'); //修改地址
+	Route::post('checkout/store', 'Checkout@store');
+
+	//Route::get('order', 'Order@index');
+	Route::post('order/create', 'Order@create'); //创建
+
+	Route::post('payment', 'Payment@index');
+
+	Route::get('user', 'User@index');
+	Route::get('user/setting', 'User@setting');
+	Route::get('user/setting/username', 'User@username');
+	Route::get('user/setting/password', 'User@password');
+	Route::get('user/setting/phone', 'User@phone');
+
+	Route::get('user/address/list', 'User@addressList');
+	Route::get('user/address/item/{id}', 'User@addressItem');
+	Route::post('user/address', 'User@address');
+
+	Route::get('user/favorite', 'User@favorite');
+
+	Route::get('user/order/list', 'User@orderList');
+	Route::get('user/order/item/{id}', 'User@orderItem');
+	Route::get('user/order/queren', 'User@orderQueren');
+
+	
+	/*Route::post('favorite', 'Action@favorite');
+	Route::post('cart', 'Action@cart');
+	Route::post('checkout', 'Action@checkout');
+	Route::post('order', 'Action@order');
+	Route::post('payment', 'Action@payment');*/
+
+});
 
 // 后台登录
 Route::get('admin', 'Backend\Account@showLogin')->name('admin.login');
 Route::post('admin/login', 'Backend\Account@Login')->middleware('throttle:5,1');
-Route::get('admin/logout', 'Backend\Account@logout')->name('admin.logout');
+Route::post('admin/logout', 'Backend\Account@logout')->name('admin.logout');
 
 // 后台管理
 Route::namespace('Backend')->middleware(['auth.admin:admin','auth.menus'])->group(function () {
@@ -51,10 +104,6 @@ Route::namespace('Backend')->middleware(['auth.admin:admin','auth.menus'])->grou
 	Route::get('admin/setting/index','Setting@index');
 	Route::get('admin/setting/annex','Setting@annex');
 	Route::post('admin/setting/save','Setting@save');
-
-	// 后台首页
-	Route::get('admin/test/index', 'Test@index');
-	Route::get('admin/test/admin','Test2@index');
 
 	//文章管理
 	Route::get('admin/article/index','Article@index');

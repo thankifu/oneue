@@ -14,6 +14,22 @@
 
 var backend_path = '/admin';
 
+//退出
+function logout(){
+	var data = new Object();
+    data._token = $('input[name="_token"]').val();
+	$.post(backend_path+'/logout',data,function(res){
+		if(res.code === 200){
+			starToast('success', res.text);
+			setTimeout(function(){
+				window.location.href = '/admin'
+			},1000);
+		}else{
+			starToast('fail', res.text);
+		}
+	},'json');
+}
+
 function starSpecificationAdd(){
 	var i = $(".star-table-specification tbody tr").length;
 	var html = '';

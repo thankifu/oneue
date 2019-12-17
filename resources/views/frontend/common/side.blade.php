@@ -11,7 +11,7 @@
                         </p>
                         <p class="star-title">{{$item['name']}}</p>
                         <p class="star-price">
-                            <span class="star-normal"><i>¥</i><em>{{$item['selling']}}</em></span>
+                            <span class="star-normal"><i>¥</i><em>{{$item['price']}}</em></span>
                             <span class="star-line-through"><i>¥</i><em>{{$item['market']}}</em></span>
                         </p>
                     </a>
@@ -32,7 +32,7 @@
                         <img class="media-object img-rounded" src="https://img.starslabs.com/uploads/4b7250bd61c3fff3/a22b3a0adaaa1291.jpg?x-oss-process=image/resize,m_fill,w_80,h_80" alt="...">
                     </div>
                     <div class="media-body">
-                        <p>{{$article['title']}}{{$article['title']}}</p>
+                        <p>1111</p>
                         <p>¥ 55.00</p>
                     </div>
                 </a>

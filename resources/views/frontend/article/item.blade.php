@@ -11,7 +11,9 @@
         <li><a href="/">首页</a></li>
         <li><a href="/article">图文</a></li>
         @if(isset($category))
-        <li><a href="/article/list/{{$category['id']}}.html">{{$category['name']}}</a></li>
+        @if(!empty($category))
+        <li><a href="/article/category/{{$category['id']}}">{{$category['name']}}</a></li>
+        @endif
         <li class="active">{{$article['title']}}</li>
         @endif
     </ol>

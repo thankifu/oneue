@@ -34,9 +34,9 @@ body{-moz-transition: all .5s ease;-o-transition:all .5s ease;-webkit-transition
 .star-mb-25{margin-bottom:25px;}
 .star-mb-30{margin-bottom:30px;}
 .star-mnr{margin-right:0 !important;}
-.star-red{color:#ff4954;}
-.star-green{color:#3cd458;}
-.star-orange{color:#f44236;}
+.star-red{color:#ff4954 !important;}
+.star-green{color:#3cd458 !important;}
+.star-orange{color:#f44236 !important;}
 .star-blue{color:#09c}
 .star-gray{color:#f5f5f5;}
 .star-bg-gray{background:#f5f5f5;}

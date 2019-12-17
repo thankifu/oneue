@@ -18,21 +18,15 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
-class Home extends Common
+class User extends Common
 {
     //
     public function index(Request $request){
-    	$discount = $this->getUserDiscount();
-
-		$data['product'] = Db::table('product')->orderBy('id','desc')->limit('6')->lists();
-		foreach ($data['product'] as $key => $value) {
-			$price  = $this->getProductPrice($data['product'][$key]['selling'], $discount);
-			$data['product'][$key]['price'] = $price;
-		}
-		
-        $data['article'] = Db::table('article')->orderBy('id','desc')->limit('6')->lists();
-        
-		return view('frontend.home.index', $data);
+    	$data = [];
+		//$data = Db::table('article')->where('state', 1)->orderBy('id','desc')->pages('', 12);
+		return view('frontend.user.index', $data);
 	}
+
+	
 
 }
