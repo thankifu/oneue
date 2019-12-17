@@ -105,6 +105,7 @@
         });
         starCartTotal();
     });
+    
     function starCheckout(){
         starToast('loading', '请稍后...', 0);
         var data = new Object();
@@ -124,24 +125,42 @@
     };
 
     function starCartDelete(object){
-        starToast('loading', '请稍后...', 0);
-        var thisLi = $(object).parents("dd:eq(0)");
-        var data = new Object();
-        data._token = $('input[name="_token"]').val();
-        data.product = $(object).parent().parent().attr("data-product");
-        data.specification = $(object).parent().parent().attr("data-specification");
+        bootbox.confirm({
+            size: "small", 
+            message: "确认要删除吗？",
+            buttons: {
+                cancel: {
+                    label: '取消',
+                    className: 'btn-secondary'
+                },
+                confirm: {
+                    label: '确认'
+                }
+            },
+            callback: function (result) {
+                if(result){
+                    starToast('loading', '请稍后...', 0);
+                    var thisLi = $(object).parents("dd:eq(0)");
+                    var data = new Object();
+                    data._token = $('input[name="_token"]').val();
+                    data.product = $(object).parent().parent().attr("data-product");
+                    data.specification = $(object).parent().parent().attr("data-specification");
 
-        $.post('/cart/delete',data,function(res){
-            if(res.code === 200){
-                bootbox.hideAll();
-                thisLi.remove();
-                starToast('success', res.text);
-                return false;
-            }else{
-                bootbox.hideAll();
-                starToast('fail', res.text);
+                    $.post('/cart/delete',data,function(res){
+                        if(res.code === 200){
+                            bootbox.hideAll();
+                            thisLi.remove();
+                            starToast('success', res.text);
+                            return false;
+                        }else{
+                            bootbox.hideAll();
+                            starToast('fail', res.text);
+                        }
+                    },'json');
+                }
             }
-        },'json');
+        });
+        
     };
 
     function starCartIncrement(object){

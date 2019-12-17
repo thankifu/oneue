@@ -12,25 +12,6 @@
 
         <li>
             <a href="">
-                <span class="star-hd">用户名</span>
-                <span class="star-bd">
-                    <span class="star-text">{{$user['username']}}</span>
-                    <span class="star-arrow"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></span>  
-                </span>
-            </a>
-        </li>
-
-        <li>
-            <a href="">
-                <span class="star-hd">收货地址</span>
-                <span class="star-bd">
-                    <span class="star-arrow"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></span>  
-                </span>
-            </a>
-        </li>
-
-        <li>
-            <a href="">
                 <span class="star-hd">手机</span>
                 <span class="star-bd">
                     <span class="star-arrow"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></span>  
@@ -50,6 +31,15 @@
         <li>
             <a href="">
                 <span class="star-hd">密码</span>
+                <span class="star-bd">
+                    <span class="star-arrow"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></span>  
+                </span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/user/address">
+                <span class="star-hd">收货地址</span>
                 <span class="star-bd">
                     <span class="star-arrow"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></span>  
                 </span>

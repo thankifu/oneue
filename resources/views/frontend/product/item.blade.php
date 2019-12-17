@@ -69,7 +69,7 @@
                 @endif
                 </div>
 
-
+            @if($product['state'] != 0 && $product['quantity'] != 0)
                 <div class="clearfix star-meta star-meta-volume">
                     <div class="star-meta-hd">销量</div>
                     <div class="star-meta-bd">
@@ -139,6 +139,7 @@
                         </div>
                     </div>
                 </div>
+            @endif
 
                 <div class="clearfix star-actions">
                 @if($product['state'] != 0 && $product['quantity'] != 0)
