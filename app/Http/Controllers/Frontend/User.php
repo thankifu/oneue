@@ -37,6 +37,7 @@ class User extends Common
 
 	public function setting(Request $request){
     	$data = [];
+    	$data['user'] = auth()->user();
 		return view('frontend.user.setting', $data);
 	}
 
@@ -81,6 +82,43 @@ class User extends Common
 			$res = Db::table('user_address')->insertGetId($data);
 		}
 		$this->returnMessage(200,'保存成功');
+	}
+
+	public function order(Request $request){
+		$user = auth()->user();
+
+    	$data = Db::table('order')->where(array(['user_id', $user['id']]))->orderBy('id','desc')->pages();
+
+    	$order_id = array_column($data['lists'], 'id');
+    	$products = Db::table('order_product')->whereIn('order_id', $order_id)->lists();
+
+    	foreach ($data['lists'] as &$value) {
+            list($value['products']) = [[]];
+            foreach ($products as $product) {
+            	if ($product['order_id'] === $value['id']) {
+            		array_push($value['products'], $product);
+            	}
+            }
+        }
+        $data['user'] = $user;
+        
+        /*print_r($orders);
+        exit();*/
+		return view('frontend.user.order.index', $data);
+	}
+
+	public function orderItem(Request $request){
+		$id = (int)$request->id;
+
+		$data['user'] = auth()->user();
+		$data['order'] = Db::table('order')->where(array(['id', $id],['user_id', $data['user']['id']]))->orderBy('id','desc')->item();
+		$data['products'] = Db::table('order_product')->where(array(['order_id', $data['order']['id']]))->orderBy('id','desc')->lists();
+
+		if(!$data['order']){
+			return redirect('/user/order');
+		}
+
+		return view('frontend.user.order.item', $data);
 	}
 
 }

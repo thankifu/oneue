@@ -62,7 +62,7 @@ class Product extends Common
     	$discount = $this->getUserDiscount();
 
     	$where = [];
-    	$where[] = ['state', '=', 1];
+    	//$where[] = ['state', '=', 1];
 		if(isset($request->id)){
 			$where[] = ['id', '=', $id];
 		}

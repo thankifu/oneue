@@ -15,7 +15,7 @@
                 <div class="star-bd">
                     @if($cart)
                     <dl>
-                        <dt>
+                        <dt class="hidden-sm hidden-xs">
                             <span>商品信息</span>
                             <span>价格</span>
                             <span>数量</span>

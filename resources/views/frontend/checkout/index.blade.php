@@ -46,7 +46,7 @@
                 <div class="star-bd">
                     @if($products)
                     <dl>
-                        <dt>
+                        <dt class="hidden-sm hidden-xs">
                             <span>商品信息</span>
                             <span>价格</span>
                             <span>数量</span>
@@ -151,6 +151,7 @@
             if(res.code === 200){
                 bootbox.hideAll();
                 //window.location.href = '/checkout';
+                starToast('loading', '支付开发中', 0);
                 return false;
             }else{
                 bootbox.hideAll();
