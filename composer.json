@@ -1,8 +1,9 @@
 {
-    "name": "laravel/laravel",
+    "name": "oneue",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "A simple shopping website.",
     "keywords": [
+        "oneue",
         "framework",
         "laravel"
     ],
