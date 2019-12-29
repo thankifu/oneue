@@ -30,6 +30,8 @@ Route::get('product', 'Frontend\Product@index')->name('product');
 Route::get('product/category/{id}', 'Frontend\Product@category')->name('product.category');
 Route::get('product/{id}', 'Frontend\Product@item')->name('product.item');
 
+Route::any('wechat', 'Frontend\Wechat@serve');
+
 Route::namespace('Frontend')->middleware('auth')->group(function () {
 	Route::get('cart', 'Cart@index');
 	Route::post('cart/create', 'Cart@create');
@@ -103,8 +105,10 @@ Route::namespace('Backend')->middleware(['auth.admin:admin','auth.menus'])->grou
 	Route::post('admin/menu/save','Menu@save');
 	Route::post('admin/menu/delete','Menu@delete');
 
+	//设置管理
 	Route::get('admin/setting/index','Setting@index');
 	Route::get('admin/setting/annex','Setting@annex');
+	Route::get('admin/setting/wechat','Setting@wechat');
 	Route::post('admin/setting/save','Setting@save');
 
 	//文章管理

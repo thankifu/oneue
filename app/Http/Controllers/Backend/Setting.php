@@ -24,25 +24,20 @@ class Setting extends Common
 {
     //网站设置
 	public function index(){
-		$data = $this->_getSeting('site');
+		$data = $this->getSeting('site');
 		return view('backend/setting/index',$data);
 	}
 
 	//附件设置
 	public function annex(){
-		$data = $this->_getSeting('annex');
+		$data = $this->getSeting('annex');
 		return view('backend/setting/annex',$data);
 	}
 
-	//获取配置
-	private function _getSeting($key){
-		$data = Db::table('admin_setting')->where(array('key'=>$key))->item();
-		/*echo '<pre>';
-		print_r($data);
-		die();*/
-		$data['value'] && $data['value'] = json_decode($data['value'],true);
-		!$data['value'] && $data['value'] = false;
-		return $data;
+	//微信设置
+	public function wechat(){
+		$data = $this->getSeting('wechat');
+		return view('backend/setting/wechat',$data);
 	}
 
 	//保存设置
@@ -64,11 +59,14 @@ class Setting extends Common
 		if($key === 'annex'){
 			$log = '编辑附件设置。';
 		}
+		if($key === 'wechat'){
+			$log = '编辑微信设置。';
+		}
 
 		//添加操作日志
 		$this->log($log);
 
 		$this->returnMessage(200,'保存成功');
-	}	
+	}
 
 }

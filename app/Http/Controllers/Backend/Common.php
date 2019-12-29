@@ -38,4 +38,13 @@ class Common extends Controller
         echo json_encode($return_data);
         die;
     }
+
+    //获取配置
+    protected function getSeting($key){
+        $data = Db::table('admin_setting')->where(array('key'=>$key))->item();
+        $data['value'] && $data['value'] = json_decode($data['value'],true);
+        !$data['value'] && $data['value'] = false;
+        return $data;
+    }
+
 }
