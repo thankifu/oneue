@@ -124,7 +124,8 @@ class Order extends Common
 		Db::table('checkout')->where('id',$checkout['id'])->delete();
 		Db::table('checkout_product')->where('checkout_id',$checkout['id'])->delete();
 
-		$this->returnMessage(200,'下单成功');
+        $return_data['id'] = $order;
+		$this->returnMessage(200,'下单成功',$return_data);
 
         /*echo '<pre>';
         print_r($data);
@@ -132,11 +133,17 @@ class Order extends Common
 
 	}
 
-	private function getNumber() 
-	{
-		//生成16位订单编号
-		$number = date('Ymd').substr(implode(NULL, array_map('ord', str_split(substr(uniqid(), 7, 13), 1))), 0, 8);
-		return $number;
-	}
+    public function paid(Request $request){
+        $id = (int)$request->id;
+        $user_id = auth()->user()->id;
+        $order = Db::table('order')->where(['id' => $id,'user_id' => $user_id])->item();
+        if(!$order){
+            $this->returnMessage(400,'订单参数错误');
+        }
+        if($order['state'] !== 2){
+            $this->returnMessage(400,'支付失败');
+        }
+        $this->returnMessage(200,'支付成功');
+    }
 
 }

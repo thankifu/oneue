@@ -121,6 +121,34 @@ function numDiv(num1, num2) {
 	};
 };
 
+//判断是否手机
+function starIsMobile() {
+	//function isMobile(){
+	var sUserAgent= navigator.userAgent.toLowerCase(),
+	bIsIpad= sUserAgent.match(/ipad/i) == "ipad",
+	bIsIphoneOs= sUserAgent.match(/iphone os/i) == "iphone os",
+	bIsMidp= sUserAgent.match(/midp/i) == "midp",
+	bIsUc7= sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4",
+	bIsUc= sUserAgent.match(/ucweb/i) == "ucweb",
+	bIsAndroid= sUserAgent.match(/android/i) == "android",
+	bIsCE= sUserAgent.match(/windows ce/i) == "windows ce",
+	bIsWM= sUserAgent.match(/windows mobile/i) == "windows mobile",
+	bIsWebview = sUserAgent.match(/webview/i) == "webview";
+	return (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM);
+};
+
+//判断是否微信
+function starIsWechat(){
+	//window.navigator.userAgent属性包含了浏览器类型、版本、操作系统类型、浏览器引擎类型等信息，这个属性可以用来判断浏览器类型
+	var ua = window.navigator.userAgent.toLowerCase();
+	//通过正则表达式匹配ua中是否含有MicroMessenger字符串
+	if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+		return true;
+	}else{
+		return false;
+	};
+};
+
 //提示弹窗
 function starToast(state, message, timeout){
 	

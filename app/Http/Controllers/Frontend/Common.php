@@ -59,4 +59,19 @@ class Common extends Controller
         $result = number_format(floatval($price) * $discount, 2, '.', '');
         return $result;
     }
+
+    //获取配置
+    protected function getSeting($key){
+        $data = Db::table('admin_setting')->where(array('key'=>$key))->item();
+        $data['value'] && $data['value'] = json_decode($data['value'],true);
+        !$data['value'] && $data['value'] = false;
+        return $data;
+    }
+
+    protected function getNumber()
+    {
+        //生成16位订单编号
+        $number = date('Ymd').substr(implode(NULL, array_map('ord', str_split(substr(uniqid(), 7, 13), 1))), 0, 8);
+        return $number;
+    }
 }

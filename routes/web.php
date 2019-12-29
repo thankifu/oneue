@@ -30,7 +30,10 @@ Route::get('product', 'Frontend\Product@index')->name('product');
 Route::get('product/category/{id}', 'Frontend\Product@category')->name('product.category');
 Route::get('product/{id}', 'Frontend\Product@item')->name('product.item');
 
-Route::any('wechat', 'Frontend\Wechat@serve');
+Route::any('wechat', 'Frontend\Wechat@index');
+Route::any('wechat/serve', 'Frontend\Wechat@serve');
+Route::any('wechat/payment', 'Frontend\Wechat@payment');
+Route::any('wechat/notify', 'Frontend\Wechat@notify');
 
 Route::namespace('Frontend')->middleware('auth')->group(function () {
 	Route::get('cart', 'Cart@index');
@@ -45,6 +48,7 @@ Route::namespace('Frontend')->middleware('auth')->group(function () {
 	Route::post('checkout/store', 'Checkout@store');
 
 	Route::post('order/create', 'Order@create'); //创建
+	Route::get('order/paid', 'Order@paid'); //付款状态
 
 	Route::post('payment', 'Payment@index');
 
@@ -108,7 +112,6 @@ Route::namespace('Backend')->middleware(['auth.admin:admin','auth.menus'])->grou
 	//设置管理
 	Route::get('admin/setting/index','Setting@index');
 	Route::get('admin/setting/annex','Setting@annex');
-	Route::get('admin/setting/wechat','Setting@wechat');
 	Route::post('admin/setting/save','Setting@save');
 
 	//文章管理

@@ -148,6 +148,77 @@ function logout(){
 	},'json');
 }
 
+//支付验证
+function starPaid(id){
+	//clearInterval(timer);
+	var timer = setInterval(function(){
+		var data = new Object();
+		data.id = id;
+		$.get('/order/paid',data,function(res){
+			if(res.code === 200){
+				clearInterval(timer);
+				bootbox.hideAll();
+				starToast('success', res.text);
+				setTimeout(function(){
+	    			parent.window.location.href = '/user/order';
+	    		},1000);
+			}
+		},'json');
+	},3000);
+}
+
+//发起支付
+function starPayment(id){
+    starToast('loading', '请稍后...', 0);
+    if(!starIsMobile() && !starIsWechat()){
+    	var data = new Object();
+    	data.id = id;
+    	data._token = $('input[name="_token"]').val();
+    	$.post('/wechat/payment',data,function(res){
+			if(res.code === 200){
+				starPaid(id);
+				bootbox.hideAll();
+				bootbox.confirm({
+					size: "small", 
+					title: res.text,
+				    message: '<p><center>支付金额：'+res.data.money+'</center></p><p><center>'+res.data.qrcode+'</center></p>',
+				    buttons: {
+				        cancel: {
+				            label: '取消',
+				            className: 'btn-secondary'
+				        },
+				        confirm: {
+				            label: '支付成功'
+				        }
+				    },
+				    callback: function (result) {
+				    	if(result){
+				    		window.location.href = '/user/order';
+				    		return;
+				    	}else{
+				    		window.location.href = '/user/order';
+				    	}
+				    }
+				});
+			}else{
+				starToast('fail', res.text);
+				setTimeout(function(){
+	    			//window.location.reload();
+	    			window.location.href = '/user/order';
+	    		},1000);
+			}
+		},'json');
+
+    }
+    if(starIsMobile() && !starIsWechat()){
+    	alert('wap');
+    }
+    if(starIsMobile() && starIsWechat()){
+    	alert('wechat');
+    }
+    
+}
+
 $(document).ready(function() {
 	starLoadScreen();
 	window.onresize = function(){

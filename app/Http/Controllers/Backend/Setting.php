@@ -34,12 +34,6 @@ class Setting extends Common
 		return view('backend/setting/annex',$data);
 	}
 
-	//微信设置
-	public function wechat(){
-		$data = $this->getSeting('wechat');
-		return view('backend/setting/wechat',$data);
-	}
-
 	//保存设置
 	public function save(Request $request){
 		$data = $request->all();

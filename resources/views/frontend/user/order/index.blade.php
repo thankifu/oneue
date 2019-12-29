@@ -76,7 +76,7 @@
                             <div class="star-clear"></div>
                             
                             @if($item['state']==1)
-                            <a href="javascript:void(0);" class="payment" data-payment="" onclick="starPayment();">付款</a>
+                            <a href="javascript:void(0);" class="payment" data-payment="" onclick="starPayment({{$item['id']}});">付款</a>
                             @endif
                             
                             @if($item['state']==2)
@@ -116,9 +116,6 @@ function starAddressCreate(id){
     }else{
         window.location.href = '/user/address/'+id;
     }
-}
-function starPayment(){
-    starToast('loading', '支付开发中', 0);
 }
 </script>
 @endsection

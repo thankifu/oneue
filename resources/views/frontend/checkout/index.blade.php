@@ -151,7 +151,8 @@
             if(res.code === 200){
                 bootbox.hideAll();
                 //window.location.href = '/checkout';
-                starToast('loading', '支付开发中', 0);
+                //starToast('loading', '支付开发中', 0);
+                starPayment(res.data.id);
                 return false;
             }else{
                 bootbox.hideAll();
