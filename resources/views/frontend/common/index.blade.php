@@ -53,7 +53,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="/user/order">我的订单</a></li>
                         <li><a href="/user/setting">账户设置</a></li>
-                        <li><a href="javascript:void(0);" onclick="logout();">退出</a>{{csrf_field()}}</li>
+                        <li><a href="javascript:void(0);" onclick="starLogout();">退出</a>{{csrf_field()}}</li>
                     </ul>
                 </li>
                 @else

@@ -29,7 +29,6 @@ class Account extends Common
      */
     public function __construct()
     {
-        //$this->middleware('guest:admin')->except('logout');
         $this->middleware('guest')->except('logout');
     }
 
@@ -43,40 +42,25 @@ class Account extends Common
         $username = trim($request->username);
         $password = trim($request->password);
 
-        /*// 验证用户名登录方式
-        $usernameLogin = Auth::attempt(
-            ['username' => $username, 'password' => $password], $request->has('remember')
-        );
-        if ($usernameLogin) {
-            return true;
+        if($username == ''){
+            $this->returnMessage(400,'请输入用户名');
         }
-        // 验证手机号登录方式
-        $mobileLogin = Auth::attempt(
-            ['mobile' => $username, 'password' => $password], $request->has('remember')
-        );
-        if ($mobileLogin) {
-            return true;
+        if($password == ''){
+            $this->returnMessage(400,'请输入密码');
         }
 
-        // 验证邮箱登录方式
-        $emailLogin = Auth::attempt(
-            ['email' => $username, 'password' => $password], $request->has('remember')
-        );
-        if ($emailLogin) {
-            return true;
-        }*/
+        //exit(var_dump($request->has('remember')));
 
-        $res = Auth::attempt(
-            ['username' =>$username, 'password' => $password, 'state'=>1], $request->has('remember')
+        $result = Auth::attempt(
+            ['username' => $username, 'password' => $password, 'state'=>1], $request->has('remember')
         );
 
-        if(!$res){
+        if(!$result){
             $this->returnMessage(400,'登录失败');
         }
+
         // 更新登录ip、时间
         Db::table('user')->where(array('username'=>$username))->update(array('logined_ip'=>$request->getClientIp(),'logined'=>time()));
-
-        //$this->log('登录系统。');
 
         echo json_encode(array('code'=>200,'text'=>'登录成功'));
     }
@@ -90,11 +74,52 @@ class Account extends Common
         echo json_encode(array('code'=>200,'text'=>'退出成功'));
     }
 
-    /*public function checkName($name){
-        $is_name = ;
-        $is_email = ;
-        $is_phone = ;
-    }*/
-    
+    //注册页
+    public function showRegister(){
+        return view('frontend.account.register');
+    }
+
+    //注册验证
+    public function register(Request $request){
+        $username = trim($request->username);
+        $password = trim($request->password);
+
+        if($username == ''){
+            $this->returnMessage(400,'请输入用户名');
+        }
+        if($password == ''){
+            $this->returnMessage(400,'请输入密码');
+        }
+
+        $has = DB::table('user')->where('username',$username)->item();
+        if($has){
+            $this->returnMessage(400,'用户名已存在');
+        }
+
+        $data['username'] = $username;
+        $data['password'] = bcrypt($password);
+        $data['created'] = time();
+        $data['state'] = 1;
+
+        $result = Db::table('user')->insertGetId($data);
+
+        if(!$result){
+            $this->returnMessage(400,'注册失败');
+        }
+
+        $result = Auth::attempt(
+            ['username' => $username, 'password' => $password, 'state'=>1]
+        );
+
+        if(!$result){
+            $this->returnMessage(400,'自动登录失败');
+        }
+
+        // 更新登录ip、时间
+        Db::table('user')->where(array('username'=>$username))->update(array('logined_ip'=>$request->getClientIp(),'logined'=>time()));
+
+        echo json_encode(array('code'=>200,'text'=>'注册成功'));
+        
+    }
 
 }

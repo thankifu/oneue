@@ -66,13 +66,16 @@ function starLoadScreen(){
 	$('.star-login').css({
 		'margin-top': -$('.star-login').height()/2,
 	});
-}
+};
 function starGotoLogin(){
 	window.location.href = '/login?redirect_url='+encodeURI(window.location.href);
-}
+};
+function starGotoRegister(){
+	window.location.href = '/register?redirect_url='+encodeURI(window.location.href);
+};
 function starGotoCart(){
 	window.location.href = '/cart';
-}
+};
 $('.star-login #username').focus();
     
 // 回车登录
@@ -83,22 +86,19 @@ $('.star-login input').keydown(function(e){
 });
 
 function starLogin(){
-    var data = new Object();
-    data._token = $('input[name="_token"]').val();
-    data.username = $.trim($('input[name="username"]').val());
-    data.password = $.trim($('input[name="password"]').val());
-    data.remember = $('input[name="remember"]').is(':checked')?1:0;
-    /*if($('input[name="remember"]').is(':checked')){
-    	data.remember = 1;
-    }*/
-    if(data.username == ''){
-        starToast('fail', '用户名不能为空');
+	var username = $.trim($('input[name="username"]').val());
+	var password = $.trim($('input[name="password"]').val());
+	if(username == ''){
+        starToast('fail', '请输入用户名');
         return false;
     }
-    if(data.password == ''){
-        starToast('fail', '密码不能为空');
+    if(password == ''){
+        starToast('fail', '请输入密码');
         return;
     }
+
+	var data = $('form').serialize();
+
     /*console.log(data);
     return;*/
 
@@ -107,7 +107,7 @@ function starLogin(){
         url:'/login',
         data:data, 
         dataType:'json',
-        timeout:2000,
+        timeout:10000,
         success:function(data,status){
             if(data.code === 200){
                 starToast("success", data.text);
@@ -134,11 +134,11 @@ function starLogin(){
                 starToast("fail", '尝试次数太多，请稍后再试');
             }
         }
-    })
-}
+    });
+};
 
 //退出
-function logout(){
+function starLogout(){
 	var data = new Object();
     data._token = $('input[name="_token"]').val();
 	$.post('/logout',data,function(res){
@@ -151,7 +151,60 @@ function logout(){
 			starToast('fail', res.text);
 		}
 	},'json');
-}
+};
+
+//注册
+function starRegister(){
+	var username = $.trim($('input[name="username"]').val());
+	var password = $.trim($('input[name="password"]').val());
+	if(username == ''){
+        starToast('fail', '请输入用户名');
+        return false;
+    }
+    if(password == ''){
+        starToast('fail', '请输入密码');
+        return;
+    }
+
+	var data = $('form').serialize();
+
+    /*console.log(data);
+    return;*/
+
+    $.ajax({
+        type:'POST',
+        url:'/register',
+        data:data, 
+        dataType:'json',
+        timeout:10000,
+        success:function(data,status){
+            if(data.code === 200){
+                starToast("success", data.text);
+                setTimeout(function(){
+                    if( redirect_url !=null && redirect_url.toString().length>1 ) {
+                        window.location.href = decodeURI(redirect_url);
+                    }else{
+                        window.location.href = '/user';
+                    }
+                },1000);
+
+            }else{
+                starToast("fail", data.text);
+            }
+        },
+        error:function(XMLHttpRequest,textStatus,errorThrown){
+            if(textStatus==='timeout'){
+                starToast("fail", '请求超时');
+                setTimeout(function(){
+                    starToast("fail", '重新请求');
+                },2000);
+            }
+            if(errorThrown==='Too Many Requests'){
+                starToast("fail", '尝试次数太多，请稍后再试');
+            }
+        }
+    });
+};
 
 //支付验证
 function starPaid(id){
@@ -170,7 +223,7 @@ function starPaid(id){
 			}
 		},'json');
 	},3000);
-}
+};
 
 //发起支付
 function starPayment(id){
@@ -222,7 +275,7 @@ function starPayment(id){
     	alert('wechat');
     }
     
-}
+};
 
 $(document).ready(function() {
 	starLoadScreen();

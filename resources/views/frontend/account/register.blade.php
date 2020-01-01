@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>登录</title>
+<title>注册</title>
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 @include('frontend.common.head')
@@ -28,15 +28,10 @@
                     <input type="password" class="form-control" id="password" name="password" value="" placeholder="请输入密码">
                 </div>
             </div>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" id="remember" name="remember"> 记住我
-                </label>
-            </div>
-            <button type="button" class="btn btn-block btn-primary" onclick="starLogin()">登　录</button>
+            <button type="button" class="btn btn-block btn-primary" onclick="starRegister()">注　册</button>
             {{csrf_field()}}
             <div class="form-group">
-                <p class="help-block text-right"><a href="javascript:void(0);" onclick="starGotoRegister();">没有帐号？立即注册</a></p>
+                <p class="help-block text-right"><a href="javascript:void(0);" onclick="starGotoLogin();">已有账号，立即登录</a></p>
             </div>
         </form>
 	</div>
