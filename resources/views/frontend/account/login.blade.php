@@ -33,7 +33,7 @@
                     <input type="checkbox" id="remember" name="remember"> 记住我
                 </label>
             </div>
-            <button type="button" class="btn btn-block btn-primary" onclick="login()">登　录</button>
+            <button type="button" class="btn btn-block btn-primary" onclick="starLogin()">登　录</button>
             {{csrf_field()}}
         </form>
 	</div>

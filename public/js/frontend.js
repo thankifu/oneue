@@ -82,12 +82,15 @@ $('.star-login input').keydown(function(e){
     }
 });
 
-function login(){
+function starLogin(){
     var data = new Object();
     data._token = $('input[name="_token"]').val();
     data.username = $.trim($('input[name="username"]').val());
     data.password = $.trim($('input[name="password"]').val());
-    data.remember = $('#remember').is(':checked')?0:1;
+    data.remember = $('input[name="remember"]').is(':checked')?1:0;
+    /*if($('input[name="remember"]').is(':checked')){
+    	data.remember = 1;
+    }*/
     if(data.username == ''){
         starToast('fail', '用户名不能为空');
         return false;
@@ -96,6 +99,8 @@ function login(){
         starToast('fail', '密码不能为空');
         return;
     }
+    /*console.log(data);
+    return;*/
 
     $.ajax({
         type:'POST',
