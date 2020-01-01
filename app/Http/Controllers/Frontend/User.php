@@ -86,8 +86,44 @@ class User extends Common
 
 	public function order(Request $request){
 		$user = auth()->user();
+		$state = (int)$request->state;
 
-    	$data = Db::table('order')->where(array(['user_id', $user['id']]))->orderBy('id','desc')->pages();
+		$where = [];
+		$where[] = ['user_id', '=', $user['id']];
+		if(isset($request->state) && $state == 1){
+			$where[] = ['state', '=', 1];
+		}
+		if(isset($request->state) && $state == 2){
+			$where[] = ['state', '=', 2];
+		}
+		if(isset($request->state) && $state == 3){
+			$where[] = ['state', '=', 3];
+		}
+		if(isset($request->state) && $state == 4){
+			$where[] = ['state', '=', 4];
+		}
+		if(isset($request->state) && $state == 5){
+			$where[] = ['state', '=', 5];
+		}
+
+		$appends = [];
+		if(isset($request->state) && $state == 1){
+			$appends['state'] = 1;
+		}
+		if(isset($request->state) && $state == 2){
+			$appends['state'] = 2;
+		}
+		if(isset($request->state) && $state == 3){
+			$appends['state'] = 3;
+		}
+		if(isset($request->state) && $state == 4){
+			$appends['state'] = 4;
+		}
+		if(isset($request->state) && $state == 5){
+			$appends['state'] = 5;
+		}
+
+    	$data = Db::table('order')->where($where)->orderBy('id','desc')->pages();
 
     	$order_id = array_column($data['lists'], 'id');
     	$products = Db::table('order_product')->whereIn('order_id', $order_id)->lists();

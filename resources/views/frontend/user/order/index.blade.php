@@ -18,12 +18,12 @@
 
         <div class="col-md-9 star-main">
             <ul class="nav nav-tabs star-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="###" role="tab" data-toggle="tab">全部</a></li>
-                <li role="presentation"><a href="###" role="tab" data-toggle="tab">待付款</a></li>
-                <li role="presentation"><a href="###" role="tab" data-toggle="tab">待发货</a></li>
-                <li role="presentation"><a href="###" role="tab" data-toggle="tab">待评价</a></li>
-                <li role="presentation"><a href="###" role="tab" data-toggle="tab">退货退款</a></li>
-                <li role="presentation"><a href="###" role="tab" data-toggle="tab">已完成</a></li>
+                <li{!!!request()->get('state')?' class="active"':''!!}><a href="/user/order">全部</a></li>
+                <li{!!request()->get('state') && request()->get('state') == 1?' class="active"':''!!}><a href="/user/order?state=1">待付款</a></li>
+                <li{!!request()->get('state') && request()->get('state') == 2?' class="active"':''!!}><a href="/user/order?state=2">待发货</a></li>
+                <li{!!request()->get('state') && request()->get('state') == 3?' class="active"':''!!}><a href="/user/order?state=3">待收货</a></li>
+                <li{!!request()->get('state') && request()->get('state') == 4?' class="active"':''!!}><a href="/user/order?state=4">待评价</a></li>
+                <li{!!request()->get('state') && request()->get('state') == 5?' class="active"':''!!}><a href="/user/order?state=5">已完成</a></li>
             </ul>
 
             <div class="star-order">
@@ -39,7 +39,6 @@
                                     @if($item['state']==2)<span style="color:#f36;">待发货</span>@endif
                                     @if($item['state']==3)<span style="color:#f36;">待收货</span>@endif
                                     @if($item['state']==4)<span style="color:#f36;">待评价</span>@endif
-                                    @if($item['state']==-1)<span style="color:#f36;">已退款</span>@endif
                                     @if($item['state']==5)<span style="color:#2FAE3F;">已完成</span>@endif
                                 </span>
                             </div>
@@ -81,11 +80,13 @@
                             
                             @if($item['state']==2)
                             <a href="javascript:void(0);">商品备货中...</a>
+                            <a href="javascript:void(0);">申请退款</a>
                             @endif
 
                             @if($item['state']==3)
                             <a href="javascript:void(0);" class="received">确认收货</a>
                             <a href="javascript:void(0);">查看物流</a>
+                            <a href="javascript:void(0);">申请退款</a>
                             @endif
 
                             @if($item['state']==4)

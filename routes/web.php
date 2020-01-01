@@ -69,7 +69,6 @@ Route::namespace('Frontend')->middleware('auth')->group(function () {
 
 	Route::get('user/order', 'User@order');
 	Route::get('user/order/{id}', 'User@orderItem');
-	Route::get('user/order/queren', 'User@orderQueren');
 
 	
 	/*Route::post('favorite', 'Action@favorite');
