@@ -1,17 +1,16 @@
 <?php
 /**
-* ----------------------------------------------------------------------
-* 福州星科创想网络科技有限公司
-* ----------------------------------------------------------------------
-* COPYRIGHT © 2015-PRESENT STARSLABS.COM ALL RIGHTS RESERVED.
-* ----------------------------------------------------------------------
-* LICENSED: MIT [https://github.com/thankifu/oneue/blob/master/LICENSE]
-* ----------------------------------------------------------------------
-* AUTHOR: THANKIFU [i@thankifu.com]
-* ----------------------------------------------------------------------
-* RELEASED ON: 2019.11.15
-* ----------------------------------------------------------------------
-*/
+ * ----------------------------------------------------------------------
+ * ONEUE - A SIMPLE E-COMMERCE SYSTEM
+ * ----------------------------------------------------------------------
+ * AUTHOR: THANKIFU [i@thankifu.com]
+ * ----------------------------------------------------------------------
+ * RELEASED ON: 2019.11.15
+ * ----------------------------------------------------------------------
+ * LICENSED: MIT [https://github.com/thankifu/oneue/blob/master/LICENSE]
+ * ----------------------------------------------------------------------
+**/
+
 namespace App\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
@@ -41,7 +40,7 @@ class Group extends Common
 	}
 
 	//添加修改
-	public function add(Request $request){
+	public function item(Request $request){
 		$id = (int)$request->id;
 		$data['group'] = DB::table('admin_group')->where('id',$id)->item();
 		if($data['group']['permission']){
@@ -56,7 +55,7 @@ class Group extends Common
 			$results[] = $value;
 		}
 		$data['menus'] = $results;
-		return view('/backend/group/add',$data);
+		return view('/backend/group/item',$data);
 	}
 
 	//保存
@@ -76,7 +75,7 @@ class Group extends Common
 		if($id){
 			$data['modified'] = time();
 			DB::table('admin_group')->where('id',$id)->update($data);
-			$log = '编辑管理组：'.$data['name'].'，ID：'.$id.'。';
+			$log = '修改管理组：'.$data['name'].'，ID：'.$id.'。';
 		}else{
 			$is = DB::table('admin_group')->where('name',$name)->item();
 			if($is){

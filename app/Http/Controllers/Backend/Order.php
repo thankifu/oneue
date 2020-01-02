@@ -1,17 +1,16 @@
 <?php
 /**
-* ----------------------------------------------------------------------
-* 福州星科创想网络科技有限公司
-* ----------------------------------------------------------------------
-* COPYRIGHT © 2015-PRESENT STARSLABS.COM ALL RIGHTS RESERVED.
-* ----------------------------------------------------------------------
-* LICENSED: MIT [https://github.com/thankifu/oneue/blob/master/LICENSE]
-* ----------------------------------------------------------------------
-* AUTHOR: THANKIFU [i@thankifu.com]
-* ----------------------------------------------------------------------
-* RELEASED ON: 2019.11.15
-* ----------------------------------------------------------------------
-*/
+ * ----------------------------------------------------------------------
+ * ONEUE - A SIMPLE E-COMMERCE SYSTEM
+ * ----------------------------------------------------------------------
+ * AUTHOR: THANKIFU [i@thankifu.com]
+ * ----------------------------------------------------------------------
+ * RELEASED ON: 2019.11.15
+ * ----------------------------------------------------------------------
+ * LICENSED: MIT [https://github.com/thankifu/oneue/blob/master/LICENSE]
+ * ----------------------------------------------------------------------
+**/
+
 namespace App\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
@@ -48,14 +47,14 @@ class Order extends Common
 	}
 
 	//添加修改
-	public function add(Request $request){
+	public function item(Request $request){
 		$id = (int)$request->id;
 		$data['order'] = Db::table('order')->where('id',$id)->item();
 		$data['products'] = DB::table('order_product')->cates('id');
 		
 		//用户
 		$data['users'] = DB::table('user')->select(['id','username'])->cates('id');
-		return view('backend.order.add',$data);
+		return view('backend.order.item',$data);
 	}
 
 	//保存

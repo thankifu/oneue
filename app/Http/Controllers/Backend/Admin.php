@@ -1,17 +1,16 @@
 <?php
 /**
-* ----------------------------------------------------------------------
-* 福州星科创想网络科技有限公司
-* ----------------------------------------------------------------------
-* COPYRIGHT © 2015-PRESENT STARSLABS.COM ALL RIGHTS RESERVED.
-* ----------------------------------------------------------------------
-* LICENSED: MIT [https://github.com/thankifu/oneue/blob/master/LICENSE]
-* ----------------------------------------------------------------------
-* AUTHOR: THANKIFU [i@thankifu.com]
-* ----------------------------------------------------------------------
-* RELEASED ON: 2019.11.15
-* ----------------------------------------------------------------------
-*/
+ * ----------------------------------------------------------------------
+ * ONEUE - A SIMPLE E-COMMERCE SYSTEM
+ * ----------------------------------------------------------------------
+ * AUTHOR: THANKIFU [i@thankifu.com]
+ * ----------------------------------------------------------------------
+ * RELEASED ON: 2019.11.15
+ * ----------------------------------------------------------------------
+ * LICENSED: MIT [https://github.com/thankifu/oneue/blob/master/LICENSE]
+ * ----------------------------------------------------------------------
+**/
+
 namespace App\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
@@ -55,12 +54,12 @@ class Admin extends Common
 	}
 
 	//添加修改
-	public function add(Request $request){
+	public function item(Request $request){
 		$id = (int)$request->id;
 		$data['admin'] = Db::table('admin')->where('id',$id)->item();
 		//管理组
 		$data['groups'] = DB::table('admin_group')->select(['id','name'])->cates('id');
-		return view('backend.admin.add',$data);
+		return view('backend.admin.item',$data);
 	}
 
 	//保存
@@ -92,7 +91,7 @@ class Admin extends Common
 				$data['password'] = password_hash($password,PASSWORD_DEFAULT);
 			}
 			DB::table('admin')->where('id',$id)->update($data);
-			$log = '编辑管理员：'.$data['name'].'，ID：'.$id.'。';
+			$log = '修改管理员：'.$data['name'].'，ID：'.$id.'。';
 		}else{
 			$has = DB::table('admin')->where('username',$username)->item();
 			if($has){

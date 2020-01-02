@@ -17,9 +17,24 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
-class Payment extends Common
+class Help extends Common
 {
-	public function index(){
-		
+
+	public function item(Request $request){
+    	$id = (int)$request->id;
+
+    	$where = [];
+    	$where[] = ['state', '=', 1];
+		if(isset($request->id)){
+			$where[] = ['id', '=', $id];
+		}
+
+		$data['help'] = Db::table('help')->where($where)->orderBy('id','desc')->item();
+		$data['help']['content'] = preg_replace( '#<img([^>]+?)src=[\'"]?([^\'"\s>]+)[\'"]?([^>]*)>#', sprintf( '<img${1}src="%s" data-original="${2}"${3}>', '/images/none.png' ), $data['help']['content'] );
+
+		DB::table('help')->increment('visit', 1);
+        
+		return view('frontend.help.item', $data);
 	}
+
 }

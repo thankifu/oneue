@@ -1,17 +1,16 @@
 <?php
 /**
-* ----------------------------------------------------------------------
-* 福州星科创想网络科技有限公司
-* ----------------------------------------------------------------------
-* COPYRIGHT © 2015-PRESENT STARSLABS.COM ALL RIGHTS RESERVED.
-* ----------------------------------------------------------------------
-* LICENSED: MIT [https://github.com/thankifu/oneue/blob/master/LICENSE]
-* ----------------------------------------------------------------------
-* AUTHOR: THANKIFU [i@thankifu.com]
-* ----------------------------------------------------------------------
-* RELEASED ON: 2019.11.15
-* ----------------------------------------------------------------------
-*/
+ * ----------------------------------------------------------------------
+ * ONEUE - A SIMPLE E-COMMERCE SYSTEM
+ * ----------------------------------------------------------------------
+ * AUTHOR: THANKIFU [i@thankifu.com]
+ * ----------------------------------------------------------------------
+ * RELEASED ON: 2019.11.15
+ * ----------------------------------------------------------------------
+ * LICENSED: MIT [https://github.com/thankifu/oneue/blob/master/LICENSE]
+ * ----------------------------------------------------------------------
+**/
+
 namespace App\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
@@ -35,12 +34,12 @@ class Menu extends Common
 	}
 
 	// 添加修改菜单
-	public function add(Request $request){
+	public function item(Request $request){
 		$parent = (int)$request->parent;
 		$id = (int)$request->id;
 		$data['parent_menu'] = Db::table('admin_menu')->where('id',$parent)->item();
 		$data['menu'] = Db::table('admin_menu')->where('id',$id)->item();
-		return view('backend/menu/add',$data);
+		return view('backend/menu/item',$data);
 	}
 
 	// 保存菜单
@@ -68,7 +67,7 @@ class Menu extends Common
 		if($id){
 			$data['modified'] = time();
 			$res = Db::table('admin_menu')->where('id',$id)->update($data);
-			$log = '编辑后台菜单：'.$data['name'].'，ID：'.$id.'。';
+			$log = '修改后台菜单：'.$data['name'].'，ID：'.$id.'。';
 		}else{
 			$data['created'] = time();
 			$res = Db::table('admin_menu')->insertGetId($data);

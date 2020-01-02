@@ -81,44 +81,22 @@
 
 <div class="star-footer">
     <div class="container">
+        @if($_help)
         <div class="star-help row">
+            @foreach($_help as $item)
             <div class="col-md-3 col-xs-6">
                 <dl>
-                    <dt>购物</dt>
-                    <dd><a href="/helps/1.html"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>会员注册</a></dd>
-                    <dd><a href="/helps/2.html"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>购物流程</a></dd>
-                    <dd><a href="/helps/3.html"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>支付方式</a></dd>
-                    <dd><a href="/helps/4.html"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>物流配送</a></dd>
+                    <dt>{{$item['name']}}</dt>
+                    @if($item['list'])
+                    @foreach($item['list'] as $value)
+                    <dd><a href="/help/{{$value['id']}}"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>{{$value['title']}}</a></dd>
+                    @endforeach
+                    @endif
                 </dl>
             </div>
-            <div class="col-md-3 col-xs-6">
-                <dl>
-                    <dt>购物</dt>
-                    <dd><a href="/helps/1.html"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>会员注册</a></dd>
-                    <dd><a href="/helps/2.html"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>购物流程</a></dd>
-                    <dd><a href="/helps/3.html"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>支付方式</a></dd>
-                    <dd><a href="/helps/4.html"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>物流配送</a></dd>
-                </dl>
-            </div>
-            <div class="col-md-3 col-xs-6">
-                <dl>
-                    <dt>购物</dt>
-                    <dd><a href="/helps/1.html"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>会员注册</a></dd>
-                    <dd><a href="/helps/2.html"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>购物流程</a></dd>
-                    <dd><a href="/helps/3.html"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>支付方式</a></dd>
-                    <dd><a href="/helps/4.html"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>物流配送</a></dd>
-                </dl>
-            </div>
-            <div class="col-md-3 col-xs-6">
-                <dl>
-                    <dt>购物</dt>
-                    <dd><a href="/helps/1.html"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>会员注册</a></dd>
-                    <dd><a href="/helps/2.html"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>购物流程</a></dd>
-                    <dd><a href="/helps/3.html"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>支付方式</a></dd>
-                    <dd><a href="/helps/4.html"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>物流配送</a></dd>
-                </dl>
-            </div>
+            @endforeach
         </div>
+        @endif
         <div class="star-copy"><p>{{$_site['copyright']}}</p><p><a rel="nofollow" target="_blank" href="http://www.miitbeian.gov.cn/">{{$_site['miitbeian']}}</a></p></div>
     </div>
 </div>

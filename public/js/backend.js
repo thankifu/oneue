@@ -1,16 +1,14 @@
 /**
-* ----------------------------------------------------------------------
-* 福州星科创想网络科技有限公司
-* ----------------------------------------------------------------------
-* COPYRIGHT © 2015-PRESENT STARSLABS.COM ALL RIGHTS RESERVED.
-* ----------------------------------------------------------------------
-* LICENSED: MIT [https://github.com/thankifu/oneue/blob/master/LICENSE]
-* ----------------------------------------------------------------------
-* AUTHOR: THANKIFU [i@thankifu.com]
-* ----------------------------------------------------------------------
-* RELEASED ON: 2019.11.15
-* ----------------------------------------------------------------------
-*/
+ * ----------------------------------------------------------------------
+ * ONEUE - A SIMPLE E-COMMERCE SYSTEM
+ * ----------------------------------------------------------------------
+ * AUTHOR: THANKIFU [i@thankifu.com]
+ * ----------------------------------------------------------------------
+ * RELEASED ON: 2019.11.15
+ * ----------------------------------------------------------------------
+ * LICENSED: MIT [https://github.com/thankifu/oneue/blob/master/LICENSE]
+ * ----------------------------------------------------------------------
+**/
 
 var backend_path = '/admin';
 
@@ -166,12 +164,12 @@ function starMenuInit(){
 }
 
 //添加修改
-function starAdd(type, id, parent){
+function starItem(type, id, parent){
 	id = id || 0;
 	parent = parent || 0;
 	bootbox.dialog({
 	    title: id>0?'编辑':'添加',
-	    message: '<iframe src="'+backend_path+'/'+type+'/add?id='+id+'&parent='+parent+'" width="100%" frameborder="0" scrolling="auto" onload="starSetIframeHeight(this)"></iframe>'
+	    message: '<iframe src="'+backend_path+'/'+type+'/item?id='+id+'&parent='+parent+'" width="100%" frameborder="0" scrolling="auto" onload="starSetIframeHeight(this)"></iframe>'
 	});
 }
 
@@ -181,8 +179,8 @@ function starCancel(){
 }
 
 //添加修改跳转
-function starAddJump(type, id){
-	window.location.href = backend_path+'/'+type+'/add?id='+id;
+function starItemJump(type, id){
+	window.location.href = backend_path+'/'+type+'/item?id='+id;
 }
 
 //添加修改跳转退出
@@ -464,6 +462,35 @@ function starUserLevelSave(){
 			starToast('success', res.text);
 			setTimeout(function(){
 				parent.window.location.reload();
+			},1000);
+		}else{
+			starToast('fail', res.text);
+		}
+	},'json');
+}
+
+//帮助保存
+function starHelpSave(){
+	var title = $.trim($('input[name="title"]').val());
+	if(title==''){
+		starToast('fail', '请输入帮助标题');
+		return;
+	}
+
+	var data = $('#form').serialize();
+	var content = CKEDITOR.instances.content.getData();
+	data += '&content=' + content;
+
+	if(data.title==''){
+		starToast('fail', '请输入帮助标题');
+		return;
+	}
+
+	$.post(backend_path+'/help/save',data,function(res){
+		if(res.code === 200){
+			starToast('success', res.text);
+			setTimeout(function(){
+				window.location.href = document.referrer;
 			},1000);
 		}else{
 			starToast('fail', res.text);

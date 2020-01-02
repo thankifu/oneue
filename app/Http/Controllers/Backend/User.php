@@ -1,17 +1,16 @@
 <?php
 /**
-* ----------------------------------------------------------------------
-* STARSLABS
-* ----------------------------------------------------------------------
-* COPYRIGHT © 2015-PRESENT STARSLABS.COM ALL RIGHTS RESERVED.
-* ----------------------------------------------------------------------
-* LICENSED: [https://opensource.org/licenses/MIT]
-* ----------------------------------------------------------------------
-* AUTHOR: THANKIFU
-* ----------------------------------------------------------------------
-* RELEASED ON: 2019.11.15
-* ----------------------------------------------------------------------
-*/
+ * ----------------------------------------------------------------------
+ * ONEUE - A SIMPLE E-COMMERCE SYSTEM
+ * ----------------------------------------------------------------------
+ * AUTHOR: THANKIFU [i@thankifu.com]
+ * ----------------------------------------------------------------------
+ * RELEASED ON: 2019.11.15
+ * ----------------------------------------------------------------------
+ * LICENSED: MIT [https://github.com/thankifu/oneue/blob/master/LICENSE]
+ * ----------------------------------------------------------------------
+**/
+
 namespace App\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
@@ -49,11 +48,11 @@ class User extends Common
 	}
 
 	//添加修改
-	public function add(Request $request){
+	public function item(Request $request){
 		$id = (int)$request->id;
 		$data['user'] = Db::table('user')->where('id',$id)->item();
 		$data['levels'] = Db::table('user_level')->select(['id','name'])->where('state', 1)->cates('id');
-		return view('backend.user.add',$data);
+		return view('backend.user.item',$data);
 	}
 
 	//保存
@@ -82,7 +81,7 @@ class User extends Common
 				$data['password'] = password_hash($password,PASSWORD_DEFAULT);
 			}
 			DB::table('user')->where('id',$id)->update($data);
-			$log = '编辑用户：'.$username.'，ID：'.$id.'。';
+			$log = '修改用户：'.$username.'，ID：'.$id.'。';
 		}else{
 			$has = DB::table('user')->where('username',$username)->item();
 			if($has){
@@ -92,7 +91,7 @@ class User extends Common
 			$data['username'] = $username;
 			$data['password'] = password_hash($password,PASSWORD_DEFAULT);
 			$id = DB::table('user')->insertGetId($data);
-			$log = '添加用户：'.$data['username'].'，ID：'.$id.'。';
+			$log = '新增用户：'.$data['username'].'，ID：'.$id.'。';
 		}
 
 		//添加日志
@@ -143,10 +142,10 @@ class User extends Common
 	}
 
 	//等级添加修改
-	public function levelAdd(Request $request){
+	public function levelItem(Request $request){
 		$id = (int)$request->id;
 		$data['level'] = Db::table('user_level')->where('id',$id)->item();
-		return view('backend.user.level.add',$data);
+		return view('backend.user.level.item',$data);
 	}
 
 	//等级保存
@@ -166,7 +165,7 @@ class User extends Common
 		if($id){
 			$data['modified'] = time();
 			$res = Db::table('user_level')->where('id',$id)->update($data);
-			$log = '编辑用户等级：'.$data['name'].'，ID：'.$id.'。';
+			$log = '修改用户等级：'.$data['name'].'，ID：'.$id.'。';
 		}else{
 			$data['created'] = time();
 			$res = Db::table('user_level')->insertGetId($data);

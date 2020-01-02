@@ -30,6 +30,9 @@ Route::get('product', 'Frontend\Product@index')->name('product');
 Route::get('product/category/{id}', 'Frontend\Product@category')->name('product.category');
 Route::get('product/{id}', 'Frontend\Product@item')->name('product.item');
 
+Route::get('help', 'Frontend\Help@index');
+Route::get('help/{id}', 'Frontend\Help@item');
+
 Route::any('wechat', 'Frontend\Wechat@index');
 Route::any('wechat/serve', 'Frontend\Wechat@serve');
 Route::any('wechat/payment', 'Frontend\Wechat@payment');
@@ -85,74 +88,84 @@ Route::post('admin/login', 'Backend\Account@Login')->middleware('throttle:5,1');
 Route::post('admin/logout', 'Backend\Account@logout')->name('admin.logout');
 
 // 后台管理
-Route::namespace('Backend')->middleware(['auth.admin:admin','auth.menus'])->group(function () {
+Route::prefix('admin')->namespace('Backend')->middleware(['auth.admin:admin','auth.menus'])->group(function () {
 
 	//后台首页
-	Route::get('admin/home/index', 'Home@index');
-	Route::get('admin/home/welcome', 'Home@welcome');
+	Route::get('home/index', 'Home@index');
+	Route::get('home/welcome', 'Home@welcome');
 
 	//管理员管理
-	Route::get('admin/admin/index','Admin@index');
-	Route::get('admin/admin/add','Admin@add');
-	Route::post('admin/admin/save','Admin@save');
-	Route::post('admin/admin/delete','Admin@delete');
+	Route::get('admin/index','Admin@index');
+	Route::get('admin/item','Admin@item');
+	Route::post('admin/save','Admin@save');
+	Route::post('admin/delete','Admin@delete');
 
 	// 角色管理
-	Route::get('admin/group/index','Group@index');
-	Route::get('admin/group/add','Group@add');
-	Route::post('admin/group/save','Group@save');
+	Route::get('group/index','Group@index');
+	Route::get('group/item','Group@item');
+	Route::post('group/save','Group@save');
 
 	//菜单管理
-	Route::get('admin/menu/index','Menu@index');
-	Route::get('admin/menu/add','Menu@add');
-	Route::post('admin/menu/save','Menu@save');
-	Route::post('admin/menu/delete','Menu@delete');
+	Route::get('menu/index','Menu@index');
+	Route::get('menu/item','Menu@item');
+	Route::post('menu/save','Menu@save');
+	Route::post('menu/delete','Menu@delete');
 
 	//设置管理
-	Route::get('admin/setting/index','Setting@index');
-	Route::get('admin/setting/annex','Setting@annex');
-	Route::post('admin/setting/save','Setting@save');
+	Route::get('setting/index','Setting@index');
+	Route::get('setting/annex','Setting@annex');
+	Route::post('setting/save','Setting@save');
 
 	//文章管理
-	Route::get('admin/article/index','Article@index');
-	Route::get('admin/article/add','Article@add');
-	Route::post('admin/article/save','Article@save');
-	Route::post('admin/article/delete','Article@delete');
+	Route::get('article/index','Article@index');
+	Route::get('article/item','Article@item');
+	Route::post('article/save','Article@save');
+	Route::post('article/delete','Article@delete');
 
-	Route::get('admin/article/category/index','Article@category');
-	Route::get('admin/article/category/add','Article@categoryAdd');
-	Route::post('admin/article/category/save','Article@categorySave');
-	Route::post('admin/article/category/delete','Article@categoryDelete');
+	Route::get('article/category/index','Article@categoryIndex');
+	Route::get('article/category/item','Article@categoryItem');
+	Route::post('article/category/save','Article@categorySave');
+	Route::post('article/category/delete','Article@categoryDelete');
 
 	//商品管理
-	Route::get('admin/product/index','Product@index');
-	Route::get('admin/product/add','Product@add');
-	Route::post('admin/product/save','Product@save');
-	Route::post('admin/product/delete','Product@delete');
+	Route::get('product/index','Product@index');
+	Route::get('product/item','Product@item');
+	Route::post('product/save','Product@save');
+	Route::post('product/delete','Product@delete');
 
-	Route::get('admin/product/category/index','Product@category');
-	Route::get('admin/product/category/add','Product@categoryAdd');
-	Route::post('admin/product/category/save','Product@categorySave');
-	Route::post('admin/product/category/delete','Product@categoryDelete');
+	Route::get('product/category/index','Product@categoryIndex');
+	Route::get('product/category/item','Product@categoryItem');
+	Route::post('product/category/save','Product@categorySave');
+	Route::post('product/category/delete','Product@categoryDelete');
 
-	Route::post('admin/product/specification/delete','Product@specificationDelete');
+	Route::post('product/specification/delete','Product@specificationDelete');
 
 	//用户管理
-	Route::get('admin/user/index','User@index');
-	Route::get('admin/user/add','User@add');
-	Route::post('admin/user/save','User@save');
-	Route::post('admin/user/delete','User@delete');
-	Route::get('admin/user/level/index','User@levelIndex');
-	Route::get('admin/user/level/add','User@levelAdd');
-	Route::post('admin/user/level/save','User@levelSave');
-	Route::post('admin/user/level/delete','User@levelDelete');
+	Route::get('user/index','User@index');
+	Route::get('user/item','User@item');
+	Route::post('user/save','User@save');
+	Route::post('user/delete','User@delete');
+	Route::get('user/level/index','User@levelIndex');
+	Route::get('user/level/item','User@levelItem');
+	Route::post('user/level/save','User@levelSave');
+	Route::post('user/level/delete','User@levelDelete');
 
 	//订单管理
-	Route::get('admin/order/index','Order@index');
-	Route::get('admin/order/add','Order@add');
-	Route::post('admin/order/save','Order@save');
-	Route::post('admin/order/delete','Order@delete');
-	Route::get('admin/order/product','Order@product');
+	Route::get('order/index','Order@index');
+	Route::get('order/item','Order@item');
+	Route::post('order/save','Order@save');
+	Route::post('order/delete','Order@delete');
+	Route::get('order/product','Order@product');
+
+	//帮助管理
+	Route::get('help/index','Help@index');
+	Route::get('help/item','Help@item');
+	Route::post('help/save','Help@save');
+	Route::post('help/delete','Help@delete');
+	Route::get('help/category/index','Help@categoryIndex');
+	Route::get('help/category/item','Help@categoryItem');
+	Route::post('help/category/save','Help@categorySave');
+	Route::post('help/category/delete','Help@categoryDelete');
 
 	//上传
 	Route::post('admin/upload/index','Upload@index');

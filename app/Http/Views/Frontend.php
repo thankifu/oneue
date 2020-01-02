@@ -28,6 +28,19 @@ class Frontend{
         $this->data['_cart'] = Db::table('cart')->where(array(['user_id', $this->data['_user']['id']],['state', 1]))->lists();
         $this->data['_cart']['count'] = Db::table('cart')->where(array(['user_id', $this->data['_user']['id']],['state', 1]))->sum('quantity');
 
+        $this->data['_help'] = Db::table('help_category')->where('state', 1)->lists();
+        $helps = Db::table('help')->select(['id','title','category_id'])->where('state', 1)->lists();
+        foreach ($this->data['_help'] as &$value) {
+            list($value['list']) = [[]];
+            foreach ($helps as $help) {
+                if ($help['category_id'] === $value['id']) {
+                    array_push($value['list'], $help);
+                }
+            }
+        }
+        /*echo '<pre>';
+        print_r($this->data['_help']);*/
+
 
         //$this->data['_user_discount'] = Db::table('user_level')->select(['discount'])->where('id', $this->data['_user']['level'])->item();
     }

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>商品分类</title>
+<title>帮助分类</title>
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 @include('backend.common.head')
@@ -31,9 +31,9 @@
 		</div>
 		<div class="pull-right">
 			@if($parent)
-			<button type="button" class="btn btn-sm btn-default" onclick="starGoto('product/category', {{$back}});">返回上一级</button>
+			<button type="button" class="btn btn-sm btn-default" onclick="starGoto('help/category', {{$back}});">返回上一级</button>
 			@endif
-			<button type="button" class="btn btn-sm btn-primary" onclick="starItem('product/category', 0, {{$parent}});">新增</button>
+			<button type="button" class="btn btn-sm btn-primary" onclick="starItem('help/category', 0, {{$parent}});">新增</button>
 		</div>
 	</div>
 
@@ -65,9 +65,9 @@
 				<td>{{$item['modified']?date('Y-m-d H:i:s',$item['modified']):'-'}}</td>
 				<td>{!!$item['state']==1?'<span class="label label-success">启用</span>':'<span class="label label-danger">禁用</span>'!!}</td>
 				<td>
-					<button type="button" class="btn btn-sm btn-default" onclick="starGoto('product/category', {{$item['id']}});">子分类</button>
-					<button type="button" class="btn btn-sm btn-primary" onclick="starItem('product/category', {{$item['id']}}, {{$parent}});">编辑</button>
-					<button type="button" class="btn btn-sm btn-danger" onclick="starDelete('product/category', {{$item['id']}});">删除</button>
+					<button type="button" class="btn btn-sm btn-default" onclick="starGoto('help/category', {{$item['id']}});">子分类</button>
+					<button type="button" class="btn btn-sm btn-primary" onclick="starItem('help/category', {{$item['id']}}, {{$parent}});">编辑</button>
+					<button type="button" class="btn btn-sm btn-danger" onclick="starDelete('help/category', {{$item['id']}});">删除</button>
 				</td>
 			</tr>
 			@endforeach

@@ -1,17 +1,16 @@
 <?php
 /**
-* ----------------------------------------------------------------------
-* 福州星科创想网络科技有限公司
-* ----------------------------------------------------------------------
-* COPYRIGHT © 2015-PRESENT STARSLABS.COM ALL RIGHTS RESERVED.
-* ----------------------------------------------------------------------
-* LICENSED: MIT [https://github.com/thankifu/oneue/blob/master/LICENSE]
-* ----------------------------------------------------------------------
-* AUTHOR: THANKIFU [i@thankifu.com]
-* ----------------------------------------------------------------------
-* RELEASED ON: 2019.11.15
-* ----------------------------------------------------------------------
-*/
+ * ----------------------------------------------------------------------
+ * ONEUE - A SIMPLE E-COMMERCE SYSTEM
+ * ----------------------------------------------------------------------
+ * AUTHOR: THANKIFU [i@thankifu.com]
+ * ----------------------------------------------------------------------
+ * RELEASED ON: 2019.11.15
+ * ----------------------------------------------------------------------
+ * LICENSED: MIT [https://github.com/thankifu/oneue/blob/master/LICENSE]
+ * ----------------------------------------------------------------------
+**/
+
 namespace App\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
@@ -63,7 +62,7 @@ class Product extends Common
 	}
 
 	//添加修改
-	public function add(Request $request){
+	public function item(Request $request){
 		$id = (int)$request->id;
 		$data['product'] = Db::table('product')->where('id',$id)->item();
 
@@ -74,7 +73,7 @@ class Product extends Common
 		//图片
 		$data['specifications'] = DB::table('product_specification')->where('product_id',$id)->orderBy('position','asc')->orderBy('id','desc')->lists();
 
-		return view('backend.product.add',$data);
+		return view('backend.product.item',$data);
 	}
 
 	//保存
@@ -140,7 +139,7 @@ class Product extends Common
 				}
 			}
 
-			$log = '编辑商品：'.$data['name'].'，ID：'.$id.'。';
+			$log = '修改商品：'.$data['name'].'，ID：'.$id.'。';
 		}else{
 			$data['created'] = time();
 			$result = Db::table('product')->insertGetId($data);
@@ -167,7 +166,7 @@ class Product extends Common
 				}
 			}
 			
-			$log = '编辑商品：'.$data['name'].'，ID：'.$result.'。';
+			$log = '修改商品：'.$data['name'].'，ID：'.$result.'。';
 		}
 
 		//添加操作日志
@@ -193,7 +192,7 @@ class Product extends Common
 	}
 
 	//分类列表
-    public function category(Request $request){
+    public function categoryIndex(Request $request){
 		$name = trim($request->name);
 		$state = (int)$request->state;
 		
@@ -218,12 +217,12 @@ class Product extends Common
 	}
 
 	//添加修改分类
-	public function categoryAdd(Request $request){
+	public function categoryItem(Request $request){
 		$parent = (int)$request->parent;
 		$id = (int)$request->id;
 		$data['parent'] = Db::table('product_category')->where('id',$parent)->item();
 		$data['category'] = Db::table('product_category')->where('id',$id)->item();
-		return view('backend.product.category.add',$data);
+		return view('backend.product.category.item',$data);
 	}
 
 	// 保存分类
@@ -244,7 +243,7 @@ class Product extends Common
 		if($id){
 			$data['modified'] = time();
 			$res = Db::table('product_category')->where('id',$id)->update($data);
-			$log = '编辑商品分类：'.$data['name'].'，ID：'.$id.'。';
+			$log = '修改商品分类：'.$data['name'].'，ID：'.$id.'。';
 		}else{
 			$data['created'] = time();
 			$res = Db::table('product_category')->insertGetId($data);

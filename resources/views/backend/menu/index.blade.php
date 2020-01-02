@@ -19,7 +19,7 @@
 			@if($parent)
 			<button type="button" class="btn btn-sm btn-default" onclick="starGoto('menu', {{$back_id}});">返回上一级</button>
 			@endif
-			<button type="button" class="btn btn-sm btn-primary" onclick="starAdd('menu', 0, {{$parent}});">新增</button>
+			<button type="button" class="btn btn-sm btn-primary" onclick="starItem('menu', 0, {{$parent}});">新增</button>
 		</div>
 	</div>
 	{{csrf_field()}}
@@ -53,7 +53,7 @@
 				<td>{!!$item['state']==1?'<span class="label label-success">启用</span>':'<span class="label label-danger">禁用</span>'!!}</td>
 				<td>
 					<button type="button" class="btn btn-sm btn-default" onclick="starGoto('menu', {{$item['id']}});">子菜单</button>
-					<button type="button" class="btn btn-sm btn-primary" onclick="starAdd('menu', {{$item['id']}}, {{$parent}});">编辑</button>
+					<button type="button" class="btn btn-sm btn-primary" onclick="starItem('menu', {{$item['id']}}, {{$parent}});">编辑</button>
 					<button type="button" class="btn btn-sm btn-danger" onclick="starDelete('menu', {{$item['id']}});">删除</button>
 				</td>
 			</tr>

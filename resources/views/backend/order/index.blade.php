@@ -96,7 +96,7 @@
 					@endif
 				</td>
 				<td>
-					<button type="button" class="btn btn-sm btn-primary" onclick="starAdd('order', {{$item['id']}});">查看</button>
+					<button type="button" class="btn btn-sm btn-primary" onclick="starItem('order', {{$item['id']}});">查看</button>
 				</td>
 			</tr>
 			@endforeach

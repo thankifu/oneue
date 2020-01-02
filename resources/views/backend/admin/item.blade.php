@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>添加修改管理员</title>
+<title>新增修改管理员</title>
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 @include('backend.common.head')

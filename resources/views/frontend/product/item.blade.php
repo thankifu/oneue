@@ -148,7 +148,7 @@
                     <a class="star-add-cart" href="javascript:void(0);" onclick="starAddToCart()"><i class="fa fa-shopping-cart" aria-hidden="true"></i>加入购物车</a>
                     @else
                     <a class="star-buy-now" href="javascript:void(0);" onclick="starGotoLogin()">立即购买</a>
-                    <a class="star-add-cart" href="javascript:void(0);"><i class="fa fa-shopping-cart" aria-hidden="true"></i>加入购物车</a>
+                    <a class="star-add-cart" href="javascript:void(0);" onclick="starGotoLogin()"><i class="fa fa-shopping-cart" aria-hidden="true"></i>加入购物车</a>
                     @endif
                 @else
                     <a class="star-buy-now-disable" href="javascript:void(0);">立即购买</a>

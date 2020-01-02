@@ -36,7 +36,7 @@
 			</form>
 		</div>
 		<div class="pull-right">
-			<button type="button" class="btn btn-sm btn-primary" onclick="starAdd('admin');">新增</button>
+			<button type="button" class="btn btn-sm btn-primary" onclick="starItem('admin');">新增</button>
 		</div>
 	</div>
 	
@@ -66,7 +66,7 @@
 				<td>{{$item['logined']?date('Y-m-d H:i:s',$item['logined']):'-'}}</td>
 				<td>{!!$item['state']==1?'<span class="label label-success">启用</span>':'<span class="label label-danger">禁用</span>'!!}</td>
 				<td>
-					<button type="button" class="btn btn-sm btn-primary" onclick="starAdd('admin', {{$item['id']}});">编辑</button>
+					<button type="button" class="btn btn-sm btn-primary" onclick="starItem('admin', {{$item['id']}});">编辑</button>
 					<button type="button" class="btn btn-sm btn-danger" onclick="starDelete('admin', {{$item['id']}});">删除</button>
 				</td>
 			</tr>

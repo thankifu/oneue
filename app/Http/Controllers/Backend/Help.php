@@ -17,19 +17,19 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
-class Article extends Common
+class Help extends Common
 {
     //列表
     public function index(Request $request){
 
 		$title = trim($request->title);
-		$category_id = trim($request->category_id);
+		$category_id = (int)$request->category_id;
 		
 		$where = [];
 		if($title){
 			$where[] = ['title', 'like', '%'.$title.'%'];
 		}
-		if($category_id){
+		if(isset($request->category_id)){
 			$where[] = ['category_id', '=', $category_id];
 		}
 
@@ -37,23 +37,26 @@ class Article extends Common
 		if($title){
 			$appends['title'] = $title;
 		}
-		if($category_id){
+		if(isset($request->category_id)){
 			$appends['category_id'] = $category_id;
 		}
-		
-		$data = Db::table('article')->where($where)->orderBy('id','desc')->pages($appends);
+		/*echo '<pre>';
+		print_r($where);*/
+		$data = Db::table('help')->where($where)->orderBy('id','desc')->pages($appends);
+
 		//分类
-		$data['categories'] = Db::table('article_category')->select(['id','name'])->cates('id');
-		return view('backend.article.index',$data);
+		$data['categories'] = Db::table('help_category')->select(['id','name'])->cates('id');
+		return view('backend.help.index',$data);
 	}
 
-	//添加修改
+	//增改
 	public function item(Request $request){
 		$id = (int)$request->id;
-		$data['article'] = Db::table('article')->where('id',$id)->item();
+		$data['help'] = Db::table('help')->where('id',$id)->item();
+
 		//分类
-		$data['categories'] = DB::table('article_category')->select(['id','name'])->cates('id');
-		return view('backend.article.item',$data);
+		$data['categories'] = DB::table('help_category')->select(['id','name'])->cates('id');
+		return view('backend.help.item',$data);
 	}
 
 	//保存
@@ -61,23 +64,21 @@ class Article extends Common
 		$id = (int)$request->id;
 		$data['title'] = trim($request->title);
 		$data['content'] = trim($request->content);
-		$data['author'] = trim($request->author);
-		$data['picture'] = trim($request->picture);
-		$data['author'] = trim($request->author);
+		$data['position'] = (int)$request->position;
+		$data['category_id'] = (int)$request->category_id;
 		$data['seo_title'] = trim($request->seo_title);
 		$data['seo_description'] = trim($request->seo_description);
 		$data['seo_keywords'] = trim($request->seo_keywords);
-		$data['category_id'] = (int)$request->category_id;
 		$data['state'] = (int)$request->state;
 
 		if($id){
 			$data['modified'] = time();
-			$res = Db::table('article')->where('id',$id)->update($data);
-			$log = '修改文章：'.$data['title'].'，ID：'.$id.'。';
+			$res = Db::table('help')->where('id',$id)->update($data);
+			$log = '修改帮助：'.$data['title'].'，ID：'.$id.'。';
 		}else{
 			$data['created'] = time();
-			$res = Db::table('article')->insertGetId($data);
-			$log = '新增文章：'.$data['title'].'，ID：'.$res.'。';
+			$res = Db::table('help')->insertGetId($data);
+			$log = '新增帮助：'.$data['title'].'，ID：'.$res.'。';
 		}
 
 		//添加日志
@@ -88,17 +89,17 @@ class Article extends Common
 	//删除
 	public function delete(Request $request){
 		$id = (int)$request->id;
-		$has = DB::table('article')->where('id',$id)->item();
+		$has = DB::table('help')->where('id',$id)->item();
 		if(!$has){
-			$this->returnMessage(400,'文章不存在');
+			$this->returnMessage(400,'帮助不存在');
 		}
-		$res = DB::table('article')->where('id',$id)->delete();
+		$res = DB::table('help')->where('id',$id)->delete();
 		if(!$res){
 			$this->returnMessage(400,'删除失败');
 		}
 
 		//添加日志
-		$this->log('删除文章：'.$has['title'].'，ID：'.$id.'。');
+		$this->log('删除帮助：'.$has['title'].'，ID：'.$id.'。');
 		$this->returnMessage(200,'删除成功');
 	}
 
@@ -116,24 +117,24 @@ class Article extends Common
 		}
 
 		$data['parent'] = (int)$request->parent;
-		$data['lists'] = DB::table('article_category')->where('parent',$data['parent'])->where($where)->orderBy('position','asc')->orderBy('id','asc')->lists();
+		$data['lists'] = DB::table('help_category')->where('parent',$data['parent'])->where($where)->orderBy('position','asc')->orderBy('id','asc')->lists();
 		//返回上一级
 		$data['back'] = 0;
 		if($data['parent'] > 0){
-			$parent = DB::table('article_category')->where('id',$data['parent'])->where($where)->item();
+			$parent = DB::table('help_category')->where('id',$data['parent'])->where($where)->item();
 			$data['back'] = $parent['parent'];
 		}
 
-		return view('backend.article.category.index',$data);
+		return view('backend.help.category.index',$data);
 	}
 
 	//分类添加修改
 	public function categoryItem(Request $request){
 		$parent = (int)$request->parent;
 		$id = (int)$request->id;
-		$data['parent'] = Db::table('article_category')->where('id',$parent)->item();
-		$data['category'] = Db::table('article_category')->where('id',$id)->item();
-		return view('backend.article.category.item',$data);
+		$data['parent'] = Db::table('help_category')->where('id',$parent)->item();
+		$data['category'] = Db::table('help_category')->where('id',$id)->item();
+		return view('backend.help.category.item',$data);
 	}
 
 	//分类保存
@@ -153,12 +154,12 @@ class Article extends Common
 
 		if($id){
 			$data['modified'] = time();
-			$res = Db::table('article_category')->where('id',$id)->update($data);
-			$log = '修改文章分类：'.$data['name'].'，ID：'.$id.'。';
+			$res = Db::table('help_category')->where('id',$id)->update($data);
+			$log = '修改帮助分类：'.$data['name'].'，ID：'.$id.'。';
 		}else{
 			$data['created'] = time();
-			$res = Db::table('article_category')->insertGetId($data);
-			$log = '新增文章分类：'.$data['name'].'，ID：'.$res.'。';
+			$res = Db::table('help_category')->insertGetId($data);
+			$log = '新增帮助分类：'.$data['name'].'，ID：'.$res.'。';
 		}
 
 		//添加日志
@@ -169,14 +170,14 @@ class Article extends Common
 	//分类删除
 	public function categoryDelete(Request $request){
 		$id = (int)$request->id;
-		$has = Db::table('article_category')->where('id',$id)->item();
+		$has = Db::table('help_category')->where('id',$id)->item();
 		if(!$has){
-			$this->returnMessage(400,'文章分类不存在');
+			$this->returnMessage(400,'帮助分类不存在');
 		}
-		Db::table('article_category')->where('id',$id)->delete();
+		Db::table('help_category')->where('id',$id)->delete();
 
 		//添加日志
-		$this->log('删除文章分类：'.$has['name'].'，ID：'.$id.'。');
+		$this->log('删除帮助分类：'.$has['name'].'，ID：'.$id.'。');
 		$this->returnMessage(200,'删除成功');
 	}
 
