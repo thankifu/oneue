@@ -10,27 +10,33 @@
 
 ## 使用
 
-1.clone到本地后，通过 composer 安装依赖：
+1.clone到本地后，通过 composer 安装依赖。
 
 ```
 composer install
 ```
 
-2.复制一份.env.example并命名为.evn，并自行修改其中配置
+2.复制一份.env.example并命名为.evn，并自行修改其中配置。
 
 ```
 cp .env.example .env
 ```
 
-3.生成密钥
+3.生成密钥。
 
 ```
 php artisan key:generate
 ```
 
-4.将oneue.sql导入到数据库。
+4.创建符号链接。
 
-5.微信支付需配置config/wechat.php中的相关参数。
+```
+php artisan storage:link
+```
+
+5.将oneue.sql导入到数据库。
+
+6.微信支付需配置config/wechat.php中的相关参数。
 
 ## 功能
 
