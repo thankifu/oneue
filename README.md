@@ -4,8 +4,6 @@
 
 ## 联系
 
-演示：demo.oneue.com
-
 邮箱：i@thankifu.com
 
 ## 使用
@@ -34,7 +32,7 @@ php artisan key:generate
 php artisan storage:link
 ```
 
-5.将oneue.sql导入到数据库。
+5.将oneue.sql导入到数据库[因项目还在更新中，版本发布后会上传]。
 
 6.微信支付需配置config/wechat.php中的相关参数。
 
@@ -83,9 +81,11 @@ php artisan storage:link
 
 ## 展示
 
-![](https://img.starslabs.com/uploads/5c8b3d4fadb8d3a0/8bb42a241a42fb84.png)
+![](https://img.starslabs.com/uploads/0000000000000git/frontend-01.jpg)
 
-![](https://img.starslabs.com/uploads/ac7276251d41c2c0/d833b516f874976e.png)
+![](https://img.starslabs.com/uploads/0000000000000git/backend-01.jpg)
+
+![](https://img.starslabs.com/uploads/0000000000000git/backend-03.jpg)
 
 ## 鸣谢
 
@@ -93,7 +93,6 @@ php artisan storage:link
 | ------------- | ----------------------------------------- | ------ |
 | Laravel       | 一套简洁、优雅的PHP Web开发框架           | 5.8.*  |
 | Bootstrap     | Twitter推出的一个用于前端开发的开源工具包 | 3.3.7  |
-| Font Awesome  | 一套绝佳的图标字体库和CSS框架             | 4.7.0  |
 | Bootbox       | 让Bootstrap modals变得简单                | 5.3.2  |
 | CKEditor      | 优秀的网页在线文字编辑器之一              | 4.10.1 |
 | Highlight     | 代码高亮                                  | 9.17.1 |
