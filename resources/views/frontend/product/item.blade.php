@@ -76,26 +76,6 @@
                         <div class="star-meta-text">{{$product['volume']}}</div>
                     </div>
                 </div>
-                <div class="clearfix star-meta star-meta-shipment">
-                    <div class="star-meta-hd">配送</div>
-                    <div class="star-meta-bd">
-                        <div class="star-meta-text"></div>
-                    </div>
-                </div>
-                <div class="clearfix star-meta star-meta-services">
-                    <div class="star-meta-hd">服务</div>
-                    <div class="star-meta-bd">
-                        <div class="star-meta-serv">
-                            <ul class="list-unstyled">
-                                <li><i class="star-icon-1"></i>官方质检</li>
-                                <li><i class="star-icon-2"></i>正品保证</li>
-                                <li><i class="star-icon-3"></i>闪电发货</li>
-                                <li><i class="star-icon-4"></i>七天退换</li>
-                                <li><i class="star-icon-5"></i>品牌直供</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
 
                 @if($specifications)
                 <div class="clearfix star-meta star-meta-specifications">
@@ -133,9 +113,9 @@
                     <div class="star-meta-hd">数量</div>
                     <div class="star-meta-bd">
                         <div class="star-meta-quan">
-                            <span class="star-del disabled"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                            <span class="star-del disabled"><i class="glyphicon glyphicon-minus" aria-hidden="true"></i></span>
                             <input class="star-num" type="text" value="1" readonly/>
-                            <span class="star-add"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                            <span class="star-add"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i></span>
                         </div>
                     </div>
                 </div>
@@ -145,10 +125,10 @@
                 @if($product['state'] != 0 && $product['quantity'] != 0)
                     @if(auth()->check())
                     <a class="star-buy-now" href="javascript:void(0);" onclick="starBuyNow()">立即购买</a>
-                    <a class="star-add-cart" href="javascript:void(0);" onclick="starAddToCart()"><i class="fa fa-shopping-cart" aria-hidden="true"></i>加入购物车</a>
+                    <a class="star-add-cart" href="javascript:void(0);" onclick="starAddToCart()"><i class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i>加入购物车</a>
                     @else
                     <a class="star-buy-now" href="javascript:void(0);" onclick="starGotoLogin()">立即购买</a>
-                    <a class="star-add-cart" href="javascript:void(0);" onclick="starGotoLogin()"><i class="fa fa-shopping-cart" aria-hidden="true"></i>加入购物车</a>
+                    <a class="star-add-cart" href="javascript:void(0);" onclick="starGotoLogin()"><i class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i>加入购物车</a>
                     @endif
                 @else
                     <a class="star-buy-now-disable" href="javascript:void(0);">立即购买</a>
@@ -161,7 +141,7 @@
 
             <ul class="nav nav-tabs star-tabs" role="tablist">
                 <li role="presentation" class="active"><a href="#details" aria-controls="details" role="tab" data-toggle="tab">商品详情</a></li>
-                <li role="presentation"><a href="#reviews" aria-controls="reviews" role="tab" data-toggle="tab">商品评价 <span class="badge">42</span></a></li>
+                <li role="presentation"><a href="#reviews" aria-controls="reviews" role="tab" data-toggle="tab">商品评价 <!-- <span class="badge">42</span> --></a></li>
             </ul>
 
             <div class="tab-content">

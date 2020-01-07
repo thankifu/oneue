@@ -49,6 +49,7 @@ class Menu extends Common
 		$data['name'] = trim($request->name);
 		$data['controller'] = trim($request->controller);
 		$data['action'] = trim($request->action);
+		$data['path'] = trim($request->path);
 		$data['position'] = (int)$request->position;
 		$data['hidden'] = (int)$request->hidden;
 		$data['state'] = (int)$request->state;

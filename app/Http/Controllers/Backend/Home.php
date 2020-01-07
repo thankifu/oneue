@@ -47,7 +47,12 @@ class Home extends Common
                 $value['controller'] = strtolower($value['controller']);
                 $value['action'] = strtolower($value['action']);
                 $temp[$value['id']] = $value;
-                $temp[$key]['url'] = '/admin/'.$value['controller'].'/'.$value['action']; 
+                if($value['path']){
+                    $temp[$key]['url'] = '/admin/'.$value['controller'].'/'.$value['path'];
+                }else{
+                    $temp[$key]['url'] = '/admin/'.$value['controller'].'/'.$value['action'];
+                }
+                
             }
             
             $menus = $temp;

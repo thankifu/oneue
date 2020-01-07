@@ -81,7 +81,7 @@
 			<label for="picture">图片：</label>
 			<div class="form-inline">
 				<div class="form-group">
-					<span class="star-picture star-picture-square star-mr-10" style="background-image:url({{isset($product['picture'])?$product['picture']:'/images/upload-image.png'}});">
+					<span class="star-picture star-picture-square star-mr-10" style="background-image:url({{isset($product['picture'])?$product['picture']:'/images/star-upload-image.png'}});">
 						<i class="star-picture-hd">首图</i>
 						<i class="star-picture-bd" onclick="starPicture('picture');"></i>
 						<i class="star-picture-ft"></i>
@@ -90,7 +90,7 @@
 				</div>
 				<div class="form-group">
 					@for($i = 0; $i < 4; $i++)
-					<span class="star-picture star-picture-square star-mr-10" style="background-image:url({{isset($pictures[$i]['picture'])?$pictures[$i]['picture']:'/images/upload-image.png'}});">
+					<span class="star-picture star-picture-square star-mr-10" style="background-image:url({{isset($pictures[$i]['picture'])?$pictures[$i]['picture']:'/images/star-upload-image.png'}});">
 						<i class="star-picture-bd" onclick="starPicture('pictures[{{$i}}][picture]');"></i>
 						<input type="hidden" name="pictures[{{$i}}][id]" value="{{isset($pictures[$i]['id'])?$pictures[$i]['id']:''}}">
 						<input type="hidden" name="pictures[{{$i}}][picture]" value="{{isset($pictures[$i]['picture'])?$pictures[$i]['picture']:''}}" />
@@ -125,7 +125,7 @@
 					@foreach($specifications as $item)
 					<tr>
 						<td>
-							<span class="star-picture star-picture-square star-mr-10" style="background-image:url({{isset($item['picture'])?$item['picture']:'/images/upload-image.png'}});">
+							<span class="star-picture star-picture-square star-mr-10" style="background-image:url({{isset($item['picture'])?$item['picture']:'/images/star-upload-image.png'}});">
 								<i class="star-picture-bd" onclick="starPicture('picture');"></i>
 								<i class="star-picture-ft"></i>
 								<input class="form-control" type="hidden" name="specifications[{{$i}}][picture]" value="{{$item['picture']}}" autocomplete="off">

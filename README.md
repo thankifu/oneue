@@ -6,6 +6,14 @@
 
 邮箱：i@thankifu.com
 
+前台演示：[点击这里跳转](http://demo.oneue.com)
+
+后台演示：[点击这里跳转](http://demo.oneue.com/admin)
+
+前/后台帐号：oneue
+
+前/后台密码：oneue
+
 ## 使用
 
 1.clone到本地后，通过 composer 安装依赖。
@@ -32,9 +40,11 @@ php artisan key:generate
 php artisan storage:link
 ```
 
-5.将oneue.sql导入到数据库[因项目还在更新中，版本发布后会上传]。
+5.将oneue.sql导入到数据库 [因项目还在更新中，数据库也会随时更新]。
 
-6.微信支付需配置config/wechat.php中的相关参数。
+6.数据库默认的后台帐号密码同为：admin。
+
+7.微信支付需配置config/wechat.php中的相关参数。
 
 ## 功能
 

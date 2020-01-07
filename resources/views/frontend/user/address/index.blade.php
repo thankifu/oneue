@@ -22,6 +22,7 @@
                 <div class="star-address">
                     <div class="star-bd">
                         <dt>地址列表</dt>
+                        @if($address)
                         <dl>
                             @foreach($address as $item)
                             <dd>
@@ -37,6 +38,11 @@
                             </dd>
                             @endforeach
                         </dl>
+                        @else
+                        <dl class="star-list-no">
+                            <dd>暂无记录诶～</dd>
+                        </dl>
+                        @endif
                     </div>
                 </div>
                 <div class="star-actions text-center">

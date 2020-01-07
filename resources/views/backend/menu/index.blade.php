@@ -54,7 +54,7 @@
 				<td>
 					<button type="button" class="btn btn-sm btn-default" onclick="starGoto('menu', {{$item['id']}});">子菜单</button>
 					<button type="button" class="btn btn-sm btn-primary" onclick="starItem('menu', {{$item['id']}}, {{$parent}});">编辑</button>
-					<button type="button" class="btn btn-sm btn-danger" onclick="starDelete('menu', {{$item['id']}});">删除</button>
+					<button type="button" class="btn btn-sm btn-secondary" onclick="starDelete('menu', {{$item['id']}});">删除</button>
 				</td>
 			</tr>
 			@endforeach

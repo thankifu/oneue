@@ -30,7 +30,7 @@ class Help extends Common
 		}
 
 		$data['help'] = Db::table('help')->where($where)->orderBy('id','desc')->item();
-		$data['help']['content'] = preg_replace( '#<img([^>]+?)src=[\'"]?([^\'"\s>]+)[\'"]?([^>]*)>#', sprintf( '<img${1}src="%s" data-original="${2}"${3}>', '/images/none.png' ), $data['help']['content'] );
+		$data['help']['content'] = preg_replace( '#<img([^>]+?)src=[\'"]?([^\'"\s>]+)[\'"]?([^>]*)>#', sprintf( '<img${1}src="%s" data-original="${2}"${3}>', '/images/star-none.png' ), $data['help']['content'] );
 
 		DB::table('help')->increment('visit', 1);
         

@@ -52,6 +52,6 @@ body{-moz-transition: all .5s ease;-o-transition:all .5s ease;-webkit-transition
 ::-webkit-scrollbar-thumb{background:#666;}
 
 .star-toast{text-align:center;}
-.star-toast i{font-size:24px;display:inline-block;vertical-align:middle;}
+.star-toast i{font-size:18px;display:inline-block;vertical-align:middle;}
 .star-toast span{display:inline-block;vertical-align:middle;}
 

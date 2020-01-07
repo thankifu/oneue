@@ -152,13 +152,13 @@ function starToast(state, message, timeout){
 	
 	var i = '';
 	if(state=='loading'){
-		i = '<i class="fa fa-spinner fa-spin" aria-hidden="true"></i>';
+		i = '<i class="glyphicon glyphicon-refresh" aria-hidden="true"></i>';
 	}
 	if(state=='success'){
-		i = '<i class="fa fa-check-circle-o" aria-hidden="true"></i>';
+		i = '<i class="glyphicon glyphicon-ok-circle" aria-hidden="true"></i>';
 	}
 	if(state=='fail'){
-		i = '<i class="fa fa-times-circle-o" aria-hidden="true"></i>';
+		i = '<i class="glyphicon glyphicon-remove-circle" aria-hidden="true"></i>';
 	}
 	var toast = bootbox.dialog({ 
 		size: 'small', 

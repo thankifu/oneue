@@ -6,11 +6,11 @@
 	<ol class="breadcrumb">
 		<li><a href="/">首页</a></li>
 		@if(!isset($category))
-		<li class="active">图文</li>
+		<li class="active">文章</li>
 		@endif
 
 		@if(isset($category))
-		<li><a href="/article">图文</a></li>
+		<li><a href="/article">文章</a></li>
 		<li class="active">{{$category['name']}}</li>
 		@endif
 	</ol>
@@ -20,7 +20,7 @@
             <li class="col-md-4">
                 <a href="{{route('article.item',$item['id'])}}" title="{{$item['title']}}">
                     <p class="star-image">
-                        <img src="/images/none.png" data-original="{{$item['picture']}}?x-oss-process=image/resize,m_fill,w_600,h_320" alt="{{$item['title']}}" />
+                        <img src="/images/star-none.png" data-original="{{$item['picture']}}" alt="{{$item['title']}}" />
                         <span class="star-heart"><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></span>
                         <span class="star-views"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>{{$item['visit']}}</span>
                     </p>

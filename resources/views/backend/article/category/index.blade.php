@@ -67,7 +67,7 @@
 				<td>
 					<button type="button" class="btn btn-sm btn-default" onclick="starGoto('article/category', {{$item['id']}});">子分类</button>
 					<button type="button" class="btn btn-sm btn-primary" onclick="starItem('article/category', {{$item['id']}}, {{$parent}});">编辑</button>
-					<button type="button" class="btn btn-sm btn-danger" onclick="starDelete('article/category', {{$item['id']}});">删除</button>
+					<button type="button" class="btn btn-sm btn-secondary" onclick="starDelete('article/category', {{$item['id']}});">删除</button>
 				</td>
 			</tr>
 			@endforeach

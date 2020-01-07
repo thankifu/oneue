@@ -58,7 +58,7 @@ class Account extends Common
             $this->returnMessage(400,'登录失败');
         }
 
-        // 更新登录ip、时间
+        //更新登录ip、时间
         Db::table('user')->where(array('username'=>$username))->update(array('logined_ip'=>$request->getClientIp(),'logined'=>time()));
 
         echo json_encode(array('code'=>200,'text'=>'登录成功'));
@@ -80,6 +80,9 @@ class Account extends Common
 
     //注册验证
     public function register(Request $request){
+
+        //$this->returnMessage(400,'演示环境禁止注册');
+
         $username = trim($request->username);
         $password = trim($request->password);
 

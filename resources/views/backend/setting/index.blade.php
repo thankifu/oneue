@@ -21,6 +21,10 @@
 			<input class="form-control" type="text" id="domain" name="domain" value="{{isset($value['domain'])?$value['domain']:''}}" placeholder="网站域名" autocomplete="off"/>
 		</div>
 		<div class="form-group">
+			<label for="name">网站标题：</label>
+			<input class="form-control" type="text" id="title" name="title" value="{{isset($value['title'])?$value['title']:''}}" placeholder="网站标题" autocomplete="off"/>
+		</div>
+		<div class="form-group">
 			<label for="seo_title">网站SEO标题：</label>
 			<input class="form-control" type="text" id="seo_title" name="seo_title" value="{{isset($value['seo_title'])?$value['seo_title']:''}}" placeholder="网站SEO标题" autocomplete="off"/>
 		</div>

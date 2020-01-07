@@ -33,7 +33,7 @@ class Upload extends Common
 				exit(json_encode(array('uploaded'=>0, 'error'=>array('message'=>$data['msg']))));
 			}
 
-			$path = $request->file('upload')->store('public/avatars');
+			$path = $request->file('upload')->store('public/uploads');
 			$url = Storage::url($path);
 			exit(json_encode(array('uploaded'=>1, 'url'=>$url)));
 
@@ -49,7 +49,7 @@ class Upload extends Common
 			exit('<script>parent.window.starUploadFail("'.$data['msg'].'")</script>');
 		}
 
-		$path = $request->file('upload_file')->store('public/avatars');
+		$path = $request->file('upload_file')->store('public/uploads');
 		$url = Storage::url($path);
 		exit('<script>parent.starUploadSuccess("'.$place.'","'.$url.'")</script>');
 		

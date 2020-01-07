@@ -67,7 +67,7 @@
 				<td>{!!$item['state']==1?'<span class="label label-success">启用</span>':'<span class="label label-danger">禁用</span>'!!}</td>
 				<td>
 					<button type="button" class="btn btn-sm btn-primary" onclick="starItem('admin', {{$item['id']}});">编辑</button>
-					<button type="button" class="btn btn-sm btn-danger" onclick="starDelete('admin', {{$item['id']}});">删除</button>
+					<button type="button" class="btn btn-sm btn-secondary" onclick="starDelete('admin', {{$item['id']}});">删除</button>
 				</td>
 			</tr>
 			@endforeach

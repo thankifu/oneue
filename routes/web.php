@@ -11,9 +11,6 @@
 |
 */
 
-/*Route::get('/', function () {
-    return view('frontend/home/index');
-});*/
 Route::get('/', 'Frontend\Home@index');
 
 Route::get('login', 'Frontend\Account@showLogin')->name('login');
@@ -53,17 +50,9 @@ Route::namespace('Frontend')->middleware('auth')->group(function () {
 	Route::post('order/create', 'Order@create'); //创建
 	Route::get('order/paid', 'Order@paid'); //付款状态
 
-	Route::post('payment', 'Payment@index');
-
 	Route::get('user', 'User@index');
 	Route::get('user/setting', 'User@setting');
 	Route::get('user/username', 'User@username');
-	Route::get('user/password', 'User@password');
-	Route::get('user/phone', 'User@phone');
-	Route::post('user/password/store', 'User@passwordStore');
-	Route::post('user/phone/check', 'User@phoneStore');
-	Route::post('user/phone/store', 'User@phoneStore');
-
 	Route::get('user/address', 'User@address');
 	Route::get('user/address/{id}', 'User@addressItem');
 	Route::post('user/address/store', 'User@addressStore');
@@ -72,13 +61,6 @@ Route::namespace('Frontend')->middleware('auth')->group(function () {
 
 	Route::get('user/order', 'User@order');
 	Route::get('user/order/{id}', 'User@orderItem');
-
-	
-	/*Route::post('favorite', 'Action@favorite');
-	Route::post('cart', 'Action@cart');
-	Route::post('checkout', 'Action@checkout');
-	Route::post('order', 'Action@order');
-	Route::post('payment', 'Action@payment');*/
 
 });
 
@@ -100,7 +82,7 @@ Route::prefix('admin')->namespace('Backend')->middleware(['auth.admin:admin','au
 	Route::post('admin/save','Admin@save');
 	Route::post('admin/delete','Admin@delete');
 
-	// 角色管理
+	//角色管理
 	Route::get('group/index','Group@index');
 	Route::get('group/item','Group@item');
 	Route::post('group/save','Group@save');
@@ -121,7 +103,6 @@ Route::prefix('admin')->namespace('Backend')->middleware(['auth.admin:admin','au
 	Route::get('article/item','Article@item');
 	Route::post('article/save','Article@save');
 	Route::post('article/delete','Article@delete');
-
 	Route::get('article/category/index','Article@categoryIndex');
 	Route::get('article/category/item','Article@categoryItem');
 	Route::post('article/category/save','Article@categorySave');
@@ -132,12 +113,10 @@ Route::prefix('admin')->namespace('Backend')->middleware(['auth.admin:admin','au
 	Route::get('product/item','Product@item');
 	Route::post('product/save','Product@save');
 	Route::post('product/delete','Product@delete');
-
 	Route::get('product/category/index','Product@categoryIndex');
 	Route::get('product/category/item','Product@categoryItem');
 	Route::post('product/category/save','Product@categorySave');
 	Route::post('product/category/delete','Product@categoryDelete');
-
 	Route::post('product/specification/delete','Product@specificationDelete');
 
 	//用户管理
@@ -167,7 +146,13 @@ Route::prefix('admin')->namespace('Backend')->middleware(['auth.admin:admin','au
 	Route::post('help/category/save','Help@categorySave');
 	Route::post('help/category/delete','Help@categoryDelete');
 
+	//轮播管理
+	Route::get('slide/index','Slide@index');
+	Route::get('slide/item','Slide@item');
+	Route::post('slide/save','Slide@save');
+	Route::post('slide/delete','Slide@delete');
+
 	//上传
-	Route::post('admin/upload/index','Upload@index');
+	Route::post('upload/index','Upload@index');
 
 });

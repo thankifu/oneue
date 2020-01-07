@@ -38,7 +38,7 @@
 			<label for="picture">图片：</label>
 			<div class="form-inline">
 				<div class="form-group">
-					<span class="star-picture star-picture-rectangle star-mr-10" style="background-image:url({{isset($article['picture'])?$article['picture']:'/images/upload-image.png'}});">
+					<span class="star-picture star-picture-rectangle star-mr-10" style="background-image:url({{isset($article['picture'])?$article['picture']:'/images/star-upload-image.png'}});">
 						<i class="star-picture-hd">首图</i>
 						<i class="star-picture-bd" onclick="starPicture('picture');"></i>
 						<i class="star-picture-ft"></i>

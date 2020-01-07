@@ -20,7 +20,7 @@
             <li class="col-md-3 col-xs-6">
                 <a href="{{route('product.item',$item['id'])}}" title="{{$item['name']}}">
                     <p class="star-image">
-                        <img src="/images/none.png" data-original="{{$item['picture']}}?x-oss-process=image/resize,m_fill,w_600,h_600" alt="{{$item['name']}}"/>
+                        <img src="/images/star-none.png" data-original="{{$item['picture']}}" alt="{{$item['name']}}"/>
                         <span class="star-heart"><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></span>
                     </p>
                     <p class="star-title">{{$item['name']}}</p>

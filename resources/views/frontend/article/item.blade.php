@@ -9,7 +9,7 @@
 <div class="container star-item-article star-mb-25">
 	<ol class="breadcrumb">
         <li><a href="/">首页</a></li>
-        <li><a href="/article">图文</a></li>
+        <li><a href="/article">文章</a></li>
         @if(isset($category))
         @if(!empty($category))
         <li><a href="/article/category/{{$category['id']}}">{{$category['name']}}</a></li>

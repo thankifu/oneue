@@ -23,13 +23,15 @@ class Home extends Common
     public function index(Request $request){
     	$discount = $this->getUserDiscount();
 
-		$data['product'] = Db::table('product')->orderBy('id','desc')->limit('6')->lists();
+    	$data['slide'] = Db::table('slide')->where('state', 1)->orderBy('position','asc')->orderBy('id','asc')->lists();
+
+		$data['product'] = Db::table('product')->where('state', 1)->orderBy('id','desc')->limit('6')->lists();
 		foreach ($data['product'] as $key => $value) {
 			$price  = $this->getProductPrice($data['product'][$key]['selling'], $discount);
 			$data['product'][$key]['price'] = $price;
 		}
 		
-        $data['article'] = Db::table('article')->orderBy('id','desc')->limit('6')->lists();
+        $data['article'] = Db::table('article')->where('state', 1)->orderBy('id','desc')->limit('6')->lists();
         
 		return view('frontend.home.index', $data);
 	}

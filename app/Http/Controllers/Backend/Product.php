@@ -116,7 +116,9 @@ class Product extends Common
 					if($has){
 						Db::table('product_picture')->where('id',$value['id'])->where('product_id',$id)->update($value);
 					}else{
-						Db::table('product_picture')->insertGetId($value);
+						if($value['picture'] !== ''){
+							Db::table('product_picture')->insertGetId($value);
+						}
 					}
 				}
 			}
@@ -151,7 +153,10 @@ class Product extends Common
 					//格式化图片数值，否则为空时无法插入
 					$value['picture'] = trim($value['picture']);
 
-					$res = Db::table('product_picture')->insertGetId($value);
+					if($value['picture'] !== ''){
+						Db::table('product_picture')->insertGetId($value);
+					}
+					
 				}
 			}
 

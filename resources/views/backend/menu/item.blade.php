@@ -39,6 +39,10 @@
 			<label for="action">方法：</label>
 			<input class="form-control" type="text" id="action" name="action" value="{{$menu['action']}}" placeholder="控制器" autocomplete="off">
 		</div>
+		<div class="form-group">
+			<label for="path">路径：</label>
+			<input class="form-control" type="text" id="path" name="path" value="{{$menu['path']}}" placeholder="路径" autocomplete="off">
+		</div>
 
 		<div class="form-group">
 			<label>状态：</label>

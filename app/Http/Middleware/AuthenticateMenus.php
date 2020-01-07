@@ -30,7 +30,7 @@ class AuthenticateMenus{
         list($class, $action) = explode('@', $request_action);
         $class_list = explode('\\',$class);
         $controller = $class_list[count($class_list)-1];
-
+        //print_r($request_action);
         $curMenu = DB::table('admin_menu')->where('controller',$controller)->where('action',$action)->first();
         if(!$curMenu){
             return response($this->_noPermission($request),200);
@@ -45,7 +45,7 @@ class AuthenticateMenus{
     // 没有权限
     private function _noPermission($request,$msg = '没有权限，请联系管理员'){
         if($request->ajax()){
-            $response = json_encode(array('code'=>1,'msg'=>$msg));
+            $response = json_encode(array('code'=>400,'text'=>$msg));
         }else{
             $response = '<div style="text-align:center;color:#666;margin-top:10px;">'.$msg.'</div>';
         }

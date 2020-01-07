@@ -5,12 +5,14 @@
     <div class="row star-slides">
         <div class="swiper-container">
             <ul class="list-unstyled swiper-wrapper">
+                @foreach($slide as $item)
                 <li class="swiper-slide">
-                    <a href="" style="background-image:url(https://www.oneue.com/images/slide-1.jpg);" title="">
-                        <div class="star-title">欢迎光临</div>
-                        <div class="star-content">精致生活、从ONEUE开始，给生活来一点不一样的色彩！</div>
+                    <a href="{{$item['url']}}" style="background-image:url({{$item['picture']}});">
+                        <div class="star-title">{{$item['title']}}</div>
+                        <div class="star-content">{{$item['subtitle']}}</div>
                     </a>
                 </li>
+                @endforeach
             </ul>
             <div class="swiper-pagination"></div>
         </div>
@@ -30,7 +32,7 @@
                 <li class="col-md-2 col-xs-6">
                     <a href="{{route('product.item',$item['id'])}}" title="{{$item['name']}}">
                         <p class="star-image">
-                            <img src="/images/none.png" data-original="{{$item['picture']}}?x-oss-process=image/resize,m_fill,w_600,h_600" alt="{{$item['name']}}"/>
+                            <img src="/images/star-none.png" data-original="{{$item['picture']}}" alt="{{$item['name']}}"/>
                             <span class="star-heart"><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></span>
                         </p>
                         <p class="star-title">{{$item['name']}}</p>
@@ -48,7 +50,7 @@
     <div class="container star-floor">
         <div class="clearfix star-hd">
             <div class="pull-left">
-                <a href="{{route('article')}}"><h2>图文</h2></a>
+                <a href="{{route('article')}}"><h2>文章</h2></a>
             </div>
             <div class="pull-right">
                 <a href="{{route('article')}}">查看更多<span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span></a>
@@ -60,7 +62,7 @@
                 <li class="col-md-4">
                     <a href="{{route('article.item',$item['id'])}}" title="{{$item['title']}}">
                         <p class="star-image">
-                            <img src="/images/none.png" data-original="{{$item['picture']}}?x-oss-process=image/resize,m_fill,w_600,h_320" alt="{{$item['title']}}" />
+                            <img src="/images/star-none.png" data-original="{{$item['picture']}}" alt="{{$item['title']}}" />
                             <span class="star-heart"><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></span>
                             <span class="star-views"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>{{$item['visit']}}</span>
                         </p>

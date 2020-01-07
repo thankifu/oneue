@@ -62,6 +62,9 @@ class Order extends Common
 
         //获取用户默认地址
 		$user_address = Db::table('user_address')->where(array(['id',$checkout['address_id']]))->item();
+        if(!$user_address){
+            $this->returnMessage(400,'请填写收获地址');
+        }
 
         $data['no'] = $this->getNumber();
         $data['quantity'] = $checkout['quantity'];

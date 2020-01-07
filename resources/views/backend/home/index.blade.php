@@ -21,7 +21,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#"><span>ONEUE</span></a>
+            <a class="navbar-brand" href="/admin"><span>{{$_site['name']}}</span></a>
             <a class="star-header-item star-ml-10" href="javascript:void(0);" onclick="starSetSide();"><span class="glyphicon{{$_side?' glyphicon-indent-left':' glyphicon-indent-right'}} star-side-state"></span></a>
             <a class="star-header-item" href="//{{$_site['domain']}}" target="_blank"><span class="glyphicon glyphicon-home"></span></a>
         </div>
@@ -36,9 +36,9 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{$_admin['username']}} <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">资料修改</a></li>
+                        <li><a href="javascript:void(0)" onclick="starItem('admin', {{$_admin['id']}});">资料修改</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="javascript:void(0)" onclick="logout();">退出</a>{{csrf_field()}}</li>
+                        <li><a href="javascript:void(0)" onclick="starLogout();">退出</a>{{csrf_field()}}</li>
                     </ul>
                 </li>
             </ul>
@@ -53,7 +53,7 @@
                 @foreach($_menus as $menu)
                 <li{!!isset($menu['children'])?' class="dropdown"':''!!}>
                     <a href="javascript:void(0);" data="{{$menu['url']}}" controller="{{$menu['controller']}}" action="{{$menu['action']}}" onclick="starMenuClick(this)"{!!isset($menu['children'])?' class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"':''!!}>
-                        <i class="icon fa {{$menu['icon']}}"></i>
+                        <i class="icon glyphicon {{$menu['icon']}}"></i>
                         <span class="text">{{$menu['name']}}</span>
                         @if(isset($menu['children']))
                         <span class="caret"></span>
@@ -78,7 +78,7 @@
 </div>
 <footer class="star-footer navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid row">
-        <p class="navbar-text text-lowercase">© 2015-2019 福州星科创想网络科技有限公司 版权所有</p>
+        <p class="navbar-text">© ONEUE 2017 - 2019 ALL RIGHTS RESERVED.</p>
     </div>
 </footer>
 @include('backend.common.foot')

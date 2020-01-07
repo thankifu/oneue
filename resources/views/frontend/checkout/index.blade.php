@@ -35,7 +35,7 @@
                     <dl>
                         <dt>收货地址</dt>
                         <dd>
-                            <a href="" style="width:100%;display:block;">+ 请先添加收货信息</a>
+                            <a href="javascript:void(0);" onclick="starAddressSelect();" style="width:100%;display:block;">+ 请先添加收货信息</a>
                         </dd>
                     </dl>
                 </div>
@@ -107,11 +107,11 @@
 
             <div class="star-payments">
                 <div class="star-bd">
-                    <dl class="star-current" data-payment="alipay" onclick="starPaymentType(this);">
+                    <!-- <dl class="star-current" data-payment="alipay" onclick="starPaymentType(this);">
                         <dt><i class="glyphicon glyphicon-record" aria-hidden="true"></i><span>支付宝</span><img src="/images/star-logo-alipay.png"></dt>
                         <dd>熟悉的支付宝，安全的保证，你懂的。</dd>
-                    </dl>
-                    <dl data-payment="wxpay" onclick="starPaymentType(this);">
+                    </dl> -->
+                    <dl class="star-current" data-payment="wxpay" onclick="starPaymentType(this);">
                         <dt><i class="glyphicon glyphicon-record" aria-hidden="true"></i><span>微信支付</span><img src="/images/star-logo-wxpay.png"></dt>
                         <dd>熟悉的微信，快捷的支付，你懂的。</dd>
                     </dl>

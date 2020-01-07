@@ -30,9 +30,9 @@
                             <div class="star-title">{{$products[$item['product_id']]['name']}}{{$specifications?' - '.$specifications[$item['specification_id']]['name']:''}}</div>
                             <div class="star-price"><i>¥</i><span>{{$specifications?$specifications[$item['specification_id']]['price']:$products[$item['product_id']]['price']}}</span></div>
                             <div class="star-quantity" data="{{$item['quantity']}}">
-                                <span class="star-del" onclick="starCartDecrement(this);"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                                <span class="star-del" onclick="starCartDecrement(this);"><i class="glyphicon glyphicon-minus" aria-hidden="true"></i></span>
                                 <input class="star-num" type="text" value="{{$item['quantity']}}" readonly/>
-                                <span class="star-add" onclick="starCartIncrement(this);"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                                <span class="star-add" onclick="starCartIncrement(this);"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i></span>
                             </div>
                             <div class="star-subtotal"><i>¥</i><span></span></div>
                             <div class="star-operation">

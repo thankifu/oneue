@@ -67,7 +67,7 @@ class Product extends Common
 		}
 
 		$data['product'] = Db::table('product')->where($where)->orderBy('id','desc')->item();
-		$data['product']['description'] = preg_replace( '#<img([^>]+?)src=[\'"]?([^\'"\s>]+)[\'"]?([^>]*)>#', sprintf( '<img${1}src="%s" data-original="${2}"${3}>', '/images/none.png' ), $data['product']['description'] );
+		$data['product']['description'] = preg_replace( '#<img([^>]+?)src=[\'"]?([^\'"\s>]+)[\'"]?([^>]*)>#', sprintf( '<img${1}src="%s" data-original="${2}"${3}>', '/images/star-none.png' ), $data['product']['description'] );
 
 		$data['product']['price'] = $this->getProductPrice($data['product']['selling'], $discount);
 
