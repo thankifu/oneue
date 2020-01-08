@@ -6,9 +6,9 @@
 
 邮箱：i@thankifu.com
 
-前台演示：[点击这里跳转](http://demo.oneue.com)
+前台演示：demo.oneue.com
 
-后台演示：[点击这里跳转](http://demo.oneue.com/admin)
+后台演示：demo.oneue.com/admin
 
 前/后台帐号：oneue
 
