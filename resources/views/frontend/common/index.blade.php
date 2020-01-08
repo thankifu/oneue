@@ -98,6 +98,41 @@
         </div>
         @endif
         <div class="star-copy"><p>{{$_site['copyright']}}</p><p><a rel="nofollow" target="_blank" href="http://www.miitbeian.gov.cn/">{{$_site['miitbeian']}}</a></p></div>
+        
+        <div class="navbar navbar-default navbar-fixed-bottom hidden-lg hidden-md hidden-sm star-nav">
+            <ul class="list-unstyled">
+                <li{!!request()->path()=='/'?' class="star-current"':''!!}>
+                    <a href="/">
+                        <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                        <span class="text">首页</span>
+                    </a>
+                </li>
+                <li{!!strstr(request()->path(),'article')?' class="star-current"':''!!}>
+                    <a href="/article">
+                        <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                        <span class="text">文章</span>
+                    </a>
+                </li>
+                <li{!!strstr(request()->path(),'product')?' class="star-current"':''!!}>
+                    <a href="/product">
+                        <span class="glyphicon glyphicon-gift" aria-hidden="true"></span>
+                        <span class="text">商品</span>
+                    </a>
+                </li>
+                <li{!!request()->path()=='cart'?' class="star-current"':''!!}>
+                    <a href="/cart">
+                        <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+                        <span class="text">购物车</span>
+                    </a>
+                </li>
+                <li{!!strstr(request()->path(),'user')?' class="star-current"':''!!}>
+                    <a href="/user">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                        <span class="text">我的</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
 

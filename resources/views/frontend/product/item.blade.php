@@ -6,7 +6,7 @@
 
 @section('body')
 
-<div class="container star-item-product star-mb-25">
+<div class="container star-item-product">
 	<ol class="breadcrumb">
         <li><a href="/">首页</a></li>
         <li><a href="/product">商品</a></li>
@@ -48,7 +48,6 @@
                 <div class="star-price">
                 @if($product['state'] != 0 && $product['quantity'] != 0)
                     <span class="star-normal" data-selling="{{$product['selling']}}" data-price="{{$product['price']}}">
-                    
                         <i>¥</i>
                         <em>{{$product['price']}}</em>
 
