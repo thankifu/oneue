@@ -1,20 +1,22 @@
 @extends('frontend.common.index')
 
 @section('body')
-<div class="container-fluid star-main">
-    <div class="row star-slides">
-        <div class="swiper-container">
-            <ul class="list-unstyled swiper-wrapper">
-                @foreach($slide as $item)
-                <li class="swiper-slide">
-                    <a href="{{$item['url']}}" style="background-image:url({{$item['picture']}});">
-                        <div class="star-title">{{$item['title']}}</div>
-                        <div class="star-content">{{$item['subtitle']}}</div>
-                    </a>
-                </li>
-                @endforeach
-            </ul>
-            <div class="swiper-pagination"></div>
+<div class="star-main">
+    <div class="container-fluid">
+        <div class="row star-slides">
+            <div class="swiper-container">
+                <ul class="list-unstyled swiper-wrapper">
+                    @foreach($slide as $item)
+                    <li class="swiper-slide">
+                        <a href="{{$item['url']}}" style="background-image:url({{$item['picture']}});">
+                            <div class="star-title">{{$item['title']}}</div>
+                            <div class="star-content">{{$item['subtitle']}}</div>
+                        </a>
+                    </li>
+                    @endforeach
+                </ul>
+                <div class="swiper-pagination"></div>
+            </div>
         </div>
     </div>
     <div class="container star-floor">

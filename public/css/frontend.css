@@ -261,33 +261,6 @@ i{font-style:normal;}
 
 .star-user .star-order .star-products{margin-bottom:0;}
 
-@media (max-width: 991px) { 
-	.star-trade .star-products .star-bd dd{padding:15px 15px;}
-	.star-trade .star-products .star-bd dd .star-image{width:35%;}
-	.star-trade .star-products .star-bd dd .star-title{width:50%;height:40px;line-height:20px;}
-	.star-trade .star-products .star-bd dd .star-price{display:none;}
-	.star-trade .star-products .star-bd dd .star-quantity{width:110px;margin:0;position:absolute;bottom:15px;right:15px;}
-	.star-trade .star-products .star-bd dd .star-quantity span{width:30px;height:30px;line-height:30px;}
-	.star-trade .star-products .star-bd dd .star-quantity input{width:50px;height:30px;line-height:30px;}
-	.star-trade .star-products .star-bd dd .star-subtotal{width:30%;height:30px;line-height:30px;position:absolute;bottom:15px;left:36%;}
-	.star-trade .star-products .star-bd dd .star-operation{width:15%;height:40px;line-height:40px;text-align:right;position:absolute;top:15px;right:15px;}
-
-
-	.star-user .star-trade .star-products .star-bd dd .star-image{width:35%;}
-	.star-user .star-trade .star-products .star-bd dd .star-title{width:65%;height:40px;line-height:20px;}
-	.star-user .star-trade .star-products .star-bd dd .star-price{width:20%;height:30px;line-height:30px;position:absolute;bottom:15px;left:36%;display:block;}
-	.star-user .star-trade .star-products .star-bd dd .star-quantity{width:20%;height:30px;line-height:30px;left:56%;}
-	.star-user .star-trade .star-products .star-bd dd .star-subtotal{width:25%;left:auto;right:15px;}
-
-	.star-user .star-trade .star-products .star-bd dd .star-image{width:35%;}
-	.star-user .star-trade .star-products .star-bd dd .star-title{width:65%;height:40px;line-height:20px;}
-	.star-user .star-trade .star-products .star-bd dd .star-price{width:20%;height:30px;line-height:30px;position:absolute;bottom:15px;left:36%;display:block;}
-	.star-user .star-trade .star-products .star-bd dd .star-quantity{width:20%;height:30px;line-height:30px;left:56%;}
-	.star-user .star-trade .star-products .star-bd dd .star-subtotal{width:25%;left:auto;right:15px;}
-	
-}
-
-
 
 .star-slides{height:350px;margin-top:-25px;margin-bottom:50px;z-index:1;}
 .star-slides li a{background-size:cover;background-position:center center;width:100%;height:100%;display:block;overflow:hidden;}
@@ -324,14 +297,13 @@ i{font-style:normal;}
 .star-item-article .star-details p.copyright:before{content:"";display:block;position: absolute;top:17px;left:15px;border-bottom:3px solid #fff;border-top:3px solid #fff;border-left:5px solid #000;}
 
 /*商品详情*/
-
 .star-item-product .star-images{width:400px;height:484px;margin:0 0 50px 0;float:left;overflow:hidden;}
 .star-item-product .star-images img{width:100%;height:100%;display:block;}
 .star-item-product .star-images .gallery-top{width:100%;height:400px;margin-bottom:20px;border-radius:4px}
 .star-item-product .star-images .gallery-thumbs{width:400px;height:64px;}
 .star-item-product .star-images .gallery-thumbs li{border:2px solid #f5f5f5;box-sizing:border-box;border-radius:4px}
 .star-item-product .star-images .gallery-thumbs .swiper-slide-thumb-active{border:2px solid #333;}
-.star-item-product .star-info{background:#fff;width:395px;margin:0 0 50px 0;float:right;position:relative;overflow:hidden;}
+.star-item-product .star-info{background:#fff;width:415px;margin:0 0 50px 0;float:right;position:relative;overflow:hidden;}
 .star-item-product .star-info .star-title{background:#fff;width:100%;margin-bottom:0;overflow:hidden;box-sizing:border-box;}
 .star-item-product .star-info .star-title h1{line-height:35px;font-size:26px;font-weight:normal;color:#333;margin:0;}
 .star-item-product .star-info .star-price{width:100%;border-bottom:1px dotted #ddd;padding:5px 0 10px;margin-bottom:20px;overflow:hidden;box-sizing:border-box;}
@@ -522,3 +494,43 @@ i{font-style:normal;}
 
 .star-login{width:350px;position:absolute;top:50%;left:50%;margin-left:-175px;}
 .star-login .star-logo{width:100%;height:40px;line-height:40px;text-align:center;color:#333;font-size:31px;font-weight:bold;margin-bottom:30px;overflow:hidden;}
+
+
+@media (max-width: 991px) { 
+	.star-trade .star-products .star-bd dd{padding:15px 15px;}
+	.star-trade .star-products .star-bd dd .star-image{width:35%;}
+	.star-trade .star-products .star-bd dd .star-title{width:50%;height:40px;line-height:20px;}
+	.star-trade .star-products .star-bd dd .star-price{display:none;}
+	.star-trade .star-products .star-bd dd .star-quantity{width:110px;margin:0;position:absolute;bottom:15px;right:15px;}
+	.star-trade .star-products .star-bd dd .star-quantity span{width:30px;height:30px;line-height:30px;}
+	.star-trade .star-products .star-bd dd .star-quantity input{width:50px;height:30px;line-height:30px;}
+	.star-trade .star-products .star-bd dd .star-subtotal{width:30%;height:30px;line-height:30px;position:absolute;bottom:15px;left:36%;}
+	.star-trade .star-products .star-bd dd .star-operation{width:15%;height:40px;line-height:40px;text-align:right;position:absolute;top:15px;right:15px;}
+
+	.star-user .star-trade .star-products .star-bd dd .star-image{width:35%;}
+	.star-user .star-trade .star-products .star-bd dd .star-title{width:65%;height:40px;line-height:20px;}
+	.star-user .star-trade .star-products .star-bd dd .star-price{width:20%;height:30px;line-height:30px;position:absolute;bottom:15px;left:36%;display:block;}
+	.star-user .star-trade .star-products .star-bd dd .star-quantity{width:20%;height:30px;line-height:30px;left:56%;}
+	.star-user .star-trade .star-products .star-bd dd .star-subtotal{width:25%;left:auto;right:15px;}
+
+	.star-user .star-trade .star-products .star-bd dd .star-image{width:35%;}
+	.star-user .star-trade .star-products .star-bd dd .star-title{width:65%;height:40px;line-height:20px;}
+	.star-user .star-trade .star-products .star-bd dd .star-price{width:20%;height:30px;line-height:30px;position:absolute;bottom:15px;left:36%;display:block;}
+	.star-user .star-trade .star-products .star-bd dd .star-quantity{width:20%;height:30px;line-height:30px;left:56%;}
+	.star-user .star-trade .star-products .star-bd dd .star-subtotal{width:25%;left:auto;right:15px;}
+
+	.star-item-product .star-images{width:100%;height:auto;margin:0 0 30px 0;float:none;}
+	.star-item-product .star-images .gallery-top{width:100%;height:auto;}
+	.star-item-product .star-images .gallery-thumbs{width:100%;height:auto;}
+	.star-item-product .star-info{width:100%;margin:0 0 30px 0;float:none;}
+
+	.star-item-product .star-info .star-meta-hd{width:15%;}
+	.star-item-product .star-info .star-meta-bd{width:85%;}
+
+	.star-item-product .star-info .star-actions a.star-buy-now{width:48%;}
+	.star-item-product .star-info .star-actions a.star-add-cart{width:48%;}
+
+	.star-item-product .star-info .star-actions a.star-buy-now-disable{width:48%;}
+	.star-item-product .star-info .star-actions a.star-add-cart-disable{width:48%;}
+	
+}
