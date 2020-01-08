@@ -11,6 +11,7 @@ class User extends Authenticatable
     use Notifiable;
 
     protected $table = 'user';
+    public $timestamps = false;         //是否有created_at和updated_at字段
 
     /**
      * The attributes that are mass assignable.
@@ -18,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'username', 'password', 'email', 'phone', 'avatar', 'wechat_openid', 'logined_ip', 'logined', 'created', 'state',
     ];
 
     /**

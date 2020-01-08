@@ -16,6 +16,9 @@ namespace App\Http\Controllers\Frontend;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use App\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Log;
 
 class Wechat extends Common
@@ -32,13 +35,42 @@ class Wechat extends Common
 
     }
 
-    public function auth()
+    public function auth(Request $request)
     {
         //Log::info('request arrived.'); # 注意：Log 为 Laravel 组件，所以它记的日志去 Laravel 日志看，而不是 EasyWeChat 日志
 
-        $app = app('wechat.official_account');
+        /*$app = app('wechat.official_account');
         $result = $app->oauth->scopes(['snsapi_userinfo'])->redirect();
+        print_r($result);*/
 
+        //由于使用了easyWechat中 中间件的方法进行授权，因此一句话搞定直接获取授权用户的信息如下：
+        $wechat = session('wechat.oauth_user.default');
+
+        //查询用户
+        //$has = Db::table('user')->where(['wechat_openid' => $wechat->id])->first();
+        $has = User::where('wechat_openid', $wechat->id)->first();
+
+        /*print_r($user['wechat_openid'].','.$wechat->id);
+        exit();*/
+
+        //校验用户是否存在，不存在则创建新用户
+        if (!$has) {
+            $result = User::create([
+                'username' => $wechat->name,
+                'password' => bcrypt(Str::random(60)),
+                'wechat_openid' => $wechat->id,
+                'logined_ip' => $request->getClientIp(),
+                'logined' => time(),
+                'created' => time(),
+                'state' => 1,
+            ]);
+        }else{
+            $result = $has;
+        }
+
+        Auth::login($result, true);
+
+        return redirect('/user');
     }
 
     public function payment(Request $request)

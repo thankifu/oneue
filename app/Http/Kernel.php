@@ -64,6 +64,8 @@ class Kernel extends HttpKernel
         'auth.admin' => \App\Http\Middleware\AuthenticateAdmin::class,
         'guest.admin' => \App\Http\Middleware\RedirectIfAuthenticatedAdmin::class,
         'auth.menus' => \App\Http\Middleware\AuthenticateMenus::class,
+
+        'auth.wechat' => \Overtrue\LaravelWeChat\Middleware\OAuthAuthenticate::class,
     ];
 
     /**
