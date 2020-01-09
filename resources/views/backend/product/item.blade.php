@@ -41,41 +41,32 @@
 		</div>
 		
 		<div class="row">
-			<div class="form-group col-sm-4 col-xs-12">
+			<div class="form-group col-sm-3 col-xs-12">
 				<label for="market">市场价：</label>
 				<div class="input-group">
 					<div class="input-group-addon">&yen;</div>
 					<input class="form-control" type="text" id="market" name="market" value="{{$product['market']?$product['market']:'0.00'}}" placeholder="商品市场价" autocomplete="off" data-type="price">
 				</div>			
 			</div>
-			<div class="form-group col-sm-4 col-xs-12">
+			<div class="form-group col-sm-3 col-xs-12">
 				<label for="selling">销售价：</label>
 				<div class="input-group">
 					<div class="input-group-addon">&yen;</div>
 					<input class="form-control" type="text" id="selling" name="selling" value="{{$product['selling']?$product['selling']:'0.00'}}" placeholder="商品销售价" autocomplete="off" data-type="price">
 				</div>
 			</div>
-			<div class="form-group col-sm-4 col-xs-12">
+			<div class="form-group col-sm-3 col-xs-12">
 				<label for="cost">成本价：</label>
 				<div class="input-group">
 					<div class="input-group-addon">&yen;</div>
 					<input class="form-control" type="text" id="cost" name="cost" value="{{$product['cost']?$product['cost']:'0.00'}}" placeholder="商品成本价" autocomplete="off" data-type="price">
 				</div>
 			</div>
-			<div class="form-group col-sm-4 col-xs-12">
+			<div class="form-group col-sm-3 col-xs-12">
 				<label for="quantity">库存数量：</label>
 				<input class="form-control" type="text" id="quantity" name="quantity" value="{{$product['quantity']?$product['quantity']:'0'}}" placeholder="商品库存数量" autocomplete="off" data-type="number">
 			</div>
-			<div class="form-group col-sm-4 col-xs-12">
-				<label for="volume">销量：</label>
-				<input class="form-control" type="text" id="volume" name="volume" value="{{$product['volume']?$product['volume']:'0'}}" placeholder="商品销量" autocomplete="off" data-type="number">
-			</div>
-			<div class="form-group col-sm-4 col-xs-12">
-				<label for="visit">浏览量：</label>
-				<input class="form-control" type="text" id="visit" name="visit" value="{{$product['visit']?$product['visit']:'0'}}" placeholder="商品浏览量" autocomplete="off" data-type="number">
-			</div>
 		</div>
-		
 
 		<div class="form-group">
 			<label for="picture">图片：</label>

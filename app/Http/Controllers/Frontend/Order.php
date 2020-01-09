@@ -110,9 +110,13 @@ class Order extends Common
 
 			//更新库存
 			Db::table('product')->where('id',$value['product_id'])->decrement('quantity', $data_product['quantity']);
+            //如果存在规格，更新规格库存
 			if($data_product['specification_id']>0){
 				Db::table('product_specification')->where('id',$value['specification_id'])->decrement('quantity', $data_product['quantity']);
 			}
+
+            //更新销量
+            DB::table('product')->increment('volume', $data_product['quantity']);
 
 			//删除购物车
 			Db::table('cart')->where(array(['user_id',$value['user_id']],['product_id',$value['product_id']],['specification_id',$value['specification_id']]))->delete();
