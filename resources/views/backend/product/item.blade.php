@@ -176,7 +176,7 @@
 </div>
 @include('backend.common.foot')
 <script src="/packages/ckeditor/ckeditor.js"></script>
-<script>
+<script type="text/javascript">
 	CKEDITOR.replace('description', {height: 500, filebrowserUploadUrl: '{{url('/admin/upload/index')}}?upload_place=editor&_token={{csrf_token()}}',});
 </script>
 </body>

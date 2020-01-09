@@ -124,6 +124,8 @@ class Product extends Common
 			}
 
 			if($result && $specifications){
+				//如果存在规格，设置初始值
+				$update['quantity'] = 0;
 
 				foreach ($specifications as $value) {
 					$value['product_id'] = $id;
@@ -138,7 +140,13 @@ class Product extends Common
 					}else{
 						Db::table('product_specification')->insertGetId($value);
 					}
+
+					//规格库存循环相加
+					$update['quantity'] += floatval($value['quantity']);
 				}
+
+				//更新到商品库存
+				Db::table('product')->where('id',$id)->update($update);
 			}
 
 			$log = '修改商品：'.$data['name'].'，ID：'.$id.'。';
@@ -161,14 +169,24 @@ class Product extends Common
 			}
 
 			if($result && $specifications){
+				//如果存在规格，设置初始值
+				$update['quantity'] = 0;
+
 				foreach ($specifications as $value) {
 					$value['product_id'] = $result;
 					
 					//格式化图片数值，否则为空时无法插入
 					$value['picture'] = trim($value['picture']);
 
-					$res = Db::table('product_specification')->insertGetId($value);
+					//插入数据库
+					Db::table('product_specification')->insertGetId($value);
+
+					//规格库存循环相加
+					$update['quantity'] += floatval($value['quantity']);
 				}
+
+				//更新到商品库存
+				Db::table('product')->where('id',$result)->update($update);
 			}
 			
 			$log = '修改商品：'.$data['name'].'，ID：'.$result.'。';
