@@ -1,7 +1,6 @@
 @extends('frontend.common.index')
 
 @section('body')
-
 <div class="container star-mb-25">
 	<ol class="breadcrumb">
 		<li><a href="/">首页</a></li>
@@ -33,5 +32,4 @@
         {{$links}}
 	</div>
 </div>
-
 @endsection

@@ -30,6 +30,12 @@ class Product extends Common
 			$data['lists'][$key]['price'] = $price;
 		}
 
+		//SEO优化
+		$site = $this->getSeting('site')['value'];
+		$data['page_title'] = '商品 - '.$site['name'];
+		$data['page_keywords'] = '商品,'.$site['name'];
+		$data['page_description'] = '';
+
 		return view('frontend.product.index', $data);
 	}
 
@@ -51,7 +57,13 @@ class Product extends Common
 		}
 
 		//当前分类
-		$data['category'] = Db::table('product_category')->where('id',$id)->where('state',1)->select(['id','name'])->item();
+		$data['category'] = Db::table('product_category')->where('id',$id)->where('state',1)->select(['id','name','seo_title','seo_keywords','seo_description'])->item();
+
+		//SEO优化
+		$site = $this->getSeting('site')['value'];
+		$data['page_title'] = $data['category']['seo_title']?$data['category']['seo_title']:$data['category']['name'].' - 商品 - '.$site['name'];
+		$data['page_keywords'] = $data['category']['seo_keywords'];
+		$data['page_description'] = $data['category']['seo_description'];
         
 		return view('frontend.product.index', $data);
 	}
@@ -89,6 +101,12 @@ class Product extends Common
             $data['level'] = Db::table('user_level')->select(['name'])->where('id', $user_level)->item();
             //print_r($data['level_name']);
         }
+
+        //SEO优化
+		$site = $this->getSeting('site')['value'];
+		$data['page_title'] = $data['product']['seo_title']?$data['product']['seo_title']:$data['product']['name'].' - 商品 - '.$site['name'];
+		$data['page_keywords'] = $data['product']['seo_keywords'];
+		$data['page_description'] = $data['product']['seo_description'];
 		
 		DB::table('product')->increment('visit', 1);
         

@@ -34,6 +34,12 @@ class Checkout extends Common
     	}
     	$data['address'] = Db::table('user_address')->where('id', $data['checkout']['address_id'])->item();
 		$data['products'] = Db::table('checkout_product')->where(array(['checkout_id', $data['checkout']['id']],['state', 1]))->orderBy('id','desc')->lists();
+
+		//SEO优化
+		$site = $this->getSeting('site')['value'];
+		$data['page_title'] = '结算 - '.$site['name'];
+		$data['page_keywords'] = '结算,'.$site['name'];
+		$data['page_description'] = '';
 		
 		return view('frontend.checkout.index', $data);
 	}

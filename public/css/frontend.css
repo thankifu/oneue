@@ -200,7 +200,7 @@ i{font-style:normal;}
 .star-trade .star-products .star-bd dd .star-quantity span.star-del{border-radius:3px 0 0 3px;}
 .star-trade .star-products .star-bd dd .star-quantity span.star-add{border-radius:0 3px 3px 0;}
 .star-trade .star-products .star-bd dd .star-quantity span.star-disabled{color:#ddd;}
-.star-trade .star-products .star-bd dd .star-quantity input{width:80px;height:40px;line-height:40px;text-align:center;font-size:14px;color:#999;border:0;border-top:1px solid #eee;border-bottom:1px solid #eee;float:left;overflow:hidden;display:inline;box-sizing:border-box;}
+.star-trade .star-products .star-bd dd .star-quantity input{width:80px;height:40px;line-height:40px;text-align:center;font-size:14px;color:#999;border:0;border-top:1px solid #eee;border-bottom:1px solid #eee;border-radius:0;float:left;overflow:hidden;display:inline;box-sizing:border-box;}
 .star-trade .star-products .star-bd dd .star-subtotal{width:13%;height:80px;line-height:80px;float:left;}
 .star-trade .star-products .star-bd dd .star-operation{width:5%;height:80px;line-height:80px;text-align:center;float:left;}
 .star-trade .star-products .star-bd dd .star-mask{background:rgba(0,0,0,.5);width:100%;height:120px;line-height:120px;text-align:center;color:#fff;position:absolute;top:0;left:0;z-index:1;}
@@ -320,7 +320,7 @@ i{font-style:normal;}
 .star-item-product .star-info .star-meta-quan span.star-del{border-radius:3px 0 0 3px;}
 .star-item-product .star-info .star-meta-quan span.star-add{border-radius:0 3px 3px 0;}
 .star-item-product .star-info .star-meta-quan span.star-disabled{color:#ddd;}
-.star-item-product .star-info .star-meta-quan input{width:62px;height:36px;line-height:36px;text-align:center;font-size:14px;color:#999;border:0;border-top:1px solid #eee;border-bottom:1px solid #eee;float:left;overflow:hidden;display:inline;box-sizing:border-box;}
+.star-item-product .star-info .star-meta-quan input{width:62px;height:36px;line-height:36px;text-align:center;font-size:14px;color:#999;border:0;border-top:1px solid #eee;border-bottom:1px solid #eee;border-radius:0;float:left;overflow:hidden;display:inline;box-sizing:border-box;}
 .star-item-product .star-info .star-meta-quan-tips{color:#f36;height:30px;line-height:30px;margin-left:10px;float:left;}
 .star-item-product .star-info .star-actions a{height:48px;line-height:48px;text-align:center;border:1px solid #f75258;float:left;overflow:hidden;display:inline;cursor:pointer;}
 

@@ -32,6 +32,11 @@ class Home extends Common
 		}
 		
         $data['article'] = Db::table('article')->where('state', 1)->orderBy('id','desc')->limit('6')->lists();
+
+        $site = $this->getSeting('site')['value'];
+		$data['page_title'] = $site['seo_title']?$site['seo_title']:$site['name'].' - '.$site['title'];
+		$data['page_keywords'] = $site['seo_keywords'];
+		$data['page_description'] = $site['seo_description'];
         
 		return view('frontend.home.index', $data);
 	}

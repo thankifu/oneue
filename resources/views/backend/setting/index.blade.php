@@ -47,15 +47,28 @@
 			<span class="help-block">网站备案号，可以在<a target="_blank" href="http://www.miitbeian.gov.cn">备案管理中心</a>查询获取。</span>
 		</div>
 		<div class="form-group">
-			<label>状态：</label>
+			<label>默认注册：</label>
 			<div class="radio">
 				<label class="radio-inline">
-					<input type="radio" name="state" value="1" {{isset($value['state']) && $value['state']==1?'checked':''}}>开
+					<input type="radio" name="auth_register" value="1" {{isset($value['auth_register']) && $value['auth_register']==1?'checked':''}}>开
 				</label>
 				<label class="radio-inline">
-					<input type="radio" name="state" value="0" {{isset($value['state']) && $value['state']==0?'checked':''}}>关
+					<input type="radio" name="auth_register" value="0" {{isset($value['auth_register']) && $value['auth_register']==0?'checked':''}}>关
 				</label>
 			</div>
+			<span class="help-block">用户名、密码的注册方式。</span>
+		</div>
+		<div class="form-group">
+			<label>微信注册：</label>
+			<div class="radio">
+				<label class="radio-inline">
+					<input type="radio" name="auth_wechat" value="1" {{isset($value['auth_wechat']) && $value['auth_wechat']==1?'checked':''}}>开
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="auth_wechat" value="0" {{isset($value['auth_wechat']) && $value['auth_wechat']==0?'checked':''}}>关
+				</label>
+			</div>
+			<span class="help-block">微信中使用微信帐号快速注册登录方式。</span>
 		</div>
 		<div class="form-group text-center">
 			<button type="button" class="btn btn-primary" onclick="starSettingSave();">保存</button>

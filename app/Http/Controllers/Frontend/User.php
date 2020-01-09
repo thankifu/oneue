@@ -19,13 +19,19 @@ use Illuminate\Support\Facades\DB;
 
 class User extends Common
 {
-	public function __construct(Request $request){
-        
+	public function __construct(Request $request){        
     }
     //
     public function index(Request $request){
     	$data['user'] = auth()->user();
 		//$data = Db::table('article')->where('state', 1)->orderBy('id','desc')->pages('', 12);
+
+		//SEO优化
+		$site = $this->getSeting('site')['value'];
+		$data['page_title'] = '我的 - '.$site['name'];
+		$data['page_keywords'] = '我的,'.$site['name'];
+		$data['page_description'] = '';
+
 		return view('frontend.user.index', $data);
 	}
 
@@ -37,12 +43,26 @@ class User extends Common
 	public function setting(Request $request){
     	$data = [];
     	$data['user'] = auth()->user();
+
+    	//SEO优化
+		$site = $this->getSeting('site')['value'];
+		$data['page_title'] = '我的 - '.$site['name'];
+		$data['page_keywords'] = '我的,'.$site['name'];
+		$data['page_description'] = '';
+
 		return view('frontend.user.setting', $data);
 	}
 
 	public function address(Request $request){
 		$data['user'] = auth()->user();
     	$data['address'] = Db::table('user_address')->where(array(['user_id', $data['user']['id']],['state', 1]))->orderBy('id','desc')->lists();
+
+    	//SEO优化
+		$site = $this->getSeting('site')['value'];
+		$data['page_title'] = '我的 - '.$site['name'];
+		$data['page_keywords'] = '我的,'.$site['name'];
+		$data['page_description'] = '';
+
 		return view('frontend.user.address.index', $data);
 	}
 	
@@ -55,6 +75,12 @@ class User extends Common
 		if($id!=0 && !$data['address']){
 			return redirect('/user/address');
 		}
+
+		//SEO优化
+		$site = $this->getSeting('site')['value'];
+		$data['page_title'] = '我的 - '.$site['name'];
+		$data['page_keywords'] = '我的,'.$site['name'];
+		$data['page_description'] = '';
 
 		return view('frontend.user.address.item', $data);
 	}
@@ -139,6 +165,13 @@ class User extends Common
         
         /*print_r($orders);
         exit();*/
+
+        //SEO优化
+		$site = $this->getSeting('site')['value'];
+		$data['page_title'] = '我的 - '.$site['name'];
+		$data['page_keywords'] = '我的,'.$site['name'];
+		$data['page_description'] = '';
+
 		return view('frontend.user.order.index', $data);
 	}
 
@@ -152,6 +185,12 @@ class User extends Common
 		if(!$data['order']){
 			return redirect('/user/order');
 		}
+
+		//SEO优化
+		$site = $this->getSeting('site')['value'];
+		$data['page_title'] = '我的 - '.$site['name'];
+		$data['page_keywords'] = '我的,'.$site['name'];
+		$data['page_description'] = '';
 
 		return view('frontend.user.order.item', $data);
 	}

@@ -81,7 +81,11 @@ class Account extends Common
     //注册验证
     public function register(Request $request){
 
-        //$this->returnMessage(400,'演示环境禁止注册');
+        $auth_register = $this->getSeting('site')['value']['auth_register'];
+        /*print_r($auth_register);exit();*/
+        if($auth_register != 1){
+            $this->returnMessage(400,'禁止注册');
+        }
 
         $username = trim($request->username);
         $password = trim($request->password);

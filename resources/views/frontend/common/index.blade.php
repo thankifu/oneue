@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>{{$_site['name']}} - {{$_site['seo_title']?$_site['seo_title']:$_site['title']}}</title>
-<meta name="keywords" content="{{$_site['seo_keywords']}}" />
-<meta name="description" content="{{$_site['seo_description']}}" />
+<title>{{$page_title}}</title>
+<meta name="keywords" content="{{$page_keywords}}" />
+<meta name="description" content="{{$page_description}}" />
 @include('frontend.common.head')
 @section('style')
 @show

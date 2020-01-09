@@ -75,7 +75,7 @@
 					@endif
 				</td>
 				<td>{{$item['age']}}</td>
-				<td>{!!!empty($item['wechat_openid'])?'<span class="text-success"><i class="fa fa-weixin" aria-hidden="true"></i></span>':'<span class="text-muted"><i class="fa fa-weixin" aria-hidden="true"></i></span>'!!}</td>
+				<td>{!!!empty($item['wechat_openid'])?'<span class="text-success">是</span>':'<span class="text-muted">否</span>'!!}</td>
 				<td>{{isset($levels[$item['level']])?$levels[$item['level']]['name']:'-'}}</td>
 				<td>{{$item['logined']?date('Y-m-d H:i:s',$item['logined']):'-'}}</td>
 				<td>{!!$item['state']==1?'<span class="label label-success">启用</span>':'<span class="label label-danger">禁用</span>'!!}</td>

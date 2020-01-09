@@ -22,6 +22,13 @@ class Article extends Common
     //
     public function index(Request $request){
 		$data = Db::table('article')->where('state', 1)->orderBy('id','desc')->pages('', 12);
+
+		//SEO优化
+		$site = $this->getSeting('site')['value'];
+		$data['page_title'] = '文章 - '.$site['name'];
+		$data['page_keywords'] = '文章,'.$site['name'];
+		$data['page_description'] = '';
+
 		return view('frontend.article.index', $data);
 	}
 
@@ -36,7 +43,13 @@ class Article extends Common
 
 		$data = Db::table('article')->where($where)->orderBy('id','desc')->pages('', 12);
 		//当前分类
-		$data['category'] = Db::table('article_category')->where('id',$id)->where('state',1)->select(['id','name'])->item();
+		$data['category'] = Db::table('article_category')->where('id',$id)->where('state',1)->select(['id','name','seo_title','seo_keywords','seo_description'])->item();
+
+		//SEO优化
+		$site = $this->getSeting('site')['value'];
+		$data['page_title'] = $data['category']['seo_title']?$data['category']['seo_title']:$data['category']['name'].' - 文章 - '.$site['name'];
+		$data['page_keywords'] = $data['category']['seo_keywords'];
+		$data['page_description'] = $data['category']['seo_description'];
         
 		return view('frontend.article.index', $data);
 	}
@@ -55,6 +68,12 @@ class Article extends Common
 
 		//当前分类
 		$data['category'] = Db::table('article_category')->where('id',$data['article']['category_id'])->where('state',1)->select(['id','name'])->item();
+
+		//SEO优化
+		$site = $this->getSeting('site')['value'];
+		$data['page_title'] = $data['article']['seo_title']?$data['article']['seo_title']:$data['article']['title'].' - 文章 - '.$site['name'];
+		$data['page_keywords'] = $data['article']['seo_keywords'];
+		$data['page_description'] = $data['article']['seo_description'];
 
 		DB::table('article')->increment('visit', 1);
         

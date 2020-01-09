@@ -58,6 +58,13 @@ class Cart extends Common
     	$data['cart'] = $cart;
     	$data['products'] = $products;
     	$data['specifications'] = $specifications;
+
+    	//SEO优化
+		$site = $this->getSeting('site')['value'];
+		$data['page_title'] = '购物车 - '.$site['name'];
+		$data['page_keywords'] = '购物车,'.$site['name'];
+		$data['page_description'] = '';
+
 		return view('frontend.cart.index', $data);
 	}
 

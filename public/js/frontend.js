@@ -65,10 +65,18 @@ function starLoadScreen(){
 	});
 };
 function starGotoLogin(){
-	window.location.href = '/login?redirect_url='+encodeURI(window.location.href);
+	if( redirect_url !=null && redirect_url.toString().length>1 ) {
+		window.location.href = '/login?redirect_url='+redirect_url;
+	}else{
+		window.location.href = '/login?redirect_url='+encodeURI(window.location.href);
+	}
 };
 function starGotoRegister(){
-	window.location.href = '/register?redirect_url='+encodeURI(window.location.href);
+	if( redirect_url !=null && redirect_url.toString().length>1 ) {
+		window.location.href = '/register?redirect_url='+redirect_url;
+	}else{
+		window.location.href = '/register?redirect_url='+encodeURI(window.location.href);
+	}
 };
 function starGotoCart(){
 	window.location.href = '/cart';
@@ -85,6 +93,7 @@ $('.star-login input').keydown(function(e){
 function starLogin(){
 	var username = $.trim($('input[name="username"]').val());
 	var password = $.trim($('input[name="password"]').val());
+	
 	if(username == ''){
         starToast('fail', '请输入用户名');
         return false;
@@ -154,12 +163,17 @@ function starLogout(){
 function starRegister(){
 	var username = $.trim($('input[name="username"]').val());
 	var password = $.trim($('input[name="password"]').val());
+	var confirm = $.trim($('input[name="confirm"]').val());
 	if(username == ''){
         starToast('fail', '请输入用户名');
         return false;
     }
     if(password == ''){
         starToast('fail', '请输入密码');
+        return;
+    }
+    if(password !== confirm){
+        starToast('fail', '两次密码输入不一致');
         return;
     }
 

@@ -37,7 +37,11 @@ class Wechat extends Common
 
     public function auth(Request $request)
     {
-        //Log::info('request arrived.'); # 注意：Log 为 Laravel 组件，所以它记的日志去 Laravel 日志看，而不是 EasyWeChat 日志
+        $auth_wechat = $this->getSeting('site')['value']['auth_wechat'];
+        
+        if($auth_wechat != 1){
+            $this->returnMessage(400,'禁止微信注册登录');
+        }
 
         /*$app = app('wechat.official_account');
         $result = $app->oauth->scopes(['snsapi_userinfo'])->redirect();
@@ -70,7 +74,14 @@ class Wechat extends Common
 
         Auth::login($result, true);
 
-        return redirect('/user');
+        $redirect_url = $request->redirect_url;
+        if($redirect_url == ''){
+            return redirect('/user');
+        }else{
+            return redirect($redirect_url);
+        }
+
+        
     }
 
     public function payment(Request $request)
