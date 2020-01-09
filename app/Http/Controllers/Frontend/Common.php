@@ -45,7 +45,11 @@ class Common extends Controller
         }
         $user_level = auth()->user()->level;
         $user_discount = Db::table('user_level')->select(['discount'])->where('id', $user_level)->item();
-        $user_discount = $user_discount['discount'];
+        if(!$user_discount){
+            $user_discount = 10; //如果没有等级，则默认无折扣
+        }else{
+            $user_discount = $user_discount['discount'];
+        }
         $result = number_format(floatval($user_discount) / 10, 2, '.', '');
         return $result;
     }

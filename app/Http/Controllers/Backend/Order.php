@@ -50,7 +50,7 @@ class Order extends Common
 	public function item(Request $request){
 		$id = (int)$request->id;
 		$data['order'] = Db::table('order')->where('id',$id)->item();
-		$data['products'] = DB::table('order_product')->cates('id');
+		$data['products'] = DB::table('order_product')->where('order_id',$id)->cates('id');
 		
 		//用户
 		$data['users'] = DB::table('user')->select(['id','username'])->cates('id');

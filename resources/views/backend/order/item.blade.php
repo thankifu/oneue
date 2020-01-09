@@ -54,7 +54,6 @@
 		<caption>商品信息</caption>
 		<thead>
 			<tr>
-				<th>图片</th>
 				<th>商品</th>
 				<th>售价</th>
 				<th>优惠</th>
@@ -67,8 +66,11 @@
 		<tbody>
 			@foreach($products as $item)
 			<tr>
-				<td>{{$item['picture']}}</td>
-				<td>{{$item['name']}}</td>
+				<td>
+					<span class="star-picture-square" style="background-image:url({{$item['picture']}});"></span>
+					<br/>
+					{{$item['name']}}
+				</td>
 				<td>&yen; {{$item['selling']}}</td>
 				<td>- &yen; {{$item['vip_offer']}}</td>
 				<td>&yen; {{$item['price']}}</td>
@@ -80,7 +82,6 @@
 		</tbody>
 		<tbody>
 			<tr>
-				<td></td>
 				<td>合计</td>
 				<td>&yen; {{$order['selling']}}</td>
 				<td>- &yen; {{$order['vip_offer']}}</td>

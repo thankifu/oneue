@@ -236,12 +236,15 @@ function starPaid(id){
 	},3000);
 };
 
+var jsApiParameters = '';
+
 //发起支付
 function starPayment(id){
     starToast('loading', '请稍后...', 0);
     if(!starIsMobile() && !starIsWechat()){
     	var data = new Object();
     	data.id = id;
+    	data.type = 'NATIVE';
     	data._token = $('input[name="_token"]').val();
     	$.post('/wechat/payment',data,function(res){
 			if(res.code === 200){
@@ -270,6 +273,7 @@ function starPayment(id){
 				    }
 				});
 			}else{
+				bootbox.hideAll();
 				starToast('fail', res.text);
 				setTimeout(function(){
 	    			//window.location.reload();
@@ -280,12 +284,82 @@ function starPayment(id){
 
     }
     if(starIsMobile() && !starIsWechat()){
-    	alert('wap');
+    	var data = new Object();
+    	data.id = id;
+    	data.type = 'MWEB';
+    	data._token = $('input[name="_token"]').val();
+    	$.post('/wechat/payment',data,function(res){
+			if(res.code === 200){
+				window.location.href = res.data.url;
+			}else{
+				bootbox.hideAll();
+				starToast('fail', res.text);
+				setTimeout(function(){
+	    			window.location.href = '/user/order';
+	    		},1000);
+			}
+		},'json');
     }
     if(starIsMobile() && starIsWechat()){
-    	alert('wechat');
+    	var data = new Object();
+    	data.id = id;
+    	data.type = 'JSAPI';
+    	data._token = $('input[name="_token"]').val();
+    	$.post('/wechat/payment',data,function(res){
+			if(res.code === 200){
+				bootbox.hideAll();
+				jsApiParameters = JSON.parse(res.data);
+				callPay();
+			}else if(res.code === 202){
+				bootbox.hideAll();
+				bootbox.alert({
+				    size: "small",
+				    message: res.text,
+				    callback: function(){
+
+				    }
+				});
+			}else{
+				bootbox.hideAll();
+				starToast('fail', res.text);
+				setTimeout(function(){
+	    			window.location.href = '/user/order';
+	    		},1000);
+			}
+		},'json');
     }
     
+};
+
+function callPay() {
+	if (typeof WeixinJSBridge == "undefined"){
+	    if( document.addEventListener ){
+	        document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+	    }else if (document.attachEvent){
+	        document.attachEvent('WeixinJSBridgeReady', jsApiCall);
+	        document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+	    }
+	}else{
+	    jsApiCall();
+	}
+};
+
+function jsApiCall(){ 
+	WeixinJSBridge.invoke(
+		'getBrandWCPayRequest',jsApiParameters,
+		function(res){
+			//WeixinJSBridge.log(res.err_msg);
+			if (res.err_msg == "get_brand_wcpay_request:ok") {
+				//alert('支付成功')
+				//可以进行查看订单，等操作
+				window.location.href = '/user/order';
+			} else {
+				//alert('支付失败！');
+				window.location.href = '/user/order';
+			}
+			//alert(res.err_code+res.err_desc+res.err_msg);
+		}
+	);
 };
 
 $(document).ready(function() {

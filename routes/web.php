@@ -30,18 +30,9 @@ Route::get('product/{id}', 'Frontend\Product@item')->name('product.item');
 Route::get('help', 'Frontend\Help@index');
 Route::get('help/{id}', 'Frontend\Help@item');
 
-Route::any('wechat', 'Frontend\Wechat@index');
-Route::any('wechat/auth', 'Frontend\Wechat@auth')->middleware(['web','auth.wechat']);
+Route::any('wechat/auth', 'Frontend\Wechat@auth')->middleware(['auth.wechat']);
 Route::any('wechat/payment', 'Frontend\Wechat@payment');
 Route::any('wechat/notify', 'Frontend\Wechat@notify');
-
-/*Route::get('wechat/auth', function(){
-    $user = session('wechat.oauth_user.default'); //一句话， 拿到授权用户资料
-    dd($user);
-})->middleware('auth.wechat');*/
-
-Route::get('auth/wechat', 'Frontend\Account@wechat');
-
 
 Route::namespace('Frontend')->middleware('auth')->group(function () {
 	Route::get('cart', 'Cart@index');

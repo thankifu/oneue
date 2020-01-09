@@ -84,10 +84,11 @@ class Wechat extends Common
         
     }
 
+    //支付
     public function payment(Request $request)
     {
         //Log::info('request arrived.'); # 注意：Log 为 Laravel 组件，所以它记的日志去 Laravel 日志看，而不是 EasyWeChat 日志
-        
+
         //判断ID
         $id = (int)$request->id;
         if($id<=0){
@@ -98,6 +99,29 @@ class Wechat extends Common
         $order = Db::table('order')->where(['id' => $id,'state' => 1])->item();
         if(!$order){
             $this->returnMessage(400,'订单参数错误');
+        }
+
+        //判断支付类型
+        $type = trim($request->type);
+
+        if($type == 'NATIVE'){
+            $order['payment_type'] = 'wechat-native';
+        }else if($type == 'MWEB'){
+            $order['payment_type'] = 'wechat-mweb';
+        }else if($type == 'JSAPI'){
+            $order['payment_type'] = 'wechat-jsapi';
+        }else{
+            $this->returnMessage(400,'订单参数错误');
+        }
+
+        //JSAPI支付方式需要OPENID，判断是否存在，这里不判断的话，easyWechat后面也会进行判断
+        $openid = '';
+        if($type == 'JSAPI'){
+            $user = Db::table('user')->where(['id' => $order['user_id']])->item();
+            if(!$user['wechat_openid']){
+                $this->returnMessage(202,'OPENID为空，请使用微信登录或者先绑定微信');
+            }
+            $openid = $user['wechat_openid'];
         }
 
         //重新生成订单号，防止不同支付类型导致支付失败
@@ -112,22 +136,51 @@ class Wechat extends Common
             'out_trade_no' => $order['no'],
             'total_fee' => intval($order['money'] * 100),
             //'notify_url' => '/wechat/notify', // 支付结果通知网址，如果不设置则会使用配置里的默认地址
-            'trade_type' => 'NATIVE',
+            'trade_type' => $type,
             'spbill_create_ip' => request()->ip(),
-            //'openid' => 'ouqpV1kn4pF4Zpzp_J2ledMRfaB8',
+            'openid' => $openid,
         ]);
-        //echo '<pre>';
-        //print_r($result);
-        if ($result['result_code'] == 'SUCCESS') {
-            // 如果请求成功, 微信会返回一个 'code_url' 用于生成二维码
-            $code_url = $result['code_url'];
-            $data['money'] = $order['money'];
-            $data['qrcode'] = \QrCode::size(200)->generate($code_url);
+        /*echo '<pre>';
+        print_r($result);
+        exit();*/
+        if($type == 'NATIVE'){
+            if ($result['result_code'] == 'SUCCESS') {
+                // 如果请求成功, 微信会返回一个 'code_url' 用于生成二维码
+                $code_url = $result['code_url'];
+                $data['money'] = $order['money'];
+                $data['qrcode'] = \QrCode::size(200)->generate($code_url);
 
-            $this->returnMessage(200,'请您支付',$data);
+                $this->returnMessage(200,'请您支付',$data);
+            }else{
+                $this->returnMessage(400,$result['err_code_des']);
+            }
+        }
+        if($type == 'MWEB'){
+            if ($result['result_code'] == 'SUCCESS') {
+                //如果请求成功, 微信会返回一个 'mweb_url' 用于跳转到微信中进行支付
+                $mweb_url = $result['mweb_url'];
 
-        }else{
-            $this->returnMessage(400,$result['err_code_des']);
+                //加上redirect_url参数，用于支付成功后的回调跳转
+                $data['url'] = $mweb_url.'&redirect_url='.urlencode(env('APP_URL').'/user/order');
+
+                $this->returnMessage(200,'即将跳转到微信中支付',$data);
+            }else{
+                $this->returnMessage(400,$result['err_code_des']);
+            }
+        }
+        if($type == 'JSAPI'){
+
+            if ($result['result_code'] == 'SUCCESS') {
+                //如果请求成功，微信会返回'prepay_id'，预支付订单号, 用于生成支付 JS 配置
+                $prepayId = $result['prepay_id'];
+
+                //通过jssdk生成JSAPI支付必备的参数，格式为 json 字符串
+                $data = $app->jssdk->bridgeConfig($prepayId);
+
+                $this->returnMessage(200,'请您支付',$data);
+            }else{
+                $this->returnMessage(400,$result['err_code_des']);
+            }
         }
     }
 
