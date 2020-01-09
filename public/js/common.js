@@ -152,7 +152,7 @@ function starToast(state, message, timeout){
 	
 	var i = '';
 	if(state=='loading'){
-		i = '<i class="glyphicon glyphicon-refresh" aria-hidden="true"></i>';
+		i = '<i class="glyphicon glyphicon-cog" aria-hidden="true"></i>';
 	}
 	if(state=='success'){
 		i = '<i class="glyphicon glyphicon-ok-circle" aria-hidden="true"></i>';

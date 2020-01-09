@@ -55,4 +55,8 @@ body{-moz-transition: all .5s ease;-o-transition:all .5s ease;-webkit-transition
 .star-toast{text-align:center;}
 .star-toast i{font-size:18px;display:inline-block;vertical-align:middle;}
 .star-toast span{display:inline-block;vertical-align:middle;}
-
+.star-toast .glyphicon-cog{animation:rotate 1s linear infinite;}
+@keyframes rotate{
+	from{transform: rotate(0deg)}
+	to{transform: rotate(360deg)}
+}
