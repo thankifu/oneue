@@ -46,6 +46,11 @@ php artisan storage:link
 
 7.微信支付需配置config/wechat.php中的相关参数。
 
+```
+微信登录：official_account中的app_id和secret。
+微信支付：payment中的app_id、mch_id和key。
+```
+
 ## 功能
 
 - **后端【PC】**

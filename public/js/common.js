@@ -181,6 +181,11 @@ function starSetIframeHeight(iframe) {
 		if (iframeWin.document.body) {
 			iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
 		}
+		if (iframe.height == 0) {
+			setTimeout(function(){
+				iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
+			},500);
+		}
 	}
 };
 
