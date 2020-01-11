@@ -60,6 +60,8 @@ php artisan storage:link
 
 ## 功能
 
+名曰：简单，因此只包含一个电商系统的基础功能，在这些基础功能上，你可以进行二次开发以满足业务中的各种需求。
+
 - **后端【PC】**
   - 登录（2019.11.31）
   - 系统
@@ -135,7 +137,7 @@ php artisan storage:link
 
 ## 版权信息
 
-该项目签署了MIT 授权许可，详情请参阅 [LICENSE.md](/LICENSE)
+该项目签署了MIT授权许可，详情请参阅 [LICENSE.md](/LICENSE)
 
 ## 代码仓库
 
