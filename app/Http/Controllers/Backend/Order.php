@@ -67,19 +67,45 @@ class Order extends Common
 	}
 
 
-	// 保存分类
-	public function product(Request $request){
+	//发货
+	public function shipmentItem(Request $request){
 		$id = (int)$request->id;
 
-		if($id){
-			$result = Db::table('order_product')->where('order_id', $id)->lists();
-		}else{
-			$this->returnMessage(400,'查询失败');
+		if(!$id){
+			$this->returnMessage(400,'订单参数错误');
 		}
 
-		//添加操作日志
-		//$this->log($log);
-		$this->returnMessage(200,'查询成功',$result);
+		$data['order'] = Db::table('order')->where('id',$id)->item();
+
+		$data['expresses'] = Db::table('express')->select(['id','name'])->cates('id');
+
+		return view('backend.order.shipment.item',$data);
+
+	}
+
+	//发货保存
+	public function shipmentSave(Request $request){
+		$id = (int)$request->id;
+
+		if(!$id){
+			$this->returnMessage(400,'订单参数错误');
+		}
+
+		$data['express_id'] = trim($request->express_id);
+		$data['express_no'] = trim($request->express_no);
+		$data['state'] = 3;
+		$data['shipped'] = time();
+
+		$express = Db::table('express')->select(['name'])->where('id',$data['express_id'])->item();
+		$data['express_name'] = $express['name'];
+
+		$res = Db::table('order')->where('id',$id)->update($data);
+		$log = '订单发货：ID：'.$id.'。';
+
+		//添加日志
+		$this->log($log);
+		$this->returnMessage(200,'保存成功');
+
 	}
 
 }

@@ -54,7 +54,7 @@
 		<caption>商品信息</caption>
 		<thead>
 			<tr>
-				<th>商品</th>
+				<th width="10%">商品</th>
 				<th>售价</th>
 				<th>优惠</th>
 				<th>单价</th>
@@ -66,21 +66,22 @@
 		<tbody>
 			@foreach($products as $item)
 			<tr>
-				<td>
-					<span class="star-picture-square" style="background-image:url({{$item['picture']}});"></span>
-					<br/>
-					{{$item['name']}}
+				<td colspan="7">{{$item['name']}}</td>
+			</tr>
+			<tr>
+				<td style="border-top:0;">
+					<span class="star-picture-square" style="background-image:url({{$item['picture']}});width:80px;height:80px;"></span>					
 				</td>
-				<td>&yen; {{$item['selling']}}</td>
-				<td>- &yen; {{$item['vip_offer']}}</td>
-				<td>&yen; {{$item['price']}}</td>
-				<td>{{$item['quantity']}}</td>
-				<td>-</td>
-				<td>&yen; {{$item['subtotal']}}</td>
+				<td style="border-top:0;">&yen; {{$item['selling']}}</td>
+				<td style="border-top:0;">- &yen; {{$item['vip_offer']}}</td>
+				<td style="border-top:0;">&yen; {{$item['price']}}</td>
+				<td style="border-top:0;">{{$item['quantity']}}</td>
+				<td style="border-top:0;">-</td>
+				<td style="border-top:0;">&yen; {{$item['subtotal']}}</td>
 			</tr>
 			@endforeach
 		</tbody>
-		<tbody>
+		<tbody style="border-top:0;">
 			<tr>
 				<td>合计</td>
 				<td>&yen; {{$order['selling']}}</td>
@@ -94,6 +95,23 @@
 	</table>
 	@endif
 
+	@if($order['shipped'])
+	<table class="table table-condensed star-table-text-left">
+		<caption>物流信息</caption>
+		<thead>
+			<tr>
+				<th>快递公司</th>
+				<th>快递单号</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>{{$order['express_name']}}</td>
+				<td>{{$order['express_no']}}</td>
+			</tr>
+		</tbody>
+	</table>
+	@endif
 	
 </div>
 @include('backend.common.foot')

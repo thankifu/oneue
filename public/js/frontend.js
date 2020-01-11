@@ -86,7 +86,7 @@ $('.star-login #username').focus();
 // 回车登录
 $('.star-login input').keydown(function(e){
     if(e.keyCode==13){
-       login();
+       starLogin();
     }
 });
 

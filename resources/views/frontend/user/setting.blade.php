@@ -13,8 +13,8 @@
     </ol>
     <div class="row">
 
-        <div class="col-md-3 star-side">
-            @include('frontend.user.center')
+        <div class="col-md-3 star-side hidden-sm hidden-xs">
+            @include('frontend.user.side')
         </div>
 
         <div class="col-md-9 star-main">

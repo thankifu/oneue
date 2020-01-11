@@ -3,14 +3,14 @@ Navicat MySQL Data Transfer
 
 Source Server         : 127.0.0.1
 Source Server Version : 50726
-Source Host           : 127.0.0.1:3306
+Source Host           : localhost:3306
 Source Database       : db_oneue
 
 Target Server Type    : MYSQL
 Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2020-01-09 15:14:20
+Date: 2020-01-11 15:06:59
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -36,7 +36,7 @@ CREATE TABLE `star_admin` (
 -- ----------------------------
 -- Records of star_admin
 -- ----------------------------
-INSERT INTO star_admin VALUES ('1', 'admin', '$2y$10$K7d6k90BsTHRWTaeYmmkdecHHt6QJ3Dt0Gb6CYPjIG30pKT5kzw9a', '我是管理员', '', '1', '127.0.0.1', '1578547481', '1575352441', '1578403272', '1');
+INSERT INTO star_admin VALUES ('1', 'admin', '$2y$10$K7d6k90BsTHRWTaeYmmkdecHHt6QJ3Dt0Gb6CYPjIG30pKT5kzw9a', '我是管理员', '', '1', '127.0.0.1', '1578720958', '1575352441', '1578403272', '1');
 
 -- ----------------------------
 -- Table structure for `star_admin_group`
@@ -93,7 +93,7 @@ CREATE TABLE `star_admin_menu` (
   `modified` int(10) NOT NULL DEFAULT '0' COMMENT '修改时间',
   `state` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态（ 0：禁用；1：启用；）',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8 COMMENT='菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8 COMMENT='菜单表';
 
 -- ----------------------------
 -- Records of star_admin_menu
@@ -152,7 +152,7 @@ INSERT INTO star_admin_menu VALUES ('51', '订单管理', 'Order', 'index', '', 
 INSERT INTO star_admin_menu VALUES ('52', '订单增改', 'Order', 'item', '', '', '51', '0', '1', '1577972113', '0', '1');
 INSERT INTO star_admin_menu VALUES ('53', '订单保存', 'Order', 'save', '', '', '51', '0', '1', '1577972131', '0', '1');
 INSERT INTO star_admin_menu VALUES ('54', '订单删除', 'Order', 'delete', '', '', '51', '0', '1', '1577972147', '0', '1');
-INSERT INTO star_admin_menu VALUES ('55', '订单商品', 'Order', 'product', '', '', '51', '0', '1', '1577972160', '0', '1');
+INSERT INTO star_admin_menu VALUES ('55', '订单发货增改', 'Order', 'shipmentItem', 'shipment/item', '', '51', '0', '1', '1577972160', '1578726183', '1');
 INSERT INTO star_admin_menu VALUES ('56', '帮助管理', 'Help', 'index', '', '', '6', '0', '0', '1577972235', '0', '1');
 INSERT INTO star_admin_menu VALUES ('57', '帮助增改', 'Help', 'item', '', '', '56', '0', '1', '1577972252', '0', '1');
 INSERT INTO star_admin_menu VALUES ('58', '帮助保存', 'Help', 'save', '', '', '56', '0', '1', '1577972263', '0', '1');
@@ -166,6 +166,7 @@ INSERT INTO star_admin_menu VALUES ('65', '轮播增改', 'Slide', 'item', '', '
 INSERT INTO star_admin_menu VALUES ('66', '轮播保存', 'Slide', 'save', '', '', '64', '0', '1', '1578129348', '0', '1');
 INSERT INTO star_admin_menu VALUES ('67', '轮播删除', 'Slide', 'delete', '', '', '64', '0', '1', '1578129362', '0', '1');
 INSERT INTO star_admin_menu VALUES ('68', '首页', 'Home', 'index', '', '', '1', '0', '1', '1578233769', '1578233860', '1');
+INSERT INTO star_admin_menu VALUES ('69', '订单发货保存', 'Order', 'shipmentSave', 'shipment/save', '', '51', '0', '1', '1578726167', '0', '1');
 
 -- ----------------------------
 -- Table structure for `star_admin_setting`
@@ -253,7 +254,7 @@ CREATE TABLE `star_cart` (
   `modified` int(10) NOT NULL DEFAULT '0' COMMENT '修改时间',
   `state` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态（ 0：禁用；1：启用；）',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='购物车表';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='购物车表';
 
 -- ----------------------------
 -- Records of star_cart
@@ -278,7 +279,7 @@ CREATE TABLE `star_checkout` (
   `modified` int(10) NOT NULL DEFAULT '0' COMMENT '修改时间',
   `state` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态（ 0：禁用；1：启用；）',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='结算表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='结算表';
 
 -- ----------------------------
 -- Records of star_checkout
@@ -304,11 +305,30 @@ CREATE TABLE `star_checkout_product` (
   `checkout_id` int(10) NOT NULL DEFAULT '0' COMMENT '结算ID',
   `state` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态（ 0：禁用；1：启用；）',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='结算商品表';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='结算商品表';
 
 -- ----------------------------
 -- Records of star_checkout_product
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for `star_express`
+-- ----------------------------
+DROP TABLE IF EXISTS `star_express`;
+CREATE TABLE `star_express` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) NOT NULL DEFAULT '' COMMENT '名称',
+  `created` int(10) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `modified` int(10) NOT NULL DEFAULT '0' COMMENT '修改时间',
+  `state` int(1) NOT NULL DEFAULT '0' COMMENT '状态（ 0：禁用；1：启用；）',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of star_express
+-- ----------------------------
+INSERT INTO star_express VALUES ('1', '同城配送', '1578721316', '1578721316', '1');
+INSERT INTO star_express VALUES ('2', '顺丰快递', '1578721316', '1578721316', '1');
 
 -- ----------------------------
 -- Table structure for `star_help`
@@ -396,7 +416,6 @@ CREATE TABLE `star_order` (
   `express_id` int(11) NOT NULL DEFAULT '0' COMMENT '快递ID',
   `express_no` varchar(32) NOT NULL DEFAULT '' COMMENT '快递单号',
   `express_name` varchar(50) NOT NULL DEFAULT '' COMMENT '快递名称',
-  `express_note` varchar(255) NOT NULL DEFAULT '' COMMENT '快递摘要',
   `payment_type` varchar(32) NOT NULL DEFAULT '' COMMENT '支付类型',
   `prepaid` int(10) NOT NULL DEFAULT '0' COMMENT '支付时间',
   `shipped` int(10) NOT NULL DEFAULT '0' COMMENT '发货时间',
@@ -468,12 +487,12 @@ CREATE TABLE `star_product` (
 -- ----------------------------
 -- Records of star_product
 -- ----------------------------
-INSERT INTO star_product VALUES ('1', '演示商品-无规格', '<p>商品描述</p>', '0', '0.00', '1.00', '0.00', '/storage/uploads/product.png', '9', '0', '118', '1', '', '', '', '1578217354', '1578229909', '1');
-INSERT INTO star_product VALUES ('2', '演示商品-有规格-无图', '<p>商品描述</p>', '0', '0.00', '1.00', '0.00', '/storage/uploads/product.png', '10', '0', '118', '2', '', '', '', '1578217436', '1578229917', '1');
-INSERT INTO star_product VALUES ('3', '演示商品-有规格-有图', '<p>商品描述</p>', '0', '0.00', '1.00', '0.00', '/storage/uploads/product.png', '10', '0', '91', '3', '', '', '', '1578228998', '1578229929', '1');
-INSERT INTO star_product VALUES ('4', '演示商品-无规格', '', '0', '100.00', '99.99', '0.00', '/storage/uploads/product.png', '0', '0', '76', '1', '', '', '', '1578230207', '1578230623', '1');
-INSERT INTO star_product VALUES ('5', '演示商品-无规格', '', '0', '1000.00', '999.99', '0.00', '/storage/uploads/product.png', '10', '0', '76', '1', '', '', '', '1578230372', '1578230596', '1');
-INSERT INTO star_product VALUES ('6', '演示商品-无规格', '', '0', '10000.00', '9999.99', '0.00', '/storage/uploads/product.png', '10', '0', '76', '1', '', '', '', '1578230495', '1578243783', '1');
+INSERT INTO star_product VALUES ('1', '演示商品-无规格', '<p>商品描述</p>', '0', '0.00', '1.00', '0.00', '/storage/uploads/product.png', '100', '6', '127', '1', '', '', '', '1578217354', '1578585403', '1');
+INSERT INTO star_product VALUES ('2', '演示商品-有规格-无图', '<p>商品描述</p>', '0', '0.00', '1.00', '0.00', '/storage/uploads/product.png', '100', '6', '127', '2', '', '', '', '1578217436', '1578585386', '1');
+INSERT INTO star_product VALUES ('3', '演示商品-有规格-有图', '<p>商品描述</p>', '0', '0.00', '1.00', '0.00', '/storage/uploads/product.png', '100', '6', '100', '3', '', '', '', '1578228998', '1578585392', '1');
+INSERT INTO star_product VALUES ('4', '演示商品-无规格', '<p>商品描述</p>', '0', '100.00', '99.99', '0.00', '/storage/uploads/product.png', '0', '6', '85', '1', '', '', '', '1578230207', '1578230623', '1');
+INSERT INTO star_product VALUES ('5', '演示商品-无规格', '<p>商品描述</p>', '0', '1000.00', '999.99', '0.00', '/storage/uploads/product.png', '100', '6', '85', '1', '', '', '', '1578230372', '1578585413', '1');
+INSERT INTO star_product VALUES ('6', '演示商品-无规格', '<p>商品描述</p>', '0', '10000.00', '9999.99', '0.00', '/storage/uploads/product.png', '100', '6', '85', '1', '', '', '', '1578230495', '1578585419', '1');
 
 -- ----------------------------
 -- Table structure for `star_product_category`
@@ -554,7 +573,7 @@ CREATE TABLE `star_product_specification` (
 -- Records of star_product_specification
 -- ----------------------------
 INSERT INTO star_product_specification VALUES ('1', '规格1', '0', '10.00', '1.00', '0.00', '', '0', '0', '2');
-INSERT INTO star_product_specification VALUES ('2', '规格2', '0', '20.00', '2.00', '0.00', '', '10', '0', '2');
+INSERT INTO star_product_specification VALUES ('2', '规格2', '0', '20.00', '2.00', '0.00', '', '100', '0', '2');
 INSERT INTO star_product_specification VALUES ('3', '规格1', '0', '10.00', '1.00', '0.00', '/storage/uploads/specification.png', '100', '0', '3');
 INSERT INTO star_product_specification VALUES ('4', '规格2', '0', '20.00', '2.00', '0.00', '/storage/uploads/specification.png', '0', '0', '3');
 
@@ -610,7 +629,7 @@ CREATE TABLE `star_user` (
 -- ----------------------------
 -- Records of star_user
 -- ----------------------------
-INSERT INTO star_user VALUES ('1', 'user', '$2y$10$8H24W9CRBhZI10qtMwIfyeuySbOAMAiGMbP2bxYepB/14HGDcPQte', '', '', '/images/avatar.png', '0', '0', '1', '', '', 'xP8BoThoifeeLN0VFvoISwlSUvtY0ha0fpHhBkYaKr18a1eAZRq83A2MEarf', '127.0.0.1', '1578553319', '1531538199', '1578403280', '1');
+INSERT INTO star_user VALUES ('1', 'user', '$2y$10$8H24W9CRBhZI10qtMwIfyeuySbOAMAiGMbP2bxYepB/14HGDcPQte', '', '', '/images/avatar.png', '0', '0', '1', '', '', 'xP8BoThoifeeLN0VFvoISwlSUvtY0ha0fpHhBkYaKr18a1eAZRq83A2MEarf', '127.0.0.1', '1578721280', '1531538199', '1578403280', '1');
 
 -- ----------------------------
 -- Table structure for `star_user_address`
@@ -632,7 +651,7 @@ CREATE TABLE `star_user_address` (
 -- ----------------------------
 -- Records of star_user_address
 -- ----------------------------
-INSERT INTO star_user_address VALUES ('1', '用户', '111', '用户详细的地址', '1', '1', '1578400773', '1578458366', '1');
+INSERT INTO star_user_address VALUES ('1', '用户', '111', '', '1', '1', '1578400773', '1578673156', '1');
 
 -- ----------------------------
 -- Table structure for `star_user_level`
@@ -651,6 +670,6 @@ CREATE TABLE `star_user_level` (
 -- ----------------------------
 -- Records of star_user_level
 -- ----------------------------
-INSERT INTO star_user_level VALUES ('1', '普通会员', '10.0', '1575693056', '1576310933', '1');
-INSERT INTO star_user_level VALUES ('2', '高级会员', '9.9', '1575693063', '1576131362', '1');
-INSERT INTO star_user_level VALUES ('3', '超级会员', '9.8', '1575693183', '1578241485', '1');
+INSERT INTO star_user_level VALUES ('1', '普通会员', '9.9', '1575693056', '1578585822', '1');
+INSERT INTO star_user_level VALUES ('2', '高级会员', '9.8', '1575693063', '1578585874', '1');
+INSERT INTO star_user_level VALUES ('3', '超级会员', '9.7', '1575693183', '1578585899', '1');

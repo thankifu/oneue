@@ -35,9 +35,9 @@ class User extends Common
 		return view('frontend.user.index', $data);
 	}
 
-	public function center(Request $request){
+	public function side(Request $request){
     	$data = [];
-		return view('frontend.user.center', $data);
+		return view('frontend.user.side', $data);
 	}
 
 	public function setting(Request $request){

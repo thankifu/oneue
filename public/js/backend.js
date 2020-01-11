@@ -168,8 +168,16 @@ function starMenuInit(){
 function starItem(type, id, parent){
 	id = id || 0;
 	parent = parent || 0;
+
+	var title = '';
+	if(type == 'order'){
+		title = '订单详情';
+	}else{
+		title = id>0?'编辑':'添加';
+	}
+
 	bootbox.dialog({
-	    title: id>0?'编辑':'添加',
+		title: title,
 	    message: '<iframe src="'+backend_path+'/'+type+'/item?id='+id+'&parent='+parent+'" width="100%" frameborder="0" scrolling="auto" onload="starSetIframeHeight(this)"></iframe>'
 	});
 }
@@ -513,6 +521,33 @@ function starUserLevelSave(){
 	data += '&state=' + state;
 
 	$.post(backend_path+'/user/level/save',data,function(res){
+		if(res.code === 200){
+			starToast('success', res.text);
+			setTimeout(function(){
+				parent.window.location.reload();
+			},1000);
+		}else{
+			starToast('fail', res.text);
+		}
+	},'json');
+}
+
+//发货保存
+function starShipmentSave(){
+	var id = $.trim($('select[name="express_id"]').val());
+	var name = $.trim($('input[name="express_no"]').val());
+	if(id==''){
+		starToast('fail', '请选择快递公司');
+		return;
+	}
+	if(name==''){
+		starToast('fail', '请输入快递单号');
+		return;
+	}
+
+	var data = $('form').serialize();
+
+	$.post(backend_path+'/order/shipment/save',data,function(res){
 		if(res.code === 200){
 			starToast('success', res.text);
 			setTimeout(function(){

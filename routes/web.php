@@ -133,7 +133,8 @@ Route::prefix('admin')->namespace('Backend')->middleware(['auth.admin:admin','au
 	Route::get('order/item','Order@item');
 	Route::post('order/save','Order@save');
 	Route::post('order/delete','Order@delete');
-	Route::get('order/product','Order@product');
+	Route::get('order/shipment/item','Order@shipmentItem');
+	Route::post('order/shipment/save','Order@shipmentSave');
 
 	//帮助管理
 	Route::get('help/index','Help@index');
