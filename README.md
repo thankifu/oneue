@@ -16,35 +16,42 @@
 
 ## 使用
 
-1.clone到本地后，通过 composer 安装依赖。
+1.clone 项目
+
+```
+git clone https://gitee.com/thankifu/oneue.git	#Gitee
+git clone https://github.com/thankifu/oneue.git	#Github
+```
+
+2.通过 composer 安装依赖。
 
 ```
 composer install
 ```
 
-2.复制一份.env.example并命名为.evn，并自行修改其中配置。
+3.复制一份.env.example并命名为.evn，并自行修改其中配置。
 
 ```
 cp .env.example .env
 ```
 
-3.生成密钥。
+4.生成密钥。
 
 ```
 php artisan key:generate
 ```
 
-4.创建符号链接。
+5.创建符号链接。
 
 ```
 php artisan storage:link
 ```
 
-5.将oneue.sql导入到数据库 [因项目还在更新中，数据库也会随时更新]。
+6.将oneue.sql导入到数据库 [因项目还在更新中，数据库也会随时更新]。
 
-6.数据库默认的后台帐号密码同为：admin。
+7.数据库默认的后台帐号密码同为：admin。
 
-7.微信支付需配置config/wechat.php中的相关参数。
+8.微信支付需配置config/wechat.php中的相关参数。
 
 ```
 微信登录：official_account中的app_id和secret。
@@ -68,10 +75,16 @@ php artisan storage:link
   - 商品
     - 商品管理（2019.12.05）
     - 商品分类（2019.12.11）
+  - 用户
+    - 用户管理（2019.12.20）
+    - 用户等级（2019.12.20）
+- 订单
+    - 订单管理（2019.12.20）
   - 帮助
     - 帮助管理（2020.01.02）
     - 帮助分类（2020.01.02）
-
+  - 轮播
+    - 轮播管理（2020.01.02）
 - **前端【PC/WAP】**
   - 首页（2019.12.12）
   - 文章
