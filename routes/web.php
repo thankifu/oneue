@@ -34,6 +34,8 @@ Route::any('wechat/auth', 'Frontend\Wechat@auth')->middleware(['auth.wechat']);
 Route::any('wechat/payment', 'Frontend\Wechat@payment');
 Route::any('wechat/notify', 'Frontend\Wechat@notify');
 
+Route::get('search/{type?}', 'Frontend\Search@index');
+
 Route::namespace('Frontend')->middleware('auth')->group(function () {
 	Route::get('cart', 'Cart@index');
 	Route::post('cart/create', 'Cart@create');

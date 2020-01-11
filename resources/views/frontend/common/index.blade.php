@@ -60,9 +60,9 @@
                 <li><a href="javascript:void(0);" onclick="starGotoLogin();">登录</a></li>
                 @endif
             </ul>
-            <form class="navbar-form">
+            <form class="navbar-form" action="/search">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="请输入关键字">
+                    <input type="text" class="form-control" name="keyword" value="{{request()->get('keyword')}}" placeholder="请输入关键字">
                 </div>
                 <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search hidden-xs" aria-hidden="true"></i><span class="hidden-sm hidden-md hidden-lg">搜索</span></button>
             </form>
