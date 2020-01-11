@@ -156,7 +156,7 @@ function starAge(){
         size: 'small',
         title: '修改年龄',
         required: true,
-        value: '{{$user['sex']}}', //默认值
+        value: '{{$user['age']}}', //默认值
         inputType: 'number',
         buttons: {
             cancel: {
@@ -181,7 +181,7 @@ function starAge(){
                     }
                 },'json');
             }
-            console.log(result);
+            //console.log(result);
         }
     });
 };
