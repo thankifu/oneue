@@ -51,7 +51,8 @@ Route::namespace('Frontend')->middleware('auth')->group(function () {
 
 	Route::get('user', 'User@index');
 	Route::get('user/setting', 'User@setting');
-	Route::get('user/username', 'User@username');
+	Route::post('user/sex/store', 'User@sexStore');
+	Route::post('user/age/store', 'User@ageStore');
 	Route::get('user/address', 'User@address');
 	Route::get('user/address/{id}', 'User@addressItem');
 	Route::post('user/address/store', 'User@addressStore');

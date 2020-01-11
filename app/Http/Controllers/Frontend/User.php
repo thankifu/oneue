@@ -53,6 +53,32 @@ class User extends Common
 		return view('frontend.user.setting', $data);
 	}
 
+	public function sexStore(Request $request){
+    	$user_id = auth()->user()->id;
+		$data['sex'] = (int)$request->sex;
+
+		$data['modified'] = time();
+		$res = Db::table('user')->where('id',$user_id)->update($data);
+
+		if(!$res){
+			$this->returnMessage(400,'保存失败');
+		}
+		$this->returnMessage(200,'保存成功');
+	}
+
+	public function ageStore(Request $request){
+    	$user_id = auth()->user()->id;
+		$data['age'] = (int)$request->age;
+
+		$data['modified'] = time();
+		$res = Db::table('user')->where('id',$user_id)->update($data);
+
+		if(!$res){
+			$this->returnMessage(400,'保存失败');
+		}
+		$this->returnMessage(200,'保存成功');
+	}
+
 	public function address(Request $request){
 		$data['user'] = auth()->user();
     	$data['address'] = Db::table('user_address')->where(array(['user_id', $data['user']['id']],['state', 1]))->orderBy('id','desc')->lists();
