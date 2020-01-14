@@ -21,34 +21,34 @@
 
             <div class="star-setting">
                 <ul class="list-unstyled">
-                    <!--
-                    
-                    <li>
+                    <!-- <li>
                         <a href="">
                             <span class="star-hd">手机</span>
                             <span class="star-bd">
-                                <span class="star-arrow"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></span>  
-                            </span>
-                        </a>
-                    </li>
-                    
-                    <li>
-                        <a href="">
-                            <span class="star-hd">邮箱</span>
-                            <span class="star-bd">
-                                <span class="star-arrow"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></span>  
-                            </span>
-                        </a>
-                    </li>
-                    
-                    <li>
-                        <a href="">
-                            <span class="star-hd">密码</span>
-                            <span class="star-bd">
-                                <span class="star-arrow"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></span>  
+                                <span class="star-arrow"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></span>
                             </span>
                         </a>
                     </li> -->
+                    
+                    <li>
+                        <a href="/user/email">
+                            <span class="star-hd">邮箱</span>
+                            <span class="star-bd">
+                                <span class="star-text">{{$user['email']?$user['email']:'绑定'}}</span>
+                                <span class="star-arrow"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></span>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="/user/password">
+                            <span class="star-hd">密码</span>
+                            <span class="star-bd">
+                                <span class="star-text">修改</span>
+                                <span class="star-arrow"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></span>  
+                            </span>
+                        </a>
+                    </li>
 
                     <li>
                         <a href="javascript:void(0);" onclick="starSex();">
@@ -72,7 +72,7 @@
                         <a href="javascript:void(0);" onclick="starAge();">
                             <span class="star-hd">年龄</span>
                             <span class="star-bd">
-                                <span class="star-text hidden-sm hidden-xs">{{$user['age']}}</span>
+                                <span class="star-text">{{$user['age']}}</span>
                                 <span class="star-arrow"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></span>
                             </span>
                         </a>
@@ -82,7 +82,7 @@
                         <a href="/user/address">
                             <span class="star-hd">收货地址</span>
                             <span class="star-bd">
-                                <span class="star-text hidden-sm hidden-xs">修改</span>
+                                <span class="star-text">修改</span>
                                 <span class="star-arrow"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></span>  
                             </span>
                         </a>

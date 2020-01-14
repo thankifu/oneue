@@ -124,50 +124,6 @@ $(window).load(function(){
 });
 @endif
 
-function starCheckEmail(email){
-    //console.log(email);
-    if (starRegexMail.test(email)) {
-        $('button[name="email_send"]').attr('disabled', false);
-        return;
-    }else{
-        //starToast('fail', '邮箱格式错误');
-        $('button[name="email_send"]').attr('disabled', true);
-        return;
-    }
-};
-
-function starSendEmail(object){
-    var email = $.trim($('input[name="email"]').val());
-    starCheckEmail(email);
-    var data = $('form').serialize();
-    $.ajax({
-        type:'POST',
-        url:'/email',
-        data:data, 
-        dataType:'json',
-        timeout:10000,
-        success:function(data,status){
-            if(data.code === 200){
-                starToast("success", data.text);
-                starCountDown(object, 10);
-            }else{
-                starToast("fail", data.text);
-            }
-        },
-        error:function(XMLHttpRequest,textStatus,errorThrown){
-            if(textStatus==='timeout'){
-                starToast("fail", '请求超时');
-                setTimeout(function(){
-                    starToast("fail", '重新请求');
-                },2000);
-            }
-            if(errorThrown==='Too Many Requests'){
-                starToast("fail", '尝试次数太多，请稍后再试');
-            }
-        }
-    });
-};
-
 //注册
 function starRegister(){
     var username = $.trim($('input[name="username"]').val());

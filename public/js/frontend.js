@@ -304,6 +304,134 @@ function jsApiCall(){
 	);
 };
 
+//倒计时
+function starCountDown(object, timeout){
+    // 如果秒数还是大于0，则表示倒计时还没结束
+    if(timeout>=0){
+        // 按钮置为不可点击状态
+        $(object).attr('disabled', true);
+        // 按钮里的内容呈现倒计时状态
+        $(object).text('获取验证码('+timeout+')');
+        // 时间减一
+        timeout--;
+        // 一秒后重复执行
+        setTimeout(function(){starCountDown(object,timeout);},1000);
+        // 否则，按钮重置为初始状态
+    }else{
+    	// 按钮置未可点击状态
+    	$(object).attr('disabled', false);
+    	// 按钮里的内容恢复初始状态
+    	$(object).text('获取验证码');
+    }
+};
+
+function starCheckEmail(email){
+    //console.log(email);
+    if (starRegexMail.test(email)) {
+        $('button[name="email_send"]').attr('disabled', false);
+        return;
+    }else{
+        //starToast('fail', '邮箱格式错误');
+        $('button[name="email_send"]').attr('disabled', true);
+        return;
+    }
+};
+
+function starSendEmail(object){
+    var email = $.trim($('input[name="email"]').val());
+    starCheckEmail(email);
+    var data = $('form').serialize();
+    $.ajax({
+        type:'POST',
+        url:'/email',
+        data:data, 
+        dataType:'json',
+        timeout:10000,
+        success:function(data,status){
+            if(data.code === 200){
+                starToast("success", data.text);
+                starCountDown(object, 10);
+            }else{
+                starToast("fail", data.text);
+            }
+        },
+        error:function(XMLHttpRequest,textStatus,errorThrown){
+            if(textStatus==='timeout'){
+                starToast("fail", '请求超时');
+                setTimeout(function(){
+                    starToast("fail", '重新请求');
+                },2000);
+            }
+            if(errorThrown==='Too Many Requests'){
+                starToast("fail", '尝试次数太多，请稍后再试');
+            }
+        }
+    });
+};
+
+function starConfirmation(){
+	var password = $.trim($('input[name="password"]').val());
+	if(password == ''){
+        starToast('fail', '请输入密码');
+        return;
+    }
+    var data = $('#form').serialize();
+    $.post('/user/confirmation/auth',data,function(res){
+        if(res.code === 200){
+        	starToast('success', res.text);
+        	setTimeout(function(){
+        		if( redirect_url !=null && redirect_url.toString().length>1 ) {
+			        window.location.href = decodeURI(redirect_url);
+			    }else{
+			        window.location.href = '/user/email';
+			    }
+        	},1000);
+        }else{
+        	starToast('fail', res.text);
+        }
+    },'json');
+};
+
+function starEmailStore(){
+	var email = $.trim($('input[name="email"]').val());
+    var email_code = $.trim($('input[name="email_code"]').val());
+    if(email == ''){
+        starToast('fail', '请输入邮箱');
+        return;
+    }
+    var data = $('#form').serialize();
+    $.post('/user/email/store',data,function(res){
+        if(res.code === 200){
+        	starToast('success', res.text);
+        	setTimeout(function(){
+        		window.location.href = '/user/setting';
+        	},1000);
+        }else{
+        	starToast('fail', res.text);
+        }
+    },'json');
+};
+
+function starPasswordStore(){
+	var password = $.trim($('input[name="password"]').val());
+    var password_confirmation = $.trim($('input[name="password_confirmation"]').val());
+    if(password !== password_confirmation){
+        starToast('fail', '两次密码输入不一致');
+        return;
+    }
+    var data = $('#form').serialize();
+    $.post('/user/password/store',data,function(res){
+        if(res.code === 200){
+        	starToast('success', res.text);
+        	setTimeout(function(){
+        		window.location.href = '/user/setting';
+        	},1000);
+        }else{
+        	starToast('fail', res.text);
+        }
+    },'json');
+};
+
 $(document).ready(function() {
 	starLoadScreen();
 	window.onresize = function(){

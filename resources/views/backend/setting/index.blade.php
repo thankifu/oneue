@@ -47,7 +47,7 @@
 			<span class="help-block">网站备案号，可以在<a target="_blank" href="http://www.miitbeian.gov.cn">备案管理中心</a>查询获取。</span>
 		</div>
 		<div class="form-group">
-			<label>默认注册：</label>
+			<label>用户注册：</label>
 			<div class="radio">
 				<label class="radio-inline">
 					<input type="radio" name="auth_register" value="1" {{isset($value['auth_register']) && $value['auth_register']==1?'checked':''}}>开
@@ -59,7 +59,7 @@
 			<span class="help-block">用户名、密码的注册方式。</span>
 		</div>
 		<div class="form-group">
-			<label>邮箱认证：</label>
+			<label>注册邮箱验证：</label>
 			<div class="radio">
 				<label class="radio-inline">
 					<input type="radio" name="auth_email" value="1" {{isset($value['auth_email']) && $value['auth_email']==1?'checked':''}}>开
@@ -68,10 +68,10 @@
 					<input type="radio" name="auth_email" value="0" {{isset($value['auth_email']) && $value['auth_email']==0?'checked':''}}>关
 				</label>
 			</div>
-			<span class="help-block">在用户名、密码的注册方式上增加邮箱真实性认证。<span class="text-danger">建议：“邮箱认证”和“手机认证”二选其一。</span></span>
+			<span class="help-block">在用户名、密码的注册方式上增加邮箱真实性验证。<!-- <span class="text-danger">建议：“邮箱认证”和“手机认证”二选其一。 --></span></span>
 		</div>
 		<div class="form-group">
-			<label>手机认证：</label>
+			<label>注册手机验证：</label>
 			<div class="radio">
 				<label class="radio-inline">
 					<input type="radio" name="auth_phone" value="1" {{isset($value['auth_phone']) && $value['auth_phone']==1?'checked':''}}>开
@@ -80,7 +80,8 @@
 					<input type="radio" name="auth_phone" value="0" {{isset($value['auth_phone']) && $value['auth_phone']==0?'checked':''}}>关
 				</label>
 			</div>
-			<span class="help-block">在用户名、密码的注册方式上增加手机真实性认证。<span class="text-danger">建议：“邮箱认证”和“手机认证”二选其一。</span></span>
+			<span class="help-block text-danger">未包含此功能，请勿开启。</span>
+			<!-- <span class="help-block">在用户名、密码的注册方式上增加手机真实性验证。<span class="text-danger">建议：“邮箱认证”和“手机认证”二选其一。</span></span> -->
 		</div>
 		<div class="form-group">
 			<label>微信注册登陆：</label>

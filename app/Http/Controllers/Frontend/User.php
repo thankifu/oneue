@@ -21,7 +21,8 @@ class User extends Common
 {
 	public function __construct(Request $request){        
     }
-    //
+    
+    //用户中心
     public function index(Request $request){
     	$data['user'] = auth()->user();
 		//$data = Db::table('article')->where('state', 1)->orderBy('id','desc')->pages('', 12);
@@ -35,13 +36,8 @@ class User extends Common
 		return view('frontend.user.index', $data);
 	}
 
-	public function side(Request $request){
-    	$data = [];
-		return view('frontend.user.side', $data);
-	}
-
+	//账户设置
 	public function setting(Request $request){
-    	$data = [];
     	$data['user'] = auth()->user();
 
     	//SEO优化
@@ -53,6 +49,177 @@ class User extends Common
 		return view('frontend.user.setting', $data);
 	}
 
+	//密码确认，密码/邮箱/手机修改前需确认登录密码
+	public function confirmation(Request $request){
+    	$data['user'] = auth()->user();
+
+    	//SEO优化
+		$site = $this->getSeting('site')['value'];
+		$data['page_title'] = '我的 - '.$site['name'];
+		$data['page_keywords'] = '我的,'.$site['name'];
+		$data['page_description'] = '';
+
+		return view('frontend.user.confirmation', $data);
+	}
+
+	//密码确认验证
+	public function confirmationAuth(Request $request){
+    	//获取指定值
+    	$params = $request->only(['password']);
+    	//验证数据格式
+    	$this->validator($params);
+
+    	//获取当前用户
+    	$user = auth()->user();
+    	$user_username = $user['username'];
+    	$user_password = $user['password'];
+
+    	//获取传入值
+    	$input_password = trim($request->password);
+
+    	//验证密码是否匹配
+    	if(\Hash::check($input_password, $user_password)){
+    		//开启SESSION
+	   		if(!session_id()) session_start();
+
+	   		//储存SESSION
+	   		$_SESSION[$user_username.'_confirmation_auth'] = 1;
+	   		$this->returnMessage(200,'验证成功');
+    	}else{
+    		$this->returnMessage(400,'密码错误');
+    	}
+    }
+
+    //邮箱修改
+	public function email(Request $request){
+		//获取当前用户
+    	$data['user'] = auth()->user();
+    	$username = $data['user']['username'];
+
+    	//获取页面Uri，用于回调
+    	$redirect_url = $request->getUri();
+
+    	//判断是否已经密码确认验证
+    	if(!session_id()) session_start();
+        if(!isset($_SESSION[$username.'_confirmation_auth']) || $_SESSION[$username.'_confirmation_auth'] != 1){
+            return redirect('/user/confirmation?redirect_url='.urlencode($redirect_url));
+        }
+
+    	//SEO优化
+		$site = $this->getSeting('site')['value'];
+		$data['page_title'] = '我的 - '.$site['name'];
+		$data['page_keywords'] = '我的,'.$site['name'];
+		$data['page_description'] = '';
+
+		return view('frontend.user.email', $data);
+	}
+
+	//邮箱修改储存
+	public function emailStore(Request $request){
+		//验证数据格式
+		$this->validator($request->all());
+
+		//获取当前用户
+    	$user = auth()->user();
+    	$user_id = $user->id;
+    	$user_username = $user->username;
+
+    	//获取传入值
+    	$email = trim($request->email);
+		$email_code = trim($request->email_code);
+
+		//验证验证码
+    	$this->checkEmailCode($email, $email_code);
+
+    	//设置更新数据库的值
+		$data['email'] = $email;
+		$data['modified'] = time();
+
+		//更新数据库
+		$res = Db::table('user')->where('id',$user_id)->update($data);
+
+		//更新失败
+		if(!$res){
+			$this->returnMessage(400,'保存失败');
+		}
+
+		//开启SESSION
+		if(!session_id()) session_start();
+
+		//判断并删除SESSION
+        if(isset($_SESSION[$user_username.'_confirmation_auth'])){
+            unset($_SESSION[$user_username.'_confirmation_auth']);
+        }
+        if(isset($_SESSION[$email.'_email_code'])){
+            unset($_SESSION[$email.'_email_code']);
+        }
+
+        //返回信息
+		$this->returnMessage(200,'保存成功');
+	}
+
+	//修改密码
+	public function password(Request $request){
+		//获取当前用户信息
+    	$data['user'] = auth()->user();
+    	$username = $data['user']['username'];
+
+    	//获取页面Uri，用于回调
+    	$redirect_url = $request->getUri();
+
+    	//判断是否已经密码确认验证
+    	if(!session_id()) session_start();
+        if(!isset($_SESSION[$username.'_confirmation_auth']) || $_SESSION[$username.'_confirmation_auth'] != 1){
+            return redirect('/user/confirmation?redirect_url='.urlencode($redirect_url));
+        }
+
+    	//SEO优化
+		$site = $this->getSeting('site')['value'];
+		$data['page_title'] = '我的 - '.$site['name'];
+		$data['page_keywords'] = '我的,'.$site['name'];
+		$data['page_description'] = '';
+
+		return view('frontend.user.password', $data);
+	}
+
+	//密码修改储存
+	public function passwordStore(Request $request){
+		//验证数据格式
+		$this->validator($request->all());
+
+		//获取当前用户
+    	$user = auth()->user();
+    	$user_id = $user->id;
+    	$user_username = $user->username;
+
+    	//获取传入值
+    	$password = trim($request->password);
+
+    	//设置更新数据库的值
+		$data['password'] = bcrypt($password);
+		$data['modified'] = time();
+
+		//更新数据库
+		$res = Db::table('user')->where('id',$user_id)->update($data);
+
+		//更新失败
+		if(!$res){
+			$this->returnMessage(400,'保存失败');
+		}
+
+		//开启SESSION
+		if(!session_id()) session_start();
+
+		//判断并删除SESSION
+        if(isset($_SESSION[$user_username.'_confirmation_auth'])){
+            unset($_SESSION[$user_username.'_confirmation_auth']);
+        }
+
+        //返回信息
+		$this->returnMessage(200,'保存成功');
+	}
+
+	//性别修改储存
 	public function sexStore(Request $request){
     	$user_id = auth()->user()->id;
 		$data['sex'] = (int)$request->sex;
@@ -66,6 +233,7 @@ class User extends Common
 		$this->returnMessage(200,'保存成功');
 	}
 
+	//年龄修改储存
 	public function ageStore(Request $request){
     	$user_id = auth()->user()->id;
 		$data['age'] = (int)$request->age;
@@ -79,6 +247,7 @@ class User extends Common
 		$this->returnMessage(200,'保存成功');
 	}
 
+	//收货地址列表
 	public function address(Request $request){
 		$data['user'] = auth()->user();
     	$data['address'] = Db::table('user_address')->where(array(['user_id', $data['user']['id']],['state', 1]))->orderBy('id','desc')->lists();
@@ -92,6 +261,7 @@ class User extends Common
 		return view('frontend.user.address.index', $data);
 	}
 	
+	//收获地址详情
 	public function addressItem(Request $request){
 		$id = (int)$request->id;
 
@@ -111,6 +281,7 @@ class User extends Common
 		return view('frontend.user.address.item', $data);
 	}
 
+	//收获地址储存
 	public function addressStore(Request $request){
 		$user_id = auth()->user()->id;
 		$id = (int)$request->id;
@@ -135,6 +306,7 @@ class User extends Common
 		$this->returnMessage(200,'保存成功');
 	}
 
+	//订单列表
 	public function order(Request $request){
 		$user = auth()->user();
 		$state = (int)$request->state;
@@ -201,6 +373,7 @@ class User extends Common
 		return view('frontend.user.order.index', $data);
 	}
 
+	//订单详情
 	public function orderItem(Request $request){
 		$id = (int)$request->id;
 

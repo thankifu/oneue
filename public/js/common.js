@@ -224,24 +224,3 @@ function starGetQueryString(name){
 	
 //获取url参数
 var redirect_url = starGetQueryString("redirect_url");
-
-//倒计时
-function starCountDown(object, timeout){
-    // 如果秒数还是大于0，则表示倒计时还没结束
-    if(timeout>=0){
-        // 按钮置为不可点击状态
-        $(object).attr('disabled', true);
-        // 按钮里的内容呈现倒计时状态
-        $(object).text('获取验证码('+timeout+')');
-        // 时间减一
-        timeout--;
-        // 一秒后重复执行
-        setTimeout(function(){starCountDown(object,timeout);},1000);
-        // 否则，按钮重置为初始状态
-    }else{
-    	// 按钮置未可点击状态
-    	$(object).attr('disabled', false);
-    	// 按钮里的内容恢复初始状态
-    	$(object).text('获取验证码');
-    }
-};

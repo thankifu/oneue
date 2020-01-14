@@ -405,7 +405,7 @@ i{font-style:normal;}
 .star-user .star-setting .star-hd{font-size:14px;color:#555;float:left;}
 .star-user .star-setting .star-bd{font-size:14px;color:#999;position:relative;padding-right:30px;float:right;}
 .star-user .star-setting .star-bd .star-arrow{line-height:50px;color:#999;font-size:12px;position:absolute;top:0;right:0;}
-.star-user .star-setting .star-bd .star-text{max-width:40px;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;}
+.star-user .star-setting .star-bd .star-text{font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;}
 .star-user .star-setting .star-bd .star-avatar{width:40px;height:40px;float:left;margin:5px 0 0 0;display:inline;}
 .star-user .star-setting .star-bd .star-avatar img{width:100%;height:100%;display:block;border-radius:50%;box-shadow:0 1px 3px rgba(0,0,0,.03);}
 .star-user .star-setting .star-bd .star-wechat{float:left;margin-right:10px;}
