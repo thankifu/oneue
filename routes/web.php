@@ -17,7 +17,9 @@ Route::get('login', 'Frontend\Account@showLogin')->name('login');
 Route::post('login', 'Frontend\Account@login')->middleware('throttle:5,1');
 Route::post('logout', 'Frontend\Account@logout')->name('logout');
 Route::get('register', 'Frontend\Account@showRegister')->name('register');
-Route::post('register', 'Frontend\Account@register')->middleware('throttle:5,1');
+Route::post('register', 'Frontend\Account@register');
+
+Route::post('email', 'Frontend\Email@index')->middleware('throttle:5,1');
 
 Route::get('article', 'Frontend\Article@index')->name('article');
 Route::get('article/category/{id}', 'Frontend\Article@category')->name('article.category');

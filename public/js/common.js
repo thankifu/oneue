@@ -10,6 +10,9 @@
  * ----------------------------------------------------------------------
 **/
 
+var starRegexMail = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/; //邮箱
+var starRegexPhone = /^1(3|4|5|7|8)\d{9}$/; //手机
+
 //设置cookie  
 function setCookie(cname, cvalue, exdays, cpath) {  
     var d = new Date();  
@@ -193,24 +196,24 @@ function starSetIframeHeight(iframe) {
 function starPicture(place){
 	$('#upload_file').click();
 	$('#upload_place').val(place);
-}
+};
 //原生上传方式
 function starUpload(){
 	starToast('loading', '上传中...', 0);
 	$('#upload_form').submit();
-}
+};
 //原生上传成功
 function starUploadSuccess(place, url){
 	bootbox.hideAll();
 	starToast('success', '上传成功');
 	$('#upload_file').val('');
 	$('input[name="'+place+'"]').val(url).trigger('change');
-}
+};
 //原生上传失败
 function starUploadFail(message){
 	bootbox.hideAll();
 	starToast('fail', message);
-}
+};
 
 //获取地址栏参数
 function starGetQueryString(name){
@@ -221,3 +224,24 @@ function starGetQueryString(name){
 	
 //获取url参数
 var redirect_url = starGetQueryString("redirect_url");
+
+//倒计时
+function starCountDown(object, timeout){
+    // 如果秒数还是大于0，则表示倒计时还没结束
+    if(timeout>=0){
+        // 按钮置为不可点击状态
+        $(object).attr('disabled', true);
+        // 按钮里的内容呈现倒计时状态
+        $(object).text('获取验证码('+timeout+')');
+        // 时间减一
+        timeout--;
+        // 一秒后重复执行
+        setTimeout(function(){starCountDown(object,timeout);},1000);
+        // 否则，按钮重置为初始状态
+    }else{
+    	// 按钮置未可点击状态
+    	$(object).attr('disabled', false);
+    	// 按钮里的内容恢复初始状态
+    	$(object).text('获取验证码');
+    }
+};

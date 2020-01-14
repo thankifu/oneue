@@ -81,20 +81,33 @@ class Account extends Common
     //注册验证
     public function register(Request $request){
 
-        $auth_register = $this->getSeting('site')['value']['auth_register'];
-        /*print_r($auth_register);exit();*/
-        if($auth_register != 1){
+        $site = $this->getSeting('site')['value'];
+        $auth_register = $site['auth_register'];
+        $auth_email = $site['auth_email'];
+        $auth_phone = $site['auth_phone'];
+
+        if(!$auth_register){
             $this->returnMessage(400,'禁止注册');
         }
+
+        $this->validator($request->all());
 
         $username = trim($request->username);
         $password = trim($request->password);
 
-        if($username == ''){
-            $this->returnMessage(400,'请输入用户名');
+        $email = trim($request->email);
+        $email_code = trim($request->email_code);
+        $phone = trim($request->phone);
+        $phone_code = trim($request->phone_code);
+
+        if($auth_email){
+            $data['email'] = $email;
+            $this->checkEmailCode($email, $email_code);
         }
-        if($password == ''){
-            $this->returnMessage(400,'请输入密码');
+
+        if($auth_phone){
+            $data['phone'] = $phone;
+            $this->checkPhoneCode($phone, $phone_code);
         }
 
         $has = DB::table('user')->where('username',$username)->item();
@@ -121,11 +134,15 @@ class Account extends Common
             $this->returnMessage(400,'自动登录失败');
         }
 
+        if(!session_id()) session_start();
+        if(isset($_SESSION[$email.'_email_code'])){
+            unset($_SESSION[$email.'_email_code']);
+        }
+
         // 更新登录ip、时间
         Db::table('user')->where(array('username'=>$username))->update(array('logined_ip'=>$request->getClientIp(),'logined'=>time()));
 
         echo json_encode(array('code'=>200,'text'=>'注册成功'));
         
     }
-
 }

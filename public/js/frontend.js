@@ -159,64 +159,6 @@ function starLogout(){
 	},'json');
 };
 
-//注册
-function starRegister(){
-	var username = $.trim($('input[name="username"]').val());
-	var password = $.trim($('input[name="password"]').val());
-	var confirm = $.trim($('input[name="confirm"]').val());
-	if(username == ''){
-        starToast('fail', '请输入用户名');
-        return false;
-    }
-    if(password == ''){
-        starToast('fail', '请输入密码');
-        return;
-    }
-    if(password !== confirm){
-        starToast('fail', '两次密码输入不一致');
-        return;
-    }
-
-	var data = $('form').serialize();
-
-    /*console.log(data);
-    return;*/
-
-    $.ajax({
-        type:'POST',
-        url:'/register',
-        data:data, 
-        dataType:'json',
-        timeout:10000,
-        success:function(data,status){
-            if(data.code === 200){
-                starToast("success", data.text);
-                setTimeout(function(){
-                    if( redirect_url !=null && redirect_url.toString().length>1 ) {
-                        window.location.href = decodeURI(redirect_url);
-                    }else{
-                        window.location.href = '/user';
-                    }
-                },1000);
-
-            }else{
-                starToast("fail", data.text);
-            }
-        },
-        error:function(XMLHttpRequest,textStatus,errorThrown){
-            if(textStatus==='timeout'){
-                starToast("fail", '请求超时');
-                setTimeout(function(){
-                    starToast("fail", '重新请求');
-                },2000);
-            }
-            if(errorThrown==='Too Many Requests'){
-                starToast("fail", '尝试次数太多，请稍后再试');
-            }
-        }
-    });
-};
-
 //支付验证
 function starPaid(id){
 	//clearInterval(timer);

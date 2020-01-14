@@ -59,7 +59,31 @@
 			<span class="help-block">用户名、密码的注册方式。</span>
 		</div>
 		<div class="form-group">
-			<label>微信注册：</label>
+			<label>邮箱认证：</label>
+			<div class="radio">
+				<label class="radio-inline">
+					<input type="radio" name="auth_email" value="1" {{isset($value['auth_email']) && $value['auth_email']==1?'checked':''}}>开
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="auth_email" value="0" {{isset($value['auth_email']) && $value['auth_email']==0?'checked':''}}>关
+				</label>
+			</div>
+			<span class="help-block">在用户名、密码的注册方式上增加邮箱真实性认证。<span class="text-danger">建议：“邮箱认证”和“手机认证”二选其一。</span></span>
+		</div>
+		<div class="form-group">
+			<label>手机认证：</label>
+			<div class="radio">
+				<label class="radio-inline">
+					<input type="radio" name="auth_phone" value="1" {{isset($value['auth_phone']) && $value['auth_phone']==1?'checked':''}}>开
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="auth_phone" value="0" {{isset($value['auth_phone']) && $value['auth_phone']==0?'checked':''}}>关
+				</label>
+			</div>
+			<span class="help-block">在用户名、密码的注册方式上增加手机真实性认证。<span class="text-danger">建议：“邮箱认证”和“手机认证”二选其一。</span></span>
+		</div>
+		<div class="form-group">
+			<label>微信注册登陆：</label>
 			<div class="radio">
 				<label class="radio-inline">
 					<input type="radio" name="auth_wechat" value="1" {{isset($value['auth_wechat']) && $value['auth_wechat']==1?'checked':''}}>开
