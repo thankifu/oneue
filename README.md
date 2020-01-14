@@ -12,7 +12,7 @@
 
 前/后台帐号：oneue
 
-前/后台密码：oneue
+前/后台密码：oneue.com
 
 ## 使用
 
@@ -51,11 +51,32 @@ php artisan storage:link
 
 7.数据库默认的后台帐号密码同为：admin。
 
-8.微信支付需配置config/wechat.php中的相关参数。
+8.邮箱注册需配置。
 
 ```
-微信登录：official_account中的app_id和secret。
-微信支付：payment中的app_id、mch_id和key。
+MAIL_DRIVER=smtp
+MAIL_HOST=smtp.域名.com
+MAIL_PORT=25/465
+MAIL_USERNAME=邮箱
+MAIL_PASSWORD=密码
+MAIL_ENCRYPTION=null/ssl
+MAIL_FROM_ADDRESS=邮箱
+MAIL_FROM_NAME=发件人名/网站名
+```
+
+9.微信注册登陆需配置。
+
+```
+WECHAT_OFFICIAL_ACCOUNT_APPID = APP_ID
+WECHAT_OFFICIAL_ACCOUNT_SECRET = APP_SECRET
+```
+
+10.微信支付需配置。
+
+```
+WECHAT_PAYMENT_APPID = APP_ID
+WECHAT_PAYMENT_MCH_ID = 商户号
+WECHAT_PAYMENT_KEY = API_KEY
 ```
 
 ## 功能
