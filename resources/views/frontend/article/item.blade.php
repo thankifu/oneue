@@ -28,6 +28,9 @@
 
                     {!!$article['content']!!}
 
+                    <p>
+                        <a class="star-heart{{$like == 1?' star-active':''}}" href="javascript:void(0);" data-type='article' data-id="{{$article['id']}}" onclick="starLike(this);"><i class="glyphicon{{$like == 1?' glyphicon-heart':' glyphicon-heart-empty'}}" aria-hidden="true"></i><span>喜欢</span></a>
+                    </p>
                 </div>
             </div>
         </div>

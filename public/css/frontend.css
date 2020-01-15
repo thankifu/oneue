@@ -384,17 +384,18 @@ i{font-style:normal;}
 .star-side .star-list-product li .star-price{width:160px;float:right;margin-bottom:0;overflow:hidden;display:inline;}
 
 /*用户中心*/
-.star-user .star-center .star-hd{height:80px;padding:0 0 20px;border-bottom:1px solid #eee;overflow:hidden;}
-.star-user .star-center .star-hd a{width:60px;height:60px;float:left;margin-right:20px;overflow:hidden;display:inline;}
-.star-user .star-center .star-hd img{width:60px;height:60px;display:block;border-radius:50%;}
-.star-user .star-center .star-hd span{line-height:60px;float:left;overflow:hidden;display:inline;}
-.star-user .star-center .star-bd{width:100%;overflow:hidden;}
-.star-user .star-center .star-bd ul{margin:10px 0;overflow:hidden;}
-.star-user .star-center .star-bd li{height:40px;line-height:40px;font-size:14px;padding:0;overflow:hidden;}
-.star-user .star-center .star-bd li.star-current a{color:#333;}
-.star-user .star-center .star-bd li a{height:100%;color:#666;display:block;}
-.star-user .star-center .star-bd .star-text{float:left;overflow:hidden;display:inline;}
-.star-user .star-center .star-bd .star-arrow{font-size:12px;float:right;overflow:hidden;display:inline;}
+.star-user .star-side .star-hd{height:80px;padding:0 0 20px;border-bottom:1px solid #eee;position:relative;overflow:hidden;}
+.star-user .star-side .star-hd a{height:60px;display:block;}
+.star-user .star-side .star-hd img{width:60px;height:60px;display:block;border-radius:50%;float:left;margin-right:20px;overflow:hidden;display:inline;}
+.star-user .star-side .star-hd span{line-height:60px;float:left;overflow:hidden;display:inline;}
+.star-user .star-side .star-hd .star-arrow{line-height:60px;color:#999;font-size:12px;position:absolute;top:0;right:0;}
+.star-user .star-side .star-bd{width:100%;overflow:hidden;}
+.star-user .star-side .star-bd ul{margin:10px 0;overflow:hidden;}
+.star-user .star-side .star-bd li{height:40px;line-height:40px;font-size:14px;padding:0;overflow:hidden;}
+.star-user .star-side .star-bd li.star-current a{color:#333;}
+.star-user .star-side .star-bd li a{height:100%;color:#666;display:block;}
+.star-user .star-side .star-bd .star-text{float:left;overflow:hidden;display:inline;}
+.star-user .star-side .star-bd .star-arrow{font-size:12px;float:right;overflow:hidden;display:inline;}
 
 .star-user .star-setting{background:#fff;margin-bottom:2%;overflow:hidden;}
 .star-user .star-setting ul{margin-top:-1px;}
@@ -420,43 +421,15 @@ i{font-style:normal;}
 .star-user .star-order li .star-ft .star-total{width:100%;height:30px;line-height:30px;text-align:right;}
 .star-user .star-order li .star-ft a{height:30px;line-height:30px;border:1px solid #ddd;border-radius:2px;padding:0 20px;margin:15px 0 0 20px;float:right;overflow:hidden;display:inline;}
 
-#user .order{background:#fff;overflow:hidden;}
-#user .order .hd{padding:0;height:50px;line-height:50px;font-size:16px;border-bottom:1px solid #eee;overflow:hidden;}
-#user .order .hd span{color:#555;float:left;}
-#user .order .hd a{font-size:14px;color:#999;position:relative;padding-right:20px;float:right;}
-#user .order .hd a i{line-height:50px;color:#999;position:absolute;top:0;right:0;}
-#user .order .bd{padding:20px 0;overflow:hidden;}
-#user .order .bd li{width:20%;text-align:center;float:left;overflow:hidden;display:inline;}
-#user .order .bd li a{color:#555;}
-#user .order .bd li i{height:30px;line-height:30px;display:block;margin-bottom:5px;color:#111;}
-#user .order .bd li span{font-size:14px;display:block;}
-
-#user .order .bd li:nth-child(1) i{font-size:20px;}
-#user .order .bd li:nth-child(2) i{font-size:30px;}
-#user .order .bd li:nth-child(3) i{font-size:27px;}
-#user .order .bd li:nth-child(4) i{font-size:20px;}
-#user .order .bd li:nth-child(5) i{font-size:23px;}
-
-#user .main .edit{background:#fff;padding:20px 200px;overflow:hidden;}
-
-#user .messages{width:100%;margin:0 auto;overflow:hidden;}
-#user .messages li{background:#fff;font-size:.28rem;color:#666;padding:.25rem;border-bottom:1px solid #eee;overflow:hidden;}
-#user .messages li .hd{height:.5rem;line-height:.5rem;overflow:hidden;}
-#user .messages li .title{font-weight:bold;color:#111;float:left;}
-#user .messages li .date{color:#999;float:right;}
-
-#user .reviews{background:#fff;width:100%;margin:0 auto 24px;overflow:hidden;}
-#user .reviews li{background:#fff;font-size:14px;color:#666;padding:25px;border-bottom:1px dotted #eee;overflow:hidden;}
-#user .reviews .image{width:100px;height:100px;float:left;margin:0 25px 25px 0;overflow:hidden;}
-#user .reviews .image img{width:100%;height:100%;display:block;}
-#user .reviews .level{width:400px;height:100px;line-height:100px;margin-bottom:25px;float:left;position:relative;overflow:hidden;}
-#user .reviews .level i{line-height:100px;font-size:25px;float:left;margin-right:20px;}
-#user .reviews .level .default{color:#999;}
-#user .reviews .level .current{color:#f36;position:absolute;top:0;left:0;}
-#user .reviews .content{width:100%;overflow:hidden;}
-#user .reviews .content textarea{width:100%;height:100px;border:1px solid #eee;padding:20px;box-sizing:border-box;resize:none;}
-#user .products-reviews{width:200px;height:50px;line-height:50px;border-radius:0;margin:24px auto;overflow:hidden;display:block;}
-
+.star-user .star-panel{padding-bottom:24px;border-bottom:1px solid #eee;overflow:hidden;}
+.star-user .star-panel li{text-align:center;}
+.star-user .star-panel li a{color:#555;}
+.star-user .star-panel li i{height:30px;line-height:30px;display:block;margin-bottom:5px;color:#111;}
+.star-user .star-panel li span{font-size:14px;display:block;}
+.star-user .star-panel li:nth-child(1) i{font-size:20px;}
+.star-user .star-panel li:nth-child(2) i{font-size:20px;}
+.star-user .star-panel li:nth-child(3) i{font-size:18px;}
+.star-user .star-panel li:nth-child(4) i{font-size:20px;}
 
 .star-button-primary{background:#ff5c85;color:#fff;outline:none !important;}
 .star-button-danger{background:#393d49;color:#fff;outline:none !important;}
@@ -492,6 +465,7 @@ i{font-style:normal;}
 
 @media (max-width: 768px) { 
 	.star-footer{margin-bottom:50px;}
+	.star-user .star-panel{margin-top:20px;}
 }
 
 @media (max-width: 991px) { 

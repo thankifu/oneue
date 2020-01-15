@@ -18,6 +18,30 @@
         </div>
 
         <div class="col-md-9 star-main">
+            <div class="star-panel">
+                <ul class="list-unstyled">
+                    <li class="col-xs-3">
+                        <a href="/user/like">
+                            <i class="glyphicon glyphicon-heart" aria-hidden="true"></i><span>喜欢的</span>
+                        </a>
+                    </li>
+                    <li class="col-xs-3">
+                        <a href="/user/order?state=1">
+                            <i class="glyphicon glyphicon-credit-card" aria-hidden="true"></i><span>待付款</span>
+                        </a>
+                    </li>
+                    <li class="col-xs-3">
+                        <a href="/user/order?state=2">
+                            <i class="glyphicon glyphicon-gift" aria-hidden="true"></i><span>待发货</span>
+                        </a>
+                    </li>
+                    <li class="col-xs-3">
+                        <a href="/user/order?state=3">
+                            <i class="glyphicon glyphicon-plane" aria-hidden="true"></i><span>待收货</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
             
         </div>
 

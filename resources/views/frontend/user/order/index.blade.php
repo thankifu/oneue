@@ -22,7 +22,6 @@
                 <li{!!request()->get('state') && request()->get('state') == 1?' class="active"':''!!}><a href="/user/order?state=1">待付款</a></li>
                 <li{!!request()->get('state') && request()->get('state') == 2?' class="active"':''!!}><a href="/user/order?state=2">待发货</a></li>
                 <li{!!request()->get('state') && request()->get('state') == 3?' class="active"':''!!}><a href="/user/order?state=3">待收货</a></li>
-                <li{!!request()->get('state') && request()->get('state') == 4?' class="active"':''!!}><a href="/user/order?state=4">待评价</a></li>
                 <li{!!request()->get('state') && request()->get('state') == 5?' class="active"':''!!}><a href="/user/order?state=5">已完成</a></li>
             </ul>
 
@@ -38,7 +37,6 @@
                                     @if($item['state']==1)<span>待付款</span>@endif
                                     @if($item['state']==2)<span style="color:#f36;">待发货</span>@endif
                                     @if($item['state']==3)<span style="color:#f36;">待收货</span>@endif
-                                    @if($item['state']==4)<span style="color:#f36;">待评价</span>@endif
                                     @if($item['state']==5)<span style="color:#2FAE3F;">已完成</span>@endif
                                 </span>
                             </div>
@@ -89,8 +87,8 @@
                             <a href="javascript:void(0);">申请退款</a>
                             @endif
 
-                            @if($item['state']==4)
-                            <a href="javascript:void(0);">立即评价</a>
+                            @if($item['state']==5)
+                            <a href="javascript:void(0);">查看详情</a>
                             @endif
                         </div>
                     </li>

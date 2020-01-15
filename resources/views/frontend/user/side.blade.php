@@ -1,18 +1,13 @@
-<div class="star-center">
+<div class="star-side">
     <div class="star-hd">
-        <a href="/user/avatar">
+        <a href="/user/setting">
             <img src="{{$user['avatar']}}"/>
+            <span>{{$user['username']}}</span>
+            <span class="star-arrow hidden-md hidden-lg"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></span>
         </a>
-        <span>{{$user['username']}}</span>
     </div>
-    <div class="star-bd">
+    <div class="star-bd hidden-xs hidden-sm">
         <ul class="list-unstyled">
-            <!-- <li class="star-current">
-                <a href="">
-                    <span class="star-text">用户中心</span>
-                    <span class="star-arrow"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></span>
-                </a>
-            </li> -->
             <li{!!strstr(request()->path(),'user/like')?' class="star-current"':''!!}>
                 <a href="/user/like">
                     <span class="star-text">我喜欢的</span>
