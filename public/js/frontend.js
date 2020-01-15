@@ -159,6 +159,66 @@ function starLogout(){
 	},'json');
 };
 
+//喜欢
+function starLike(object){
+	var data = new Object();
+	data.id = $(object).attr('data-id');
+	data.type = $(object).attr('data-type');
+	data._token = $('input[name="_token"]').val();
+	/*$.post('/user/like/store',data,function(res){
+		if(res.code === 200){
+			starToast('success', res.text);
+		}else{
+			starToast('fail', res.text);
+		}
+	},'json');*/
+
+	if(data.type != 'article' && data.type != 'product'){
+		starToast("fail", '参数错误');
+		return;
+	}
+
+	$.ajax({
+        type:'POST',
+        url:'/user/like/store',
+        data:data, 
+        dataType:'json',
+        timeout:10000,
+        success:function(data,status){
+            if(data.code === 200){
+                starToast("success", data.text);
+                if(data.text == '喜欢了'){
+                	$(object).addClass('star-active');
+                	$(object).find('.glyphicon').removeClass('glyphicon-heart-empty').addClass('glyphicon-heart');
+                }else{
+                	$(object).removeClass('star-active');
+                	$(object).find('.glyphicon').removeClass('glyphicon-heart').addClass('glyphicon-heart-empty');
+                }
+            }else{
+                starToast("fail", data.text);
+            }
+        },
+        error:function(XMLHttpRequest,textStatus,errorThrown){
+        	//console.log(errorThrown);
+            if(textStatus==='timeout'){
+                starToast("fail", '请求超时');
+                setTimeout(function(){
+                    starToast("fail", '重新请求');
+                },2000);
+            }
+            if(errorThrown==='Too Many Requests'){
+                starToast("fail", '尝试次数太多，请稍后再试');
+            }
+            if(errorThrown==='Unauthorized'){
+            	starToast("fail", '您还未登录哦');
+                setTimeout(function(){
+                    window.location.href = '/login';
+                },1000);
+            }
+        }
+    });
+}
+
 //支付验证
 function starPaid(id){
 	//clearInterval(timer);

@@ -394,4 +394,109 @@ class User extends Common
 		return view('frontend.user.order.item', $data);
 	}
 
+	//我喜欢的
+	public function like(Request $request){
+		//获取当前用户
+    	$user = auth()->user();
+    	$user_id = $user->id;
+
+		$where = [];
+		$where[] = ['user_id', '=', $user_id];
+		$where[] = ['state', '=', 1];
+		if($request->path() == 'user/like' || $request->path() == 'user/like/product'){
+			$where[] = ['product_id', '>', 0];
+		}else{
+			$where[] = ['article_id', '>', 0];
+		}
+
+		$like = Db::table('user_like')->where($where)->lists();
+		
+		if($request->path() == 'user/like' || $request->path() == 'user/like/product'){
+			$like_id = array_column($like, 'product_id');
+
+			$discount = $this->getUserDiscount();
+
+			$data = Db::table('product')->whereIn('id', $like_id)->orderBy('id','desc')->pages('', 12);
+
+			foreach ($data['lists'] as $key => $value) {
+				//用户价格折扣
+				$price  = $this->getProductPrice($data['lists'][$key]['selling'], $discount);
+				$data['lists'][$key]['price'] = $price;
+
+				//用户喜欢状态
+				$like = 0;
+				$user_like = Db::table('user_like')->where('user_id', $user_id)->where('product_id', $data['lists'][$key]['id'])->where('state',1)->item();
+				if($user_like){
+					$like = 1;
+				}
+				$data['lists'][$key]['like'] = $like;
+			}
+		}else{
+			$like_id = array_column($like, 'article_id');
+
+			$data = Db::table('article')->whereIn('id', $like_id)->orderBy('id','desc')->pages('', 12);
+			foreach ($data['lists'] as $key => $value) {
+				//用户喜欢状态
+				$like = 0;
+				$user_like = Db::table('user_like')->where('user_id', $user_id)->where('article_id', $data['lists'][$key]['id'])->where('state',1)->item();
+				if($user_like){
+					$like = 1;
+				}
+				$data['lists'][$key]['like'] = $like;
+			}
+		}
+        //exit(print_r($data));
+
+        $data['user'] = $user;  	
+
+		//SEO优化
+		$site = $this->getSeting('site')['value'];
+		$data['page_title'] = '我的 - '.$site['name'];
+		$data['page_keywords'] = '我的,'.$site['name'];
+		$data['page_description'] = '';
+
+		return view('frontend.user.like.index', $data);
+	}
+
+	//我喜欢的
+	public function likeStore(Request $request){
+		//获取当前用户
+    	$user = auth()->user();
+    	$user_id = $user->id;
+
+    	//获取传入值
+    	$id = (int)$request->id;
+    	$type = trim($request->type);
+
+    	$like_id = 'article_id';
+
+    	if($type == 'product'){
+    		$like_id = 'product_id';
+    	}
+
+    	//已经喜欢了
+		$has_like = Db::table('user_like')->where(array(['user_id', $user_id],[$like_id, $id],['state', 1]))->item();
+		if($has_like){
+			$data['state'] = 0;
+			Db::table('user_like')->where(array(['user_id', $user_id],[$like_id, $id],['state', 1]))->update($data);
+			$this->returnMessage(200,'不喜欢了');
+		}
+
+		//已经不喜欢了
+		$has_hate = Db::table('user_like')->where(array(['user_id', $user_id],[$like_id, $id],['state', 0]))->item();
+		if($has_hate){
+			$data['state'] = 1;
+			Db::table('user_like')->where(array(['user_id', $user_id],[$like_id, $id],['state', 0]))->update($data);
+			$this->returnMessage(200,'喜欢了');
+		}
+
+		//两个都没有
+		$data['user_id'] = $user_id;
+		$data[$like_id] = $id;
+		$data['state'] = 1;
+		Db::table('user_like')->insertGetId($data);
+		$this->returnMessage(200,'喜欢了');
+
+	}
+
 }

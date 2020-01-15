@@ -23,11 +23,25 @@ class Product extends Common
     public function index(Request $request){
     	$discount = $this->getUserDiscount();
 
+    	$user_id = 0;
+    	if(auth()->user()){
+    		$user_id = auth()->user()->id;
+    	}
+
 		$data = Db::table('product')->where('state', 1)->orderBy('id','desc')->pages('', 12);
 
 		foreach ($data['lists'] as $key => $value) {
-			$price  = $this->getProductPrice($data['lists'][$key]['selling'], $discount);
+			//用户价格折扣
+			$price = $this->getProductPrice($data['lists'][$key]['selling'], $discount);
 			$data['lists'][$key]['price'] = $price;
+
+			//用户喜欢状态
+			$like = 0;
+			$user_like = Db::table('user_like')->where('user_id', $user_id)->where('product_id', $data['lists'][$key]['id'])->where('state',1)->item();
+			if($user_like){
+				$like = 1;
+			}
+			$data['lists'][$key]['like'] = $like;
 		}
 
 		//SEO优化
@@ -42,6 +56,10 @@ class Product extends Common
 	public function category(Request $request){
     	$id = (int)$request->id;
     	$discount = $this->getUserDiscount();
+    	$user_id = 0;
+    	if(auth()->user()){
+    		$user_id = auth()->user()->id;
+    	}
 
     	$where = [];
     	$where[] = ['state', '=', 1];
@@ -52,8 +70,17 @@ class Product extends Common
 		$data = Db::table('product')->where($where)->orderBy('id','desc')->pages('', 12);
 
 		foreach ($data['lists'] as $key => $value) {
-			$price  = $this->getProductPrice($data['lists'][$key]['selling'], $discount);
+			//用户价格折扣
+			$price = $this->getProductPrice($data['lists'][$key]['selling'], $discount);
 			$data['lists'][$key]['price'] = $price;
+
+			//用户喜欢状态
+			$like = 0;
+			$user_like = Db::table('user_like')->where('user_id', $user_id)->where('product_id', $data['lists'][$key]['id'])->where('state',1)->item();
+			if($user_like){
+				$like = 1;
+			}
+			$data['lists'][$key]['like'] = $like;
 		}
 
 		//当前分类
@@ -73,7 +100,7 @@ class Product extends Common
     	$discount = $this->getUserDiscount();
 
     	$where = [];
-    	//$where[] = ['state', '=', 1];
+    	$where[] = ['state', '=', 1];
 		if(isset($request->id)){
 			$where[] = ['id', '=', $id];
 		}
@@ -96,11 +123,22 @@ class Product extends Common
 			$data['specifications'][$key]['price'] = $price;
 		}
 
+		//喜欢状态
+		$data['like'] = 0;
 		if(auth()->user()){
             $user_level = auth()->user()->level;
             $data['level'] = Db::table('user_level')->select(['name'])->where('id', $user_level)->item();
             //print_r($data['level_name']);
+
+            //喜欢状态
+            $user_id = auth()->user()->id;
+			$user_like = Db::table('user_like')->where('user_id', $user_id)->where('product_id', $id)->where('state',1)->item();
+			if($user_like){
+				$data['like'] = 1;
+			}
         }
+
+        
 
         //SEO优化
 		$site = $this->getSeting('site')['value'];

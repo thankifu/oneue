@@ -34,12 +34,15 @@ class Search extends Common
     		}
 		}
 
-		
-
 		$appends = [];
 		if($keyword){
 			$appends['keyword'] = $keyword;
 		}
+
+		$user_id = 0;
+    	if(auth()->user()){
+    		$user_id = auth()->user()->id;
+    	}
 
 		if($request->path() == 'search' || $request->path() == 'search/product'){
 			$discount = $this->getUserDiscount();
@@ -47,11 +50,29 @@ class Search extends Common
 			$data = Db::table('product')->where($where)->orderBy('id','desc')->pages('', 12);
 
 			foreach ($data['lists'] as $key => $value) {
+				//用户价格折扣
 				$price  = $this->getProductPrice($data['lists'][$key]['selling'], $discount);
 				$data['lists'][$key]['price'] = $price;
+
+				//用户喜欢状态
+				$like = 0;
+				$user_like = Db::table('user_like')->where('user_id', $user_id)->where('product_id', $data['lists'][$key]['id'])->where('state',1)->item();
+				if($user_like){
+					$like = 1;
+				}
+				$data['lists'][$key]['like'] = $like;
 			}
 		}else{
 			$data = Db::table('article')->where($where)->orderBy('id','desc')->pages('', 12);
+			foreach ($data['lists'] as $key => $value) {
+				//用户喜欢状态
+				$like = 0;
+				$user_like = Db::table('user_like')->where('user_id', $user_id)->where('article_id', $data['lists'][$key]['id'])->where('state',1)->item();
+				if($user_like){
+					$like = 1;
+				}
+				$data['lists'][$key]['like'] = $like;
+			}
 		}
 
     	

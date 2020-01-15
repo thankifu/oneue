@@ -21,7 +21,7 @@
                 <a href="{{route('product.item',$item['id'])}}" title="{{$item['name']}}">
                     <p class="star-image">
                         <img src="/images/star-none.png" data-original="{{$item['picture']}}" alt="{{$item['name']}}"/>
-                        <span class="star-heart"><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></span>
+                        <span class="star-heart{{$item['like'] == 1?' star-active':''}}" data-type='product' data-id="{{$item['id']}}" onclick="starLike(this);"><i class="glyphicon{{$item['like'] == 1?' glyphicon-heart':' glyphicon-heart-empty'}}" aria-hidden="true"></i></span>
                     </p>
                     <p class="star-title">{{$item['name']}}</p>
                     <p class="star-price">

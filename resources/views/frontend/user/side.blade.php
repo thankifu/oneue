@@ -13,6 +13,12 @@
                     <span class="star-arrow"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></span>
                 </a>
             </li> -->
+            <li{!!strstr(request()->path(),'user/like')?' class="star-current"':''!!}>
+                <a href="/user/like">
+                    <span class="star-text">我喜欢的</span>
+                    <span class="star-arrow"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></span>
+                </a>
+            </li>
             <li{!!strstr(request()->path(),'user/order')?' class="star-current"':''!!}>
                 <a href="/user/order">
                     <span class="star-text">我的订单</span>

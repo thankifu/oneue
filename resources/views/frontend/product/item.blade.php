@@ -46,7 +46,7 @@
             <div class="star-info">
                 <div class="star-title"><h1>{{$product['name']}}</h1></div>
                 <div class="star-price">
-                @if($product['state'] != 0 && $product['quantity'] != 0)
+                @if($product['quantity'] != 0)
                     <span class="star-normal" data-selling="{{$product['selling']}}" data-price="{{$product['price']}}">
                         <i>¥</i>
                         <em>{{$product['price']}}</em>
@@ -68,7 +68,7 @@
                 @endif
                 </div>
 
-            @if($product['state'] != 0 && $product['quantity'] != 0)
+            @if($product['quantity'] != 0)
                 <div class="clearfix star-meta star-meta-volume">
                     <div class="star-meta-hd">销量</div>
                     <div class="star-meta-bd">
@@ -121,7 +121,7 @@
             @endif
 
                 <div class="clearfix star-actions">
-                @if($product['state'] != 0 && $product['quantity'] != 0)
+                @if($product['quantity'] != 0)
                     @if(auth()->check())
                     <a class="star-buy-now" href="javascript:void(0);" onclick="starBuyNow()">立即购买</a>
                     <a class="star-add-cart" href="javascript:void(0);" onclick="starAddToCart()"><i class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i>加入购物车</a>
@@ -132,8 +132,10 @@
                 @else
                     <a class="star-buy-now-disable" href="javascript:void(0);">立即购买</a>
                     <a class="star-add-cart-disable" href="javascript:void(0);"><i class="fa fa-shopping-cart" aria-hidden="true"></i>加入购物车</a>
-                @endif                    
-                </div>                
+                @endif
+                    <div class="star-clear"></div>
+                    <a class="star-heart{{$like == 1?' star-active':''}}" href="javascript:void(0);" data-type='product' data-id="{{$product['id']}}" onclick="starLike(this);"><i class="glyphicon{{$like == 1?' glyphicon-heart':' glyphicon-heart-empty'}}" aria-hidden="true"></i><span>喜欢</span></a>
+                </div>
             </div>
 
             <div class="star-clear"></div>

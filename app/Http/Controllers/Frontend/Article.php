@@ -21,7 +21,22 @@ class Article extends Common
 {
     //
     public function index(Request $request){
+    	$user_id = 0;
+    	if(auth()->user()){
+    		$user_id = auth()->user()->id;
+    	}
+
 		$data = Db::table('article')->where('state', 1)->orderBy('id','desc')->pages('', 12);
+
+		foreach ($data['lists'] as $key => $value) {
+			//用户喜欢状态
+			$like = 0;
+			$user_like = Db::table('user_like')->where('user_id', $user_id)->where('article_id', $data['lists'][$key]['id'])->where('state',1)->item();
+			if($user_like){
+				$like = 1;
+			}
+			$data['lists'][$key]['like'] = $like;
+		}
 
 		//SEO优化
 		$site = $this->getSeting('site')['value'];
@@ -34,6 +49,10 @@ class Article extends Common
 
 	public function category(Request $request){
     	$id = (int)$request->id;
+    	$user_id = 0;
+    	if(auth()->user()){
+    		$user_id = auth()->user()->id;
+    	}
 
     	$where = [];
     	$where[] = ['state', '=', 1];
@@ -42,6 +61,17 @@ class Article extends Common
 		}
 
 		$data = Db::table('article')->where($where)->orderBy('id','desc')->pages('', 12);
+		
+		foreach ($data['lists'] as $key => $value) {
+			//用户喜欢状态
+			$like = 0;
+			$user_like = Db::table('user_like')->where('user_id', $user_id)->where('article_id', $data['lists'][$key]['id'])->where('state',1)->item();
+			if($user_like){
+				$like = 1;
+			}
+			$data['lists'][$key]['like'] = $like;
+		}
+
 		//当前分类
 		$data['category'] = Db::table('article_category')->where('id',$id)->where('state',1)->select(['id','name','seo_title','seo_keywords','seo_description'])->item();
 
