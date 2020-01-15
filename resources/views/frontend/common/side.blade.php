@@ -5,7 +5,7 @@
             <ul class="list-unstyled star-list-product">
                 @foreach($_product as $item)
                 <li>
-                    <a href="{{$item['id']}}" title="{{$item['name']}}">
+                    <a href="/product/{{$item['id']}}" title="{{$item['name']}}">
                         <p class="star-image">
                             <img src="{{$item['picture']}}?x-oss-process=image/resize,m_fill,w_80,h_80" alt="{{$item['name']}}"/>
                         </p>

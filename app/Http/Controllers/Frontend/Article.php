@@ -99,6 +99,17 @@ class Article extends Common
 		//当前分类
 		$data['category'] = Db::table('article_category')->where('id',$data['article']['category_id'])->where('state',1)->select(['id','name'])->item();
 
+		//喜欢状态
+		$data['like'] = 0;
+		if(auth()->user()){
+            //喜欢状态
+            $user_id = auth()->user()->id;
+			$user_like = Db::table('user_like')->where('user_id', $user_id)->where('article_id', $id)->where('state',1)->item();
+			if($user_like){
+				$data['like'] = 1;
+			}
+        }
+
 		//SEO优化
 		$site = $this->getSeting('site')['value'];
 		$data['page_title'] = $data['article']['seo_title']?$data['article']['seo_title']:$data['article']['title'].' - 文章 - '.$site['name'];

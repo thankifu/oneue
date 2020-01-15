@@ -136,9 +136,7 @@ class Product extends Common
 			if($user_like){
 				$data['like'] = 1;
 			}
-        }
-
-        
+        }        
 
         //SEO优化
 		$site = $this->getSeting('site')['value'];
