@@ -116,7 +116,7 @@ class Order extends Common
 			}
 
             //更新销量
-            DB::table('product')->increment('volume', $data_product['quantity']);
+            DB::table('product')->where('id',$value['product_id'])->increment('volume', $data_product['quantity']);
 
 			//删除购物车
 			Db::table('cart')->where(array(['user_id',$value['user_id']],['product_id',$value['product_id']],['specification_id',$value['specification_id']]))->delete();
