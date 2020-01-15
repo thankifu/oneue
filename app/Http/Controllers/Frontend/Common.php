@@ -42,6 +42,9 @@ class Common extends Controller
             'phone' => 'sometimes',
             'phone' => 'regex:/^1[345789][0-9]{9}$/',
             'phone_code' => 'sometimes|required',
+            'avatar' => 'sometimes|required',
+            'sex' => 'sometimes|required|numeric',
+            'age' => 'sometimes|required|numeric',
         ];
         $messages = [
             'required'  => ':attribute不能为空',
@@ -49,6 +52,7 @@ class Common extends Controller
             'max'  => ':attribute不能大于:max个字数',
             'email' => ':attribute格式错误',
             'regex' => ':attribute格式错误',
+            'numeric' => ':attribute格式错误',
         ];
         $attributes = [
             'username' => '用户名',
@@ -57,7 +61,9 @@ class Common extends Controller
             'email_code' => '邮箱验证码',
             'phone' => '手机',
             'phone_code' => '手机验证码',
-
+            'avatar' => '头像',
+            'sex' => '性别',
+            'age' => '年龄',
         ];
 
         $validator = Validator::make($input, $rules, $messages, $attributes);

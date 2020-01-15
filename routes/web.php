@@ -55,6 +55,8 @@ Route::namespace('Frontend')->middleware('auth')->group(function () {
 
 	Route::get('user', 'User@index');
 	Route::get('user/setting', 'User@setting');
+	Route::get('user/avatar', 'User@avatar');
+	Route::post('user/avatar/store', 'User@avatarStore');
 	Route::post('user/sex/store', 'User@sexStore');
 	Route::post('user/age/store', 'User@ageStore');
 	Route::get('user/confirmation', 'User@confirmation');
@@ -72,6 +74,9 @@ Route::namespace('Frontend')->middleware('auth')->group(function () {
 
 	Route::get('user/order', 'User@order');
 	Route::get('user/order/{id}', 'User@orderItem');
+
+	//上传
+	Route::post('upload/index','Upload@index');
 
 });
 

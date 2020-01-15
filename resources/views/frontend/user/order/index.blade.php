@@ -8,7 +8,7 @@
     <ol class="breadcrumb">
         <li><a href="/">首页</a></li>
         <li><a href="/user">用户中心</a></li>
-        <li class="active">我的订单</li>
+        <li class="active">我购买的</li>
     </ol>
     <div class="row">
 

@@ -1,6 +1,6 @@
 <div class="star-center">
     <div class="star-hd">
-        <a href="javascript:void(0);">
+        <a href="/user/avatar">
             <img src="{{$user['avatar']}}"/>
         </a>
         <span>{{$user['username']}}</span>
@@ -21,7 +21,7 @@
             </li>
             <li{!!strstr(request()->path(),'user/order')?' class="star-current"':''!!}>
                 <a href="/user/order">
-                    <span class="star-text">我的订单</span>
+                    <span class="star-text">我购买的</span>
                     <span class="star-arrow"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></span>
                 </a>
             </li>

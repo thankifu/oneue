@@ -11,18 +11,18 @@
  * ----------------------------------------------------------------------
 **/
 
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers\Frontend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
-
 
 class Upload extends Common
 {
+    //
     public function index(Request $request){
-		$model = new \App\Http\Models\Upload();
+    	$model = new \App\Http\Models\Upload();
 		$data = $model->index($request);
 	}
+
 }

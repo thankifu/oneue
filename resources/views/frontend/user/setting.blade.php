@@ -21,6 +21,18 @@
 
             <div class="star-setting">
                 <ul class="list-unstyled">
+                    <li>
+                        <a href="/user/avatar">
+                            <span class="star-hd"><img src="{{$user['avatar']}}" alt="{{$user['username']}}" class="img-circle" width="40"/></span>
+                            <span class="star-bd">
+                                <span class="star-text">修改</span>
+                                <span class="star-arrow"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></span>
+                            </span>
+                        </a>
+                    </li>
+
+                    <!--  -->
+
                     <!-- <li>
                         <a href="">
                             <span class="star-hd">手机</span>

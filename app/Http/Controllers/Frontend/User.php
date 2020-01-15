@@ -219,8 +219,48 @@ class User extends Common
 		$this->returnMessage(200,'保存成功');
 	}
 
+	//头像修改
+	public function avatar(Request $request){
+		//获取当前用户
+    	$data['user'] = auth()->user();
+
+    	//SEO优化
+		$site = $this->getSeting('site')['value'];
+		$data['page_title'] = '我的 - '.$site['name'];
+		$data['page_keywords'] = '我的,'.$site['name'];
+		$data['page_description'] = '';
+
+		return view('frontend.user.avatar', $data);
+	}
+
+	//头像修改储存
+	public function avatarStore(Request $request){
+		//获取指定值
+    	$params = $request->only(['avatar']);
+
+		//验证数据格式
+		$this->validator($params);
+
+    	$user_id = auth()->user()->id;
+		$data['avatar'] = trim($request->avatar);
+
+		$data['modified'] = time();
+		$res = Db::table('user')->where('id',$user_id)->update($data);
+
+		if(!$res){
+			$this->returnMessage(400,'保存失败');
+		}
+		$this->returnMessage(200,'保存成功');
+	}
+
 	//性别修改储存
 	public function sexStore(Request $request){
+		//获取指定值
+    	$params = $request->only(['sex']);
+
+		//验证数据格式
+		$this->validator($params);
+
     	$user_id = auth()->user()->id;
 		$data['sex'] = (int)$request->sex;
 
@@ -235,6 +275,12 @@ class User extends Common
 
 	//年龄修改储存
 	public function ageStore(Request $request){
+		//获取指定值
+    	$params = $request->only(['age']);
+
+		//验证数据格式
+		$this->validator($params);
+
     	$user_id = auth()->user()->id;
 		$data['age'] = (int)$request->age;
 

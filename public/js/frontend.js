@@ -385,6 +385,26 @@ function starCountDown(object, timeout){
     }
 };
 
+//头像储存
+function starAvatarStore(){
+    var avatar = $.trim($('input[name="avatar"]').val());
+    if(avatar == ''){
+        starToast('fail', '请上传头像');
+        return;
+    }
+    var data = $('#form').serialize();
+    $.post('/user/avatar/store',data,function(res){
+        if(res.code === 200){
+            starToast('success', res.text);
+            setTimeout(function(){
+                window.location.href = '/user/setting';
+            },1000);
+        }else{
+            starToast('fail', res.text);
+        }
+    },'json');
+};
+
 function starCheckEmail(email){
     //console.log(email);
     if (starRegexMail.test(email)) {
@@ -505,4 +525,9 @@ $(document).ready(function() {
     });
 
 	$('.pagination').removeClass('pagination-sm');
+
+    $(document).on('change','input[name="avatar"]',function(){
+        var url = $(this).val();
+        $(this).parent().find('img').attr('src', url);
+    });
 });
