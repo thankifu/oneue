@@ -64,6 +64,8 @@ function starLoadScreen(){
 		'margin-top': -$('.star-login').height()/2,
 	});
 };
+
+//跳转登录
 function starGotoLogin(){
 	if( redirect_url !=null && redirect_url.toString().length>1 ) {
 		window.location.href = '/login?redirect_url='+redirect_url;
@@ -71,6 +73,8 @@ function starGotoLogin(){
 		window.location.href = '/login?redirect_url='+encodeURI(window.location.href);
 	}
 };
+
+//跳转注册
 function starGotoRegister(){
 	if( redirect_url !=null && redirect_url.toString().length>1 ) {
 		window.location.href = '/register?redirect_url='+redirect_url;
@@ -78,18 +82,23 @@ function starGotoRegister(){
 		window.location.href = '/register?redirect_url='+encodeURI(window.location.href);
 	}
 };
+
+//跳转购物车
 function starGotoCart(){
 	window.location.href = '/cart';
 };
+
+//登录自动焦点
 $('.star-login #username').focus();
     
-// 回车登录
+//回车登录
 $('.star-login input').keydown(function(e){
     if(e.keyCode==13){
        starLogin();
     }
 });
 
+//登录
 function starLogin(){
 	var username = $.trim($('input[name="username"]').val());
 	var password = $.trim($('input[name="password"]').val());
@@ -238,6 +247,7 @@ function starPaid(id){
 	},3000);
 };
 
+//定义
 var jsApiParameters = '';
 
 //发起支付
@@ -333,6 +343,7 @@ function starPayment(id){
     
 };
 
+//微信JSAPI支付
 function callPay() {
 	if (typeof WeixinJSBridge == "undefined"){
 	    if( document.addEventListener ){
@@ -345,7 +356,7 @@ function callPay() {
 	    jsApiCall();
 	}
 };
-
+//微信JSAPI支付
 function jsApiCall(){ 
 	WeixinJSBridge.invoke(
 		'getBrandWCPayRequest',jsApiParameters,
@@ -363,6 +374,45 @@ function jsApiCall(){
 		}
 	);
 };
+
+//订单确认收货
+function starOrderReceive(id){
+    var data = new Object();
+    data.id = id;
+    data._token = $('input[name="_token"]').val();
+
+    bootbox.confirm({
+        size: "small", 
+        title: '提示',
+        message: '<center>是否确认收货？</center>',
+        buttons: {
+            cancel: {
+                label: '取消',
+                className: 'btn-secondary'
+            },
+            confirm: {
+                label: '确认'
+            }
+        },
+        callback: function (result) {
+            if(result){
+                $.post('/user/order/store',data,function(res){
+                    if(res.code === 200){
+                        starToast('success', res.text);
+                        setTimeout(function(){
+                            window.location.reload();
+                        },1000);
+                        return;
+                    }else{
+                        starToast('fail', res.text);
+                    }
+                },'json');
+            }else{
+                
+            }
+        }
+    });
+}
 
 //倒计时
 function starCountDown(object, timeout){
@@ -433,6 +483,7 @@ function starAvatarStore(){
     },'json');
 };
 
+//邮箱格式验证
 function starCheckEmail(email){
     //console.log(email);
     if (starRegexMail.test(email)) {
@@ -445,6 +496,7 @@ function starCheckEmail(email){
     }
 };
 
+//邮箱发送
 function starSendEmail(object){
     var email = $.trim($('input[name="email"]').val());
     starCheckEmail(email);
@@ -477,6 +529,7 @@ function starSendEmail(object){
     });
 };
 
+//安全验证
 function starConfirmation(){
 	var password = $.trim($('input[name="password"]').val());
 	if(password == ''){
@@ -500,6 +553,7 @@ function starConfirmation(){
     },'json');
 };
 
+//邮箱修改储存
 function starEmailStore(){
 	var email = $.trim($('input[name="email"]').val());
     var email_code = $.trim($('input[name="email_code"]').val());
@@ -520,6 +574,7 @@ function starEmailStore(){
     },'json');
 };
 
+//密码修改储存
 function starPasswordStore(){
 	var password = $.trim($('input[name="password"]').val());
     var password_confirmation = $.trim($('input[name="password_confirmation"]').val());

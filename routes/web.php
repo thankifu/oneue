@@ -74,6 +74,7 @@ Route::namespace('Frontend')->middleware('auth')->group(function () {
 
 	Route::get('user/order', 'User@order');
 	Route::get('user/order/{id}', 'User@orderItem');
+	Route::post('user/order/store', 'User@orderStore');
 
 	//上传
 	Route::post('upload/index','Upload@index');

@@ -82,8 +82,8 @@
                             @endif
 
                             @if($item['state']==3)
-                            <a href="javascript:void(0);" class="received">确认收货</a>
-                            <a href="javascript:void(0);">查看物流</a>
+                            <a href="javascript:void(0);" onclick="starOrderReceive({{$item['id']}});">确认收货</a>
+                            <a href="/user/order/{{$item['id']}}#express">查看物流</a>
                             <a href="javascript:void(0);" onclick="starContact('refund');">申请退款</a>
                             @endif
 

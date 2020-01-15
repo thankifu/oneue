@@ -140,7 +140,7 @@
 				</div>
 
 				@if($order['state'] >= 3)
-				<div class="star-details" id="star-express">
+				<div class="star-details" id="express">
 					<div class="star-hd">
 						<span class="star-title">物流明细（请复制单号到相应官网查询哦~）</span>
 					</div>

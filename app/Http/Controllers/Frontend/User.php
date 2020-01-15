@@ -440,6 +440,26 @@ class User extends Common
 		return view('frontend.user.order.item', $data);
 	}
 
+	//订单确认收货
+	public function orderStore(Request $request){
+		$id = (int)$request->id;
+		$user = auth()->user();
+		$user_id = $user->id;
+
+		//验证订单及状态
+		$order = Db::table('order')->where(array(['id', $id],['user_id', $user_id],['state', 3]))->item();
+
+		if(!$order){
+			$this->returnMessage(400,'订单不存在或已确认收货，请刷新页面重试');
+		}
+
+		$data['state'] = 5;
+		$data['received'] = time();
+
+		Db::table('order')->where(array(['id', $id],['user_id', $user_id],['state', 3]))->update($data);
+		$this->returnMessage(200,'确认成功，感谢您的惠顾');
+	}
+
 	//我喜欢的
 	public function like(Request $request){
 		//获取当前用户
