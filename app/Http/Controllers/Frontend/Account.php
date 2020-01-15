@@ -145,4 +145,70 @@ class Account extends Common
         echo json_encode(array('code'=>200,'text'=>'注册成功'));
         
     }
+
+    //忘记密码
+    public function reset(Request $request){
+        $data['reset_auth'] = 0;
+        if(!session_id()) session_start();
+        if(isset($_SESSION['reset_auth'])){
+            $data['reset_auth'] = 1;
+        }
+
+        return view('frontend.account.reset', $data);
+    }
+
+    //忘记密码验证
+    public function resetAuth(Request $request){
+        //获取指定值
+        $params = $request->only(['email', 'email_code']);
+        //验证数据格式
+        $this->validator($params);
+
+        //邮箱验证方式
+        if(isset($request->email) && isset($request->email_code)){
+            //验证验证码
+            $email = trim($request->email);
+            $email_code = trim($request->email_code);
+            $this->checkEmailCode($email, $email_code);
+
+            //删除SESSION
+            if(isset($_SESSION[$email.'_email_code'])){
+                unset($_SESSION[$email.'_email_code']);
+            }
+
+            //储存SESSION
+            $_SESSION['reset_auth'] = $email;
+
+            //返回信息
+            $this->returnMessage(200,'验证成功');
+        }        
+    }
+
+    //忘记密码储存
+    public function resetStore(Request $request){
+        //获取指定值
+        $params = $request->only(['password']);
+        //验证数据格式
+        $this->validator($params);
+
+        //验证SESSION
+        if(!session_id()) session_start();
+        if(!isset($_SESSION['reset_auth'])){
+            $this->returnMessage(400,'验证失败');
+        }
+
+        $email = $_SESSION['reset_auth'];
+        $password = trim($request->password);
+
+        $data['password'] = bcrypt($password);
+
+        //更新数据库
+        Db::table('user')->where('email',$email)->update($data);
+
+        if(isset($_SESSION['reset_auth'])){
+            unset($_SESSION['reset_auth']);
+        }
+
+        $this->returnMessage(200,'重置成功，请用新密码登录');
+    }
 }

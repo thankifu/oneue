@@ -83,6 +83,11 @@ function starGotoRegister(){
 	}
 };
 
+//跳转重置
+function starGotoReset(){
+    window.location.href = '/reset';
+}
+
 //跳转购物车
 function starGotoCart(){
 	window.location.href = '/cart';
@@ -167,6 +172,92 @@ function starLogout(){
 		}
 	},'json');
 };
+
+function starReset(){
+    /*alert();
+    return;*/
+    var email = $.trim($('input[name="email"]').val());
+    var email_code = $.trim($('input[name="email_code"]').val());
+    if(email == ''){
+        starToast('fail', '请输入邮箱');
+        return;
+    }
+
+    var data = $('#step_1').serialize();
+
+    $.ajax({
+        type:'POST',
+        url:'/reset/auth',
+        data:data, 
+        dataType:'json',
+        timeout:10000,
+        success:function(data,status){
+            if(data.code === 200){
+                starToast("success", data.text);
+                setTimeout(function(){
+                    window.location.reload();
+                },1000);
+            }else{
+                starToast("fail", data.text);
+            }
+        },
+        error:function(XMLHttpRequest,textStatus,errorThrown){
+            if(textStatus==='timeout'){
+                starToast("fail", '请求超时');
+                setTimeout(function(){
+                    starToast("fail", '重新请求');
+                },2000);
+            }
+            if(errorThrown==='Too Many Requests'){
+                starToast("fail", '尝试次数太多，请稍后再试');
+            }
+        }
+    });
+}
+
+function starResetStore(){
+    var password = $.trim($('input[name="password"]').val());
+    var password_confirmation = $.trim($('input[name="password_confirmation"]').val());
+    if(password == ''){
+        starToast('fail', '请输入密码');
+        return;
+    }
+    if(password !== password_confirmation){
+        starToast('fail', '两次密码输入不一致');
+        return;
+    }
+
+    var data = $('#step_2').serialize();
+
+    $.ajax({
+        type:'POST',
+        url:'/reset/store',
+        data:data, 
+        dataType:'json',
+        timeout:10000,
+        success:function(data,status){
+            if(data.code === 200){
+                starToast("success", data.text);
+                setTimeout(function(){
+                    window.location.href = '/login';
+                },1000);
+            }else{
+                starToast("fail", data.text);
+            }
+        },
+        error:function(XMLHttpRequest,textStatus,errorThrown){
+            if(textStatus==='timeout'){
+                starToast("fail", '请求超时');
+                setTimeout(function(){
+                    starToast("fail", '重新请求');
+                },2000);
+            }
+            if(errorThrown==='Too Many Requests'){
+                starToast("fail", '尝试次数太多，请稍后再试');
+            }
+        }
+    });
+}
 
 //喜欢
 function starLike(object){
@@ -497,20 +588,24 @@ function starCheckEmail(email){
 };
 
 //邮箱发送
-function starSendEmail(object){
+function starSendEmail(object, type){
+    var url = '/email';
+    if(type == 'rest'){
+        url = '/email/reset';
+    }
     var email = $.trim($('input[name="email"]').val());
     starCheckEmail(email);
     var data = $('form').serialize();
     $.ajax({
         type:'POST',
-        url:'/email',
+        url:url,
         data:data, 
         dataType:'json',
         timeout:10000,
         success:function(data,status){
             if(data.code === 200){
                 starToast("success", data.text);
-                starCountDown(object, 10);
+                starCountDown(object, 60);
             }else{
                 starToast("fail", data.text);
             }

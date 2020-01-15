@@ -27,6 +27,7 @@ class ViewServiceProvider extends ServiceProvider {
         view()->composer(['frontend.common.side'], 'App\Http\Views\Frontend');
         view()->composer(['frontend.account.login'], 'App\Http\Views\Frontend');
         view()->composer(['frontend.account.register'], 'App\Http\Views\Frontend');
+        view()->composer(['frontend.account.reset'], 'App\Http\Views\Frontend');
     }
 
 }

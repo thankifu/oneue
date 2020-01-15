@@ -12,7 +12,7 @@
 <body>
 <div class="container">
 	<div class="star-login">
-		<div class="star-logo">ONEUE</div>
+		<div class="star-logo">{{$_site['name']}}</div>
         <form >
             <div class="form-group">
                 <label class="sr-only" for="username">帐号</label>
@@ -32,7 +32,9 @@
                 <label>
                     <input type="checkbox" id="remember" name="remember"> 记住我
                 </label>
+                <a class="pull-right" href="javascript:void(0);" onclick="starGotoReset();">忘记密码？</a>
             </div>
+
             <button type="button" class="btn btn-block btn-primary" onclick="starLogin()">登　录</button>
             {{csrf_field()}}
             <div class="form-group">

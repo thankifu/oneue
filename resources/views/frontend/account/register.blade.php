@@ -12,7 +12,7 @@
 <body>
 <div class="container">
 	<div class="star-login">
-		<div class="star-logo">ONEUE</div>
+		<div class="star-logo">{{$_site['name']}}</div>
         <form >
             {{csrf_field()}}
             <div class="form-group">

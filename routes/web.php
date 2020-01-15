@@ -19,7 +19,12 @@ Route::post('logout', 'Frontend\Account@logout')->name('logout');
 Route::get('register', 'Frontend\Account@showRegister')->name('register');
 Route::post('register', 'Frontend\Account@register');
 
+Route::get('reset', 'Frontend\Account@reset');
+Route::post('reset/auth', 'Frontend\Account@resetAuth');
+Route::post('reset/store', 'Frontend\Account@resetStore');
+
 Route::post('email', 'Frontend\Email@index')->middleware('throttle:5,1');
+Route::post('email/reset', 'Frontend\Email@reset')->middleware('throttle:5,1');
 
 Route::get('article', 'Frontend\Article@index')->name('article');
 Route::get('article/category/{id}', 'Frontend\Article@category')->name('article.category');
