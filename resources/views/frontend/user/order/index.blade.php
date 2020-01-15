@@ -78,13 +78,13 @@
                             
                             @if($item['state']==2)
                             <a href="javascript:void(0);">商品备货中...</a>
-                            <a href="javascript:void(0);">申请退款</a>
+                            <a href="javascript:void(0);" onclick="starContact('refund');">申请退款</a>
                             @endif
 
                             @if($item['state']==3)
                             <a href="javascript:void(0);" class="received">确认收货</a>
                             <a href="javascript:void(0);">查看物流</a>
-                            <a href="javascript:void(0);">申请退款</a>
+                            <a href="javascript:void(0);" onclick="starContact('refund');">申请退款</a>
                             @endif
 
                             @if($item['state']==5)

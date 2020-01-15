@@ -122,13 +122,8 @@
 
                 <div class="clearfix star-actions">
                 @if($product['quantity'] != 0)
-                    @if(auth()->check())
                     <a class="star-buy-now" href="javascript:void(0);" onclick="starBuyNow()">立即购买</a>
                     <a class="star-add-cart" href="javascript:void(0);" onclick="starAddToCart()"><i class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i>加入购物车</a>
-                    @else
-                    <a class="star-buy-now" href="javascript:void(0);" onclick="starGotoLogin()">立即购买</a>
-                    <a class="star-add-cart" href="javascript:void(0);" onclick="starGotoLogin()"><i class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i>加入购物车</a>
-                    @endif
                 @else
                     <a class="star-buy-now-disable" href="javascript:void(0);">立即购买</a>
                     <a class="star-add-cart-disable" href="javascript:void(0);"><i class="fa fa-shopping-cart" aria-hidden="true"></i>加入购物车</a>
@@ -142,7 +137,7 @@
 
             <ul class="nav nav-tabs star-tabs" role="tablist">
                 <li role="presentation" class="active"><a href="#details" aria-controls="details" role="tab" data-toggle="tab">商品详情</a></li>
-                <li role="presentation"><a href="#reviews" aria-controls="reviews" role="tab" data-toggle="tab">商品评价 <!-- <span class="badge">42</span> --></a></li>
+                <!-- <li role="presentation"><a href="#reviews" aria-controls="reviews" role="tab" data-toggle="tab">商品评价 <span class="badge">42</span></a></li> -->
             </ul>
 
             <div class="tab-content">
@@ -153,7 +148,7 @@
                     </div>
                     @endif
                 </div>
-                <div role="tabpanel" class="tab-pane" id="reviews">...</div>
+                <!-- <div role="tabpanel" class="tab-pane" id="reviews">...</div> -->
             </div>
             
         </div>
@@ -242,6 +237,10 @@
     }
 
     function starBuyNow(){
+        if(starShopping == '0'){
+            starContact('shopping');
+            return;
+        }
         var thisis = $(".star-item-product .star-meta-specifications ul li[class='star-normal star-current']");
 
         var data = new Object();
@@ -254,21 +253,48 @@
             starToast('fail', '请选择商品规格');
             return false;
         }else{
-            starToast('loading', '请稍后...', 0);
-            $.post('/checkout/create',data,function(res){
-                if(res.code === 200){
-                    bootbox.hideAll();
-                    window.location.href = '/checkout';
-                    return false;
-                }else{
-                    bootbox.hideAll();
-                    starToast('fail', res.text);
+            $.ajax({
+                type:'POST',
+                url:'/checkout/create',
+                data:data, 
+                dataType:'json',
+                timeout:10000,
+                success:function(res,status){
+                    if(res.code === 200){
+                        window.location.href = '/checkout';
+                        return false;
+                    }else{
+                        starToast("fail", res.text);
+                    }
+                },
+                error:function(XMLHttpRequest,textStatus,errorThrown){
+                    //console.log(errorThrown);
+                    if(textStatus==='timeout'){
+                        starToast("fail", '请求超时');
+                        setTimeout(function(){
+                            starToast("fail", '重新请求');
+                        },2000);
+                    }
+                    if(errorThrown==='Too Many Requests'){
+                        starToast("fail", '尝试次数太多，请稍后再试');
+                    }
+                    if(errorThrown==='Unauthorized'){
+                        starToast("fail", '请先登录');
+                        setTimeout(function(){
+                            window.location.href = '/login';
+                        },1000);
+                    }
                 }
-            },'json');
+            });
         }
     };
 
     function starAddToCart(){
+        if(starShopping == '0'){
+            starContact('shopping');
+            return;
+        }
+
         var thisis = $(".star-item-product .star-meta-specifications ul li[class='star-normal star-current']");
 
         var data = new Object();
@@ -281,16 +307,40 @@
             starToast('fail', '请选择商品规格');
             return false;
         }else{
-            $.post('/cart/create',data,function(res){
-                if(res.code === 200){
-                    $('.star-header-cart .star-count').text(Number($('.star-header-cart .star-count').text())+Number(data.quantity));
-                    starToast('success', res.text);
-                    
-                    return false;
-                }else{
-                    starToast('fail', res.text);
+            $.ajax({
+                type:'POST',
+                url:'/cart/create',
+                data:data, 
+                dataType:'json',
+                timeout:10000,
+                success:function(res,status){
+                    if(res.code === 200){
+                        $('.star-header-cart .star-count').text(Number($('.star-header-cart .star-count').text())+Number(data.quantity));
+                        starToast('success', res.text);
+                        return false;
+                    }else{
+                        starToast("fail", res.text);
+                    }
+                },
+                error:function(XMLHttpRequest,textStatus,errorThrown){
+                    //console.log(errorThrown);
+                    if(textStatus==='timeout'){
+                        starToast("fail", '请求超时');
+                        setTimeout(function(){
+                            starToast("fail", '重新请求');
+                        },2000);
+                    }
+                    if(errorThrown==='Too Many Requests'){
+                        starToast("fail", '尝试次数太多，请稍后再试');
+                    }
+                    if(errorThrown==='Unauthorized'){
+                        starToast("fail", '请先登录');
+                        setTimeout(function(){
+                            window.location.href = '/login';
+                        },1000);
+                    }
                 }
-            },'json');
+            });
         }
         
     };

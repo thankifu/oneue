@@ -11,7 +11,13 @@
 </head>
 <body>
 <div class="container-fluid star-main-font">
-	<form class="star-mt-20">
+	<form id="upload_form" target="upload_iframe" enctype="multipart/form-data" action="/admin/upload/index" method="post" style="display:none;">
+		{{csrf_field()}}
+		<input type="file" name="upload_file" id="upload_file" onchange="starUpload()">
+		<input type="hidden" name="upload_place" id="upload_place" value="">
+		<iframe name="upload_iframe" id="upload_iframe" style="display: none;"></iframe>
+	</form>
+	<form id="form" class="star-mt-20">
 		<div class="form-group">
 			<label for="name">网站名称：</label>
 			<input class="form-control" type="text" id="name" name="name" value="{{isset($value['name'])?$value['name']:''}}" placeholder="网站名称" autocomplete="off"/>
@@ -27,14 +33,17 @@
 		<div class="form-group">
 			<label for="seo_title">网站SEO标题：</label>
 			<input class="form-control" type="text" id="seo_title" name="seo_title" value="{{isset($value['seo_title'])?$value['seo_title']:''}}" placeholder="网站SEO标题" autocomplete="off"/>
+			<span class="help-block">网站首页的标题参数，不设置标题为“网站标题 - 网站名称”，设置后标题为“网站SEO标题 - 网站名称”。</span>
 		</div>
 		<div class="form-group">
 			<label for="seo_description">网站SEO描述：</label>
 			<input class="form-control" type="text" id="seo_description" name="seo_description" value="{{isset($value['seo_description'])?$value['seo_description']:''}}" placeholder="网站SEO描述" autocomplete="off"/>
+			<span class="help-block">网站首页的描述参数，不设置为空。</span>
 		</div>
 		<div class="form-group">
 			<label for="seo_keywords">网站SEO关键词：</label>
 			<input class="form-control" type="text" id="seo_keywords" name="seo_keywords" value="{{isset($value['seo_keywords'])?$value['seo_keywords']:''}}" placeholder="网站SEO关键词" autocomplete="off"/>
+			<span class="help-block">网站首页的关键词参数，不设置为空。</span>
 		</div>
 		<div class="form-group">
 			<label for="copyright">网站版权信息：</label>
@@ -47,6 +56,41 @@
 			<span class="help-block">网站备案号，可以在<a target="_blank" href="http://www.miitbeian.gov.cn">备案管理中心</a>查询获取。</span>
 		</div>
 		<div class="form-group">
+			<label for="phone">联系手机：</label>
+			<input class="form-control" type="text" id="phone" name="phone" value="{{isset($value['phone'])?$value['phone']:''}}" placeholder="联系手机" autocomplete="off"/>
+			<span class="help-block">关闭在线购物功能和订单退款时展示。</span>
+		</div>
+		<div class="form-group">
+			<label for="wechat">联系微信：</label>
+			<input class="form-control" type="text" id="wechat" name="wechat" value="{{isset($value['wechat'])?$value['wechat']:''}}" placeholder="联系微信" autocomplete="off"/>
+			<span class="help-block">关闭在线购物功能和订单退款时展示。</span>
+		</div>
+		<div class="form-group">
+			<label for="picture_qrcode">联系微信二维码：</label>
+			<div class="form-inline">
+				<div class="form-group">
+					<span class="star-picture star-picture-square star-mr-10" style="background-image:url({{isset($value['picture_qrcode'])?$value['picture_qrcode']:'/images/star-upload-image.png'}});">
+						<i class="star-picture-bd" onclick="starPicture('picture_qrcode');"></i>
+						<i class="star-picture-ft"></i>
+						<input class="form-control" type="hidden" id="picture_qrcode" name="picture_qrcode" value="{{isset($value['picture_qrcode'])?$value['picture_qrcode']:''}}"/>
+					</span>
+				</div>
+			</div>
+			<span class="help-block">关闭在线购物功能和订单退款时展示。</span>
+		</div>
+		<div class="form-group">
+			<label>在线购物：</label>
+			<div class="radio">
+				<label class="radio-inline">
+					<input type="radio" name="shopping" value="1" {{isset($value['shopping']) && $value['shopping']==1?'checked':''}}>开
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="shopping" value="0" {{isset($value['shopping']) && $value['shopping']==0?'checked':''}}>关
+				</label>
+			</div>
+			<span class="help-block">立即购买、加入购物车功能。<span class="text-danger">注意：“关闭”此功能请仔细填写上方手机和微信联系方式，否则用户无法联系。 </span></span>
+		</div>
+		<div class="form-group">
 			<label>用户注册：</label>
 			<div class="radio">
 				<label class="radio-inline">
@@ -56,7 +100,7 @@
 					<input type="radio" name="auth_register" value="0" {{isset($value['auth_register']) && $value['auth_register']==0?'checked':''}}>关
 				</label>
 			</div>
-			<span class="help-block">用户名、密码的注册方式。</span>
+			<span class="help-block">用户名、密码的注册方式。<span class="text-danger">注意：“邮箱验证”不开启用户需要输入2次密码确认。 </span></span>
 		</div>
 		<div class="form-group">
 			<label>注册邮箱验证：</label>
@@ -68,9 +112,9 @@
 					<input type="radio" name="auth_email" value="0" {{isset($value['auth_email']) && $value['auth_email']==0?'checked':''}}>关
 				</label>
 			</div>
-			<span class="help-block">在用户名、密码的注册方式上增加邮箱真实性验证。<!-- <span class="text-danger">建议：“邮箱认证”和“手机认证”二选其一。 --></span></span>
+			<span class="help-block">在用户名、密码的注册方式上增加邮箱真实性验证。<!-- <span class="text-danger">建议：“邮箱认证”和“手机认证”二选其一。 </span>--></span>
 		</div>
-		<div class="form-group">
+		<div class="form-group sr-only">
 			<label>注册手机验证：</label>
 			<div class="radio">
 				<label class="radio-inline">

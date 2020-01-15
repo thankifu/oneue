@@ -137,6 +137,24 @@
 </div>
 
 @include('frontend.common.foot')
+<script type="text/javascript">
+var starSitePhone = '';
+var starSiteWechat = '';
+var starSiteQrcode = '';
+var starSiteShopping = '';
+@if(isset($_site['phone']))
+starSitePhone = '{{$_site['phone']}}';
+@endif
+@if(isset($_site['wechat']))
+starSiteWechat = '{{$_site['wechat']}}';
+@endif
+@if(isset($_site['picture_qrcode']))
+starSiteQrcode = '{{$_site['picture_qrcode']}}';
+@endif
+@if(isset($_site['shopping']))
+starShopping = '{{$_site['shopping']}}';
+@endif
+</script>
 @section('script')
 @show
 </body>

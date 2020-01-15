@@ -210,7 +210,7 @@ function starLike(object){
                 starToast("fail", '尝试次数太多，请稍后再试');
             }
             if(errorThrown==='Unauthorized'){
-            	starToast("fail", '您还未登录哦');
+            	starToast("fail", '请先登录');
                 setTimeout(function(){
                     window.location.href = '/login';
                 },1000);
@@ -384,6 +384,34 @@ function starCountDown(object, timeout){
     	$(object).text('获取验证码');
     }
 };
+
+//联系
+function starContact(type){
+    type = type || '';
+    var title = '';
+    var message = '';
+    var phone = starSitePhone != '' ? '<p>手机：'+starSitePhone+'</p>' : '';
+    var wechat = starSiteWechat != '' ? '<p>微信：'+starSiteWechat+'</p>' : '';
+    var qrcode = starSiteQrcode != '' ? '<p><img src='+starSiteQrcode+' width="200"/></p>' : '';
+    console.log(phone);
+    //return;
+    if(type == 'shopping'){
+        title = '购买';
+        message = '<center><p>感谢您的光临，如需购买请联系</p>'+qrcode+wechat+phone+'</center>';
+    }else if(type == 'refund'){
+        title = '退款';
+        message = '<center><p>如需退款请联系</p>'+qrcode+wechat+phone+'</center>';
+    }else{
+        title = '联系方式';
+        message = '<center>'+qrcode+wechat+phone+'</center>';
+    }
+    bootbox.alert({
+        size: "small",
+        title: title,
+        message: message,
+        callback: function(){ /* your callback code */ }
+    })
+}
 
 //头像储存
 function starAvatarStore(){
