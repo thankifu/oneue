@@ -29,7 +29,12 @@ class Home extends Common
 	}
 
 	public function welcome(Request $request){
-		return view('backend.home.welcome');
+        $data['article_total'] = Db::table('article')->count();
+        $data['product_total'] = Db::table('product')->count();
+        $data['user_total'] = Db::table('user')->count();
+        $data['order_total'] = Db::table('order')->count();
+        $data['order_prepaid'] = Db::table('order')->where('state',2)->count();
+		return view('backend.home.welcome', $data);
 	}
 
     private function _getMenus(Request $request, $_admin){

@@ -1,99 +1,116 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>Laravel</title>
-
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>欢迎</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+@include('backend.common.head')
+</head>
+<body>
+<div class="container-fluid star-main-font">
+    <div class="row star-mt-20">
+        @if($order_prepaid)
+        <div class="col-md-3 col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <div class="pull-left">订单</div>
+                    <div class="pull-right"><span class="label label-warning">急</span></div>
                 </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                <div class="panel-body">
+                    <h2>{{$order_prepaid}}</h2>
+                    <div class="clearfix">
+                        <div class="pull-left">总数</div>
+                        <div class="pull-right"><a class="label label-warning" href="javascript:void(0);" onclick="parent.$('.star-main-iframe').attr('src','/admin/order/index?state=2');">立即处理</a></div>
+                    </div>
                 </div>
             </div>
         </div>
-    </body>
+        @endif
+        <div class="col-md-3 col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <div class="pull-left">文章</div>
+                    <div class="pull-right"><span class="label label-primary">总</span></div>
+                </div>
+                <div class="panel-body">
+                    <h2>{{$article_total}}</h2>
+                    <div class="clearfix">
+                        <div class="pull-left">总数</div>
+                        <div class="pull-right"><a class="label label-primary" href="javascript:void(0);" onclick="starItemJump('article');">发布文章</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <div class="pull-left">商品</div>
+                    <div class="pull-right"><span class="label label-primary">总</span></div>
+                </div>
+                <div class="panel-body">
+                    <h2>{{$product_total}}</h2>
+                    <div class="clearfix">
+                        <div class="pull-left">总数</div>
+                        <div class="pull-right"><a class="label label-primary" href="javascript:void(0);" onclick="starItemJump('product');">发布商品</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <div class="pull-left">用户</div>
+                    <div class="pull-right"><span class="label label-primary">总</span></div>
+                </div>
+                <div class="panel-body">
+                    <h2>{{$user_total}}</h2>
+                    <div class="clearfix">
+                        <div class="pull-left">总数</div>
+                        <div class="pull-right"><a class="label label-primary" href="javascript:void(0);" onclick="parent.$('.star-main-iframe').attr('src','/admin/user/index');">立即查看</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <div class="pull-left">订单</div>
+                    <div class="pull-right"><span class="label label-primary">总</span></div>
+                </div>
+                <div class="panel-body">
+                    <h2>{{$order_total}}</h2>
+                    <div class="clearfix">
+                        <div class="pull-left">总数</div>
+                        <div class="pull-right"><a class="label label-primary" href="javascript:void(0);" onclick="parent.$('.star-main-iframe').attr('src','/admin/order/index');">立即查看</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+        </div>
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <div class="pull-left">关于</div>
+                    <div class="pull-right"><a class="label label-warning" href="">使用帮助</a></div>
+                </div>
+                <div class="panel-body">
+                    ONEUE，一个简单的电商系统，一个更适合个体/小微商户使用的电商系统。
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item">当前版本：v0.1.0</li>
+                    <li class="list-group-item">授权许可：<a href="https://github.com/thankifu/oneue/blob/master/LICENSE" target="_blank">MIT License</a></li>
+                    <li class="list-group-item">联系作者：<a href="mailto:i@thankifu.com">i@thankifu.com</a></li>
+                    <li class="list-group-item">官方网站：<a href="https://www.oneue.com/" target="_blank">www.oneue.com</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+@include('backend.common.foot')
+</body>
 </html>

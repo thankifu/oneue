@@ -51,18 +51,20 @@
                         <i>¥</i>
                         <em>{{$product['price']}}</em>
 
-                        @if($product['price'] != $product['selling'])
+                        <!-- @if($product['price'] != $product['selling'])
                         <del>[{{$product['selling']}}]</del>
-                        @endif
+                        @endif -->
 
                         @if(isset($level['name']))
                         <strong>{{$level['name']}}</strong>
                         @endif
-                        
-                        @if($product['market'] > $product['selling'])
-                        <span class="star-line-through" data-market="{{$product['market']}}"><i>¥</i><em>{{$product['market']}}</em></span>
-                        @endif
                     </span>
+                    @if($product['market'] > $product['selling'])
+                    <span class="star-line-through" data-market="{{$product['market']}}">
+                        <i>¥</i>
+                        <em>{{$product['market']}}</em>
+                    </span>
+                    @endif
                 @else
                     <span>已下架</span>
                 @endif

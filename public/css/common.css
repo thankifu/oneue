@@ -32,6 +32,7 @@ body{-moz-transition: all .5s ease;-o-transition:all .5s ease;-webkit-transition
 .star-mb-20{margin-bottom:20px;}
 .star-mb-25{margin-bottom:25px;}
 .star-mb-30{margin-bottom:30px;}
+.star-mnt{margin-right:0 !important;}
 .star-mnr{margin-right:0 !important;}
 .star-red{color:#ff4954 !important;}
 .star-green{color:#3cd458 !important;}
@@ -43,6 +44,7 @@ body{-moz-transition: all .5s ease;-o-transition:all .5s ease;-webkit-transition
 .star-text-left{text-align:left !important;}
 .star-text-right{text-align:right !important;}
 .star-text-center{text-align:center !important;}
+.star-font-14{font-size:14px !important;}
 .star-font-18{font-size:18px !important;}
 .star-font-20{font-size:20px !important;}
 .star-font-20{font-size:20px !important;}
