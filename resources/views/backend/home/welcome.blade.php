@@ -20,60 +20,15 @@
                     <div class="pull-right"><span class="label label-warning">急</span></div>
                 </div>
                 <div class="panel-body">
-                    <h2>{{$order_prepaid}}</h2>
+                    <h2>{{$order_prepaid}}/{{$order_total}}</h2>
                     <div class="clearfix">
-                        <div class="pull-left">总数</div>
+                        <div class="pull-left">待发货/总数</div>
                         <div class="pull-right"><a class="label label-warning" href="javascript:void(0);" onclick="parent.$('.star-main-iframe').attr('src','/admin/order/index?state=2');">立即处理</a></div>
                     </div>
                 </div>
             </div>
         </div>
-        @endif
-        <div class="col-md-3 col-sm-6">
-            <div class="panel panel-default">
-                <div class="panel-heading clearfix">
-                    <div class="pull-left">文章</div>
-                    <div class="pull-right"><span class="label label-primary">总</span></div>
-                </div>
-                <div class="panel-body">
-                    <h2>{{$article_total}}</h2>
-                    <div class="clearfix">
-                        <div class="pull-left">总数</div>
-                        <div class="pull-right"><a class="label label-primary" href="javascript:void(0);" onclick="starShowJump('article');">发布文章</a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3 col-sm-6">
-            <div class="panel panel-default">
-                <div class="panel-heading clearfix">
-                    <div class="pull-left">商品</div>
-                    <div class="pull-right"><span class="label label-primary">总</span></div>
-                </div>
-                <div class="panel-body">
-                    <h2>{{$product_total}}</h2>
-                    <div class="clearfix">
-                        <div class="pull-left">总数</div>
-                        <div class="pull-right"><a class="label label-primary" href="javascript:void(0);" onclick="starShowJump('product');">发布商品</a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3 col-sm-6">
-            <div class="panel panel-default">
-                <div class="panel-heading clearfix">
-                    <div class="pull-left">用户</div>
-                    <div class="pull-right"><span class="label label-primary">总</span></div>
-                </div>
-                <div class="panel-body">
-                    <h2>{{$user_total}}</h2>
-                    <div class="clearfix">
-                        <div class="pull-left">总数</div>
-                        <div class="pull-right"><a class="label label-primary" href="javascript:void(0);" onclick="parent.$('.star-main-iframe').attr('src','/admin/user/index');">立即查看</a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @else
         <div class="col-md-3 col-sm-6">
             <div class="panel panel-default">
                 <div class="panel-heading clearfix">
@@ -89,6 +44,56 @@
                 </div>
             </div>
         </div>
+        @endif
+
+        <div class="col-md-3 col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <div class="pull-left">用户</div>
+                    <div class="pull-right"><span class="label label-primary">总</span></div>
+                </div>
+                <div class="panel-body">
+                    <h2>{{$user_total}}</h2>
+                    <div class="clearfix">
+                        <div class="pull-left">总数</div>
+                        <div class="pull-right"><a class="label label-primary" href="javascript:void(0);" onclick="parent.$('.star-main-iframe').attr('src','/admin/user/index');">立即查看</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <div class="pull-left">商品</div>
+                    <div class="pull-right"><span class="label label-primary">总</span></div>
+                </div>
+                <div class="panel-body">
+                    <h2>{{$product_total}}</h2>
+                    <div class="clearfix">
+                        <div class="pull-left">总数</div>
+                        <div class="pull-right"><a class="label label-primary" href="javascript:void(0);" onclick="starShowJump('product');">发布商品</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <div class="pull-left">文章</div>
+                    <div class="pull-right"><span class="label label-primary">总</span></div>
+                </div>
+                <div class="panel-body">
+                    <h2>{{$article_total}}</h2>
+                    <div class="clearfix">
+                        <div class="pull-left">总数</div>
+                        <div class="pull-right"><a class="label label-primary" href="javascript:void(0);" onclick="starShowJump('article');">发布文章</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <div class="col-md-9">
         </div>
         <div class="col-md-3">

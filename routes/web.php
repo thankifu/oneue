@@ -135,6 +135,9 @@ Route::prefix('admin')->namespace('Backend')->middleware(['auth.admin:admin','au
 	Route::get('setting/annex','Setting@annex');
 	Route::post('setting/store','Setting@store');
 
+	//操作日志
+	Route::get('log/index','Log@index');
+
 	//文章管理
 	Route::get('article/index','Article@index');
 	Route::get('article/show','Article@show');
