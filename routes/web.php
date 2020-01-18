@@ -88,12 +88,12 @@ Route::namespace('Frontend')->middleware('auth')->group(function () {
 	Route::get('user/password', 'User@password');
 	Route::post('user/password/store', 'User@passwordStore');
 	Route::get('user/address', 'User@address');
-	Route::get('user/address/{id}', 'User@addressItem');
+	Route::get('user/address/{id}', 'User@addressShow');
 	Route::post('user/address/store', 'User@addressStore');
 	Route::get('user/like/{type?}', 'User@like');
 	Route::post('user/like/store', 'User@likeStore');
 	Route::get('user/order', 'User@order');
-	Route::get('user/order/{id}', 'User@orderItem');
+	Route::get('user/order/{id}', 'User@orderShow');
 	Route::post('user/order/store', 'User@orderStore');
 
 	//上传

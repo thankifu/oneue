@@ -308,7 +308,7 @@ class User extends Common
 	}
 	
 	//收获地址详情
-	public function addressItem(Request $request){
+	public function addressShow(Request $request){
 		$id = (int)$request->id;
 
 		$data['user'] = auth()->user();
@@ -324,7 +324,7 @@ class User extends Common
 		$data['page_keywords'] = '我的,'.$site['name'];
 		$data['page_description'] = '';
 
-		return view('frontend.user.address.item', $data);
+		return view('frontend.user.address.show', $data);
 	}
 
 	//收获地址储存
@@ -420,7 +420,7 @@ class User extends Common
 	}
 
 	//订单详情
-	public function orderItem(Request $request){
+	public function orderShow(Request $request){
 		$id = (int)$request->id;
 
 		$data['user'] = auth()->user();
@@ -437,7 +437,7 @@ class User extends Common
 		$data['page_keywords'] = '我的,'.$site['name'];
 		$data['page_description'] = '';
 
-		return view('frontend.user.order.item', $data);
+		return view('frontend.user.order.show', $data);
 	}
 
 	//订单确认收货
