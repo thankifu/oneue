@@ -11,7 +11,7 @@
     <div class="row star-trade">
         <div class="col-md-9">
             @if($address)
-    		<div class="star-address" data-address="">
+    		<div class="star-address">
                 <div class="star-bd">
                     <dl>
                         <dt>收货地址</dt>

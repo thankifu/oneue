@@ -21,7 +21,7 @@
             <div class="star-trade"> 
                 <div class="star-address">
                     <div class="star-bd">
-                        <dt>地址列表</dt>
+                        <dt>{!!request()->get('redirect_url')?'点击选择您的收货地址':'地址列表'!!}</dt>
                         @if($address)
                         <dl>
                             @foreach($address as $item)
