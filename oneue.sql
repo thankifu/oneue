@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2020-01-16 13:30:23
+Date: 2020-01-18 13:47:26
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -36,7 +36,7 @@ CREATE TABLE `star_admin` (
 -- ----------------------------
 -- Records of star_admin
 -- ----------------------------
-INSERT INTO star_admin VALUES ('1', 'admin', '$2y$10$K7d6k90BsTHRWTaeYmmkdecHHt6QJ3Dt0Gb6CYPjIG30pKT5kzw9a', '我是管理员', '', '1', '127.0.0.1', '1579150444', '1575352441', '1578403272', '1');
+INSERT INTO star_admin VALUES ('1', 'admin', '$2y$10$K7d6k90BsTHRWTaeYmmkdecHHt6QJ3Dt0Gb6CYPjIG30pKT5kzw9a', '我是管理员', '', '1', '127.0.0.1', '1579325484', '1575352441', '1578403272', '1');
 
 -- ----------------------------
 -- Table structure for `star_admin_group`
@@ -109,64 +109,64 @@ INSERT INTO star_admin_menu VALUES ('8', '测试', '', '', '', '', '0', '0', '0'
 INSERT INTO star_admin_menu VALUES ('9', '测试', '', '', '', '', '0', '0', '0', '1574854083', '1574854083', '0');
 INSERT INTO star_admin_menu VALUES ('10', '系统', '', '', '', 'glyphicon-cog', '0', '0', '0', '1574854083', '1574854083', '1');
 INSERT INTO star_admin_menu VALUES ('11', '管理组', 'Group', 'index', '', '', '10', '0', '0', '1574854083', '1578129218', '1');
-INSERT INTO star_admin_menu VALUES ('12', '管理组增改', 'Group', 'item', '', '', '11', '0', '1', '1574854083', '1574854083', '1');
-INSERT INTO star_admin_menu VALUES ('13', '管理组保存', 'Group', 'save', '', '', '11', '0', '1', '1574854083', '1574854083', '1');
+INSERT INTO star_admin_menu VALUES ('12', '管理组增改', 'Group', 'show', '', '', '11', '0', '1', '1574854083', '1574854083', '1');
+INSERT INTO star_admin_menu VALUES ('13', '管理组保存', 'Group', 'store', '', '', '11', '0', '1', '1574854083', '1574854083', '1');
 INSERT INTO star_admin_menu VALUES ('14', '管理组删除', 'Group', 'delete', '', '', '11', '0', '1', '1574854083', '1574854083', '1');
 INSERT INTO star_admin_menu VALUES ('15', '管理员', 'Admin', 'index', '', '', '10', '0', '0', '1574854083', '1578129222', '1');
-INSERT INTO star_admin_menu VALUES ('16', '管理员增改', 'Admin', 'item', '', '', '15', '0', '1', '1574854083', '1574854083', '1');
-INSERT INTO star_admin_menu VALUES ('17', '管理员保存', 'Admin', 'save', '', '', '15', '0', '1', '1574854083', '1574854083', '1');
+INSERT INTO star_admin_menu VALUES ('16', '管理员增改', 'Admin', 'show', '', '', '15', '0', '1', '1574854083', '1574854083', '1');
+INSERT INTO star_admin_menu VALUES ('17', '管理员保存', 'Admin', 'store', '', '', '15', '0', '1', '1574854083', '1574854083', '1');
 INSERT INTO star_admin_menu VALUES ('18', '管理员删除', 'Admin', 'delete', '', '', '15', '0', '1', '1574854083', '1574854083', '1');
 INSERT INTO star_admin_menu VALUES ('19', '后台菜单', 'Menu', 'index', '', '', '10', '0', '0', '1574854083', '1578129226', '1');
-INSERT INTO star_admin_menu VALUES ('20', '后台菜单增改', 'Menu', 'item', '', '', '19', '0', '1', '1574854083', '1574854083', '1');
-INSERT INTO star_admin_menu VALUES ('21', '后台菜单保存', 'Menu', 'save', '', '', '19', '0', '1', '1574854083', '1574854083', '1');
+INSERT INTO star_admin_menu VALUES ('20', '后台菜单增改', 'Menu', 'show', '', '', '19', '0', '1', '1574854083', '1574854083', '1');
+INSERT INTO star_admin_menu VALUES ('21', '后台菜单保存', 'Menu', 'store', '', '', '19', '0', '1', '1574854083', '1574854083', '1');
 INSERT INTO star_admin_menu VALUES ('22', '后台菜单删除', 'Menu', 'delete', '', '', '19', '0', '1', '1574854083', '1577598155', '1');
 INSERT INTO star_admin_menu VALUES ('23', '网站设置', 'Setting', 'index', '', '', '10', '0', '0', '1574854083', '1578129626', '1');
 INSERT INTO star_admin_menu VALUES ('24', '附件设置', 'Setting', 'annex', '', '', '10', '0', '0', '1574854083', '1578129236', '1');
-INSERT INTO star_admin_menu VALUES ('25', '设置保存', 'Setting', 'save', '', '', '10', '0', '1', '1574854083', '1578129241', '1');
+INSERT INTO star_admin_menu VALUES ('25', '设置保存', 'Setting', 'store', '', '', '10', '0', '1', '1574854083', '1578129241', '1');
 INSERT INTO star_admin_menu VALUES ('26', '文章管理', 'Article', 'index', '', '', '2', '0', '0', '1574854083', '1578242105', '1');
-INSERT INTO star_admin_menu VALUES ('27', '文章增改', 'Article', 'item', '', '', '26', '0', '1', '1574854083', '1577967832', '1');
-INSERT INTO star_admin_menu VALUES ('28', '文章保存', 'Article', 'save', '', '', '26', '0', '1', '1574854083', '1574854083', '1');
+INSERT INTO star_admin_menu VALUES ('27', '文章增改', 'Article', 'show', '', '', '26', '0', '1', '1574854083', '1577967832', '1');
+INSERT INTO star_admin_menu VALUES ('28', '文章保存', 'Article', 'store', '', '', '26', '0', '1', '1574854083', '1574854083', '1');
 INSERT INTO star_admin_menu VALUES ('29', '文章删除', 'Article', 'delete', '', '', '26', '0', '1', '1574688854', '1575306306', '1');
 INSERT INTO star_admin_menu VALUES ('30', '文章分类', 'Article', 'categoryIndex', 'category/index', '', '2', '0', '0', '1574688960', '1578242072', '1');
-INSERT INTO star_admin_menu VALUES ('31', '文章分类增改', 'Article', 'categoryItem', 'category/item', '', '30', '0', '1', '1574689376', '0', '1');
-INSERT INTO star_admin_menu VALUES ('32', '文章分类保存', 'Article', 'categorySave', 'category/save', '', '30', '0', '1', '1574689530', '0', '1');
+INSERT INTO star_admin_menu VALUES ('31', '文章分类增改', 'Article', 'categoryShow', 'category/show', '', '30', '0', '1', '1574689376', '0', '1');
+INSERT INTO star_admin_menu VALUES ('32', '文章分类保存', 'Article', 'categoryStore', 'category/store', '', '30', '0', '1', '1574689530', '0', '1');
 INSERT INTO star_admin_menu VALUES ('33', '文章分类删除', 'Article', 'categoryDelete', 'category/delete', '', '30', '0', '1', '1574689605', '0', '1');
 INSERT INTO star_admin_menu VALUES ('34', '商品管理', 'Product', 'index', '', '', '3', '0', '0', '1574689646', '0', '1');
-INSERT INTO star_admin_menu VALUES ('35', '商品增改', 'Product', 'item', '', '', '34', '0', '1', '1574689694', '0', '1');
-INSERT INTO star_admin_menu VALUES ('36', '商品保存', 'Product', 'save', '', '', '34', '0', '1', '1574689791', '0', '1');
+INSERT INTO star_admin_menu VALUES ('35', '商品增改', 'Product', 'show', '', '', '34', '0', '1', '1574689694', '0', '1');
+INSERT INTO star_admin_menu VALUES ('36', '商品保存', 'Product', 'store', '', '', '34', '0', '1', '1574689791', '0', '1');
 INSERT INTO star_admin_menu VALUES ('37', '商品删除', 'Product', 'delete', '', '', '34', '0', '1', '1574821696', '1574821821', '1');
 INSERT INTO star_admin_menu VALUES ('38', '商品分类', 'Product', 'categoryIndex', 'category/index', '', '3', '0', '0', '1577967872', '0', '1');
-INSERT INTO star_admin_menu VALUES ('39', '商品分类增改', 'Product', 'categoryItem', 'category/item', '', '38', '0', '1', '1577967919', '0', '1');
-INSERT INTO star_admin_menu VALUES ('40', '商品分类保存', 'Product', 'categorySave', 'category/save', '', '38', '0', '1', '1577967949', '0', '1');
+INSERT INTO star_admin_menu VALUES ('39', '商品分类增改', 'Product', 'categoryShow', 'category/show', '', '38', '0', '1', '1577967919', '0', '1');
+INSERT INTO star_admin_menu VALUES ('40', '商品分类保存', 'Product', 'categoryStore', 'category/store', '', '38', '0', '1', '1577967949', '0', '1');
 INSERT INTO star_admin_menu VALUES ('41', '商品分类删除', 'Product', 'categoryDelete', 'category/delete', '', '38', '0', '1', '1577967966', '0', '1');
 INSERT INTO star_admin_menu VALUES ('42', '商品规格删除', 'Product', 'specificationDelete', '', '', '34', '0', '1', '1577967949', '0', '1');
 INSERT INTO star_admin_menu VALUES ('43', '会员管理', 'User', 'index', '', '', '4', '0', '0', '1577971816', '0', '1');
-INSERT INTO star_admin_menu VALUES ('44', '会员增改', 'User', 'item', '', '', '43', '0', '1', '1577971864', '0', '1');
-INSERT INTO star_admin_menu VALUES ('45', '会员保存', 'User', 'save', '', '', '43', '0', '1', '1577971882', '0', '1');
+INSERT INTO star_admin_menu VALUES ('44', '会员增改', 'User', 'show', '', '', '43', '0', '1', '1577971864', '0', '1');
+INSERT INTO star_admin_menu VALUES ('45', '会员保存', 'User', 'store', '', '', '43', '0', '1', '1577971882', '0', '1');
 INSERT INTO star_admin_menu VALUES ('46', '会员删除', 'User', 'delete', '', '', '43', '0', '1', '1577971895', '0', '1');
 INSERT INTO star_admin_menu VALUES ('47', '会员等级', 'User', 'levelIndex', 'level/index', '', '4', '0', '0', '1577971929', '1578396313', '1');
-INSERT INTO star_admin_menu VALUES ('48', '会员等级增改', 'User', 'levelItem', 'level/item', '', '47', '0', '1', '1577971952', '0', '1');
-INSERT INTO star_admin_menu VALUES ('49', '会员等级保存', 'User', 'levelSave', 'level/save', '', '47', '0', '1', '1577971974', '0', '1');
+INSERT INTO star_admin_menu VALUES ('48', '会员等级增改', 'User', 'levelShow', 'level/show', '', '47', '0', '1', '1577971952', '0', '1');
+INSERT INTO star_admin_menu VALUES ('49', '会员等级保存', 'User', 'levelStore', 'level/store', '', '47', '0', '1', '1577971974', '0', '1');
 INSERT INTO star_admin_menu VALUES ('50', '会员等级删除', 'User', 'levelDelete', 'level/delete', '', '47', '0', '1', '1577971993', '0', '1');
 INSERT INTO star_admin_menu VALUES ('51', '订单管理', 'Order', 'index', '', '', '5', '0', '0', '1577972028', '0', '1');
-INSERT INTO star_admin_menu VALUES ('52', '订单增改', 'Order', 'item', '', '', '51', '0', '1', '1577972113', '0', '1');
-INSERT INTO star_admin_menu VALUES ('53', '订单保存', 'Order', 'save', '', '', '51', '0', '1', '1577972131', '0', '1');
+INSERT INTO star_admin_menu VALUES ('52', '订单增改', 'Order', 'show', '', '', '51', '0', '1', '1577972113', '0', '1');
+INSERT INTO star_admin_menu VALUES ('53', '订单保存', 'Order', 'store', '', '', '51', '0', '1', '1577972131', '0', '1');
 INSERT INTO star_admin_menu VALUES ('54', '订单删除', 'Order', 'delete', '', '', '51', '0', '1', '1577972147', '0', '1');
-INSERT INTO star_admin_menu VALUES ('55', '订单发货增改', 'Order', 'shipmentItem', 'shipment/item', '', '51', '0', '1', '1577972160', '1578726183', '1');
+INSERT INTO star_admin_menu VALUES ('55', '订单发货增改', 'Order', 'shipmentShow', 'shipment/show', '', '51', '0', '1', '1577972160', '1578726183', '1');
 INSERT INTO star_admin_menu VALUES ('56', '帮助管理', 'Help', 'index', '', '', '6', '0', '0', '1577972235', '0', '1');
-INSERT INTO star_admin_menu VALUES ('57', '帮助增改', 'Help', 'item', '', '', '56', '0', '1', '1577972252', '0', '1');
-INSERT INTO star_admin_menu VALUES ('58', '帮助保存', 'Help', 'save', '', '', '56', '0', '1', '1577972263', '0', '1');
+INSERT INTO star_admin_menu VALUES ('57', '帮助增改', 'Help', 'show', '', '', '56', '0', '1', '1577972252', '0', '1');
+INSERT INTO star_admin_menu VALUES ('58', '帮助保存', 'Help', 'store', '', '', '56', '0', '1', '1577972263', '0', '1');
 INSERT INTO star_admin_menu VALUES ('59', '帮助删除', 'Help', 'delete', '', '', '56', '0', '1', '1577972275', '0', '1');
 INSERT INTO star_admin_menu VALUES ('60', '帮助分类', 'Help', 'categoryIndex', 'category/index', '', '6', '0', '0', '1577972300', '0', '1');
-INSERT INTO star_admin_menu VALUES ('61', '帮助分类增改', 'Help', 'categoryItem', 'category/item', '', '60', '0', '1', '1577972333', '0', '1');
-INSERT INTO star_admin_menu VALUES ('62', '帮助分类保存', 'Help', 'categorySave', 'category/save', '', '60', '0', '1', '1577972346', '0', '1');
+INSERT INTO star_admin_menu VALUES ('61', '帮助分类增改', 'Help', 'categoryShow', 'category/show', '', '60', '0', '1', '1577972333', '0', '1');
+INSERT INTO star_admin_menu VALUES ('62', '帮助分类保存', 'Help', 'categoryStore', 'category/store', '', '60', '0', '1', '1577972346', '0', '1');
 INSERT INTO star_admin_menu VALUES ('63', '帮助分类删除', 'Help', 'categoryDelete', 'category/delete', '', '60', '0', '1', '1577972359', '0', '1');
 INSERT INTO star_admin_menu VALUES ('64', '轮播管理', 'Slide', 'index', '', '', '7', '0', '0', '1578129312', '0', '1');
-INSERT INTO star_admin_menu VALUES ('65', '轮播增改', 'Slide', 'item', '', '', '64', '0', '1', '1578129333', '0', '1');
-INSERT INTO star_admin_menu VALUES ('66', '轮播保存', 'Slide', 'save', '', '', '64', '0', '1', '1578129348', '0', '1');
+INSERT INTO star_admin_menu VALUES ('65', '轮播增改', 'Slide', 'show', '', '', '64', '0', '1', '1578129333', '0', '1');
+INSERT INTO star_admin_menu VALUES ('66', '轮播保存', 'Slide', 'store', '', '', '64', '0', '1', '1578129348', '0', '1');
 INSERT INTO star_admin_menu VALUES ('67', '轮播删除', 'Slide', 'delete', '', '', '64', '0', '1', '1578129362', '0', '1');
 INSERT INTO star_admin_menu VALUES ('68', '首页', 'Home', 'index', '', '', '1', '0', '1', '1578233769', '1578233860', '1');
-INSERT INTO star_admin_menu VALUES ('69', '订单发货保存', 'Order', 'shipmentSave', 'shipment/save', '', '51', '0', '1', '1578726167', '0', '1');
+INSERT INTO star_admin_menu VALUES ('69', '订单发货保存', 'Order', 'shipmentStore', 'shipment/store', '', '51', '0', '1', '1578726167', '0', '1');
 
 -- ----------------------------
 -- Table structure for `star_admin_setting`
@@ -209,12 +209,12 @@ CREATE TABLE `star_article` (
 -- ----------------------------
 -- Records of star_article
 -- ----------------------------
-INSERT INTO star_article VALUES ('1', '演示文章1', '<p>文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容.</p>\n\n<p><img alt=\"\" src=\"/storage/uploads/article.png\" style=\"width: 600px; height: 320px;\" /></p>', '', '/storage/uploads/article.png', '61', '1', '搜索引擎优化的标题_文章_ONEUE', '搜索引擎优化关键词1,搜索引擎优化关键词2,搜索引擎优化关键词3', '搜索引擎优化的描述', '1578229623', '1578552695', '1');
-INSERT INTO star_article VALUES ('2', '演示文章2', '<p>文章内容</p>', '', '/storage/uploads/article.png', '61', '2', '', '', '', '1578229640', '1578229666', '1');
-INSERT INTO star_article VALUES ('3', '演示文章3', '<p>文章内容</p>', '', '/storage/uploads/article.png', '61', '1', '', '', '', '1578229660', '0', '1');
-INSERT INTO star_article VALUES ('4', '演示文章4', '<p>文章内容</p>', '', '/storage/uploads/article.png', '60', '2', '', '', '', '1578230922', '0', '1');
-INSERT INTO star_article VALUES ('5', '演示文章5', '<p>文章内容</p>', '', '/storage/uploads/article.png', '60', '2', '', '', '', '1578230939', '0', '1');
-INSERT INTO star_article VALUES ('6', '演示文章6', '<p>文章内容</p>', '', '/storage/uploads/article.png', '60', '2', '', '', '', '1578230952', '0', '1');
+INSERT INTO star_article VALUES ('1', '演示文章1', '<p>文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容.</p>\n\n<p><img alt=\"\" src=\"/storage/uploads/article.png\" style=\"width: 600px; height: 320px;\" /></p>', '', '/storage/uploads/article.png', '70', '1', '搜索引擎优化的标题_文章_ONEUE', '搜索引擎优化关键词1,搜索引擎优化关键词2,搜索引擎优化关键词3', '搜索引擎优化的描述', '1578229623', '1578552695', '1');
+INSERT INTO star_article VALUES ('2', '演示文章2', '<p>文章内容</p>', '', '/storage/uploads/article.png', '70', '2', '', '', '', '1578229640', '1578229666', '1');
+INSERT INTO star_article VALUES ('3', '演示文章3', '<p>文章内容</p>', '', '/storage/uploads/article.png', '70', '1', '', '', '', '1578229660', '1579262122', '1');
+INSERT INTO star_article VALUES ('4', '演示文章4', '<p>文章内容</p>', '', '/storage/uploads/article.png', '69', '2', '', '', '', '1578230922', '0', '1');
+INSERT INTO star_article VALUES ('5', '演示文章5', '<p>文章内容</p>', '', '/storage/uploads/article.png', '69', '2', '', '', '', '1578230939', '0', '1');
+INSERT INTO star_article VALUES ('6', '演示文章6', '<p>文章内容</p>', '', '/storage/uploads/article.png', '69', '2', '', '', '', '1578230952', '1579262110', '1');
 
 -- ----------------------------
 -- Table structure for `star_article_category`
@@ -237,7 +237,7 @@ CREATE TABLE `star_article_category` (
 -- ----------------------------
 -- Records of star_article_category
 -- ----------------------------
-INSERT INTO star_article_category VALUES ('1', '居家', '0', '1', '', '', '', '1558616653', '1578237898', '1');
+INSERT INTO star_article_category VALUES ('1', '居家', '0', '1', '', '', '', '1558616653', '1579262132', '1');
 INSERT INTO star_article_category VALUES ('2', '科技', '0', '2', '', '', '', '1558616659', '1572607157', '1');
 
 -- ----------------------------
@@ -366,7 +366,7 @@ INSERT INTO star_help VALUES ('10', '正品保证', '内容', '21', '0', '3', '0
 INSERT INTO star_help VALUES ('11', '闪电发货', '内容', '21', '0', '3', '0', '0', '0', '1572239039', '1572239073', '1');
 INSERT INTO star_help VALUES ('12', '七天退换', '内容', '21', '0', '3', '0', '0', '0', '1572239039', '1572239073', '1');
 INSERT INTO star_help VALUES ('13', '关于我们', '内容', '21', '0', '4', '0', '0', '0', '1572239039', '1572239073', '1');
-INSERT INTO star_help VALUES ('14', '联系我们', '内容', '21', '0', '4', '0', '0', '0', '1572239039', '1577972409', '1');
+INSERT INTO star_help VALUES ('14', '联系我们', '<p>内容</p>', '21', '0', '4', '0', '0', '0', '1572239039', '1579262153', '1');
 
 -- ----------------------------
 -- Table structure for `star_help_category`
@@ -487,12 +487,12 @@ CREATE TABLE `star_product` (
 -- ----------------------------
 -- Records of star_product
 -- ----------------------------
-INSERT INTO star_product VALUES ('1', '演示商品-无规格', '<p>商品描述</p>', '0', '0.00', '1.00', '0.00', '/storage/uploads/product.png', '100', '0', '276', '1', '', '', '', '1578217354', '1578585403', '1');
-INSERT INTO star_product VALUES ('2', '演示商品-有规格-无图', '<p>商品描述</p>', '0', '0.00', '1.00', '0.00', '/storage/uploads/product.png', '100', '0', '276', '2', '', '', '', '1578217436', '1578585386', '1');
-INSERT INTO star_product VALUES ('3', '演示商品-有规格-有图', '<p>商品描述</p>', '0', '0.00', '1.00', '0.00', '/storage/uploads/product.png', '100', '0', '249', '3', '', '', '', '1578228998', '1578585392', '1');
-INSERT INTO star_product VALUES ('4', '演示商品-无规格', '<p>商品描述</p>', '0', '100.00', '99.99', '0.00', '/storage/uploads/product.png', '0', '0', '234', '1', '', '', '', '1578230207', '1578230623', '1');
-INSERT INTO star_product VALUES ('5', '演示商品-无规格', '<p>商品描述</p>', '0', '1000.00', '999.99', '0.00', '/storage/uploads/product.png', '100', '0', '234', '1', '', '', '', '1578230372', '1578585413', '1');
-INSERT INTO star_product VALUES ('6', '演示商品-无规格', '<p>商品描述</p>', '0', '10000.00', '9999.99', '0.00', '/storage/uploads/product.png', '100', '0', '234', '1', '', '', '', '1578230495', '1578585419', '1');
+INSERT INTO star_product VALUES ('1', '演示商品-无规格', '<p>商品描述</p>', '0', '10.00', '1.00', '0.00', '/storage/uploads/product.png', '100', '0', '330', '1', '', '', '', '1578217354', '1579266244', '1');
+INSERT INTO star_product VALUES ('2', '演示商品-有规格-无图', '<p>商品描述</p>', '0', '0.00', '1.00', '0.00', '/storage/uploads/product.png', '100', '0', '330', '2', '', '', '', '1578217436', '1578585386', '1');
+INSERT INTO star_product VALUES ('3', '演示商品-有规格-有图', '<p>商品描述</p>', '0', '88.00', '78.00', '0.00', '/storage/uploads/product.png', '100', '0', '303', '3', '', '', '', '1578228998', '1579266598', '1');
+INSERT INTO star_product VALUES ('4', '演示商品-无规格', '<p>商品描述</p>', '0', '100.00', '99.99', '0.00', '/storage/uploads/product.png', '0', '0', '288', '1', '', '', '', '1578230207', '1578230623', '1');
+INSERT INTO star_product VALUES ('5', '演示商品-无规格', '<p>商品描述</p>', '0', '1000.00', '999.99', '0.00', '/storage/uploads/product.png', '100', '0', '288', '1', '', '', '', '1578230372', '1578585413', '1');
+INSERT INTO star_product VALUES ('6', '演示商品-无规格', '<p>商品描述</p>', '0', '10000.00', '9999.99', '0.00', '/storage/uploads/product.png', '100', '0', '288', '1', '', '', '', '1578230495', '1579262141', '1');
 
 -- ----------------------------
 -- Table structure for `star_product_category`
@@ -574,8 +574,8 @@ CREATE TABLE `star_product_specification` (
 -- ----------------------------
 INSERT INTO star_product_specification VALUES ('1', '规格1', '0', '10.00', '1.00', '0.00', '', '0', '0', '2');
 INSERT INTO star_product_specification VALUES ('2', '规格2', '0', '20.00', '2.00', '0.00', '', '100', '0', '2');
-INSERT INTO star_product_specification VALUES ('3', '规格1', '0', '10.00', '1.00', '0.00', '/storage/uploads/specification.png', '100', '0', '3');
-INSERT INTO star_product_specification VALUES ('4', '规格2', '0', '20.00', '2.00', '0.00', '/storage/uploads/specification.png', '0', '0', '3');
+INSERT INTO star_product_specification VALUES ('3', '规格1', '0', '88.00', '78.00', '0.00', '/storage/uploads/specification.png', '100', '0', '3');
+INSERT INTO star_product_specification VALUES ('4', '规格2', '0', '20.00', '88.00', '0.00', '/storage/uploads/specification.png', '0', '0', '3');
 
 -- ----------------------------
 -- Table structure for `star_slide`
@@ -629,7 +629,7 @@ CREATE TABLE `star_user` (
 -- ----------------------------
 -- Records of star_user
 -- ----------------------------
-INSERT INTO star_user VALUES ('1', 'user', '$2y$10$y6qfbrJVnojkCIXYFSCHwe3cO/VasJNEuauLixDR.AzFhdCm.oTi2', 'i@thankifu.com', '', '/images/avatar.png', '1', '0', '1', '', '', 'i5ge3WpSOpRaY4UoeUR1tl8xTqBZ1lqeNUuXx9AAWFZcoHwLrdLQzMaKF7zV', '127.0.0.1', '1579099447', '1531538199', '1579073718', '1');
+INSERT INTO star_user VALUES ('1', 'user', '$2y$10$y6qfbrJVnojkCIXYFSCHwe3cO/VasJNEuauLixDR.AzFhdCm.oTi2', 'i@thankifu.com', '', '/images/avatar.png', '0', '0', '3', '', '', 'i5ge3WpSOpRaY4UoeUR1tl8xTqBZ1lqeNUuXx9AAWFZcoHwLrdLQzMaKF7zV', '127.0.0.1', '1579247605', '1531538199', '1579247670', '1');
 
 -- ----------------------------
 -- Table structure for `star_user_address`
