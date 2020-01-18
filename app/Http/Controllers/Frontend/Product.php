@@ -95,7 +95,7 @@ class Product extends Common
 		return view('frontend.product.index', $data);
 	}
 
-	public function item(Request $request){
+	public function show(Request $request){
     	$id = (int)$request->id;
     	$discount = $this->getUserDiscount();
 
@@ -123,6 +123,30 @@ class Product extends Common
 			$data['specifications'][$key]['price'] = $price;
 		}
 
+		if($data['specifications']){
+			$market_min = Db::table('product_specification')->where('product_id',$data['product']['id'])->where('quantity', '>', 1)->min('market');
+			$market_max = Db::table('product_specification')->where('product_id',$data['product']['id'])->where('quantity', '>', 1)->max('market');
+			$selling_min = Db::table('product_specification')->where('product_id',$data['product']['id'])->where('quantity', '>', 1)->min('selling');
+			$selling_max = Db::table('product_specification')->where('product_id',$data['product']['id'])->where('quantity', '>', 1)->max('selling');
+			$price_min = $this->getProductPrice($selling_min, $discount);
+			$price_max = $this->getProductPrice($selling_max, $discount);
+			if($market_min != $market_max){
+				$data['product']['market'] = $market_min.' - '.$market_max;
+			}else{
+				$data['product']['market'] = $market_min;
+			}
+			if($selling_min != $selling_max){
+				$data['product']['selling'] = $selling_min.' - '.$selling_max;
+			}else{
+				$data['product']['selling'] = $selling_min;
+			}
+			if($price_min != $price_max){
+				$data['product']['price'] = $price_min.' - '.$price_max;
+			}else{
+				$data['product']['price'] = $price_min;
+			}			
+		}
+
 		//喜欢状态
 		$data['like'] = 0;
 		if(auth()->user()){
@@ -146,7 +170,7 @@ class Product extends Common
 		
 		DB::table('product')->increment('visit', 1);
         
-		return view('frontend.product.item', $data);
+		return view('frontend.product.show', $data);
 	}
 
 }

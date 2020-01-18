@@ -80,7 +80,7 @@
 		</div>
 		<div class="form-group text-center">
 			<button type="button" class="btn btn-secondary" onclick="starCancelJump();">取消</button>
-			<button type="button" class="btn btn-primary" onclick="starArticleSave();">保存</button>
+			<button type="button" class="btn btn-primary" onclick="starArticleStore();">保存</button>
 		</div>
 		<input type="hidden" id="id" name="id" value="{{$article['id']}}">
 	</form>

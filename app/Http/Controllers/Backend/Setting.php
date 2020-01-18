@@ -34,7 +34,7 @@ class Setting extends Common
 	}
 
 	//保存设置
-	public function save(Request $request){
+	public function store(Request $request){
 		$data = $request->all();
 		$key = $data['key'];
 		unset($data['key']);

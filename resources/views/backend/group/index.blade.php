@@ -23,7 +23,7 @@
 			</form>
 		</div>
 		<div class="pull-right">
-			<button type="button" class="btn btn-sm btn-primary" onclick="starItem('group');">新增</button>
+			<button type="button" class="btn btn-sm btn-primary" onclick="starShow('group');">新增</button>
 		</div>
 	</div>
 
@@ -49,7 +49,7 @@
 				<td>{{$item['created']?date('Y-m-d H:i:s',$item['created']):'-'}}</td>
 				<td>{{$item['modified']?date('Y-m-d H:i:s',$item['modified']):'-'}}</td>
 				<td>
-					<button type="button" class="btn btn-sm btn-primary" onclick="starItem('group', {{$item['id']}});">编辑</button>
+					<button type="button" class="btn btn-sm btn-primary" onclick="starShow('group', {{$item['id']}});">编辑</button>
 				</td>
 			</tr>
 			@endforeach

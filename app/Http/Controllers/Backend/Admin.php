@@ -54,16 +54,16 @@ class Admin extends Common
 	}
 
 	//添加修改
-	public function item(Request $request){
+	public function show(Request $request){
 		$id = (int)$request->id;
 		$data['admin'] = Db::table('admin')->where('id',$id)->item();
 		//管理组
 		$data['groups'] = DB::table('admin_group')->select(['id','name'])->cates('id');
-		return view('backend.admin.item',$data);
+		return view('backend.admin.show',$data);
 	}
 
 	//保存
-	public function save(Request $request){
+	public function store(Request $request){
 		$id = (int)$request->id;
 		$username = trim($request->username);
 		$password = trim($request->password);

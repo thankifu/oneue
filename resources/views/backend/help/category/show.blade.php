@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>添加修改文章分类</title>
+<title>添加修改帮助分类</title>
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 @include('backend.common.head')
@@ -56,7 +56,7 @@
 		</div>
 		<div class="form-group text-center">
 			<button type="button" class="btn btn-secondary" onclick="starCancel();">取消</button>
-			<button type="button" class="btn btn-primary" onclick="starCategorySave('article');">保存</button>
+			<button type="button" class="btn btn-primary" onclick="starCategoryStore('help');">保存</button>
 		</div>
 		<input type="hidden" id="parent" name="parent" value="{{isset($parent['id'])?$parent['id']:0}}">
 		<input type="hidden" id="id" name="id" value="{{$category['id']}}">

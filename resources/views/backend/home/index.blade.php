@@ -36,7 +36,7 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{$_admin['username']}} <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="javascript:void(0)" onclick="starItem('admin', {{$_admin['id']}});">资料修改</a></li>
+                        <li><a href="javascript:void(0)" onclick="starShow('admin', {{$_admin['id']}});">资料修改</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="javascript:void(0)" onclick="starLogout();">退出</a>{{csrf_field()}}</li>
                     </ul>
@@ -78,7 +78,7 @@
 </div>
 <footer class="star-footer navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid row">
-        <p class="navbar-text">© ONEUE 2017 - 2019 ALL RIGHTS RESERVED.</p>
+        <p class="navbar-text">POWERED BY ONEUE</p>
     </div>
 </footer>
 @include('backend.common.foot')

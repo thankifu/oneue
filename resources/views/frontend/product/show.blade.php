@@ -59,7 +59,7 @@
                         <strong>{{$level['name']}}</strong>
                         @endif
                     </span>
-                    @if($product['market'] > $product['selling'])
+                    @if($product['market'] != $product['selling'])
                     <span class="star-line-through" data-market="{{$product['market']}}">
                         <i>¥</i>
                         <em>{{$product['market']}}</em>

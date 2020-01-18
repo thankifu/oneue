@@ -34,16 +34,16 @@ class Menu extends Common
 	}
 
 	// 添加修改菜单
-	public function item(Request $request){
+	public function show(Request $request){
 		$parent = (int)$request->parent;
 		$id = (int)$request->id;
 		$data['parent_menu'] = Db::table('admin_menu')->where('id',$parent)->item();
 		$data['menu'] = Db::table('admin_menu')->where('id',$id)->item();
-		return view('backend/menu/item',$data);
+		return view('backend/menu/show',$data);
 	}
 
 	// 保存菜单
-	public function save(Request $request){
+	public function store(Request $request){
 		$id = (int)$request->id;
 		$data['parent'] = (int)$request->parent;
 		$data['name'] = trim($request->name);

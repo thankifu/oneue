@@ -19,7 +19,7 @@
             <ul class="clearfix list-unstyled star-list-product">
                 @foreach($lists as $item)
                 <li class="col-md-3 col-xs-6">
-                    <a href="{{route('product.item',$item['id'])}}" title="{{$item['name']}}">
+                    <a href="/product/{{$item['id']}}" title="{{$item['name']}}">
                         <p class="star-image">
                             <img src="/images/star-none.png" data-original="{{$item['picture']}}" alt="{{$item['name']}}"/>
                             <span class="star-heart{{$item['like'] == 1?' star-active':''}}" data-type='product' data-id="{{$item['id']}}" onclick="starLike(this);"><i class="glyphicon{{$item['like'] == 1?' glyphicon-heart':' glyphicon-heart-empty'}}" aria-hidden="true"></i></span>
@@ -46,7 +46,7 @@
             <ul class="clearfix list-unstyled star-list-article">
                 @foreach($lists as $item)
                 <li class="col-md-4">
-                    <a href="{{route('article.item',$item['id'])}}" title="{{$item['title']}}">
+                    <a href="/article/{{$item['id']}}" title="{{$item['title']}}">
                         <p class="star-image">
                             <img src="/images/star-none.png" data-original="{{$item['picture']}}" alt="{{$item['title']}}" />
                             <span class="star-heart{{$item['like'] == 1?' star-active':''}}" data-type='article' data-id="{{$item['id']}}" onclick="starLike(this);"><i class="glyphicon{{$item['like'] == 1?' glyphicon-heart':' glyphicon-heart-empty'}}" aria-hidden="true"></i></span>

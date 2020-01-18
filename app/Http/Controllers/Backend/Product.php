@@ -62,7 +62,7 @@ class Product extends Common
 	}
 
 	//添加修改
-	public function item(Request $request){
+	public function show(Request $request){
 		$id = (int)$request->id;
 		$data['product'] = Db::table('product')->where('id',$id)->item();
 
@@ -73,11 +73,11 @@ class Product extends Common
 		//图片
 		$data['specifications'] = DB::table('product_specification')->where('product_id',$id)->orderBy('position','asc')->orderBy('id','desc')->lists();
 
-		return view('backend.product.item',$data);
+		return view('backend.product.show',$data);
 	}
 
 	//保存
-	public function save(Request $request){
+	public function store(Request $request){
 		$id = (int)$request->id;
 		$data['name'] = trim($request->name);
 		$data['description'] = trim($request->description);
@@ -126,7 +126,10 @@ class Product extends Common
 			if($result && $specifications){
 				//如果存在规格，设置初始值
 				$update['quantity'] = 0;
-
+				$market_max = $specifications[0]['market'];
+				$market_min = $specifications[0]['market'];
+				$selling_max = $specifications[0]['selling'];
+				$selling_min = $specifications[0]['selling'];
 				foreach ($specifications as $value) {
 					$value['product_id'] = $id;
 					
@@ -143,7 +146,25 @@ class Product extends Common
 
 					//规格库存循环相加
 					$update['quantity'] += floatval($value['quantity']);
+
+					//判断最大价格最小价格
+					if($value['selling']>$selling_max) {
+						$selling_max=$value['selling'];
+					}
+				    if($selling_min>$value['selling']) {
+				    	$selling_min=$value['selling'];
+				    }
+
+				    if($value['market']>$market_max) {
+						$market_max=$value['market'];
+					}
+				    if($market_min>$value['market']) {
+				    	$market_min=$value['market'];
+				    }
 				}
+
+				$update['market'] = $market_max;
+				$update['selling'] = $selling_min;
 
 				//更新到商品库存
 				Db::table('product')->where('id',$id)->update($update);
@@ -240,16 +261,16 @@ class Product extends Common
 	}
 
 	//添加修改分类
-	public function categoryItem(Request $request){
+	public function categoryShow(Request $request){
 		$parent = (int)$request->parent;
 		$id = (int)$request->id;
 		$data['parent'] = Db::table('product_category')->where('id',$parent)->item();
 		$data['category'] = Db::table('product_category')->where('id',$id)->item();
-		return view('backend.product.category.item',$data);
+		return view('backend.product.category.show',$data);
 	}
 
 	// 保存分类
-	public function categorySave(Request $request){
+	public function categoryStore(Request $request){
 		$id = (int)$request->id;
 		$data['name'] = trim($request->name);
 		$data['parent'] = (int)$request->parent;

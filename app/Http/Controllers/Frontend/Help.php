@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\DB;
 class Help extends Common
 {
 
-	public function item(Request $request){
+	public function show(Request $request){
     	$id = (int)$request->id;
 
     	$where = [];
@@ -40,7 +40,7 @@ class Help extends Common
 
 		DB::table('help')->increment('visit', 1);
         
-		return view('frontend.help.item', $data);
+		return view('frontend.help.show', $data);
 	}
 
 }

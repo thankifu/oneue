@@ -96,18 +96,18 @@
 					@endif
 				</td>
 				<td>
-					<button type="button" class="btn btn-sm btn-primary" onclick="starItem('order', {{$item['id']}});">查看</button>
+					<button type="button" class="btn btn-sm btn-primary" onclick="starShow('order', {{$item['id']}});">查看</button>
 					
 					@if($item['state'] == 1)
 					<button type="button" class="btn btn-sm btn-primary">等待支付</button>
 					@endif
 
 					@if($item['state'] == 2)
-					<button type="button" class="btn btn-sm btn-primary" onclick="starItem('order/shipment', {{$item['id']}});">点击发货</button>
+					<button type="button" class="btn btn-sm btn-primary" onclick="starShow('order/shipment', {{$item['id']}});">点击发货</button>
 					@endif
 
 					@if($item['state'] == 3)
-					<button type="button" class="btn btn-sm btn-primary" onclick="starItem('order/shipment', {{$item['id']}});">发货修改</button>
+					<button type="button" class="btn btn-sm btn-primary" onclick="starShow('order/shipment', {{$item['id']}});">发货修改</button>
 					@endif
 
 					@if($item['state'] == 4)

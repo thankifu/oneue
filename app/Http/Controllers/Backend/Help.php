@@ -50,17 +50,17 @@ class Help extends Common
 	}
 
 	//增改
-	public function item(Request $request){
+	public function show(Request $request){
 		$id = (int)$request->id;
 		$data['help'] = Db::table('help')->where('id',$id)->item();
 
 		//分类
 		$data['categories'] = DB::table('help_category')->select(['id','name'])->cates('id');
-		return view('backend.help.item',$data);
+		return view('backend.help.show',$data);
 	}
 
 	//保存
-	public function save(Request $request){
+	public function store(Request $request){
 		$id = (int)$request->id;
 		$data['title'] = trim($request->title);
 		$data['content'] = trim($request->content);
@@ -129,16 +129,16 @@ class Help extends Common
 	}
 
 	//分类添加修改
-	public function categoryItem(Request $request){
+	public function categoryShow(Request $request){
 		$parent = (int)$request->parent;
 		$id = (int)$request->id;
 		$data['parent'] = Db::table('help_category')->where('id',$parent)->item();
 		$data['category'] = Db::table('help_category')->where('id',$id)->item();
-		return view('backend.help.category.item',$data);
+		return view('backend.help.category.show',$data);
 	}
 
 	//分类保存
-	public function categorySave(Request $request){
+	public function categoryStore(Request $request){
 		$id = (int)$request->id;
 		$data['name'] = trim($request->name);
 		$data['parent'] = (int)$request->parent;

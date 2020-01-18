@@ -33,7 +33,7 @@
 			@if($parent)
 			<button type="button" class="btn btn-sm btn-default" onclick="starGoto('product/category', {{$back}});">返回上一级</button>
 			@endif
-			<button type="button" class="btn btn-sm btn-primary" onclick="starItem('product/category', 0, {{$parent}});">新增</button>
+			<button type="button" class="btn btn-sm btn-primary" onclick="starShow('product/category', 0, {{$parent}});">新增</button>
 		</div>
 	</div>
 
@@ -66,7 +66,7 @@
 				<td>{!!$item['state']==1?'<span class="label label-success">启用</span>':'<span class="label label-danger">禁用</span>'!!}</td>
 				<td>
 					<button type="button" class="btn btn-sm btn-default" onclick="starGoto('product/category', {{$item['id']}});">子分类</button>
-					<button type="button" class="btn btn-sm btn-primary" onclick="starItem('product/category', {{$item['id']}}, {{$parent}});">编辑</button>
+					<button type="button" class="btn btn-sm btn-primary" onclick="starShow('product/category', {{$item['id']}}, {{$parent}});">编辑</button>
 					<button type="button" class="btn btn-sm btn-secondary" onclick="starDelete('product/category', {{$item['id']}});">删除</button>
 				</td>
 			</tr>

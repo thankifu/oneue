@@ -47,28 +47,18 @@ class Order extends Common
 	}
 
 	//添加修改
-	public function item(Request $request){
+	public function show(Request $request){
 		$id = (int)$request->id;
 		$data['order'] = Db::table('order')->where('id',$id)->item();
 		$data['products'] = DB::table('order_product')->where('order_id',$id)->cates('id');
 		
 		//用户
 		$data['users'] = DB::table('user')->select(['id','username'])->cates('id');
-		return view('backend.order.item',$data);
+		return view('backend.order.show',$data);
 	}
-
-	//保存
-	public function save(Request $request){
-		$id = (int)$request->id;
-		
-		//添加操作日志
-		//$this->log($log);
-		$this->returnMessage(200,'保存成功');
-	}
-
 
 	//发货
-	public function shipmentItem(Request $request){
+	public function shipmentShow(Request $request){
 		$id = (int)$request->id;
 
 		if(!$id){
@@ -79,12 +69,12 @@ class Order extends Common
 
 		$data['expresses'] = Db::table('express')->select(['id','name'])->cates('id');
 
-		return view('backend.order.shipment.item',$data);
+		return view('backend.order.shipment.show',$data);
 
 	}
 
 	//发货保存
-	public function shipmentSave(Request $request){
+	public function shipmentStore(Request $request){
 		$id = (int)$request->id;
 
 		if(!$id){

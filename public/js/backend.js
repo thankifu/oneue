@@ -165,7 +165,7 @@ function starMenuInit(){
 }
 
 //添加修改
-function starItem(type, id, parent){
+function starShow(type, id, parent){
 	id = id || 0;
 	parent = parent || 0;
 
@@ -178,7 +178,7 @@ function starItem(type, id, parent){
 
 	bootbox.dialog({
 		title: title,
-	    message: '<iframe src="'+backend_path+'/'+type+'/item?id='+id+'&parent='+parent+'" width="100%" frameborder="0" scrolling="auto" onload="starSetIframeHeight(this)"></iframe>'
+	    message: '<iframe src="'+backend_path+'/'+type+'/show?id='+id+'&parent='+parent+'" width="100%" frameborder="0" scrolling="auto" onload="starSetIframeHeight(this)"></iframe>'
 	});
 }
 
@@ -188,8 +188,8 @@ function starCancel(){
 }
 
 //添加修改跳转
-function starItemJump(type, id){
-	window.location.href = backend_path+'/'+type+'/item?id='+id;
+function starShowJump(type, id){
+	window.location.href = backend_path+'/'+type+'/show?id='+id;
 }
 
 //添加修改跳转退出
@@ -236,7 +236,7 @@ function starGoto(type, id){
 }
 
 //管理员保存
-function starAdminSave(){
+function starAdminStore(){
 	var data = new Object();
 	data._token = $('input[name="_token"]').val();
 	data.id = $('#id').val();
@@ -263,7 +263,7 @@ function starAdminSave(){
 		starToast('fail', '请输入真实姓名');
 		return;
 	}
-	$.post(backend_path+'/admin/save',data,function(res){
+	$.post(backend_path+'/admin/store',data,function(res){
 		if(res.code === 200){
 			starToast('success', res.text);
 			setTimeout(function(){
@@ -276,13 +276,13 @@ function starAdminSave(){
 }
 
 //管理组保存
-function starGroupSave(){
+function starGroupStore(){
 	var name = $.trim($('input[name="name"]').val());
 	if(name==''){
 		starToast('fail', '请输入管理组名');
 		return;
 	}
-	$.post(backend_path+'/group/save',$('form').serialize(),function(res){
+	$.post(backend_path+'/group/store',$('form').serialize(),function(res){
 		if(res.code === 200){
 			starToast('success', res.text);
 			setTimeout(function(){
@@ -295,7 +295,7 @@ function starGroupSave(){
 }
 
 //菜单保存
-function starMenuSave(){
+function starMenuStore(){
 	var name = $.trim($('input[name="name"]').val());
 	if(name==''){
 		starToast('fail', '请输入菜单名称');
@@ -308,7 +308,7 @@ function starMenuSave(){
 	data += '&state=' + state;
 	data += '&hidden=' + hidden;
 
-	$.post(backend_path+'/menu/save',data,function(res){
+	$.post(backend_path+'/menu/store',data,function(res){
 		if(res.code === 200){
 			starToast('success', res.text);
 			setTimeout(function(){
@@ -322,8 +322,8 @@ function starMenuSave(){
 }
 
 //设置保存
-function starSettingSave(){
-	$.post(backend_path+'/setting/save',$('form').serialize(),function(res){
+function starSettingStore(){
+	$.post(backend_path+'/setting/store',$('form').serialize(),function(res){
 		if(res.code === 200){
 			starToast('success', res.text);
 			setTimeout(function(){
@@ -337,7 +337,7 @@ function starSettingSave(){
 }
 
 //文章保存
-function starArticleSave(){
+function starArticleStore(){
 	var title = $.trim($('input[name="title"]').val());
 	if(title==''){
 		starToast('fail', '请输入文章标题');
@@ -353,7 +353,7 @@ function starArticleSave(){
 		return;
 	}
 
-	$.post(backend_path+'/article/save',data,function(res){
+	$.post(backend_path+'/article/store',data,function(res){
 		if(res.code === 200){
 			starToast('success', res.text);
 			setTimeout(function(){
@@ -366,7 +366,7 @@ function starArticleSave(){
 }
 
 //商品保存
-function starProductSave(){
+function starProductStore(){
 	var name = $.trim($('input[name="name"]').val());
 	if(name==''){
 		starToast('fail', '请输入商品名称');
@@ -377,7 +377,7 @@ function starProductSave(){
 	var description = CKEDITOR.instances.description.getData();
 	data += '&description=' + description;
 
-	$.post(backend_path+'/product/save',data,function(res){
+	$.post(backend_path+'/product/store',data,function(res){
 		if(res.code === 200){
 			starToast('success', res.text);
 			setTimeout(function(){
@@ -449,7 +449,7 @@ function starSpecificationDelete(object, id){
 }
 
 //分类保存
-function starCategorySave(type){
+function starCategoryStore(type){
 	var name = $.trim($('input[name="name"]').val());
 	if(name==''){
 		starToast('fail', '请输入分类名称');
@@ -460,7 +460,7 @@ function starCategorySave(type){
 	var state = $('#state').is(':checked')?0:1;
 	data += '&state=' + state;
 
-	$.post(backend_path+'/'+type+'/category/save',data,function(res){
+	$.post(backend_path+'/'+type+'/category/store',data,function(res){
 		if(res.code === 200){
 			starToast('success', res.text);
 			setTimeout(function(){
@@ -473,7 +473,7 @@ function starCategorySave(type){
 }
 
 //用户保存
-function starUserSave(){
+function starUserStore(){
 	var id = $.trim($('input[name="id"]').val());
 	var username = $.trim($('input[name="username"]').val());
 	var password = $.trim($('input[name="password"]').val());
@@ -490,7 +490,7 @@ function starUserSave(){
 	var state = $('#state').is(':checked')?0:1;
 	data += '&state=' + state;
 
-	$.post(backend_path+'/user/save',data,function(res){
+	$.post(backend_path+'/user/store',data,function(res){
 		if(res.code === 200){
 			starToast('success', res.text);
 			setTimeout(function(){
@@ -503,7 +503,7 @@ function starUserSave(){
 }
 
 //用户等级保存
-function starUserLevelSave(){
+function starUserLevelStore(){
 	var id = $.trim($('input[name="id"]').val());
 	var name = $.trim($('input[name="name"]').val());
 	var discount = $.trim($('input[name="discount"]').val());
@@ -520,7 +520,7 @@ function starUserLevelSave(){
 	var state = $('#state').is(':checked')?0:1;
 	data += '&state=' + state;
 
-	$.post(backend_path+'/user/level/save',data,function(res){
+	$.post(backend_path+'/user/level/store',data,function(res){
 		if(res.code === 200){
 			starToast('success', res.text);
 			setTimeout(function(){
@@ -533,7 +533,7 @@ function starUserLevelSave(){
 }
 
 //发货保存
-function starShipmentSave(){
+function starShipmentStore(){
 	var id = $.trim($('select[name="express_id"]').val());
 	var name = $.trim($('input[name="express_no"]').val());
 	if(id==''){
@@ -547,7 +547,7 @@ function starShipmentSave(){
 
 	var data = $('form').serialize();
 
-	$.post(backend_path+'/order/shipment/save',data,function(res){
+	$.post(backend_path+'/order/shipment/store',data,function(res){
 		if(res.code === 200){
 			starToast('success', res.text);
 			setTimeout(function(){
@@ -560,7 +560,7 @@ function starShipmentSave(){
 }
 
 //帮助保存
-function starHelpSave(){
+function starHelpStore(){
 	var title = $.trim($('input[name="title"]').val());
 	if(title==''){
 		starToast('fail', '请输入帮助标题');
@@ -576,7 +576,7 @@ function starHelpSave(){
 		return;
 	}
 
-	$.post(backend_path+'/help/save',data,function(res){
+	$.post(backend_path+'/help/store',data,function(res){
 		if(res.code === 200){
 			starToast('success', res.text);
 			setTimeout(function(){
@@ -589,7 +589,7 @@ function starHelpSave(){
 }
 
 //轮播保存
-function starSlideSave(){
+function starSlideStore(){
 	var title = $.trim($('input[name="title"]').val());
 	if(title==''){
 		starToast('fail', '请输入轮播标题');
@@ -600,7 +600,7 @@ function starSlideSave(){
 	var state = $('#state').is(':checked')?0:1;
 	data += '&state=' + state;
 
-	$.post(backend_path+'/slide/save',data,function(res){
+	$.post(backend_path+'/slide/store',data,function(res){
 		if(res.code === 200){
 			starToast('success', res.text);
 			setTimeout(function(){

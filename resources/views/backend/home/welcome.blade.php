@@ -39,7 +39,7 @@
                     <h2>{{$article_total}}</h2>
                     <div class="clearfix">
                         <div class="pull-left">总数</div>
-                        <div class="pull-right"><a class="label label-primary" href="javascript:void(0);" onclick="starItemJump('article');">发布文章</a></div>
+                        <div class="pull-right"><a class="label label-primary" href="javascript:void(0);" onclick="starShowJump('article');">发布文章</a></div>
                     </div>
                 </div>
             </div>
@@ -54,7 +54,7 @@
                     <h2>{{$product_total}}</h2>
                     <div class="clearfix">
                         <div class="pull-left">总数</div>
-                        <div class="pull-right"><a class="label label-primary" href="javascript:void(0);" onclick="starItemJump('product');">发布商品</a></div>
+                        <div class="pull-right"><a class="label label-primary" href="javascript:void(0);" onclick="starShowJump('product');">发布商品</a></div>
                     </div>
                 </div>
             </div>
@@ -95,10 +95,10 @@
             <div class="panel panel-default">
                 <div class="panel-heading clearfix">
                     <div class="pull-left">关于</div>
-                    <div class="pull-right"><a class="label label-warning" href="">使用帮助</a></div>
+                    <div class="pull-right"></div>
                 </div>
                 <div class="panel-body">
-                    ONEUE，一个简单的电商系统，一个更适合个体/小微商户使用的电商系统。
+                    ONEUE，一个简单的电商系统，更适合个体/小微商户使用的电商系统。
                 </div>
                 <ul class="list-group">
                     <li class="list-group-item">当前版本：v0.1.0</li>

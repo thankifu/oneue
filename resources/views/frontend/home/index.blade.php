@@ -22,17 +22,17 @@
     <div class="container star-floor">
         <div class="clearfix star-hd">
             <div class="pull-left">
-                <a href="{{route('product')}}"><h2>商品</h2></a>
+                <a href="/product"><h2>商品</h2></a>
             </div>
             <div class="pull-right">
-                <a href="{{route('product')}}">查看更多<span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span></a>
+                <a href="/product">查看更多<span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span></a>
             </div>
         </div>
         <div class="row star-bd">
             <ul class="list-unstyled star-list-product">
                 @foreach($product as $item)
                 <li class="col-md-2 col-xs-6">
-                    <a href="{{route('product.item',$item['id'])}}" title="{{$item['name']}}">
+                    <a href="/product/{{$item['id']}}" title="{{$item['name']}}">
                         <p class="star-image">
                             <img src="/images/star-none.png" data-original="{{$item['picture']}}" alt="{{$item['name']}}"/>
                             <span class="star-heart"><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></span>
@@ -52,17 +52,17 @@
     <div class="container star-floor">
         <div class="clearfix star-hd">
             <div class="pull-left">
-                <a href="{{route('article')}}"><h2>文章</h2></a>
+                <a href="/article"><h2>文章</h2></a>
             </div>
             <div class="pull-right">
-                <a href="{{route('article')}}">查看更多<span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span></a>
+                <a href="/article">查看更多<span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span></a>
             </div>
         </div>
         <div class="row star-bd">
             <ul class="list-unstyled star-list-article">
                 @foreach($article as $item)
                 <li class="col-md-4">
-                    <a href="{{route('article.item',$item['id'])}}" title="{{$item['title']}}">
+                    <a href="/article/{{$item['id']}}" title="{{$item['title']}}">
                         <p class="star-image">
                             <img src="/images/star-none.png" data-original="{{$item['picture']}}" alt="{{$item['title']}}" />
                             <span class="star-heart"><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></span>

@@ -84,7 +84,7 @@ class Article extends Common
 		return view('frontend.article.index', $data);
 	}
 
-	public function item(Request $request){
+	public function show(Request $request){
     	$id = (int)$request->id;
 
     	$where = [];
@@ -118,7 +118,7 @@ class Article extends Common
 
 		DB::table('article')->increment('visit', 1);
         
-		return view('frontend.article.item', $data);
+		return view('frontend.article.show', $data);
 	}
 
 }

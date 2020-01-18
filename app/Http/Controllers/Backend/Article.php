@@ -48,16 +48,16 @@ class Article extends Common
 	}
 
 	//添加修改
-	public function item(Request $request){
+	public function show(Request $request){
 		$id = (int)$request->id;
 		$data['article'] = Db::table('article')->where('id',$id)->item();
 		//分类
 		$data['categories'] = DB::table('article_category')->select(['id','name'])->cates('id');
-		return view('backend.article.item',$data);
+		return view('backend.article.show',$data);
 	}
 
 	//保存
-	public function save(Request $request){
+	public function store(Request $request){
 		$id = (int)$request->id;
 		$data['title'] = trim($request->title);
 		$data['content'] = trim($request->content);
@@ -128,16 +128,16 @@ class Article extends Common
 	}
 
 	//分类添加修改
-	public function categoryItem(Request $request){
+	public function categoryShow(Request $request){
 		$parent = (int)$request->parent;
 		$id = (int)$request->id;
 		$data['parent'] = Db::table('article_category')->where('id',$parent)->item();
 		$data['category'] = Db::table('article_category')->where('id',$id)->item();
-		return view('backend.article.category.item',$data);
+		return view('backend.article.category.show',$data);
 	}
 
 	//分类保存
-	public function categorySave(Request $request){
+	public function categoryStore(Request $request){
 		$id = (int)$request->id;
 		$data['name'] = trim($request->name);
 		$data['parent'] = (int)$request->parent;

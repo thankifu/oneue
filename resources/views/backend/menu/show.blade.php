@@ -58,7 +58,7 @@
 		</div>
 		<div class="form-group text-center">
 			<button type="button" class="btn btn-secondary" onclick="starCancel();">取消</button>
-			<button type="button" class="btn btn-primary" onclick="starMenuSave();">保存</button>
+			<button type="button" class="btn btn-primary" onclick="starMenuStore();">保存</button>
 		</div>
 		<input type="hidden" id="parent" name="parent" value="{{isset($parent_menu['id'])?$parent_menu['id']:0}}">
 		<input type="hidden" id="id" name="id" value="{{$menu['id']}}">

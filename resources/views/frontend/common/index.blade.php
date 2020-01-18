@@ -25,7 +25,7 @@
             <a class="navbar-brand" href="#">
                 <h1 class="title hidden-xs">{{$_site['name']}}</h1>
                 <h2 class="subtitle hidden-xs">{{$_site['title']}}</h2>
-                <span>ONEUE</span>
+                <span>{{$_site['name']}}</span>
             </a>
         </div>
         <div class="navbar-collapse collapse" id="star-header-collapse">
@@ -64,7 +64,7 @@
                 <div class="form-group">
                     <input type="text" class="form-control" name="keyword" value="{{request()->get('keyword')}}" placeholder="请输入关键字">
                 </div>
-                <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search hidden-xs" aria-hidden="true"></i><span class="hidden-sm hidden-md hidden-lg">搜索</span></button>
+                <button type="button" class="btn btn-default" onclick="starSearch();"><i class="glyphicon glyphicon-search hidden-xs" aria-hidden="true"></i><span class="hidden-sm hidden-md hidden-lg">搜索</span></button>
             </form>
             <div class="star-header-cart hidden-xs">
                 <a href="javascript:void(0);" onclick="starGotoCart();">

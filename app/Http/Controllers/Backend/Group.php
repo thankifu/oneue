@@ -40,7 +40,7 @@ class Group extends Common
 	}
 
 	//添加修改
-	public function item(Request $request){
+	public function show(Request $request){
 		$id = (int)$request->id;
 		$data['group'] = DB::table('admin_group')->where('id',$id)->item();
 		if($data['group']['permission']){
@@ -55,11 +55,11 @@ class Group extends Common
 			$results[] = $value;
 		}
 		$data['menus'] = $results;
-		return view('/backend/group/item',$data);
+		return view('/backend/group/show',$data);
 	}
 
 	//保存
-	public function save(Request $request){
+	public function store(Request $request){
 		$id = (int)$request->id;
 		$name = trim($request->name);
 		$menus = $request->menu;

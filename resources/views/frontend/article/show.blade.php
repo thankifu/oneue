@@ -19,6 +19,7 @@
     </ol>
     <div class="row">
         <div class="col-md-9 star-main">
+            {{csrf_field()}}
             <div class="star-info">
                 <div class="star-title"><h1>{{$article['title']}}</h1></div>
                 <div class="star-meta">

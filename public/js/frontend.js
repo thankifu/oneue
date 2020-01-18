@@ -259,6 +259,18 @@ function starResetStore(){
     });
 }
 
+//搜索
+function starSearch(){
+    var keyword = $.trim($('input[name="keyword"]').val());
+    if(keyword == ''){
+        starToast('fail', '请输入关键字');
+        return false;
+    }
+
+    window.location.href = '/search?keyword='+keyword;
+
+}
+
 //喜欢
 function starLike(object){
 	var data = new Object();

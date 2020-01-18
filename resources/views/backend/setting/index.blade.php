@@ -140,7 +140,7 @@
 			<span class="help-block">微信中使用微信帐号快速注册登录方式。</span>
 		</div>
 		<div class="form-group text-center">
-			<button type="button" class="btn btn-primary" onclick="starSettingSave();">保存</button>
+			<button type="button" class="btn btn-primary" onclick="starSettingStore();">保存</button>
 		</div>
 		<input type="hidden" name="key" value="site">
 		{{csrf_field()}}

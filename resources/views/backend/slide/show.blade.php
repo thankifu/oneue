@@ -64,7 +64,7 @@
 		</div>
 		<div class="form-group text-center">
 			<button type="button" class="btn btn-secondary" onclick="starCancel();">取消</button>
-			<button type="button" class="btn btn-primary" onclick="starSlideSave();">保存</button>
+			<button type="button" class="btn btn-primary" onclick="starSlideStore();">保存</button>
 		</div>
 		<input type="hidden" id="id" name="id" value="{{$slide['id']}}">
 	</form>

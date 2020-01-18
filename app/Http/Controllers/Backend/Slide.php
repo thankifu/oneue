@@ -47,14 +47,14 @@ class Slide extends Common
 	}
 
 	//增改
-	public function item(Request $request){
+	public function show(Request $request){
 		$id = (int)$request->id;
 		$data['slide'] = Db::table('slide')->where('id',$id)->item();
-		return view('backend.slide.item',$data);
+		return view('backend.slide.show',$data);
 	}
 
 	//保存
-	public function save(Request $request){
+	public function store(Request $request){
 		$id = (int)$request->id;
 		$data['title'] = trim($request->title);
 		$data['subtitle'] = trim($request->subtitle);

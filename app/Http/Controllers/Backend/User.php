@@ -48,15 +48,15 @@ class User extends Common
 	}
 
 	//添加修改
-	public function item(Request $request){
+	public function show(Request $request){
 		$id = (int)$request->id;
 		$data['user'] = Db::table('user')->where('id',$id)->item();
 		$data['levels'] = Db::table('user_level')->select(['id','name'])->where('state', 1)->cates('id');
-		return view('backend.user.item',$data);
+		return view('backend.user.show',$data);
 	}
 
 	//保存
-	public function save(Request $request){
+	public function store(Request $request){
 		$id = (int)$request->id;
 		$username = trim($request->username);
 		$password = trim($request->password);
@@ -142,14 +142,14 @@ class User extends Common
 	}
 
 	//等级添加修改
-	public function levelItem(Request $request){
+	public function levelShow(Request $request){
 		$id = (int)$request->id;
 		$data['level'] = Db::table('user_level')->where('id',$id)->item();
-		return view('backend.user.level.item',$data);
+		return view('backend.user.level.show',$data);
 	}
 
 	//等级保存
-	public function levelSave(Request $request){
+	public function levelStore(Request $request){
 		$id = (int)$request->id;
 		$data['name'] = trim($request->name);
 		$data['discount'] = trim($request->discount);
