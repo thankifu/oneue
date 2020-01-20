@@ -27,7 +27,7 @@
 			<input class="form-control" type="text" id="domain" name="domain" value="{{isset($value['domain'])?$value['domain']:''}}" placeholder="网站域名" autocomplete="off"/>
 		</div>
 		<div class="form-group">
-			<label for="name">网站标题：</label>
+			<label for="title">网站标题：</label>
 			<input class="form-control" type="text" id="title" name="title" value="{{isset($value['title'])?$value['title']:''}}" placeholder="网站标题" autocomplete="off"/>
 		</div>
 		<div class="form-group">
@@ -79,7 +79,7 @@
 			<span class="help-block">关闭在线购物功能和订单退款时展示。</span>
 		</div>
 		<div class="form-group">
-			<label>在线购物：</label>
+			<label for="shopping">在线购物：</label>
 			<div class="radio">
 				<label class="radio-inline">
 					<input type="radio" name="shopping" value="1" {{isset($value['shopping']) && $value['shopping']==1?'checked':''}}>开
@@ -91,7 +91,7 @@
 			<span class="help-block">立即购买、加入购物车功能。<span class="text-danger">注意：“关闭”此功能请仔细填写上方手机和微信联系方式，否则用户无法联系。 </span></span>
 		</div>
 		<div class="form-group">
-			<label>用户注册：</label>
+			<label for="auth_register">用户注册：</label>
 			<div class="radio">
 				<label class="radio-inline">
 					<input type="radio" name="auth_register" value="1" {{isset($value['auth_register']) && $value['auth_register']==1?'checked':''}}>开
@@ -103,7 +103,7 @@
 			<span class="help-block">用户名、密码的注册方式。<span class="text-danger">注意：“邮箱验证”不开启用户需要输入2次密码确认。 </span></span>
 		</div>
 		<div class="form-group">
-			<label>注册邮箱验证：</label>
+			<label for="auth_email">注册邮箱验证：</label>
 			<div class="radio">
 				<label class="radio-inline">
 					<input type="radio" name="auth_email" value="1" {{isset($value['auth_email']) && $value['auth_email']==1?'checked':''}}>开
@@ -115,7 +115,7 @@
 			<span class="help-block">在用户名、密码的注册方式上增加邮箱真实性验证。<!-- <span class="text-danger">建议：“邮箱认证”和“手机认证”二选其一。 </span>--></span>
 		</div>
 		<div class="form-group sr-only">
-			<label>注册手机验证：</label>
+			<label for="auth_phone">注册手机验证：</label>
 			<div class="radio">
 				<label class="radio-inline">
 					<input type="radio" name="auth_phone" value="1" {{isset($value['auth_phone']) && $value['auth_phone']==1?'checked':''}}>开
@@ -124,11 +124,10 @@
 					<input type="radio" name="auth_phone" value="0" {{isset($value['auth_phone']) && $value['auth_phone']==0?'checked':''}}>关
 				</label>
 			</div>
-			<span class="help-block text-danger">未包含此功能，请勿开启。</span>
 			<!-- <span class="help-block">在用户名、密码的注册方式上增加手机真实性验证。<span class="text-danger">建议：“邮箱认证”和“手机认证”二选其一。</span></span> -->
 		</div>
 		<div class="form-group">
-			<label>微信注册登陆：</label>
+			<label for="auth_wechat">微信注册登陆：</label>
 			<div class="radio">
 				<label class="radio-inline">
 					<input type="radio" name="auth_wechat" value="1" {{isset($value['auth_wechat']) && $value['auth_wechat']==1?'checked':''}}>开

@@ -18,17 +18,20 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
+/**
+ * ----------------------------------------------------------------------
+ * 账户
+ * ----------------------------------------------------------------------
+**/
+
 class Account extends Common
 {
 	use AuthenticatesUsers;
 
+    //指定数据库
 	protected $table = 'admin';
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
+    //构造函数
     public function __construct()
     {
         //$this->middleware('guest:admin')->except('logout');
@@ -40,12 +43,12 @@ class Account extends Common
         return auth()->guard('admin');
     }
 
-    // 登录首页
+    //登录页面
     public function showLogin(){
         return view('backend.account.login');
     }
 
-    // 登录验证
+    //登录验证
     public function login(Request $request){
         $username = trim($request->username);
         $password = trim($request->password);
@@ -65,19 +68,11 @@ class Account extends Common
         echo json_encode(array('code'=>200,'text'=>'登录成功'));
     }
 
-    /**
-     * 后台管理员退出跳转到后台登录页面
-     * Log the user out of the application.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    //退出
     public function logout(Request $request)
     {
         /*$this->guard()->logout();
-
         $request->session()->invalidate();
-
         return redirect('/admin');*/
 
         if($this->guard()->check()){
