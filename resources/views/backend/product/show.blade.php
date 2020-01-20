@@ -16,6 +16,7 @@
 		{{csrf_field()}}
 		<input type="file" name="upload_file" id="upload_file" onchange="starUpload()">
 		<input type="hidden" name="upload_place" id="upload_place" value="">
+		<input type="hidden" name="upload_object" id="upload_object" value="">
 		<iframe name="upload_iframe" id="upload_iframe" style="display: none;"></iframe>
 	</form>
 
@@ -74,7 +75,7 @@
 				<div class="form-group">
 					<span class="star-picture star-picture-square star-mr-10" style="background-image:url({{isset($product['picture'])?$product['picture']:'/images/star-upload-image.png'}});">
 						<i class="star-picture-hd">首图</i>
-						<i class="star-picture-bd" onclick="starPicture('picture');"></i>
+						<i class="star-picture-bd" onclick="starPicture('product', 'picture');"></i>
 						<i class="star-picture-ft"></i>
 						<input class="form-control" type="hidden" id="picture" name="picture" value="{{$product['picture']}}"/>
 					</span>
@@ -82,7 +83,7 @@
 				<div class="form-group">
 					@for($i = 0; $i < 4; $i++)
 					<span class="star-picture star-picture-square star-mr-10" style="background-image:url({{isset($pictures[$i]['picture'])?$pictures[$i]['picture']:'/images/star-upload-image.png'}});">
-						<i class="star-picture-bd" onclick="starPicture('pictures[{{$i}}][picture]');"></i>
+						<i class="star-picture-bd" onclick="starPicture('product', 'pictures[{{$i}}][picture]');"></i>
 						<input type="hidden" name="pictures[{{$i}}][id]" value="{{isset($pictures[$i]['id'])?$pictures[$i]['id']:''}}">
 						<input type="hidden" name="pictures[{{$i}}][picture]" value="{{isset($pictures[$i]['picture'])?$pictures[$i]['picture']:''}}" />
 						<input type="hidden" name="pictures[{{$i}}][position]" value="{{isset($pictures[$i]['position'])?$pictures[$i]['position']:$i}}" />
@@ -117,7 +118,7 @@
 					<tr>
 						<td>
 							<span class="star-picture star-picture-square star-mr-10" style="background-image:url({{isset($item['picture'])?$item['picture']:'/images/star-upload-image.png'}});">
-								<i class="star-picture-bd" onclick="starPicture('picture');"></i>
+								<i class="star-picture-bd" onclick="starPicture('product', 'specifications[{{$i}}][picture]');"></i>
 								<i class="star-picture-ft"></i>
 								<input class="form-control" type="hidden" name="specifications[{{$i}}][picture]" value="{{$item['picture']}}" autocomplete="off">
 							</span>
@@ -177,7 +178,7 @@
 @include('backend.common.foot')
 <script src="/packages/ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
-	CKEDITOR.replace('description', {height: 500, filebrowserUploadUrl: '{{url('/admin/upload/index')}}?upload_place=editor&_token={{csrf_token()}}',});
+	CKEDITOR.replace('description', {height: 500, filebrowserUploadUrl: '{{url('/admin/upload/index')}}?upload_place=product&upload_object=editor&_token={{csrf_token()}}',});
 </script>
 </body>
 </html>

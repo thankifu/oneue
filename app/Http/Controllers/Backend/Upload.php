@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Storage;
 class Upload extends Common
 {
     public function index(Request $request){
-		$model = new \App\Http\Models\Upload();
-		$data = $model->index($request);
+		$upload = new \App\Http\Models\Upload();
+		$upload->native($request);
 	}
 }

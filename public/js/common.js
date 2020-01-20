@@ -193,9 +193,10 @@ function starSetIframeHeight(iframe) {
 };
 
 //图片上传
-function starPicture(place){
+function starPicture(place, object){
 	$('#upload_file').click();
 	$('#upload_place').val(place);
+	$('#upload_object').val(object);
 };
 //原生上传方式
 function starUpload(){
@@ -203,11 +204,11 @@ function starUpload(){
 	$('#upload_form').submit();
 };
 //原生上传成功
-function starUploadSuccess(place, url){
+function starUploadSuccess(object, url){
 	bootbox.hideAll();
 	starToast('success', '上传成功');
 	$('#upload_file').val('');
-	$('input[name="'+place+'"]').val(url).trigger('change');
+	$('input[name="'+object+'"]').val(url).trigger('change');
 };
 //原生上传失败
 function starUploadFail(message){

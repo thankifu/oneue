@@ -8,22 +8,21 @@ use Illuminate\Support\Facades\Storage;
 
 class Upload extends Model
 {
-    //原生上传
-    public function index(Request $request){
+	//原生上传
+	public function native($request){
 		$place = trim($request->upload_place);
+		$object = trim($request->upload_object);
 
-		if($place === 'editor') {
-			$data = $this->check($request->file('upload'));
-
+		if($object === 'editor') {
 			//验证文件
+			$data = $this->check($request->file('upload'));
 			if($data['code'] !== 200){
 				exit(json_encode(array('uploaded'=>0, 'error'=>array('message'=>$data['msg']))));
 			}
 
-			$path = $request->file('upload')->store('public/uploads');
+			$path = $request->file('upload')->store('public/uploads/'.$place);
 			$url = Storage::url($path);
 			exit(json_encode(array('uploaded'=>1, 'url'=>$url)));
-
 		}
 		
 		if($_FILES['upload_file']['error'] == 4){
@@ -36,15 +35,15 @@ class Upload extends Model
 			exit('<script>parent.window.starUploadFail("'.$data['msg'].'")</script>');
 		}
 
-		if($place === 'avatar') {
-			$path = $request->file('upload_file')->store('public/avatars');
-		}else{
-			$path = $request->file('upload_file')->store('public/uploads');
-		}
+		$path = $request->file('upload_file')->store('public/uploads/'.$place);
 
 		$url = Storage::url($path);
-		exit('<script>parent.starUploadSuccess("'.$place.'","'.$url.'")</script>');
-		
+		exit('<script>parent.starUploadSuccess("'.$object.'","'.$url.'")</script>');
+	}
+
+	//Plupload
+	public function plupload(){
+
 	}
 
 	private function check($file){

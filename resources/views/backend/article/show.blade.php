@@ -16,6 +16,7 @@
 		{{csrf_field()}}
 		<input type="file" name="upload_file" id="upload_file" onchange="starUpload()">
 		<input type="hidden" name="upload_place" id="upload_place" value="">
+		<input type="hidden" name="upload_object" id="upload_object" value="">
 		<iframe name="upload_iframe" id="upload_iframe" style="display: none;"></iframe>
 	</form>
 
@@ -40,7 +41,7 @@
 				<div class="form-group">
 					<span class="star-picture star-picture-rectangle star-mr-10" style="background-image:url({{isset($article['picture'])?$article['picture']:'/images/star-upload-image.png'}});">
 						<i class="star-picture-hd">首图</i>
-						<i class="star-picture-bd" onclick="starPicture('picture');"></i>
+						<i class="star-picture-bd" onclick="starPicture('article' ,'picture');"></i>
 						<i class="star-picture-ft"></i>
 						<input class="form-control" type="hidden" id="picture" name="picture" value="{{isset($article['picture'])?$article['picture']:''}}"/>
 					</span>
@@ -88,7 +89,7 @@
 @include('backend.common.foot')
 <script src="/packages/ckeditor/ckeditor.js"></script>
 <script>
-	CKEDITOR.replace('content', {height: 500, filebrowserUploadUrl: '{{url('/admin/upload/index')}}?upload_place=editor&_token={{csrf_token()}}',});
+	CKEDITOR.replace('content', {height: 500, filebrowserUploadUrl: '{{url('/admin/upload/index')}}?upload_place=article&upload_object=editor&_token={{csrf_token()}}',});
 </script>
 </body>
 </html>

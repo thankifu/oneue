@@ -23,11 +23,12 @@
                     {{csrf_field()}}
                     <input type="file" name="upload_file" id="upload_file" onchange="starUpload()">
                     <input type="hidden" name="upload_place" id="upload_place" value="">
+                    <input type="hidden" name="upload_object" id="upload_object" value="">
                     <iframe name="upload_iframe" id="upload_iframe" style="display: none;"></iframe>
                 </form>
                 <form id="form" class="text-center">
                     {{csrf_field()}}
-                    <p onclick=starPicture("avatar") style="cursor:pointer">
+                    <p onclick="starPicture('avatar', 'avatar')" style="cursor:pointer">
                         <img src="{{$user['avatar']}}" alt="{{$user['username']}}" class="img-circle" width="100"/>
                     </p>
                     <p>点击头像修改</p>
