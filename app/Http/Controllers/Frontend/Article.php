@@ -116,7 +116,7 @@ class Article extends Common
 		$data['page_keywords'] = $data['article']['seo_keywords'];
 		$data['page_description'] = $data['article']['seo_description'];
 
-		DB::table('article')->increment('visit', 1);
+		DB::table('article')->where('id', $id)->increment('visit', 1);
         
 		return view('frontend.article.show', $data);
 	}

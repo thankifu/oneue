@@ -168,7 +168,7 @@ class Product extends Common
 		$data['page_keywords'] = $data['product']['seo_keywords'];
 		$data['page_description'] = $data['product']['seo_description'];
 		
-		DB::table('product')->increment('visit', 1);
+		DB::table('product')->where('id', $id)->increment('visit', 1);
         
 		return view('frontend.product.show', $data);
 	}
