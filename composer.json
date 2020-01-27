@@ -1,9 +1,8 @@
 {
-    "name": "oneue",
+    "name": "laravel/laravel",
     "type": "project",
-    "description": "A simple shopping website.",
+    "description": "The Laravel Framework.",
     "keywords": [
-        "oneue",
         "framework",
         "laravel"
     ],
@@ -14,7 +13,8 @@
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
         "overtrue/laravel-wechat": "~5.0",
-        "simplesoftwareio/simple-qrcode": "~2"
+        "simplesoftwareio/simple-qrcode": "~2",
+        "tymon/jwt-auth": "1.0.0-rc.4.1"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
@@ -61,5 +61,11 @@
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
         ]
+    },
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://mirrors.aliyun.com/composer/"
+        }
     }
 }

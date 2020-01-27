@@ -40,6 +40,8 @@ class Kernel extends HttpKernel
         'api' => [
             'throttle:60,1',
             'bindings',
+            //跨域
+            \App\Http\Middleware\EnableCrossRequest::class,
         ],
     ];
 
@@ -60,12 +62,12 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-
+        //新增认证
         'auth.admin' => \App\Http\Middleware\AuthenticateAdmin::class,
         'guest.admin' => \App\Http\Middleware\RedirectIfAuthenticatedAdmin::class,
         'auth.menus' => \App\Http\Middleware\AuthenticateMenus::class,
-
         'auth.wechat' => \Overtrue\LaravelWeChat\Middleware\OAuthAuthenticate::class,
+        'auth.api' => \App\Http\Middleware\AuthenticateApi::class,
     ];
 
     /**
