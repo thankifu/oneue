@@ -6,7 +6,7 @@
         <div class="row star-slides">
             <div class="swiper-container">
                 <ul class="list-unstyled swiper-wrapper">
-                    @foreach($slide as $item)
+                    @foreach($slides as $item)
                     <li class="swiper-slide">
                         <a href="{{$item['url']}}" style="background-image:url({{$item['picture']}});">
                             <div class="star-title">{{$item['title']}}</div>
@@ -30,7 +30,7 @@
         </div>
         <div class="row star-bd">
             <ul class="list-unstyled star-list-product">
-                @foreach($product as $item)
+                @foreach($products as $item)
                 <li class="col-md-2 col-xs-6">
                     <a href="/product/{{$item['id']}}" title="{{$item['name']}}">
                         <p class="star-image">
@@ -60,7 +60,7 @@
         </div>
         <div class="row star-bd">
             <ul class="list-unstyled star-list-article">
-                @foreach($article as $item)
+                @foreach($articles as $item)
                 <li class="col-md-4">
                     <a href="/article/{{$item['id']}}" title="{{$item['title']}}">
                         <p class="star-image">
@@ -78,10 +78,6 @@
     </div>
 
 </div>
-<!-- <div class="star-main">
-    <div class="floor container">
-    </div>
-</div> -->
 @endsection
 
 @section('script')
