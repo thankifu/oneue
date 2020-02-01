@@ -2,7 +2,7 @@
 
 一个简单的电商系统，适合个体/微小商户企业使用，包含PC/WAP端（自适应），小程序端，空闲时间兴趣撸码，持续更新中... 请关注！
 
-由于一个人写三端，难免会产生一些错误，代码还在维护完善中，如有碰到BUG，欢迎反馈，谢谢！
+代码持续维护完善中，如有碰到BUG，欢迎反馈，谢谢！
 
 ## 联系
 
@@ -18,56 +18,56 @@
 
 ## 使用
 
-1.clone 项目
+##### 1.clone 项目
 
-- Gitee：
+Gitee：
 
-- ```bash
+```bash
   git clone https://gitee.com/thankifu/oneue.git
-  ```
+```
 
-- Github：
+Github：
 
-- ```bash
+```bash
   git clone https://github.com/thankifu/oneue.git
-  ```
+```
 
-2.通过 composer 安装依赖。
+##### 2.通过 composer 安装依赖。
 
 ```bash
 composer install
 ```
 
-3.复制一份.env.example并命名为.evn。
+##### 3.复制一份.env.example并命名为.evn。
 
-- Linux系统：
+Linux系统：
 
-- ```bash
+```bash
   cp .env.example .env
-  ```
+```
 
-- Windows系统：
+Windows系统：
 
-- ```bash
+```bash
   copy .env.example .env
-  ```
+```
 
-4.修改.evn中的配置。
+##### 4.修改.evn中的配置。
 
-- 数据库配置：
+数据库配置：
 
-- ```php
+```php
   DB_CONNECTION=mysql
   DB_HOST=127.0.0.1
   DB_PORT=3306
   DB_DATABASE=laravel
   DB_USERNAME=root
   DB_PASSWORD=
-  ```
+```
 
-- 邮箱注册需配置：
+邮箱注册需配置：
 
-- ```PHP
+```PHP
   MAIL_DRIVER=smtp
   MAIL_HOST=smtp.域名.com
   MAIL_PORT=25/465
@@ -76,38 +76,38 @@ composer install
   MAIL_ENCRYPTION=null/ssl
   MAIL_FROM_ADDRESS=邮箱
   MAIL_FROM_NAME=发件人名/网站名
-  ```
-  
-- 微信注册登陆需配置：
+```
 
-- ```
+微信注册登陆需配置：
+
+```
   WECHAT_OFFICIAL_ACCOUNT_APPID = APP_ID
   WECHAT_OFFICIAL_ACCOUNT_SECRET = APP_SECRET
-  ```
-  
-- 微信支付需配置：
+```
 
-- ```php
+微信支付需配置：
+
+```php
   WECHAT_PAYMENT_APPID = APP_ID
   WECHAT_PAYMENT_MCH_ID = 商户号
   WECHAT_PAYMENT_KEY = API_KEY
-  ```
+```
 
-5.生成密钥。
+##### 5.生成密钥。
 
 ```bash
 php artisan key:generate
 ```
 
-6.创建符号链接。
+##### 6.创建符号链接。
 
 ```bash
 php artisan storage:link
 ```
 
-7.将oneue.sql导入到数据库 [因项目还在更新中，数据库也会随时更新]。
+##### 7.将oneue.sql导入到数据库 [因项目还在更新中，数据库也会随时更新]。
 
-8.数据库默认的后台帐号密码同为：admin。
+##### 8.数据库默认的后台帐号密码同为：admin。
 
 ## 功能
 
