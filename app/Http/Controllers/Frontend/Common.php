@@ -18,22 +18,14 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
-class Common extends Controller
-{
-    public function __construct(){
-        
-    }
+/**
+ * 公用
+**/
 
-    public function log($abstract){
-    	$admin_id = auth()->guard('admin')->user()['id'];
-    	$model = new \App\Http\Models\Log();
-		$data = $model->backend(['admin_id'=>$admin_id,'abstract'=>$abstract]);
-
-    }
-
+class Common extends Controller{
+    //验证参数
     protected function validator($params){
         $input = $params;
-
         $rules = [
             'username' => 'sometimes|required|min:4|max:15',
             'password' => 'sometimes|required|min:6|max:20',
@@ -65,17 +57,15 @@ class Common extends Controller
             'sex' => '性别',
             'age' => '年龄',
         ];
-
         $validator = Validator::make($input, $rules, $messages, $attributes);
-       
-        if ($validator->fails()) {
+        if($validator->fails()){
             $message = $validator->errors()->all();
-            //print_r($message);
             $this->returnMessage(400,$message[0]);
         }
     }
 
-    public function returnMessage($code, $text='', $data=[]){
+    //返回消息
+    protected function returnMessage($code, $text='', $data=[]){
         $return_data['code'] = $code;
         $return_data['text'] = $text;
         $return_data['data'] = $data;
@@ -83,12 +73,23 @@ class Common extends Controller
         die;
     }
 
-    public function getUserDiscount(){
-        if(!auth()->user()){
+    //获取已认证用户
+    protected function getUser(){
+        $user = [];
+        if(auth()->user()){
+            $user = auth()->user()->toArray();
+        }
+        return $user;
+    }
+
+    //获取用户折扣
+    protected function getUserDiscount(){
+        $user = $this->getUser();
+        if(!$user){
             return 1;
             exit();
         }
-        $user_level = auth()->user()->level;
+        $user_level = $user['level'];
         $user_discount = Db::table('user_level')->select(['discount'])->where('id', $user_level)->item();
         if(!$user_discount){
             $user_discount = 10; //如果没有等级，则默认无折扣
@@ -99,16 +100,18 @@ class Common extends Controller
         return $result;
     }
 
-    public function getProductPrice($price, $discount = 1){
-        if(!auth()->user()){
+    //获取商品价格
+    protected function getProductPrice($price, $discount = 1){
+        $user = $this->getUser();
+        if(!$user){
             return $price;
             exit();
-        }   
+        }
         $result = number_format(floatval($price) * $discount, 2, '.', '');
         return $result;
     }
 
-    //获取配置
+    //获取网站设置
     protected function getSeting($key){
         $data = Db::table('admin_setting')->where(array('key'=>$key))->item();
         $data['value'] && $data['value'] = json_decode($data['value'],true);
@@ -116,14 +119,13 @@ class Common extends Controller
         return $data;
     }
 
-    protected function getNumber()
-    {
-        //生成16位订单编号
+    //生成订单编号
+    protected function getNumber(){
         $number = date('Ymd').substr(implode(NULL, array_map('ord', str_split(substr(uniqid(), 7, 13), 1))), 0, 8);
         return $number;
     }
 
-    //生成随机参数
+    //生成随机数字
     protected function getCode($len, $chars=null) {
         if (is_null($chars)){  
             $chars = "0123456789";  
@@ -148,7 +150,6 @@ class Common extends Controller
         }else{
             $this->returnMessage(400, "验证码不存在");
         }
-        
     }
 
     //手机验证码验证

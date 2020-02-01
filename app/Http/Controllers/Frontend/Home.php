@@ -14,12 +14,15 @@
 namespace App\Http\Controllers\Frontend;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+
+/**
+ * 首页
+**/
 
 class Home extends Common
 {
-    //
+	//首页
     public function index(Request $request){
     	$discount = $this->getUserDiscount();
 
@@ -40,5 +43,4 @@ class Home extends Common
         
 		return view('frontend.home.index', $data);
 	}
-
 }
