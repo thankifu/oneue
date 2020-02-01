@@ -338,17 +338,10 @@ function starSettingStore(){
 
 //文章保存
 function starArticleStore(){
-	var title = $.trim($('input[name="title"]').val());
-	if(title==''){
-		starToast('fail', '请输入文章标题');
-		return;
-	}
+	var data = $('#form').serializeJson();
+	data.content = CKEDITOR.instances.content.getData();
 
-	var data = $('#form').serialize();
-	var content = CKEDITOR.instances.content.getData();
-	data += '&content=' + content;
-
-	if(data.title==''){
+	if(data.title == '' || data.title == undefined){
 		starToast('fail', '请输入文章标题');
 		return;
 	}
@@ -367,15 +360,13 @@ function starArticleStore(){
 
 //商品保存
 function starProductStore(){
-	var name = $.trim($('input[name="name"]').val());
-	if(name==''){
+	var data = $('#form').serializeJson();
+	data.description = CKEDITOR.instances.description.getData();
+
+	if(data.name == '' || data.name == undefined){
 		starToast('fail', '请输入商品名称');
 		return;
 	}
-
-	var data = $('#form').serialize();
-	var description = CKEDITOR.instances.description.getData();
-	data += '&description=' + description;
 
 	$.post(backend_path+'/product/store',data,function(res){
 		if(res.code === 200){
@@ -450,15 +441,13 @@ function starSpecificationDelete(object, id){
 
 //分类保存
 function starCategoryStore(type){
-	var name = $.trim($('input[name="name"]').val());
-	if(name==''){
+	var data = $('form').serializeJson();
+	data.state = $('#state').is(':checked')?0:1;
+
+	if(data.name == '' || data.name == undefined){
 		starToast('fail', '请输入分类名称');
 		return;
 	}
-
-	var data = $('form').serialize();
-	var state = $('#state').is(':checked')?0:1;
-	data += '&state=' + state;
 
 	$.post(backend_path+'/'+type+'/category/store',data,function(res){
 		if(res.code === 200){
@@ -561,17 +550,10 @@ function starShipmentStore(){
 
 //帮助保存
 function starHelpStore(){
-	var title = $.trim($('input[name="title"]').val());
-	if(title==''){
-		starToast('fail', '请输入帮助标题');
-		return;
-	}
+	var data = $('#form').serializeJson();
+	data.content = CKEDITOR.instances.content.getData();
 
-	var data = $('#form').serialize();
-	var content = CKEDITOR.instances.content.getData();
-	data += '&content=' + content;
-
-	if(data.title==''){
+	if(data.title == '' || data.title == undefined){
 		starToast('fail', '请输入帮助标题');
 		return;
 	}
