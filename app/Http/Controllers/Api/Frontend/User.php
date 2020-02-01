@@ -360,8 +360,10 @@ class User extends Common
 
 	//订单列表
 	public function order(Request $request){
-		$user = auth()->user();
+		$user = $this->getUser();
 		$state = (int)$request->state;
+
+		//exit(print_r($user));
 
 		$where = [];
 		$where[] = ['user_id', '=', $user['id']];
@@ -406,6 +408,7 @@ class User extends Common
     	foreach ($data['lists'] as &$value) {
             list($value['products']) = [[]];
             foreach ($products as $product) {
+            	$product['picture'] = config('app.url').$product['picture'];
             	if ($product['order_id'] === $value['id']) {
             		array_push($value['products'], $product);
             	}
@@ -422,7 +425,7 @@ class User extends Common
 		$data['page_keywords'] = '我的,'.$site['name'];
 		$data['page_description'] = '';
 
-		return view('frontend.user.order.index', $data);
+		$this->returnMessage(200,'成功', $data);
 	}
 
 	//订单详情
