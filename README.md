@@ -18,7 +18,7 @@
 
 ## 使用
 
-##### 1.clone 项目
+### 1.clone 项目
 
 Gitee：
 
@@ -32,13 +32,13 @@ Github：
   git clone https://github.com/thankifu/oneue.git
 ```
 
-##### 2.通过 composer 安装依赖。
+### 2.通过 composer 安装依赖。
 
 ```bash
 composer install
 ```
 
-##### 3.复制一份.env.example并命名为.evn。
+### 3.复制一份.env.example并命名为.evn。
 
 Linux系统：
 
@@ -52,7 +52,7 @@ Windows系统：
   copy .env.example .env
 ```
 
-##### 4.修改.evn中的配置。
+### 4.修改.evn中的配置。
 
 数据库配置：
 
@@ -93,21 +93,23 @@ Windows系统：
   WECHAT_PAYMENT_KEY = API_KEY
 ```
 
-##### 5.生成密钥。
+### 5.生成密钥。
 
 ```bash
 php artisan key:generate
 ```
 
-##### 6.创建符号链接。
+### 6.创建符号链接。
 
 ```bash
 php artisan storage:link
 ```
 
-##### 7.将oneue.sql导入到数据库 [因项目还在更新中，数据库也会随时更新]。
+### 7.将oneue.sql导入到数据库。
 
-##### 8.数据库默认的后台帐号密码同为：admin。
+[因项目还在更新中，数据库也会随时更新]。
+
+### 8.数据库默认的后台帐号密码同为：admin。
 
 ## 功能
 
