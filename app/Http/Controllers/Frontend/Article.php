@@ -14,28 +14,32 @@
 namespace App\Http\Controllers\Frontend;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
-class Article extends Common
-{
-    //
-    public function index(Request $request){
-    	$user_id = 0;
-    	if(auth()->user()){
-    		$user_id = auth()->user()->id;
-    	}
+/**
+ * 文章
+**/
 
+class Article extends Common{
+    //列表
+    public function index(Request $request){
+    	//用户信息
+    	$user = $this->getUser();
+
+    	//获取列表
 		$data = Db::table('article')->where('state', 1)->orderBy('id','desc')->pages('', 12);
 
+		//循环增值
 		foreach ($data['lists'] as $key => $value) {
-			//用户喜欢状态
-			$like = 0;
-			$user_like = Db::table('user_like')->where('user_id', $user_id)->where('article_id', $data['lists'][$key]['id'])->where('state',1)->item();
-			if($user_like){
-				$like = 1;
+			//喜欢状态
+			$data['lists'][$key]['like'] = 0;
+			if($user){
+				$user_id = $user['id'];
+				$user_like = Db::table('user_like')->where('user_id', $user_id)->where('article_id', $data['lists'][$key]['id'])->where('state',1)->item();
+				if($user_like){
+					$data['lists'][$key]['like'] = 1;
+				}
 			}
-			$data['lists'][$key]['like'] = $like;
 		}
 
 		//SEO优化
@@ -44,32 +48,39 @@ class Article extends Common
 		$data['page_keywords'] = '文章,'.$site['name'];
 		$data['page_description'] = '';
 
+		//返回模板
 		return view('frontend.article.index', $data);
 	}
 
+	//分类列表
 	public function category(Request $request){
+    	//获取参数
     	$id = (int)$request->id;
-    	$user_id = 0;
-    	if(auth()->user()){
-    		$user_id = auth()->user()->id;
-    	}
+    	
+    	//用户信息
+    	$user = $this->getUser();
 
+    	//查询参数
     	$where = [];
     	$where[] = ['state', '=', 1];
 		if(isset($request->id)){
 			$where[] = ['category_id', '=', $id];
 		}
 
+		//获取列表
 		$data = Db::table('article')->where($where)->orderBy('id','desc')->pages('', 12);
 		
+		//循环增值
 		foreach ($data['lists'] as $key => $value) {
-			//用户喜欢状态
-			$like = 0;
-			$user_like = Db::table('user_like')->where('user_id', $user_id)->where('article_id', $data['lists'][$key]['id'])->where('state',1)->item();
-			if($user_like){
-				$like = 1;
+			//喜欢状态
+			$data['lists'][$key]['like'] = 0;
+			if($user){
+				$user_id = $user['id'];
+				$user_like = Db::table('user_like')->where('user_id', $user_id)->where('article_id', $data['lists'][$key]['id'])->where('state',1)->item();
+				if($user_like){
+					$data['lists'][$key]['like'] = 1;
+				}
 			}
-			$data['lists'][$key]['like'] = $like;
 		}
 
 		//当前分类
@@ -81,29 +92,38 @@ class Article extends Common
 		$data['page_keywords'] = $data['category']['seo_keywords'];
 		$data['page_description'] = $data['category']['seo_description'];
         
+        //返回模板
 		return view('frontend.article.index', $data);
 	}
 
+	//详情
 	public function show(Request $request){
+    	//获取参数
     	$id = (int)$request->id;
 
+    	//用户信息
+    	$user = $this->getUser();
+
+    	//查询参数
     	$where = [];
     	$where[] = ['state', '=', 1];
 		if(isset($request->id)){
 			$where[] = ['id', '=', $id];
 		}
 
+		//详情详情
 		$data['article'] = Db::table('article')->where($where)->orderBy('id','desc')->item();
+
+		//格式化内容图片
 		$data['article']['content'] = preg_replace( '#<img([^>]+?)src=[\'"]?([^\'"\s>]+)[\'"]?([^>]*)>#', sprintf( '<img${1}src="%s" data-original="${2}"${3}>', '/images/star-none.png' ), $data['article']['content'] );
 
 		//当前分类
 		$data['category'] = Db::table('article_category')->where('id',$data['article']['category_id'])->where('state',1)->select(['id','name'])->item();
 
-		//喜欢状态
+        //喜欢状态
 		$data['like'] = 0;
-		if(auth()->user()){
-            //喜欢状态
-            $user_id = auth()->user()->id;
+		if($user){
+            $user_id = $user['id'];
 			$user_like = Db::table('user_like')->where('user_id', $user_id)->where('article_id', $id)->where('state',1)->item();
 			if($user_like){
 				$data['like'] = 1;
@@ -116,8 +136,10 @@ class Article extends Common
 		$data['page_keywords'] = $data['article']['seo_keywords'];
 		$data['page_description'] = $data['article']['seo_description'];
 
+		//访问量+1
 		DB::table('article')->where('id', $id)->increment('visit', 1);
         
+        //返回模板
 		return view('frontend.article.show', $data);
 	}
 
