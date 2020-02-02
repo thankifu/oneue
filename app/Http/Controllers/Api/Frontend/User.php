@@ -360,11 +360,13 @@ class User extends Common
 
 	//订单列表
 	public function order(Request $request){
-		$user = $this->getUser();
+		//获取参数
 		$state = (int)$request->state;
 
-		//exit(print_r($user));
+		//用户信息
+		$user = $this->getUser();
 
+		//查询参数
 		$where = [];
 		$where[] = ['user_id', '=', $user['id']];
 		if(isset($request->state) && $state == 1){
@@ -383,6 +385,7 @@ class User extends Common
 			$where[] = ['state', '=', 5];
 		}
 
+		//页码参数
 		$appends = [];
 		if(isset($request->state) && $state == 1){
 			$appends['state'] = 1;
@@ -400,11 +403,14 @@ class User extends Common
 			$appends['state'] = 5;
 		}
 
+		//获取列表
     	$data = Db::table('order')->where($where)->orderBy('id','desc')->pages();
 
+    	//分拣订单ID
     	$order_id = array_column($data['lists'], 'id');
+    	
+    	//获取订单商品
     	$products = Db::table('order_product')->whereIn('order_id', $order_id)->lists();
-
     	foreach ($data['lists'] as &$value) {
             list($value['products']) = [[]];
             foreach ($products as $product) {
@@ -414,10 +420,6 @@ class User extends Common
             	}
             }
         }
-        $data['user'] = $user;
-        
-        /*print_r($orders);
-        exit();*/
 
         //SEO优化
 		$site = $this->getSeting('site')['value'];
@@ -425,20 +427,41 @@ class User extends Common
 		$data['page_keywords'] = '我的,'.$site['name'];
 		$data['page_description'] = '';
 
+		//返回信息
 		$this->returnMessage(200,'成功', $data);
 	}
 
 	//订单详情
 	public function orderShow(Request $request){
+		//获取参数
 		$id = (int)$request->id;
 
-		$data['user'] = auth()->user();
-		$data['order'] = Db::table('order')->where(array(['id', $id],['user_id', $data['user']['id']]))->orderBy('id','desc')->item();
-		$data['products'] = Db::table('order_product')->where(array(['order_id', $data['order']['id']]))->orderBy('id','desc')->lists();
+		//用户信息
+		$user = $this->getUser();
+		$user_id = $user['id'];
 
-		if(!$data['order']){
-			return redirect('/user/order');
+		//获取详情
+		$order = Db::table('order')->where(array(['id', $id],['user_id', $user_id]))->orderBy('id','desc')->item();
+
+		//不存在
+		if(!$order){
+			$this->returnMessage(400,'失败');
 		}
+
+		//获取订单商品
+		$order['products'] = Db::table('order_product')->where(array(['order_id', $order['id']]))->orderBy('id','desc')->lists();
+
+		//格式化参数
+		foreach ($order['products'] as $key => $value) {
+			$order['products'][$key]['picture'] = config('app.url').$order['products'][$key]['picture'];
+		}
+		$order['created'] = date('Y-m-d H:i:s', $order['created']);
+		$order['prepaid'] = $order['prepaid'] ? date('Y-m-d H:i:s', $order['prepaid']) : $order['prepaid'];
+		$order['shipped'] = $order['shipped'] ? date('Y-m-d H:i:s', $order['shipped']) : $order['shipped'];
+		$order['received'] = $order['received'] ? date('Y-m-d H:i:s', $order['received']) : $order['received'];
+
+		//赋值
+		$data['order'] = $order;
 
 		//SEO优化
 		$site = $this->getSeting('site')['value'];
@@ -446,7 +469,8 @@ class User extends Common
 		$data['page_keywords'] = '我的,'.$site['name'];
 		$data['page_description'] = '';
 
-		return view('frontend.user.order.show', $data);
+		//返回信息
+		$this->returnMessage(200,'成功', $data);
 	}
 
 	//订单确认收货
