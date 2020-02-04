@@ -29,7 +29,7 @@ class Article extends Common{
     	//获取列表
 		$data = Db::table('article')->where('state', 1)->orderBy('id','desc')->pages('', 12);
 
-		//循环增值
+		//更新参数
 		foreach ($data['lists'] as $key => $value) {
 			//喜欢状态
 			$data['lists'][$key]['like'] = 0;
@@ -70,7 +70,7 @@ class Article extends Common{
 		//获取列表
 		$data = Db::table('article')->where($where)->orderBy('id','desc')->pages('', 12);
 		
-		//循环增值
+		//更新参数
 		foreach ($data['lists'] as $key => $value) {
 			//喜欢状态
 			$data['lists'][$key]['like'] = 0;
@@ -111,10 +111,10 @@ class Article extends Common{
 			$where[] = ['id', '=', $id];
 		}
 
-		//详情详情
+		//获取详情
 		$data['article'] = Db::table('article')->where($where)->orderBy('id','desc')->item();
 
-		//格式化内容图片
+		//格式化参数
 		$data['article']['content'] = preg_replace( '#<img([^>]+?)src=[\'"]?([^\'"\s>]+)[\'"]?([^>]*)>#', sprintf( '<img${1}src="%s" data-original="${2}"${3}>', '/images/star-none.png' ), $data['article']['content'] );
 
 		//当前分类
