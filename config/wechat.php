@@ -114,6 +114,15 @@ return [
             'key_path'           => env('WECHAT_PAYMENT_KEY_PATH', 'path/to/cert/apiclient_key.pem'),      // XXX: 绝对路径！！！！
             'notify_url'         => env('APP_URL').'/wechat/notify',                           // 默认支付结果通知地址
         ],
+        'mini_program' => [
+            'sandbox'            => env('WECHAT_PAYMENT_SANDBOX', false),
+            'app_id'             => env('WECHAT_MINI_PROGRAM_APPID', ''),
+            'mch_id'             => env('WECHAT_PAYMENT_MCH_ID', 'your-mch-id'),
+            'key'                => env('WECHAT_PAYMENT_KEY', 'key-for-signature'),
+            'cert_path'          => env('WECHAT_PAYMENT_CERT_PATH', 'path/to/cert/apiclient_cert.pem'),    // XXX: 绝对路径！！！！
+            'key_path'           => env('WECHAT_PAYMENT_KEY_PATH', 'path/to/cert/apiclient_key.pem'),      // XXX: 绝对路径！！！！
+            'notify_url'         => env('APP_URL').'/wechat/notify/mini-program',                           // 默认支付结果通知地址
+        ],
         // ...
     ],
 
