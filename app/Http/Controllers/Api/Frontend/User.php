@@ -16,37 +16,7 @@ namespace App\Http\Controllers\Api\Frontend;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class User extends Common
-{
-	public function __construct(Request $request){        
-    }
-    
-    //用户中心
-    public function index(Request $request){
-    	$data['user'] = auth()->user();
-		//$data = Db::table('article')->where('state', 1)->orderBy('id','desc')->pages('', 12);
-
-		//SEO优化
-		$site = $this->getSeting('site')['value'];
-		$data['page_title'] = '我的 - '.$site['name'];
-		$data['page_keywords'] = '我的,'.$site['name'];
-		$data['page_description'] = '';
-
-		return view('frontend.user.index', $data);
-	}
-
-	//账户设置
-	public function setting(Request $request){
-    	$data['user'] = auth()->user();
-
-    	//SEO优化
-		$site = $this->getSeting('site')['value'];
-		$data['page_title'] = '我的 - '.$site['name'];
-		$data['page_keywords'] = '我的,'.$site['name'];
-		$data['page_description'] = '';
-
-		return view('frontend.user.setting', $data);
-	}
+class User extends Common{
 
 	//密码确认，密码/邮箱/手机修改前需确认登录密码
 	public function confirmation(Request $request){
@@ -254,18 +224,27 @@ class User extends Common
 
 	//性别修改储存
 	public function sexStore(Request $request){
-		//获取指定值
+    	//获取指定值
     	$params = $request->only(['sex']);
+    	if(!$params){
+    		$this->returnMessage(400,'参数错误');
+    	}
 
 		//验证数据格式
 		$this->validator($params);
 
-    	$user_id = auth()->user()->id;
-		$data['sex'] = (int)$request->sex;
+		//用户信息
+    	$user = $this->getUser();
+        $user_id = $user['id'];
 
+        //参数设置
+		$data['sex'] = (int)$request->sex;
 		$data['modified'] = time();
+
+		//更新信息
 		$res = Db::table('user')->where('id',$user_id)->update($data);
 
+		//返回信息
 		if(!$res){
 			$this->returnMessage(400,'保存失败');
 		}
@@ -276,16 +255,25 @@ class User extends Common
 	public function ageStore(Request $request){
 		//获取指定值
     	$params = $request->only(['age']);
+    	if(!$params){
+    		$this->returnMessage(400,'参数错误');
+    	}
 
 		//验证数据格式
 		$this->validator($params);
 
-    	$user_id = auth()->user()->id;
-		$data['age'] = (int)$request->age;
+		//用户信息
+    	$user = $this->getUser();
+        $user_id = $user['id'];
 
+        //参数设置
+		$data['age'] = (int)$request->age;
 		$data['modified'] = time();
+
+		//更新信息
 		$res = Db::table('user')->where('id',$user_id)->update($data);
 
+		//返回信息
 		if(!$res){
 			$this->returnMessage(400,'保存失败');
 		}
@@ -294,10 +282,11 @@ class User extends Common
 
 	//收货地址列表
 	public function address(Request $request){
-
+		//用户信息
 		$user = $this->getUser();
         $user_id = $user['id'];
 
+        //获取列表
     	$data['address'] = Db::table('user_address')->where(array(['user_id', $user_id],['state', 1]))->orderBy('id','desc')->lists();
 
     	//SEO优化
@@ -306,18 +295,23 @@ class User extends Common
 		$data['page_keywords'] = '我的,'.$site['name'];
 		$data['page_description'] = '';
 
+		//返回信息
 		$this->returnMessage(200,'成功', $data);
 	}
 	
 	//收获地址详情
 	public function addressShow(Request $request){
+		//获取参数
 		$id = (int)$request->id;
 
+		//用户信息
 		$user = $this->getUser();
         $user_id = $user['id'];
 
+        //获取详情
 		$data['address'] = Db::table('user_address')->where(array(['id', $id],['user_id', $user_id]))->orderBy('id','desc')->item();
 
+		//不存在
 		if($id!=0 && !$data['address']){
 			$this->returnMessage(400,'失败');
 		}
@@ -328,24 +322,31 @@ class User extends Common
 		$data['page_keywords'] = '我的,'.$site['name'];
 		$data['page_description'] = '';
 
+		//返回信息
 		$this->returnMessage(200,'成功', $data);
 	}
 
 	//收获地址储存
 	public function addressStore(Request $request){
+		//获取参数
+		$id = (int)$request->id;
+
+		//用户信息
 		$user = $this->getUser();
         $user_id = $user['id'];
 
-		$id = (int)$request->id;
+        //参数设置
 		$data['name'] = trim($request->name);
 		$data['phone'] = trim($request->phone);
 		$data['content'] = trim($request->content);
 		$data['default'] = (int)$request->default;
 
+		//是否默认
 		if($data['default']){
 			Db::table('user_address')->where('user_id',$user_id)->update(['default' => 0]);
 		}
 
+		//更新或插入
 		if($id){
 			$data['modified'] = time();
 			$res = Db::table('user_address')->where('id',$id)->update($data);
@@ -355,6 +356,8 @@ class User extends Common
 			$data['state'] = 1;
 			$res = Db::table('user_address')->insertGetId($data);
 		}
+
+		//返回信息
 		$this->returnMessage(200,'保存成功');
 	}
 
@@ -495,58 +498,56 @@ class User extends Common
 
 	//我喜欢的
 	public function like(Request $request){
-		//获取当前用户
-    	$user = auth()->user();
-    	$user_id = $user->id;
+		
+		$label = (int)$request->label;
 
+		//用户信息
+		$user = $this->getUser();
+    	$user_id = $user['id'];
+
+    	//用户折扣
+    	$user_discount = $this->getUserDiscount();
+
+    	//查询参数
 		$where = [];
 		$where[] = ['user_id', '=', $user_id];
 		$where[] = ['state', '=', 1];
-		if($request->path() == 'user/like' || $request->path() == 'user/like/product'){
+		if($label == 0 || $label == 2){
 			$where[] = ['product_id', '>', 0];
 		}else{
 			$where[] = ['article_id', '>', 0];
 		}
 
-		$like = Db::table('user_like')->where($where)->lists();
-		
-		if($request->path() == 'user/like' || $request->path() == 'user/like/product'){
-			$like_id = array_column($like, 'product_id');
+		//页码参数
+		$appends = [];
+		if($label == 0 || $label == 2){
+			$appends['label'] = 2;
+		}else{
+			$appends['label'] = 1;
+		}
 
-			$discount = $this->getUserDiscount();
+		//获取列表
+		$likes = Db::table('user_like')->where($where)->lists();
 
+		if($label == 0 || $label == 2){
+			$like_id = array_column($likes, 'product_id');
 			$data = Db::table('product')->whereIn('id', $like_id)->orderBy('id','desc')->pages('', 12);
-
 			foreach ($data['lists'] as $key => $value) {
-				//用户价格折扣
-				$price  = $this->getProductPrice($data['lists'][$key]['selling'], $discount);
+				$data['lists'][$key]['picture'] = config('app.url').$data['lists'][$key]['picture'];
+				$data['lists'][$key]['like'] = 1;
+				$price  = $this->getProductPrice($data['lists'][$key]['selling'], $user_discount);
 				$data['lists'][$key]['price'] = $price;
-
-				//用户喜欢状态
-				$like = 0;
-				$user_like = Db::table('user_like')->where('user_id', $user_id)->where('product_id', $data['lists'][$key]['id'])->where('state',1)->item();
-				if($user_like){
-					$like = 1;
-				}
-				$data['lists'][$key]['like'] = $like;
 			}
 		}else{
-			$like_id = array_column($like, 'article_id');
-
+			$like_id = array_column($likes, 'article_id');
 			$data = Db::table('article')->whereIn('id', $like_id)->orderBy('id','desc')->pages('', 12);
 			foreach ($data['lists'] as $key => $value) {
-				//用户喜欢状态
-				$like = 0;
-				$user_like = Db::table('user_like')->where('user_id', $user_id)->where('article_id', $data['lists'][$key]['id'])->where('state',1)->item();
-				if($user_like){
-					$like = 1;
-				}
-				$data['lists'][$key]['like'] = $like;
+				$data['lists'][$key]['picture'] = config('app.url').$data['lists'][$key]['picture'];
+				$data['lists'][$key]['content'] = str_limit(strip_tags($data['lists'][$key]['content']), $limit = 120, $end = '...');
+				$data['lists'][$key]['like'] = 1;
 			}
 		}
-        //exit(print_r($data));
-
-        $data['user'] = $user;  	
+        //exit(print_r($data));	
 
 		//SEO优化
 		$site = $this->getSeting('site')['value'];
@@ -554,7 +555,7 @@ class User extends Common
 		$data['page_keywords'] = '我的,'.$site['name'];
 		$data['page_description'] = '';
 
-		return view('frontend.user.like.index', $data);
+		$this->returnMessage(200, '成功', $data);
 	}
 
 	//我喜欢的

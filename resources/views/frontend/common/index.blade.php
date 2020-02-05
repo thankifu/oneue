@@ -97,7 +97,14 @@
             @endforeach
         </div>
         @endif
-        <div class="star-copy"><p>{{$_site['copyright']}}</p><p><a rel="nofollow" target="_blank" href="http://www.miitbeian.gov.cn/">{{$_site['miitbeian']}}</a></p></div>
+        <div class="star-copy">
+            <p>{{$_site['copyright']}}</p>
+            <p>
+                <a rel="nofollow" target="_blank" href="http://www.miitbeian.gov.cn/">{{$_site['miitbeian']}}</a>
+                <i></i>
+                <a target="_blank" href="https://www.oneue.com/">Powered by oneue</a>
+            </p>
+        </div>
         
         <div class="navbar navbar-default navbar-fixed-bottom hidden-lg hidden-md hidden-sm star-nav">
             <ul class="list-unstyled">

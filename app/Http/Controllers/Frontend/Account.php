@@ -55,7 +55,7 @@ class Account extends Common
         );
 
         if(!$result){
-            $this->returnMessage(400,'登录失败');
+            $this->returnMessage(400,'用户名/密码错误');
         }
 
         //更新登录ip、时间

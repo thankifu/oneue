@@ -26,7 +26,7 @@ class AuthenticateApi
                 ]);
             }
             //如果想向控制器里传入用户信息，将数据添加到$request里面
-            $request->attributes->add(["user" => $user]);//添加参数
+            //$request->attributes->add(["user" => $user]);//添加参数
             return $next($request);
         } catch (Exception $exception) {
             if ($exception instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException){

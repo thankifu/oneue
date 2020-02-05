@@ -93,9 +93,10 @@ i{font-style:normal;}
 .star-footer .star-help dd a{color:#666;}
 .star-footer .star-help dd span{color:#c2c2c2;font-size:12px;margin-right:5px;}
 .star-footer .star-copy{font-size:14px;margin:40px 0;overflow:hidden;}
-.star-footer .star-copy p{line-height:20px;margin-bottom:0;}
+.star-footer .star-copy p{line-height:20px;margin-bottom:0;overflow:hidden;}
 .star-footer .star-copy p a{color:#666;}
 .star-footer .star-copy p a:hover{color:#333;}
+.star-footer .star-copy p i{background:#ccc;width:1px;height:12px;margin:4px 5px 0;overflow:hidden;display:inline-block;vertical-align:top;}
 .star-footer .star-nav ul{margin:0;}
 .star-footer .star-nav li{width:20%;text-align:center;float:left;overflow:hidden;}
 .star-footer .star-nav li a{color:#999;overflow:hidden;display:block;cursor:pointer;}
