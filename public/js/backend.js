@@ -323,7 +323,7 @@ function starMenuStore(){
 
 //设置保存
 function starSettingStore(){
-	$.post(backend_path+'/setting/store',$('form').serialize(),function(res){
+	$.post(backend_path+'/setting/store',$('#form').serialize(),function(res){
 		if(res.code === 200){
 			starToast('success', res.text);
 			setTimeout(function(){

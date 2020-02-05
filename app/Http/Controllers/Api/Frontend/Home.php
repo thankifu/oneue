@@ -69,6 +69,12 @@ class Home extends Common
 		$data['page_title'] = $site['seo_title']?$site['seo_title']:$site['name'].' - '.$site['title'];
 		$data['page_keywords'] = $site['seo_keywords'];
 		$data['page_description'] = $site['seo_description'];
+
+		unset($site['seo_title']);
+		unset($site['seo_keywords']);
+		unset($site['seo_description']);
+		$data['site'] = $site;
+		
         
 		$this->returnMessage(200, '成功', $data);
 	}

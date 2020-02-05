@@ -48,7 +48,7 @@ Route::prefix('v1')->group(function () {
 		//微信
 		Route::any('wechat/auth/mini-program', 'Wechat@authMiniProgram');
 		Route::any('wechat/payment/mini-program', 'Wechat@paymentMiniProgram');
-		Route::any('wechat/notify/mini-program', 'Frontend\Wechat@notifyMiniProgram');
+		Route::any('wechat/notify/mini-program', 'Wechat@notifyMiniProgram');
 
 		//搜索
 		Route::get('search/{type?}', 'Frontend\Search@index');

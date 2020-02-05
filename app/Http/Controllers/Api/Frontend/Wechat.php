@@ -136,6 +136,7 @@ class Wechat extends Common
     {
         $app = app('wechat.payment.mini_program');
         $response = $app->handlePaidNotify(function ($message, $fail) {
+            //Log::info($message);
             //获取订单号
             $no = $message['out_trade_no'];
 
@@ -149,10 +150,11 @@ class Wechat extends Common
                 //支付成功
                 if (array_get($message, 'result_code') === 'SUCCESS') {
                     //更新参数
-                    $order['prepaid'] = time();
-                    $order['state'] = 2;
+                    $update['prepaid'] = time();
+                    $update['state'] = 2;
+
                     //更新订单
-                    Db::table('order')->where('no',$no)->update($order);
+                    Db::table('order')->where('no',$no)->update($update);
                 //支付失败
                 } else if (array_get($message, 'result_code') === 'FAIL') {
                     
