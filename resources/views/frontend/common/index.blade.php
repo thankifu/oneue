@@ -11,7 +11,7 @@
 @section('style')
 @show
 </head>
-<body class="">
+<body>
 
 <div class="navbar navbar-default star-header">
     <div class="container">
@@ -23,9 +23,8 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="#">
-                <h1 class="title hidden-xs">{{$_site['name']}}</h1>
-                <h2 class="subtitle hidden-xs">{{$_site['title']}}</h2>
-                <span>{{$_site['name']}}</span>
+                <p class="title">{{$_site['name']}}</p>
+                <p class="subtitle hidden-xs">{{$_site['title']}}</p>
             </a>
         </div>
         <div class="navbar-collapse collapse" id="star-header-collapse">
@@ -98,10 +97,14 @@
         </div>
         @endif
         <div class="star-copy">
+            @if($_site['copyright'])
             <p>{{$_site['copyright']}}</p>
+            @endif
             <p>
+                @if($_site['miitbeian'])
                 <a rel="nofollow" target="_blank" href="http://www.miitbeian.gov.cn/">{{$_site['miitbeian']}}</a>
                 <i></i>
+                @endif
                 <a target="_blank" href="https://www.oneue.com/">Powered by oneue</a>
             </p>
         </div>

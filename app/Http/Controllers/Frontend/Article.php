@@ -115,7 +115,7 @@ class Article extends Common{
 		$data['article'] = Db::table('article')->where($where)->orderBy('id','desc')->item();
 
 		//格式化参数
-		$data['article']['content'] = preg_replace( '#<img([^>]+?)src=[\'"]?([^\'"\s>]+)[\'"]?([^>]*)>#', sprintf( '<img${1}src="%s" data-original="${2}"${3}>', '/images/star-none.png' ), $data['article']['content'] );
+		$data['article']['content'] = preg_replace( '#<img([^>]+?)src=[\'"]?([^\'"\s>]+)[\'"]?([^>]*)>#', sprintf( '<img${1}src="%s" data-original="${2}">', '/images/star-none.png' ), $data['article']['content'] );
 
 		//当前分类
 		$data['category'] = Db::table('article_category')->where('id',$data['article']['category_id'])->where('state',1)->select(['id','name'])->item();

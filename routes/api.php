@@ -89,7 +89,7 @@ Route::prefix('v1')->group(function () {
 			Route::get('user/address', 'User@address');
 			Route::get('user/address/{id}', 'User@addressShow');
 			Route::post('user/address/store', 'User@addressStore');
-			Route::get('user/like/{type?}', 'User@like');
+			Route::get('user/like', 'User@like');
 			Route::post('user/like/store', 'User@likeStore');
 			Route::get('user/order', 'User@order');
 			Route::get('user/order/{id}', 'User@orderShow');
