@@ -16,36 +16,51 @@ namespace App\Http\Controllers\Api\Frontend;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class Checkout extends Common
-{
-    //
+/**
+ * 结算
+**/
+
+class Checkout extends Common{
+
+    //结算信息
     public function index(Request $request){
+    	
+    	//获取参数
     	$id = (int)$request->id;
 
+    	//用户信息
     	$user = $this->getUser();
         $user_id = $user['id'];
 
+        //站点信息
+        $site = $this->getSeting('site')['value'];
     	
-    	$data['checkout'] = Db::table('checkout')->where(array(['user_id', $user_id],['state', 1]))->item();
-    	if(!$data['checkout']){
+    	//结算信息
+    	$checkout = Db::table('checkout')->where(array(['user_id', $user_id],['state', 1]))->item();
+    	if(!$checkout){
     		$this->returnMessage(400, '没有结算信息');
     	}
-    	$data['checkout']['address'] = Db::table('user_address')->where('id', $data['checkout']['address_id'])->item();
+
+    	//结算地址
+    	$address = Db::table('user_address')->where('id', $checkout['address_id'])->item();
     	
-		$products = Db::table('checkout_product')->where(array(['checkout_id', $data['checkout']['id']],['state', 1]))->orderBy('id','desc')->lists();
+    	//结算商品
+		$products = Db::table('checkout_product')->where(array(['checkout_id', $checkout['id']],['state', 1]))->orderBy('id','desc')->lists();
 		foreach ($products as $key => $value) {
 			$products[$key]['picture'] = config('app.url').$products[$key]['picture'];
 		}
 
+		//定义返回数据
+		$data['checkout'] = $checkout;
+		$data['checkout']['address'] = $address;
 		$data['checkout']['products'] = $products;
+		$data['page']['title'] = '结算 - '.$site['name'];
+		$data['page']['keywords'] = '结算,'.$site['name'];
+		$data['page']['description'] = '';
 
-		//SEO优化
-		$site = $this->getSeting('site')['value'];
-		$data['page_title'] = '结算 - '.$site['name'];
-		$data['page_keywords'] = '结算,'.$site['name'];
-		$data['page_description'] = '';
-		
+		//返回信息
 		$this->returnMessage(200, '成功', $data);
+
 	}
 
 	public function create(Request $request){

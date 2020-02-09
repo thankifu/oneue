@@ -16,179 +16,215 @@ namespace App\Http\Controllers\Api\Frontend;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class Product extends Common
-{
-    //
+/**
+ * 商品
+**/
+
+class Product extends Common{
+    
+    //列表
     public function index(Request $request){
-    	$user = $this->getUser();
-    	$discount = $this->getUserDiscount();
     	
-		$data = Db::table('product')->select(['id','name','market','selling','picture'])->where('state', 1)->orderBy('id','desc')->pages('', 12);
+    	//用户信息
+    	$user = $this->getUser();
 
-		foreach ($data['lists'] as $key => $value) {
-			$data['lists'][$key]['picture'] = config('app.url').$data['lists'][$key]['picture'];
+    	//站点信息
+    	$site = $this->getSeting('site')['value'];
 
-			//用户价格折扣
-			$data['lists'][$key]['price'] = $data['lists'][$key]['selling'];
-			//用户喜欢状态
-			$data['lists'][$key]['like'] = 0;
-			//如果登录
+    	//用户折扣
+    	$user_discount = $this->getUserDiscount();
+
+    	//获取列表
+		$page = Db::table('product')->select(['id','name','market','selling','picture'])->where('state', 1)->orderBy('id','desc')->page(10);
+		$products = $page->list;
+
+		//格式化列表数据
+		foreach ($products as $key => $value) {
+			$products[$key]['picture'] = config('app.url').$products[$key]['picture'];
+			$products[$key]['price'] = $products[$key]['selling'];
+			$products[$key]['like'] = 0;
 			if($user){
-				//用户价格折扣
-				$data['lists'][$key]['price'] = $this->getProductPrice($data['lists'][$key]['selling'], $discount);
-				//用户喜欢状态
+				$products[$key]['price'] = $this->getProductPrice($products[$key]['selling'], $user_discount);
 				$user_id = $user['id'];
-				$user_like = Db::table('user_like')->where('user_id', $user_id)->where('product_id', $data['lists'][$key]['id'])->where('state',1)->item();
+				$user_like = Db::table('user_like')->where('user_id', $user_id)->where('product_id', $products[$key]['id'])->where('state',1)->item();
 				if($user_like){
-					$data['lists'][$key]['like'] = 1;
+					$products[$key]['like'] = 1;
 				}
 			}
 		}
 
-		//SEO优化
-		$site = $this->getSeting('site')['value'];
-		$data['page_title'] = '商品 - '.$site['name'];
-		$data['page_keywords'] = '商品,'.$site['name'];
-		$data['page_description'] = '';
+		//定义返回数据
+		$data['products'] = $products;
+		$data['page']['title'] = '商品 - '.$site['name'];
+		$data['page']['keywords'] = '商品,'.$site['name'];
+		$data['page']['description'] = '';
+		$data['page']['pagination'] = $page;
 
+		//返回数据
 		$this->returnMessage(200, '成功', $data);
+
 	}
 
+	//分类列表
 	public function category(Request $request){
+
+    	//获取参数
     	$id = (int)$request->id;
     	
+    	//用户信息
     	$user = $this->getUser();
 
-    	$discount = $this->getUserDiscount();
+    	//站点信息
+    	$site = $this->getSeting('site')['value'];
 
+    	//用户折扣
+    	$user_discount = $this->getUserDiscount();
+
+    	//查询参数
     	$where = [];
     	$where[] = ['state', '=', 1];
 		if(isset($request->id)){
 			$where[] = ['category_id', '=', $id];
 		}
 
-		$data = Db::table('product')->where($where)->orderBy('id','desc')->pages('', 12);
+		//获取列表
+		$page = Db::table('product')->select(['id','name','market','selling','picture'])->where($where)->orderBy('id','desc')->page(10);
+		$products = $page->list;
 
-		foreach ($data['lists'] as $key => $value) {
-			//用户价格折扣
-			$data['lists'][$key]['price'] = $data['lists'][$key]['selling'];
-			//用户喜欢状态
-			$data['lists'][$key]['like'] = 0;
-			//如果登录
+		//格式化列表数据
+		foreach ($products as $key => $value) {
+			$products[$key]['picture'] = config('app.url').$products[$key]['picture'];
+			$products[$key]['price'] = $products[$key]['selling'];
+			$products[$key]['like'] = 0;
 			if($user){
-				//用户价格折扣
-				$data['lists'][$key]['price'] = $this->getProductPrice($data['lists'][$key]['selling'], $discount);
-				//用户喜欢状态
+				$products[$key]['price'] = $this->getProductPrice($products[$key]['selling'], $user_discount);
 				$user_id = $user['id'];
-				$user_like = Db::table('user_like')->where('user_id', $user_id)->where('product_id', $data['lists'][$key]['id'])->where('state',1)->item();
+				$user_like = Db::table('user_like')->where('user_id', $user_id)->where('product_id', $products[$key]['id'])->where('state',1)->item();
 				if($user_like){
-					$data['lists'][$key]['like'] = 1;
+					$products[$key]['like'] = 1;
 				}
 			}
 		}
 
 		//当前分类
-		$data['category'] = Db::table('product_category')->where('id',$id)->where('state',1)->select(['id','name','seo_title','seo_keywords','seo_description'])->item();
+		$category = Db::table('product_category')->where('id',$id)->where('state',1)->select(['id','name','seo_title','seo_keywords','seo_description'])->item();
 
-		//SEO优化
-		$site = $this->getSeting('site')['value'];
-		$data['page_title'] = $data['category']['seo_title']?$data['category']['seo_title']:$data['category']['name'].' - 商品 - '.$site['name'];
-		$data['page_keywords'] = $data['category']['seo_keywords'];
-		$data['page_description'] = $data['category']['seo_description'];
+		//定义返回数据
+		$data['products'] = $products;
+		$data['products']['category'] = $category;
+		$data['page']['title'] = $products['category']['seo_title'] ? $products['category']['seo_title'] : $products['category']['name'].' - 商品 - '.$site['name'];
+		$data['page']['keywords'] = $products['category']['seo_keywords'];
+		$data['page']['description'] = $products['category']['seo_description'];
+		$data['page']['pagination'] = $page;
         
+        //返回数据
 		$this->returnMessage(200, '成功', $data);
+
 	}
 
+	//详情
 	public function show(Request $request){
+
+    	//获取参数
     	$id = (int)$request->id;
 
+    	//用户信息
     	$user = $this->getUser();
 
-    	$discount = $this->getUserDiscount();
+    	//站点信息
+    	$site = $this->getSeting('site')['value'];
 
+    	//用户折扣
+    	$user_discount = $this->getUserDiscount();
+
+    	//查询参数
     	$where = [];
     	$where[] = ['state', '=', 1];
 		if(isset($request->id)){
 			$where[] = ['id', '=', $id];
 		}
 
-		$data['product'] = Db::table('product')->select(['id','name','description','market','selling','picture','quantity','volume','visit','category_id','seo_title','seo_keywords','seo_description','seo_keywords'])->where($where)->orderBy('id','desc')->item();
-		$data['product']['description'] = preg_replace( '#<img([^>]+?)src=[\'"]?([^\'"\s>]+)[\'"]?([^>]*)>#', sprintf( '<img${1}src="%s" data-original="${2}"${3}>', '/images/star-none.png' ), $data['product']['description'] );
-		$data['product']['picture'] = config('app.url').$data['product']['picture'];
+		//获取详情
+		$product = Db::table('product')->select(['id','name','description','market','selling','picture','quantity','volume','visit','category_id','seo_title','seo_keywords','seo_description','seo_keywords'])->where($where)->orderBy('id','desc')->item();
 
-		$data['product']['price'] = $data['product']['selling'];
-
+		//格式化详情数据
+		$product['description'] = preg_replace( '#<img([^>]+?)src=[\'"]?([^\'"\s>]+)[\'"]?([^>]*)>#', sprintf( '<img${1}src="%s" data-original="${2}"${3}>', '/images/star-none.png' ), $product['description'] );
+		$product['picture'] = config('app.url').$product['picture'];
+		$product['price'] = $product['selling'];
 		if($user){
-			$data['product']['price'] = $this->getProductPrice($data['product']['selling'], $discount);
+			$product['price'] = $this->getProductPrice($product['selling'], $user_discount);
 		}
 
 		//当前分类
-		$data['product']['category'] = Db::table('product_category')->where('id',$data['product']['category_id'])->where('state',1)->select(['id','name'])->item();
+		$product['category'] = Db::table('product_category')->where('id',$product['category_id'])->where('state',1)->select(['id','name'])->item();
 
 		//图片
-		$data['product']['pictures'] = DB::table('product_picture')->select(['id','picture','position'])->where('product_id',$data['product']['id'])->lists();
-		foreach ($data['product']['pictures'] as $key => $value) {
-			$data['product']['pictures'][$key]['picture'] = config('app.url').$data['product']['pictures'][$key]['picture'];
+		$product['pictures'] = DB::table('product_picture')->select(['id','picture','position'])->where('product_id',$product['id'])->lists();
+		foreach ($product['pictures'] as $key => $value) {
+			$product['pictures'][$key]['picture'] = config('app.url').$product['pictures'][$key]['picture'];
 		}
 
 		//规格
-		$data['product']['specifications'] = Db::table('product_specification')->where('product_id',$data['product']['id'])->lists();
-		foreach ($data['product']['specifications'] as $key => $value) {
-			$data['product']['specifications'][$key]['price'] = $data['product']['specifications'][$key]['selling'];
+		$product['specifications'] = Db::table('product_specification')->where('product_id',$product['id'])->lists();
+		foreach ($product['specifications'] as $key => $value) {
+			$product['specifications'][$key]['price'] = $product['specifications'][$key]['selling'];
 
 			//有图片才重新赋值
-			if($data['product']['specifications'][$key]['picture']){
-				$data['product']['specifications'][$key]['picture'] = config('app.url').$data['product']['specifications'][$key]['picture'];
+			if($product['specifications'][$key]['picture']){
+				$product['specifications'][$key]['picture'] = config('app.url').$product['specifications'][$key]['picture'];
 			}
 			
 			if($user){
-				$data['product']['specifications'][$key]['price'] = $this->getProductPrice($data['product']['specifications'][$key]['selling'], $discount);
+				$product['specifications'][$key]['price'] = $this->getProductPrice($product['specifications'][$key]['selling'], $user_discount);
 			}
 		}
 
-		if($data['product']['specifications']){
-			$market_min = Db::table('product_specification')->where('product_id',$data['product']['id'])->where('quantity', '>', 1)->min('market');
-			$market_max = Db::table('product_specification')->where('product_id',$data['product']['id'])->where('quantity', '>', 1)->max('market');
-			$selling_min = Db::table('product_specification')->where('product_id',$data['product']['id'])->where('quantity', '>', 1)->min('selling');
-			$selling_max = Db::table('product_specification')->where('product_id',$data['product']['id'])->where('quantity', '>', 1)->max('selling');
-			$price_min = $this->getProductPrice($selling_min, $discount);
-			$price_max = $this->getProductPrice($selling_max, $discount);
+		if($product['specifications']){
+			$market_min = Db::table('product_specification')->where('product_id',$product['id'])->where('quantity', '>', 1)->min('market');
+			$market_max = Db::table('product_specification')->where('product_id',$product['id'])->where('quantity', '>', 1)->max('market');
+			$selling_min = Db::table('product_specification')->where('product_id',$product['id'])->where('quantity', '>', 1)->min('selling');
+			$selling_max = Db::table('product_specification')->where('product_id',$product['id'])->where('quantity', '>', 1)->max('selling');
+			$price_min = $this->getProductPrice($selling_min, $user_discount);
+			$price_max = $this->getProductPrice($selling_max, $user_discount);
 			if($market_min != $market_max){
-				$data['product']['market'] = $market_min.' - '.$market_max;
+				$product['market'] = $market_min.' - '.$market_max;
 			}else{
-				$data['product']['market'] = $market_min;
+				$product['market'] = $market_min;
 			}
 			if($selling_min != $selling_max){
-				$data['product']['selling'] = $selling_min.' - '.$selling_max;
+				$product['selling'] = $selling_min.' - '.$selling_max;
 			}else{
-				$data['product']['selling'] = $selling_min;
+				$product['selling'] = $selling_min;
 			}
 			if($price_min != $price_max){
-				$data['product']['price'] = $price_min.' - '.$price_max;
+				$product['price'] = $price_min.' - '.$price_max;
 			}else{
-				$data['product']['price'] = $price_min;
+				$product['price'] = $price_min;
 			}
 		}
 
 		//喜欢状态
-		$data['like'] = 0;
+		$product['like'] = 0;
 		if($user){
             $user_id = $user['id'];
 			$user_like = Db::table('user_like')->where('user_id', $user_id)->where('product_id', $id)->where('state',1)->item();
 			if($user_like){
-				$data['like'] = 1;
+				$product['like'] = 1;
 			}
         }
-
-        //SEO优化
-		$site = $this->getSeting('site')['value'];
-		$data['page_title'] = $data['product']['seo_title']?$data['product']['seo_title']:$data['product']['name'].' - 商品 - '.$site['name'];
-		$data['page_keywords'] = $data['product']['seo_keywords'];
-		$data['page_description'] = $data['product']['seo_description'];
 		
+		//访问量+1
 		DB::table('product')->where('id', $id)->increment('visit', 1);
+
+		//定义返回数据
+        $data['product'] = $product;
+		$data['page']['title'] = $product['seo_title'] ? $product['seo_title'] : $product['name'].' - 商品 - '.$site['name'];
+		$data['page']['keywords'] = $product['seo_keywords'];
+		$data['page']['description'] = $product['seo_description'];
         
+        //返回数据
 		$this->returnMessage(200, '成功', $data);
+
 	}
 
 }

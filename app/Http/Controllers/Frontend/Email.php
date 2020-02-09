@@ -30,9 +30,9 @@ class Email extends Common
 
     	//获取设置参数值
     	$username = trim($request->username);
-		$email = trim($request->email);
-		$email_code = $this->getCode(6);
-		$email_code_md5 = md5($email.'_'.$email_code);
+      $email = trim($request->email);
+      $email_code = $this->getCode(6);
+      $email_code_md5 = md5($email.'_'.$email_code);
    		$site_name = $this->getSeting('site')['value']['name'];
    		$subject = $site_name.'会员邮箱验证';
 
@@ -81,9 +81,9 @@ class Email extends Common
     	$this->validator($params);
 
     	//获取设置参数值
-		$email = trim($request->email);
-		$email_code = $this->getCode(6);
-		$email_code_md5 = md5($email.'_'.$email_code);
+      $email = trim($request->email);
+      $email_code = $this->getCode(6);
+      $email_code_md5 = md5($email.'_'.$email_code);
    		$site_name = $this->getSeting('site')['value']['name'];
    		$subject = $site_name.'会员密码重设';
 

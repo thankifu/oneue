@@ -41,29 +41,29 @@
 	<table class="table table-condensed table-hover">
 		<thead>
 			<tr>
-				<th width="10"><input type="checkbox"/></th>
-				<th>ID</th>
-				<th>排序</th>
-				<th>名称</th>
-				<th>SEO标题</th>
-				<th>SEO关键词</th>
-				<th>修改时间</th>
-				<th>状态</th>
-				<th>操作</th>
+				<th width="50" class="star-text-center">ID</th>
+				<th width="50" class="star-text-center">排序</th>
+				<th width="200">名称</th>
+				<th width="200">SEO标题</th>
+				<th width="300">SEO关键词</th>
+				<th width="180">创建时间</th>
+				<th width="180">修改时间</th>
+				<th width="100" class="star-text-center">状态</th>
+				<th width="340">操作</th>
 			</tr>
 		</thead>
 		@if($lists)
 		<tbody>
 			@foreach($lists as $item)
 			<tr>
-				<td width="10"><input type="checkbox"/></td>
-				<td>{{$item['id']}}</td>
-				<td>{{$item['position']}}</td>
+				<td class="star-text-center">{{$item['id']}}</td>
+				<td class="star-text-center">{{$item['position']}}</td>
 				<td>{{$item['name']}}</td>
 				<td>{{$item['seo_title']?$item['seo_title']:'-'}}</td>
 				<td>{{$item['seo_keywords']?$item['seo_keywords']:'-'}}</td>
+				<td>{{$item['created']?date('Y-m-d H:i:s',$item['created']):'-'}}</td>
 				<td>{{$item['modified']?date('Y-m-d H:i:s',$item['modified']):'-'}}</td>
-				<td>{!!$item['state']==1?'<span class="label label-success">启用</span>':'<span class="label label-danger">禁用</span>'!!}</td>
+				<td class="star-text-center">{!!$item['state']==1?'<span class="label label-success">启用</span>':'<span class="label label-danger">禁用</span>'!!}</td>
 				<td>
 					<button type="button" class="btn btn-sm btn-default" onclick="starGoto('article/category', {{$item['id']}});">子分类</button>
 					<button type="button" class="btn btn-sm btn-primary" onclick="starShow('article/category', {{$item['id']}}, {{$parent}});">编辑</button>
@@ -76,16 +76,13 @@
 		@if(!$lists)
 		<tbody>
 			<tr>
-				<td class="text-center" colspan="9">啊~没有诶！</td>
+				<td class="text-center" colspan="9">没有数据</td>
 			</tr>
 		</tbody>
 		@endif
 		<tfoot>
-			<td width="10"><input type="checkbox"/></td>
-			<td colspan="8">
+			<td colspan="9">
 				<div class="pull-left">
-					<button class="btn btn-sm btn-default" disabled="disabled">禁用</button>
-					<button class="btn btn-sm btn-default">启用</button>
 				</div>
 				<div class="pull-right">
 					

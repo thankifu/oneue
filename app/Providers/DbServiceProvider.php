@@ -14,6 +14,17 @@ class DbServiceProvider extends ServiceProvider {
             return $item ? (array)$item : false;
         });
 
+        // 扩展page方法
+        QueryBuilder::macro('page',function($perPage = null, $columns = ['*'], $pageName = 'page', $page = null){
+            $result = $this->paginate($perPage,$columns,$pageName,$page);
+            $items = $result->items();
+            $result->list = [];
+            foreach ($items as $val) {
+                $result->list[] = (array)$val;
+            }
+            return $result;
+        });
+
         // 扩展lists方法
         QueryBuilder::macro('lists',function(){
             $result = $this->get()->all();

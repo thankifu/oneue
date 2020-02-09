@@ -39,32 +39,34 @@
 	<table class="table table-condensed table-hover">
 		<thead>
 			<tr>
-				<th width="10"><input type="checkbox"/></th>
-				<th>ID</th>
-				<th>图片</th>
-				<th>标题</th>
-				<th>分类</th>
-				<th>时间</th>
-				<th>状态</th>
-				<th>操作</th>
+				<th width="50" class="star-text-center">ID</th>
+				<th width="220">图片</th>
+				<th width="300">标题</th>
+				<th width="100">作者</th>
+				<th width="100">分类</th>
+				<th width="180">时间</th>
+				<th width="100">访问量</th>
+				<th width="100" class="star-text-center">状态</th>
+				<th width="200">操作</th>
 			</tr>
 		</thead>
 		@if($lists)
 		<tbody>
 			@foreach($lists as $item)
 			<tr>
-				<td width="10"><input type="checkbox"/></td>
-				<td>{{$item['id']}}</td>
+				<td class="star-text-center">{{$item['id']}}</td>
 				<td>
 					<span class="star-picture-rectangle" style="background-image:url({{$item['picture']}});"></span>
 				</td>
-				<td>{{$item['title']}}</td>
+				<td class="star-text-left">{{$item['title']}}</td>
+				<td class="star-text-left">{{$item['author']?$item['author']:'-'}}</td>
 				<td>{{isset($categories[$item['category_id']])?$categories[$item['category_id']]['name']:'-'}}</td>
-				<td>
+				<td class="star-text-left">
 					创建 {{$item['created']?date('Y-m-d H:i:s',$item['created']):'-'}}<br/>
 					修改 {{$item['modified']?date('Y-m-d H:i:s',$item['modified']):'-'}}
 				</td>
-				<td>{!!$item['state']==1?'<span class="label label-success">启用</span>':'<span class="label label-danger">禁用</span>'!!}</td>
+				<td>{{$item['visit']}}</td>
+				<td class="star-text-center">{!!$item['state']==1?'<span class="label label-success">启用</span>':'<span class="label label-danger">禁用</span>'!!}</td>
 				<td>
 					<button type="button" class="btn btn-sm btn-primary" onclick="starShowJump('article', {{$item['id']}});">编辑</button>
 					<button type="button" class="btn btn-sm btn-secondary" onclick="starDelete('article', {{$item['id']}});">删除</button>
@@ -76,16 +78,14 @@
 		@if(!$lists)
 		<tbody>
 			<tr>
-				<td class="text-center" colspan="8">啊~没有诶！</td>
+				<td class="text-center" colspan="9">没有数据</td>
 			</tr>
 		</tbody>
 		@endif
 		<tfoot>
-			<td width="10"><input type="checkbox"/></td>
-			<td colspan="7">
+			<td colspan="9">
 				<div class="pull-left">
-					<button class="btn btn-sm btn-default" disabled="disabled">禁用</button>
-					<button class="btn btn-sm btn-default">启用</button>
+					
 				</div>
 				<div class="pull-right">
 					{{$links}}

@@ -15,119 +15,155 @@ namespace App\Http\Controllers\Api\Frontend;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Tymon\JWTAuth\Facades\JWTAuth;
-//use App\Http\Controllers\Frontend\Common;
 
-class Article extends Common
-{
+/**
+ * 文章
+**/
 
-    //
+class Article extends Common{
+
+    //列表
     public function index(Request $request){
+    	
+        //用户信息
         $user = $this->getUser();
 
-		$data = Db::table('article')->select(['id','title','content','picture','visit'])->where('state', 1)->orderBy('id','desc')->pages('', 12);
+        //站点信息
+        $site = $this->getSeting('site')['value'];
 
-		foreach ($data['lists'] as $key => $value) {
-			$data['lists'][$key]['picture'] = config('app.url').$data['lists'][$key]['picture'];
-			$data['lists'][$key]['content'] = str_limit(strip_tags($data['lists'][$key]['content']), $limit = 120, $end = '...');
+        //获取列表
+		$page = Db::table('article')->select(['id','title','content','picture','visit'])->where('state', 1)->orderBy('id','desc')->page(10);
+		$articles = $page->list;
 
-			//用户喜欢状态
-			$data['lists'][$key]['like'] = 0;
+		//格式化列表数据
+		foreach ($articles as $key => $value) {
+			$articles[$key]['picture'] = config('app.url').$articles[$key]['picture'];
+			$articles[$key]['content'] = str_limit(strip_tags($articles[$key]['content']), $limit = 120, $end = '...');
+			$articles[$key]['like'] = 0;
 			if($user){
 				$user_id = $user['id'];
-				$user_like = Db::table('user_like')->where('user_id', $user_id)->where('article_id', $data['lists'][$key]['id'])->where('state',1)->item();
+				$user_like = Db::table('user_like')->where('user_id', $user_id)->where('article_id', $articles[$key]['id'])->where('state',1)->item();
 				if($user_like){
-					$data['lists'][$key]['like'] = 1;
+					$articles[$key]['like'] = 1;
 				}
 			}
 		}
 
-		//SEO优化
-		$site = $this->getSeting('site')['value'];
-		$data['page_title'] = '文章 - '.$site['name'];
-		$data['page_keywords'] = '文章,'.$site['name'];
-		$data['page_description'] = '';
+		//定义返回数据
+		$data['articles'] = $articles;
+		$data['page']['title'] = '文章 - '.$site['name'];
+		$data['page']['keywords'] = '文章,'.$site['name'];
+		$data['page']['description'] = '';
+		$data['page']['pagination'] = $page;
 
+		//返回数据
 		$this->returnMessage(200, '成功', $data);
+
 	}
 
+	//分类列表
 	public function category(Request $request){
+
+    	//获取参数
     	$id = (int)$request->id;
 
+    	//用户信息
         $user = $this->getUser();
 
+        //站点信息
+        $site = $this->getSeting('site')['value'];
+
+        //查询参数
     	$where = [];
     	$where[] = ['state', '=', 1];
 		if(isset($request->id)){
 			$where[] = ['category_id', '=', $id];
 		}
 
-		$data = Db::table('article')->where($where)->orderBy('id','desc')->pages('', 12);
+		//获取列表
+		$page = Db::table('article')->select(['id','title','content','picture','visit'])->where($where)->orderBy('id','desc')->page(10);
+		$articles = $page->list;
 		
-		foreach ($data['lists'] as $key => $value) {
-			//用户喜欢状态
-			$data['lists'][$key]['like'] = 0;
+		//格式化列表数据
+		foreach ($articles as $key => $value) {
+			$articles[$key]['picture'] = config('app.url').$articles[$key]['picture'];
+			$articles[$key]['content'] = str_limit(strip_tags($articles[$key]['content']), $limit = 120, $end = '...');
+			$articles[$key]['like'] = 0;
 			if($user){
 				$user_id = $user['id'];
-				$user_like = Db::table('user_like')->where('user_id', $user_id)->where('article_id', $data['lists'][$key]['id'])->where('state',1)->item();
+				$user_like = Db::table('user_like')->where('user_id', $user_id)->where('article_id', $articles[$key]['id'])->where('state',1)->item();
 				if($user_like){
-					$data['lists'][$key]['like'] = 1;
+					$articles[$key]['like'] = 1;
 				}
 			}
 		}
 
 		//当前分类
-		$data['category'] = Db::table('article_category')->where('id',$id)->where('state',1)->select(['id','name','seo_title','seo_keywords','seo_description'])->item();
+		$articles['category'] = Db::table('article_category')->where('id',$id)->where('state',1)->select(['id','name','seo_title','seo_keywords','seo_description'])->item();
 
-		//SEO优化
-		$site = $this->getSeting('site')['value'];
-		$data['page_title'] = $data['category']['seo_title']?$data['category']['seo_title']:$data['category']['name'].' - 文章 - '.$site['name'];
-		$data['page_keywords'] = $data['category']['seo_keywords'];
-		$data['page_description'] = $data['category']['seo_description'];
+		//定义返回数据
+		$data['articles'] = $articles;
+		$data['page']['title'] = $articles['category']['seo_title']?$articles['category']['seo_title']:$articles['category']['name'].' - 文章 - '.$site['name'];
+		$data['page']['keywords'] = $articles['category']['seo_keywords'];
+		$data['page']['description'] = $articles['category']['seo_description'];
+		$data['page']['pagination'] = $page;
         
+        //返回数据
 		$this->returnMessage(200, '成功', $data);
+
 	}
 
+	//详情
 	public function show(Request $request){
+
+    	//获取参数
     	$id = (int)$request->id;
 
+    	//用户信息
     	$user = $this->getUser();
 
+    	//站点信息
+    	$site = $this->getSeting('site')['value'];
+
+    	//查询参数
     	$where = [];
     	$where[] = ['state', '=', 1];
 		if(isset($request->id)){
 			$where[] = ['id', '=', $id];
 		}
 
-		$data['article'] = Db::table('article')->select(['id','title','content','picture','category_id','seo_title','seo_keywords','seo_description','created'])->where($where)->orderBy('id','desc')->item();
-		$data['article']['content'] = preg_replace( '#<img([^>]+?)src=[\'"]?([^\'"\s>]+)[\'"]?([^>]*)>#', sprintf( '<img${1}src="%s">', config('app.url').'${2}' ), $data['article']['content'] );
-		$data['article']['created'] = date('Y-m-d H:i:s',$data['article']['created']);
-
-		//config('app.url').$data['lists'][$key]['picture'];
+		//获取详情
+		$article = Db::table('article')->select(['id','title','content','picture','category_id','seo_title','seo_keywords','seo_description','created'])->where($where)->orderBy('id','desc')->item();
+		
+		//格式化详情数据
+		$article['content'] = preg_replace( '#<img([^>]+?)src=[\'"]?([^\'"\s>]+)[\'"]?([^>]*)>#', sprintf( '<img${1}src="%s">', config('app.url').'${2}' ), $article['content'] );
+		$article['created'] = date('Y-m-d H:i:s', $article['created']);
 
 		//当前分类
-		$data['article']['category'] = Db::table('article_category')->where('id',$data['article']['category_id'])->where('state',1)->select(['id','name'])->item();
+		$article['category'] = Db::table('article_category')->where('id',$article['category_id'])->where('state',1)->select(['id','name'])->item();
 
 		//喜欢状态
-		$data['like'] = 0;
+		$article['like'] = 0;
 		if($user){
-            //喜欢状态
             $user_id = $user['id'];
 			$user_like = Db::table('user_like')->where('user_id', $user_id)->where('article_id', $id)->where('state',1)->item();
 			if($user_like){
-				$data['like'] = 1;
+				$article['like'] = 1;
 			}
         }
 
-		//SEO优化
-		$site = $this->getSeting('site')['value'];
-		$data['page_title'] = $data['article']['seo_title']?$data['article']['seo_title']:$data['article']['title'].' - 文章 - '.$site['name'];
-		$data['page_keywords'] = $data['article']['seo_keywords'];
-		$data['page_description'] = $data['article']['seo_description'];
-
+        //访问量+1
 		DB::table('article')->where('id', $id)->increment('visit', 1);
+
+        //定义返回数据
+        $data['article'] = $article;
+		$data['page']['title'] = $article['seo_title'] ? $article['seo_title'] : $article['title'].' - 文章 - '.$site['name'];
+		$data['page']['keywords'] = $article['seo_keywords'];
+		$data['page']['description'] = $article['seo_description'];
         
+        //返回数据
 		$this->returnMessage(200, '成功', $data);
+
 	}
 
 }

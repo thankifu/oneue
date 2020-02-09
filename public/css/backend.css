@@ -18,8 +18,9 @@
 /* 表格优化 */
 .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{vertical-align:middle;}
 .table{border:1px solid #e1e6eb;}
-.table>thead>tr>th{text-align:center;font-weight:normal;color:#999;background-color:#f5f5fa;border-bottom:1px;}
-.table>tbody>tr>td{text-align:center;}
+.table>thead>tr>th{/* text-align:center; */font-weight:normal;color:#999;background-color:#f5f5fa;border-bottom:1px;}
+.table>tbody>tr>td{/* text-align:center; */}
+.table .btn{margin:2px 0;}
 
 .star-table-text-left>thead>tr>th{text-align:left;}
 .star-table-text-left>tbody>tr>td{text-align:left;}

@@ -16,14 +16,24 @@ namespace App\Http\Controllers\Api\Frontend;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class Cart extends Common
-{
-    //
+/**
+ * 购物车
+**/
+
+class Cart extends Common{
+
+    //购物清单
     public function index(Request $request){
+
+    	//用户信息
     	$user = $this->getUser();
         $user_id = $user['id'];
 
-        $discount = $this->getUserDiscount();
+        //站点信息
+        $site = $this->getSeting('site')['value'];
+
+        //用户折扣
+        $user_discount = $this->getUserDiscount();
 
         $cart = Db::table('cart')->where(array(['user_id', $user_id],['state', 1]))->lists();
 
@@ -34,12 +44,12 @@ class Cart extends Common
         $specifications = Db::table('product_specification')->whereIn('id', $specification_id)->cates('id');
 
         foreach ($products as $key => $value) {
-        	$price  = $this->getProductPrice($products[$key]['selling'], $discount);
+        	$price  = $this->getProductPrice($products[$key]['selling'], $user_discount);
 			$products[$key]['price'] = $price;
         }
 
         foreach ($specifications as $key => $value) {
-        	$price  = $this->getProductPrice($specifications[$key]['selling'], $discount);
+        	$price  = $this->getProductPrice($specifications[$key]['selling'], $user_discount);
 			$specifications[$key]['price'] = $price;
         }
 
@@ -54,15 +64,15 @@ class Cart extends Common
 			$cart[$key]['stock'] = $value['specification_id'] > 0 ? $specifications[$value['specification_id']]['quantity'] : $products[$value['product_id']]['quantity'];
         }
 
+        //定义返回数据
     	$data['cart'] = $cart;
+		$data['page']['title'] = '购物车 - '.$site['name'];
+		$data['page']['keywords'] = '购物车,'.$site['name'];
+		$data['page']['description'] = '';
 
-    	//SEO优化
-		$site = $this->getSeting('site')['value'];
-		$data['page_title'] = '购物车 - '.$site['name'];
-		$data['page_keywords'] = '购物车,'.$site['name'];
-		$data['page_description'] = '';
-
+		//返回数据
 		$this->returnMessage(200, '成功', $data);
+
 	}
 
 	public function create(Request $request){
