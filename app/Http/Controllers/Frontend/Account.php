@@ -134,10 +134,10 @@ class Account extends Common
             $this->returnMessage(400,'自动登录失败');
         }
 
-        if(!session_id()) session_start();
+        /*if(!session_id()) session_start();
         if(isset($_SESSION[$email.'_email_code'])){
             unset($_SESSION[$email.'_email_code']);
-        }
+        }*/
 
         // 更新登录ip、时间
         Db::table('user')->where(array('username'=>$username))->update(array('logined_ip'=>$request->getClientIp(),'logined'=>time()));

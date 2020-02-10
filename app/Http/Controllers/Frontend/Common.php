@@ -139,17 +139,22 @@ class Common extends Controller{
 
     //邮箱验证码验证
     protected function checkEmailCode($email, $email_code){
-        $email_code_md5 = md5($email.'_'.$email_code);
+
+        //加密
+        $email_code_md5 = md5(config('app.key').'_'.$email.'_'.$email_code);
         
-        if(!session_id()) session_start();
-        //验证码处理
-        if( isset($_SESSION[$email.'_email_code']) ) {
-            if ($email_code_md5 != $_SESSION[$email.'_email_code']) {
-                $this->returnMessage(400, "验证码错误");
-            }
-        }else{
-            $this->returnMessage(400, "验证码不存在");
+        //验证时间，超过5分钟
+        if( time() > session('email.time')+300  ){
+            $this->returnMessage(400, "验证码超时，请重新获取");
         }
+        //验证码验证
+        if( $email_code_md5 != session('email.code') ) {
+            $this->returnMessage(400, "验证码错误");
+        }
+
+        //删除SESSION
+        session()->forget('email');
+
     }
 
     //手机验证码验证
