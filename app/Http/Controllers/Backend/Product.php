@@ -108,8 +108,9 @@ class Product extends Common
 				foreach ($pictures as $value) {
 					$value['product_id'] = $id;
 
-					//格式化图片数值，否则为空时无法插入
-					$value['picture'] = trim($value['picture']);
+					//格式化数值，否则为空时无法插入
+					$value['id'] = isset($value['id']) ? trim($value['id']) : '';
+					$value['picture'] = isset($value['picture']) ? trim($value['picture']) : '';
 
 					//判断是否存在
 					$has = DB::table('product_picture')->where('id',$value['id'])->where('product_id',$id)->item();
@@ -133,8 +134,9 @@ class Product extends Common
 				foreach ($specifications as $value) {
 					$value['product_id'] = $id;
 					
-					//格式化图片数值，否则为空时无法插入
-					$value['picture'] = trim($value['picture']);
+					//格式化数值，否则为空时无法插入
+					$value['id'] = isset($value['id']) ? trim($value['id']) : '';
+					$value['picture'] = isset($value['picture']) ? trim($value['picture']) : '';
 
 					//判断是否存在
 					$has = DB::table('product_specification')->where('id',$value['id'])->where('product_id',$id)->item();
@@ -176,11 +178,12 @@ class Product extends Common
 			$result = Db::table('product')->insertGetId($data);
 
 			if($result && $pictures){
+
 				foreach ($pictures as $value) {
 					$value['product_id'] = $result;
 					
 					//格式化图片数值，否则为空时无法插入
-					$value['picture'] = trim($value['picture']);
+					$value['picture'] = isset($value['picture']) ? trim($value['picture']) : '';
 
 					if($value['picture'] !== ''){
 						Db::table('product_picture')->insertGetId($value);
@@ -192,22 +195,45 @@ class Product extends Common
 			if($result && $specifications){
 				//如果存在规格，设置初始值
 				$update['quantity'] = 0;
+				$market_max = $specifications[0]['market'];
+				$market_min = $specifications[0]['market'];
+				$selling_max = $specifications[0]['selling'];
+				$selling_min = $specifications[0]['selling'];
 
 				foreach ($specifications as $value) {
 					$value['product_id'] = $result;
 					
-					//格式化图片数值，否则为空时无法插入
-					$value['picture'] = trim($value['picture']);
+					//格式化数值，否则为空时无法插入
+					$value['picture'] = isset($value['picture']) ? trim($value['picture']) : '';
 
 					//插入数据库
 					Db::table('product_specification')->insertGetId($value);
 
 					//规格库存循环相加
 					$update['quantity'] += floatval($value['quantity']);
+
+					//判断最大价格最小价格
+					if($value['selling']>$selling_max) {
+						$selling_max=$value['selling'];
+					}
+				    if($selling_min>$value['selling']) {
+				    	$selling_min=$value['selling'];
+				    }
+
+				    if($value['market']>$market_max) {
+						$market_max=$value['market'];
+					}
+				    if($market_min>$value['market']) {
+				    	$market_min=$value['market'];
+				    }
 				}
+
+				$update['market'] = $market_max;
+				$update['selling'] = $selling_min;
 
 				//更新到商品库存
 				Db::table('product')->where('id',$result)->update($update);
+				
 			}
 			
 			$log = '修改商品：'.$data['name'].'，ID：'.$result.'。';

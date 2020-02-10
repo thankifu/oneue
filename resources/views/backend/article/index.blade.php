@@ -39,15 +39,15 @@
 	<table class="table table-condensed table-hover">
 		<thead>
 			<tr>
-				<th width="50" class="star-text-center">ID</th>
-				<th width="220">图片</th>
-				<th width="300">标题</th>
-				<th width="100">作者</th>
-				<th width="100">分类</th>
-				<th width="180">时间</th>
-				<th width="100">访问量</th>
-				<th width="100" class="star-text-center">状态</th>
-				<th width="200">操作</th>
+				<th class="star-text-center">ID</th>
+				<th>图片</th>
+				<th>标题</th>
+				<th>作者</th>
+				<th>分类</th>
+				<th>时间</th>
+				<th>访问量</th>
+				<th class="star-text-center">状态</th>
+				<th>操作</th>
 			</tr>
 		</thead>
 		@if($lists)
@@ -58,10 +58,10 @@
 				<td>
 					<span class="star-picture-rectangle" style="background-image:url({{$item['picture']}});"></span>
 				</td>
-				<td class="star-text-left">{{$item['title']}}</td>
-				<td class="star-text-left">{{$item['author']?$item['author']:'-'}}</td>
+				<td>{{$item['title']}}</td>
+				<td>{{$item['author']?$item['author']:'-'}}</td>
 				<td>{{isset($categories[$item['category_id']])?$categories[$item['category_id']]['name']:'-'}}</td>
-				<td class="star-text-left">
+				<td>
 					创建 {{$item['created']?date('Y-m-d H:i:s',$item['created']):'-'}}<br/>
 					修改 {{$item['modified']?date('Y-m-d H:i:s',$item['modified']):'-'}}
 				</td>

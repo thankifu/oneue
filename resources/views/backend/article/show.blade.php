@@ -72,7 +72,7 @@
 			<label>文章状态：</label>
 			<div class="radio">
 				<label class="radio-inline">
-					<input type="radio" name="state" value="1" {{isset($article['state']) && $article['state']==1?'checked':''}}>启用
+					<input type="radio" name="state" value="1" {{!isset($article['state']) || $article['state']==1?'checked':''}}>启用
 				</label>
 				<label class="radio-inline">
 					<input type="radio" name="state" value="0" {{isset($article['state']) && $article['state']==0?'checked':''}}>禁用

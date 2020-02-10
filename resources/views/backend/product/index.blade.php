@@ -39,8 +39,7 @@
 	<table class="table table-condensed table-hover">
 		<thead>
 			<tr>
-				<th width="10"><input type="checkbox"/></th>
-				<th>ID</th>
+				<th class="star-text-center">ID</th>
 				<th>图片</th>
 				<th>名称</th>
 				<th>规格</th>
@@ -50,7 +49,7 @@
 				<th>库存数量</th>
 				<th>分类</th>
 				<th>时间</th>
-				<th>状态</th>
+				<th class="star-text-center">状态</th>
 				<th>操作</th>
 			</tr>
 		</thead>
@@ -59,8 +58,7 @@
 			@foreach($lists as $item)
 			<?php //echo '<pre>'; print_r($specifications);?>
 			<tr>
-				<td width="10"><input type="checkbox"/></td>
-				<td>{{$item['id']}}</td>
+				<td class="star-text-center">{{$item['id']}}</td>
 				<td>
 					<span class="star-picture-square" style="background-image:url({{$item['picture']}});"></span>
 				</td>
@@ -124,7 +122,7 @@
 					创建 {{$item['created']?date('Y-m-d H:i:s',$item['created']):'-'}}<br/>
 					修改 {{$item['modified']?date('Y-m-d H:i:s',$item['modified']):'-'}}
 				</td>
-				<td>{!!$item['state']==1?'<span class="label label-success">启用</span>':'<span class="label label-danger">禁用</span>'!!}</td>
+				<td class="star-text-center">{!!$item['state']==1?'<span class="label label-success">启用</span>':'<span class="label label-danger">禁用</span>'!!}</td>
 				<td width="160">
 					<button type="button" class="btn btn-sm btn-primary" onclick="starShowJump('product', {{$item['id']}});">编辑</button>
 					<button type="button" class="btn btn-sm btn-secondary" onclick="starDelete('product', {{$item['id']}});">删除</button>
@@ -136,16 +134,13 @@
 		@if(!$lists)
 		<tbody>
 			<tr>
-				<td class="text-center" colspan="13">啊~没有诶！</td>
+				<td class="text-center" colspan="12">没有数据</td>
 			</tr>
 		</tbody>
 		@endif
 		<tfoot>
-			<td width="10"><input type="checkbox"/></td>
 			<td colspan="12">
 				<div class="pull-left">
-					<button class="btn btn-sm btn-default" disabled="disabled">禁用</button>
-					<button class="btn btn-sm btn-default">启用</button>
 				</div>
 				<div class="pull-right">
 					{{$links}}
