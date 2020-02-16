@@ -33,6 +33,10 @@ class Product extends Common{
     	//获取列表
 		$data = Db::table('product')->where('state', 1)->orderBy('id','desc')->pages('', 12);
 
+		if(!$data['lists']){
+    		return redirect('/product');
+    	}
+
 		//更新参数
 		foreach ($data['lists'] as $key => $value) {
 			//用户价格折扣
@@ -82,6 +86,10 @@ class Product extends Common{
 
 		//获取列表
 		$data = Db::table('product')->where($where)->orderBy('id','desc')->pages('', 12);
+
+		if(!$data['lists']){
+    		return redirect('/product');
+    	}
 
 		//更新参数
 		foreach ($data['lists'] as $key => $value) {
@@ -135,6 +143,10 @@ class Product extends Common{
 
 		//获取详情
 		$data['product'] = Db::table('product')->where($where)->orderBy('id','desc')->item();
+
+		if(!$data['product']){
+    		return redirect('/product');
+    	}
 
 		//格式化参数
 		$data['product']['description'] = preg_replace( '#<img([^>]+?)src=[\'"]?([^\'"\s>]+)[\'"]?([^>]*)>#', sprintf( '<img${1}src="%s" data-original="${2}"${3}>', '/images/star-none.png' ), $data['product']['description'] );
