@@ -68,7 +68,7 @@
 @include('backend.common.foot')
 <script src="/packages/ckeditor/ckeditor.js"></script>
 <script>
-	CKEDITOR.replace('content', {height: 500, filebrowserUploadUrl: '{{url('/admin/upload/index')}}?upload_place=editor&_token={{csrf_token()}}',});
+	CKEDITOR.replace('content', {height: 500, filebrowserUploadUrl: '{{url('/admin/upload/index')}}?upload_place=help&upload_object=editor&_token={{csrf_token()}}',});
 </script>
 </body>
 </html>
