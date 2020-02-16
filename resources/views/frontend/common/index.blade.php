@@ -50,7 +50,8 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">我的 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="/user/order">我的订单</a></li>
+                        <li><a href="/user/like">我喜欢的</a></li>
+                        <li><a href="/user/order">我购买的</a></li>
                         <li><a href="/user/setting">账户设置</a></li>
                         <li><a href="javascript:void(0);" onclick="starLogout();">退出</a>{{csrf_field()}}</li>
                     </ul>

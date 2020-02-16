@@ -29,6 +29,10 @@ class Article extends Common{
     	//获取列表
 		$data = Db::table('article')->where('state', 1)->orderBy('id','desc')->pages('', 12);
 
+		if(!$data['lists']){
+    		return redirect('/article');
+    	}
+
 		//更新参数
 		foreach ($data['lists'] as $key => $value) {
 			//喜欢状态
@@ -69,6 +73,10 @@ class Article extends Common{
 
 		//获取列表
 		$data = Db::table('article')->where($where)->orderBy('id','desc')->pages('', 12);
+
+		if(!$data['lists']){
+    		return redirect('/article');
+    	}
 		
 		//更新参数
 		foreach ($data['lists'] as $key => $value) {
@@ -113,6 +121,10 @@ class Article extends Common{
 
 		//获取详情
 		$data['article'] = Db::table('article')->where($where)->orderBy('id','desc')->item();
+
+		if(!$data['article']){
+    		return redirect('/article');
+    	}
 
 		//格式化参数
 		$data['article']['content'] = preg_replace( '#<img([^>]+?)src=[\'"]?([^\'"\s>]+)[\'"]?([^>]*)>#', sprintf( '<img${1}src="%s" data-original="${2}">', '/images/star-none.png' ), $data['article']['content'] );

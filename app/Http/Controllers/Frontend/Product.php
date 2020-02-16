@@ -143,7 +143,7 @@ class Product extends Common{
 		if($user){
 			$data['product']['price'] = $this->getProductPrice($data['product']['selling'], $user_discount);
 		}
-		$data['product']['price'] = $this->getProductPrice($data['product']['selling'], $user_discount);
+		isset ($data['product']['price']) && $data['product']['price'] = $this->getProductPrice($data['product']['selling'], $user_discount);
 
 		//当前分类
 		$data['category'] = Db::table('product_category')->where('id',$data['product']['category_id'])->where('state',1)->select(['id','name'])->item();

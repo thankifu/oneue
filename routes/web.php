@@ -102,9 +102,11 @@ Route::namespace('Frontend')->middleware('auth')->group(function () {
 });
 
 // 后台登录
-Route::get('admin', 'Backend\Account@showLogin')->name('admin.login');
-Route::post('admin/login', 'Backend\Account@Login')->middleware('throttle:5,1');
-Route::post('admin/logout', 'Backend\Account@logout')->name('admin.logout');
+Route::prefix('admin')->namespace('Backend')->group(function () {
+	Route::get('', 'Account@showLogin')->name('admin.login');
+	Route::post('login', 'Account@Login')->middleware('throttle:5,1');
+	Route::post('logout', 'Account@logout')->name('admin.logout');
+});
 
 // 后台管理
 Route::prefix('admin')->namespace('Backend')->middleware(['auth.admin:admin','auth.menus'])->group(function () {
