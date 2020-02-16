@@ -30,6 +30,11 @@ class Help extends Common
 		}
 
 		$data['help'] = Db::table('help')->where($where)->orderBy('id','desc')->item();
+
+		if(!$data['help']){
+    		return redirect('/');
+    	}
+
 		$data['help']['content'] = preg_replace( '#<img([^>]+?)src=[\'"]?([^\'"\s>]+)[\'"]?([^>]*)>#', sprintf( '<img${1}src="%s" data-original="${2}"${3}>', '/images/star-none.png' ), $data['help']['content'] );
 
 		//SEO优化
