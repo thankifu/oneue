@@ -10,6 +10,11 @@
  * ----------------------------------------------------------------------
 **/
 
+var starSitePhone = $('input[name="site_phone"]').val();
+var starSiteWechat = $('input[name="site_wechat"]').val();
+var starSiteQrcode = $('input[name="site_qrcode"]').val();
+var starSiteShopping = $('input[name="site_shopping"]').val();
+
 //加载屏幕
 function starLoadScreen(){
 	/*var width_side = $('.star-side').width();

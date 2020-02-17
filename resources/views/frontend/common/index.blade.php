@@ -145,27 +145,13 @@
             </ul>
         </div>
     </div>
+    <input type="hidden" name="site_phone" value="{{isset($_site['phone'])?$_site['phone']:''}}" />
+    <input type="hidden" name="site_wechat" value="{{isset($_site['wechat'])?$_site['wechat']:''}}" />
+    <input type="hidden" name="site_qrcode" value="{{isset($_site['picture_qrcode'])?$_site['picture_qrcode']:''}}" />
+    <input type="hidden" name="site_shopping" value="{{isset($_site['shopping'])?$_site['shopping']:''}}" />
 </div>
 
 @include('frontend.common.foot')
-<script type="text/javascript">
-var starSitePhone = '';
-var starSiteWechat = '';
-var starSiteQrcode = '';
-var starSiteShopping = '';
-@if(isset($_site['phone']))
-starSitePhone = '{{$_site['phone']}}';
-@endif
-@if(isset($_site['wechat']))
-starSiteWechat = '{{$_site['wechat']}}';
-@endif
-@if(isset($_site['picture_qrcode']))
-starSiteQrcode = '{{$_site['picture_qrcode']}}';
-@endif
-@if(isset($_site['shopping']))
-starShopping = '{{$_site['shopping']}}';
-@endif
-</script>
 @section('script')
 @show
 </body>

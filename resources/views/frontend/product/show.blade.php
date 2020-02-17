@@ -237,7 +237,7 @@
     }
 
     function starBuyNow(){
-        if(starShopping == '0'){
+        if(starSiteShopping == '0'){
             starContact('shopping');
             return;
         }
@@ -290,7 +290,7 @@
     };
 
     function starAddToCart(){
-        if(starShopping == '0'){
+        if(starSiteShopping == '0'){
             starContact('shopping');
             return;
         }
