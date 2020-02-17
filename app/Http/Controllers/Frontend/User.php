@@ -29,9 +29,9 @@ class User extends Common
 
 		//SEO优化
 		$site = $this->getSeting('site')['value'];
-		$data['page_title'] = '我的 - '.$site['name'];
-		$data['page_keywords'] = '我的,'.$site['name'];
-		$data['page_description'] = '';
+		$data['page']['title'] = '我的 - '.$site['name'];
+		$data['page']['keywords'] = '我的,'.$site['name'];
+		$data['page']['description'] = '';
 
 		return view('frontend.user.index', $data);
 	}
@@ -42,9 +42,9 @@ class User extends Common
 
     	//SEO优化
 		$site = $this->getSeting('site')['value'];
-		$data['page_title'] = '我的 - '.$site['name'];
-		$data['page_keywords'] = '我的,'.$site['name'];
-		$data['page_description'] = '';
+		$data['page']['title'] = '我的 - '.$site['name'];
+		$data['page']['keywords'] = '我的,'.$site['name'];
+		$data['page']['description'] = '';
 
 		return view('frontend.user.setting', $data);
 	}
@@ -55,9 +55,9 @@ class User extends Common
 
     	//SEO优化
 		$site = $this->getSeting('site')['value'];
-		$data['page_title'] = '我的 - '.$site['name'];
-		$data['page_keywords'] = '我的,'.$site['name'];
-		$data['page_description'] = '';
+		$data['page']['title'] = '我的 - '.$site['name'];
+		$data['page']['keywords'] = '我的,'.$site['name'];
+		$data['page']['description'] = '';
 
 		return view('frontend.user.confirmation', $data);
 	}
@@ -107,9 +107,9 @@ class User extends Common
 
     	//SEO优化
 		$site = $this->getSeting('site')['value'];
-		$data['page_title'] = '我的 - '.$site['name'];
-		$data['page_keywords'] = '我的,'.$site['name'];
-		$data['page_description'] = '';
+		$data['page']['title'] = '我的 - '.$site['name'];
+		$data['page']['keywords'] = '我的,'.$site['name'];
+		$data['page']['description'] = '';
 
 		return view('frontend.user.email', $data);
 	}
@@ -175,9 +175,9 @@ class User extends Common
 
     	//SEO优化
 		$site = $this->getSeting('site')['value'];
-		$data['page_title'] = '我的 - '.$site['name'];
-		$data['page_keywords'] = '我的,'.$site['name'];
-		$data['page_description'] = '';
+		$data['page']['title'] = '我的 - '.$site['name'];
+		$data['page']['keywords'] = '我的,'.$site['name'];
+		$data['page']['description'] = '';
 
 		return view('frontend.user.password', $data);
 	}
@@ -226,9 +226,9 @@ class User extends Common
 
     	//SEO优化
 		$site = $this->getSeting('site')['value'];
-		$data['page_title'] = '我的 - '.$site['name'];
-		$data['page_keywords'] = '我的,'.$site['name'];
-		$data['page_description'] = '';
+		$data['page']['title'] = '我的 - '.$site['name'];
+		$data['page']['keywords'] = '我的,'.$site['name'];
+		$data['page']['description'] = '';
 
 		return view('frontend.user.avatar', $data);
 	}
@@ -300,9 +300,9 @@ class User extends Common
 
     	//SEO优化
 		$site = $this->getSeting('site')['value'];
-		$data['page_title'] = '我的 - '.$site['name'];
-		$data['page_keywords'] = '我的,'.$site['name'];
-		$data['page_description'] = '';
+		$data['page']['title'] = '我的 - '.$site['name'];
+		$data['page']['keywords'] = '我的,'.$site['name'];
+		$data['page']['description'] = '';
 
 		return view('frontend.user.address.index', $data);
 	}
@@ -320,9 +320,9 @@ class User extends Common
 
 		//SEO优化
 		$site = $this->getSeting('site')['value'];
-		$data['page_title'] = '我的 - '.$site['name'];
-		$data['page_keywords'] = '我的,'.$site['name'];
-		$data['page_description'] = '';
+		$data['page']['title'] = '我的 - '.$site['name'];
+		$data['page']['keywords'] = '我的,'.$site['name'];
+		$data['page']['description'] = '';
 
 		return view('frontend.user.address.show', $data);
 	}
@@ -412,9 +412,9 @@ class User extends Common
 
         //SEO优化
 		$site = $this->getSeting('site')['value'];
-		$data['page_title'] = '我的 - '.$site['name'];
-		$data['page_keywords'] = '我的,'.$site['name'];
-		$data['page_description'] = '';
+		$data['page']['title'] = '我的 - '.$site['name'];
+		$data['page']['keywords'] = '我的,'.$site['name'];
+		$data['page']['description'] = '';
 
 		return view('frontend.user.order.index', $data);
 	}
@@ -433,9 +433,9 @@ class User extends Common
 
 		//SEO优化
 		$site = $this->getSeting('site')['value'];
-		$data['page_title'] = '我的 - '.$site['name'];
-		$data['page_keywords'] = '我的,'.$site['name'];
-		$data['page_description'] = '';
+		$data['page']['title'] = '我的 - '.$site['name'];
+		$data['page']['keywords'] = '我的,'.$site['name'];
+		$data['page']['description'] = '';
 
 		return view('frontend.user.order.show', $data);
 	}
@@ -517,9 +517,9 @@ class User extends Common
 
 		//SEO优化
 		$site = $this->getSeting('site')['value'];
-		$data['page_title'] = '我的 - '.$site['name'];
-		$data['page_keywords'] = '我的,'.$site['name'];
-		$data['page_description'] = '';
+		$data['page']['title'] = '我的 - '.$site['name'];
+		$data['page']['keywords'] = '我的,'.$site['name'];
+		$data['page']['description'] = '';
 
 		return view('frontend.user.like.index', $data);
 	}

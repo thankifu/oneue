@@ -61,9 +61,9 @@ class Cart extends Common
 
     	//SEO优化
 		$site = $this->getSeting('site')['value'];
-		$data['page_title'] = '购物车 - '.$site['name'];
-		$data['page_keywords'] = '购物车,'.$site['name'];
-		$data['page_description'] = '';
+		$data['page']['title'] = '购物车 - '.$site['name'];
+		$data['page']['keywords'] = '购物车,'.$site['name'];
+		$data['page']['description'] = '';
 
 		return view('frontend.cart.index', $data);
 	}

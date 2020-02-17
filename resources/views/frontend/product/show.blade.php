@@ -10,12 +10,10 @@
 	<ol class="breadcrumb">
         <li><a href="/">首页</a></li>
         <li><a href="/product">商品</a></li>
-        @if(isset($category))
-        @if(!empty($category))
-        <li><a href="/product/category/{{$category['id']}}">{{$category['name']}}</a></li>
+        @if($product['category_id'])
+        <li><a href="/product/category/{{$product['category_id']}}">{{$product['category_name']}}</a></li>
         @endif
         <li class="active">{{$product['name']}}</li>
-        @endif
     </ol>
     <div class="row">
         <div class="col-md-9 star-main">
@@ -24,8 +22,8 @@
                 <div class="swiper-container gallery-top">
                     <ul class="list-unstyled swiper-wrapper">
                         <li class="swiper-slide"><img src="{{$product['picture']}}"></li>
-                        @if($pictures)
-                        @foreach($pictures as $item)
+                        @if($product['pictures'])
+                        @foreach($product['pictures'] as $item)
                         <li class="swiper-slide"><img src="{{$item['picture']}}"></li>
                         @endforeach
                         @endif
@@ -34,8 +32,8 @@
                 <div class="swiper-container gallery-thumbs">
                     <ul class="list-unstyled swiper-wrapper">
                         <li class="swiper-slide"><img src="{{$product['picture']}}"></li>
-                        @if($pictures)
-                        @foreach($pictures as $item)
+                        @if($product['pictures'])
+                        @foreach($product['pictures'] as $item)
                         <li class="swiper-slide"><img src="{{$item['picture']}}"></li>
                         @endforeach
                         @endif
@@ -55,8 +53,8 @@
                         <del>[{{$product['selling']}}]</del>
                         @endif -->
 
-                        @if(isset($level['name']))
-                        <strong>{{$level['name']}}</strong>
+                        @if(isset($user['level_name']))
+                        <strong>{{$user['level_name']}}</strong>
                         @endif
                     </span>
                     @if($product['market'] != $product['selling'])
@@ -78,13 +76,13 @@
                     </div>
                 </div>
 
-                @if($specifications)
+                @if($product['specifications'])
                 <div class="clearfix star-meta star-meta-specifications">
                     <div class="star-meta-hd">规格</div>
                     <div class="star-meta-bd">
                         <div class="star-meta-spec">
                             <ul class="list-unstyled">
-                                @foreach($specifications as $item)
+                                @foreach($product['specifications'] as $item)
                                 <li class="{{$item['quantity']==0?'star-disable':'star-normal'}}" data-product="{{$item['product_id']}}" data-specification="{{$item['id']}}" data-market="{{$item['market']}}" data-selling="{{$item['selling']}}" data-price="{{$item['price']}}" data-quantity="{{$item['quantity']}}">
                                     @if($item['picture'] != "")
                                     <img src="{{$item['picture']}}" alt="{{$item['name']}}" title="{{$item['name']}}">
@@ -131,7 +129,7 @@
                     <a class="star-add-cart-disable" href="javascript:void(0);"><i class="fa fa-shopping-cart" aria-hidden="true"></i>加入购物车</a>
                 @endif
                     <div class="star-clear"></div>
-                    <a class="star-heart{{$like == 1?' star-active':''}}" href="javascript:void(0);" data-type='product' data-id="{{$product['id']}}" onclick="starLike(this);"><i class="glyphicon{{$like == 1?' glyphicon-heart':' glyphicon-heart-empty'}}" aria-hidden="true"></i><span>喜欢</span></a>
+                    <a class="star-heart{{$product['like'] == 1?' star-active':''}}" href="javascript:void(0);" data-type='product' data-id="{{$product['id']}}" onclick="starLike(this);"><i class="glyphicon{{$product['like'] == 1?' glyphicon-heart':' glyphicon-heart-empty'}}" aria-hidden="true"></i><span>喜欢</span></a>
                 </div>
             </div>
 

@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>{{$page_title}}</title>
-<meta name="keywords" content="{{$page_keywords}}" />
-<meta name="description" content="{{$page_description}}" />
+<title>{{$page['title']}}</title>
+<meta name="keywords" content="{{$page['keywords']}}" />
+<meta name="description" content="{{$page['description']}}" />
 @include('frontend.common.head')
 @section('style')
 @show

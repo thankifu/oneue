@@ -4,18 +4,16 @@
 <div class="container star-mb-25">
 	<ol class="breadcrumb">
 		<li><a href="/">首页</a></li>
-		@if(!isset($category))
-		<li class="active">文章</li>
-		@endif
-
 		@if(isset($category))
 		<li><a href="/article">文章</a></li>
 		<li class="active">{{$category['name']}}</li>
+        @else
+        <li class="active">文章</li>
 		@endif
 	</ol>
 	<div class="row star-main">
 		<ul class="clearfix list-unstyled star-list-article">
-            @foreach($lists as $item)
+            @foreach($articles as $item)
             <li class="col-md-4">
                 <a href="/article/{{$item['id']}}" title="{{$item['title']}}">
                     <p class="star-image">
@@ -29,7 +27,7 @@
             </li>
             @endforeach
         </ul>
-        {{$links}}
+        {{$page['pagination']}}
 	</div>
 </div>
 @endsection

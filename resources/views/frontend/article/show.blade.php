@@ -1,7 +1,6 @@
 @extends('frontend.common.index')
 
 @section('style')
-<link rel="stylesheet" href="/packages/highlight/styles/dracula.css" type="text/css" media="all" />
 @endsection
 
 @section('body')
@@ -9,12 +8,10 @@
 	<ol class="breadcrumb">
         <li><a href="/">首页</a></li>
         <li><a href="/article">文章</a></li>
-        @if(isset($category))
-        @if(!empty($category))
-        <li><a href="/article/category/{{$category['id']}}">{{$category['name']}}</a></li>
+        @if($article['category_id'])
+        <li><a href="/article/category/{{$article['category_id']}}">{{$article['category_name']}}</a></li>
         @endif
         <li class="active">{{$article['title']}}</li>
-        @endif
     </ol>
     <div class="row">
         <div class="col-md-9 star-main">
@@ -28,8 +25,8 @@
                     {!!$article['content']!!}
                 </div>
                 <div class="star-actions">
-                    <a class="star-heart{{$like == 1?' star-active':''}}" href="javascript:void(0);" data-type='article' data-id="{{$article['id']}}" onclick="starLike(this);">
-                        <i class="glyphicon{{$like == 1?' glyphicon-heart':' glyphicon-heart-empty'}}" aria-hidden="true"></i>
+                    <a class="star-heart{{$article['like'] == 1?' star-active':''}}" href="javascript:void(0);" data-type='article' data-id="{{$article['id']}}" onclick="starLike(this);">
+                        <i class="glyphicon{{$article['like'] == 1?' glyphicon-heart':' glyphicon-heart-empty'}}" aria-hidden="true"></i>
                         <span>喜欢</span>
                     </a>
                 </div>
@@ -41,11 +38,4 @@
 @endsection
 
 @section('script')
-<script type="text/javascript" src="/packages/highlight/highlight.pack.js"></script>
-<script type="text/javascript">
-    hljs.initHighlightingOnLoad();
-    $("code").each(function(){
-        $(this).html("<ul><li>" + $(this).html().replace(/\n/g,"\n</li><li>") +"\n</li></ul>");
-    });
-</script>
 @endsection

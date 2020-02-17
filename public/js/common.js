@@ -227,7 +227,7 @@ function starGetQueryString(name){
 var redirect_url = starGetQueryString("redirect_url");
 
 (function($){ 
-	$.fn.serializeJson=function(){ 
+	$.fn.starSerializeJson=function(){ 
 		var serializeObj={}; 
 		var array=this.serializeArray(); 
 		var str=this.serialize(); 
@@ -237,12 +237,16 @@ var redirect_url = starGetQueryString("redirect_url");
 					serializeObj[this.name].push(this.value); 
 				}else { 
 					if(this .value!=""){
-						serializeObj[this.name]=[serializeObj[this.name],this.value]; 
+						serializeObj[this.name]=[serializeObj[this.name],this.value];
+					}else{
+						serializeObj[this.name]='';
 					}
 				} 
 			}else{ 
 				if(this .value!=""){
 					serializeObj[this.name]=this.value; 
+				}else{
+					serializeObj[this.name]='';
 				}
 			} 
 		}); 

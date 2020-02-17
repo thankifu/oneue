@@ -338,7 +338,7 @@ function starSettingStore(){
 
 //文章保存
 function starArticleStore(){
-	var data = $('#form').serializeJson();
+	var data = $('#form').starSerializeJson();
 	data.content = CKEDITOR.instances.content.getData();
 
 	if(data.title == '' || data.title == undefined){
@@ -360,7 +360,7 @@ function starArticleStore(){
 
 //商品保存
 function starProductStore(){
-	var data = $('#form').serializeJson();
+	var data = $('#form').starSerializeJson();
 	data.description = CKEDITOR.instances.description.getData();
 
 	if(data.name == '' || data.name == undefined){
@@ -441,7 +441,7 @@ function starSpecificationDelete(object, id){
 
 //分类保存
 function starCategoryStore(type){
-	var data = $('form').serializeJson();
+	var data = $('form').starSerializeJson();
 	data.state = $('#state').is(':checked')?0:1;
 
 	if(data.name == '' || data.name == undefined){
@@ -550,7 +550,7 @@ function starShipmentStore(){
 
 //帮助保存
 function starHelpStore(){
-	var data = $('#form').serializeJson();
+	var data = $('#form').starSerializeJson();
 	data.content = CKEDITOR.instances.content.getData();
 
 	if(data.title == '' || data.title == undefined){

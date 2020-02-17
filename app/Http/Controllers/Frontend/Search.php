@@ -79,9 +79,9 @@ class Search extends Common
 
 		//SEO优化
 		$site = $this->getSeting('site')['value'];
-		$data['page_title'] = '商品 - '.$site['name'];
-		$data['page_keywords'] = '商品,'.$site['name'];
-		$data['page_description'] = '';
+		$data['page']['title'] = '搜索 - '.$site['name'];
+		$data['page']['keywords'] = '搜索,'.$site['name'];
+		$data['page']['description'] = '';
 
 		return view('frontend.search.index', $data);
 	}

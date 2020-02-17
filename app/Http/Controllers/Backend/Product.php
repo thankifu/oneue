@@ -109,8 +109,7 @@ class Product extends Common
 					$value['product_id'] = $id;
 
 					//格式化数值，否则为空时无法插入
-					$value['id'] = isset($value['id']) ? trim($value['id']) : '';
-					$value['picture'] = isset($value['picture']) ? trim($value['picture']) : '';
+					$value['picture'] = trim($value['picture']);
 
 					//判断是否存在
 					$has = DB::table('product_picture')->where('id',$value['id'])->where('product_id',$id)->item();
@@ -135,8 +134,7 @@ class Product extends Common
 					$value['product_id'] = $id;
 					
 					//格式化数值，否则为空时无法插入
-					$value['id'] = isset($value['id']) ? trim($value['id']) : '';
-					$value['picture'] = isset($value['picture']) ? trim($value['picture']) : '';
+					$value['picture'] = trim($value['picture']);
 
 					//判断是否存在
 					$has = DB::table('product_specification')->where('id',$value['id'])->where('product_id',$id)->item();
@@ -183,7 +181,7 @@ class Product extends Common
 					$value['product_id'] = $result;
 					
 					//格式化图片数值，否则为空时无法插入
-					$value['picture'] = isset($value['picture']) ? trim($value['picture']) : '';
+					$value['picture'] = trim($value['picture']);
 
 					if($value['picture'] !== ''){
 						Db::table('product_picture')->insertGetId($value);
@@ -204,7 +202,7 @@ class Product extends Common
 					$value['product_id'] = $result;
 					
 					//格式化数值，否则为空时无法插入
-					$value['picture'] = isset($value['picture']) ? trim($value['picture']) : '';
+					$value['picture'] = trim($value['picture']);
 
 					//插入数据库
 					Db::table('product_specification')->insertGetId($value);

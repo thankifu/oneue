@@ -37,9 +37,9 @@ class Checkout extends Common
 
 		//SEO优化
 		$site = $this->getSeting('site')['value'];
-		$data['page_title'] = '结算 - '.$site['name'];
-		$data['page_keywords'] = '结算,'.$site['name'];
-		$data['page_description'] = '';
+		$data['page']['title'] = '结算 - '.$site['name'];
+		$data['page']['keywords'] = '结算,'.$site['name'];
+		$data['page']['description'] = '';
 		
 		return view('frontend.checkout.index', $data);
 	}

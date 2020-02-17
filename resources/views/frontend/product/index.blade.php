@@ -1,22 +1,19 @@
 @extends('frontend.common.index')
 
 @section('body')
-
 <div class="container star-mb-25">
 	<ol class="breadcrumb">
 		<li><a href="/">首页</a></li>
-		@if(!isset($category))
-		<li class="active">商品</li>
-		@endif
-
 		@if(isset($category))
 		<li><a href="/product">商品</a></li>
 		<li class="active">{{$category['name']}}</li>
+        @else
+        <li class="active">商品</li>
 		@endif
 	</ol>
 	<div class="row star-main">
 		<ul class="clearfix list-unstyled star-list-product">
-            @foreach($lists as $item)
+            @foreach($products as $item)
             <li class="col-md-3 col-xs-6">
                 <a href="/product/{{$item['id']}}" title="{{$item['name']}}">
                     <p class="star-image">
@@ -32,8 +29,7 @@
             </li>
             @endforeach
         </ul>
-        {{$links}}
+        {{$page['pagination']}}
 	</div>
 </div>
-
 @endsection
