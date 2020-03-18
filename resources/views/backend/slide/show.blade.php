@@ -15,6 +15,7 @@
 		{{csrf_field()}}
 		<input type="file" name="upload_file" id="upload_file" onchange="starUpload()">
 		<input type="hidden" name="upload_place" id="upload_place" value="">
+		<input type="hidden" name="upload_object" id="upload_object" value="">
 		<iframe name="upload_iframe" id="upload_iframe" style="display: none;"></iframe>
 	</form>
 
@@ -36,7 +37,7 @@
 			<div class="form-inline">
 				<div class="form-group">
 					<span class="star-picture star-picture-rectangle star-mr-10" style="background-image:url({{isset($slide['picture'])?$slide['picture']:'/images/star-upload-image.png'}});">
-						<i class="star-picture-bd" onclick="starPicture('picture');"></i>
+						<i class="star-picture-bd" onclick="starPicture('slide' ,'picture');"></i>
 						<i class="star-picture-ft"></i>
 						<input class="form-control" type="hidden" id="picture" name="picture" value="{{isset($slide['picture'])?$slide['picture']:''}}"/>
 					</span>
