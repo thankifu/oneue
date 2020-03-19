@@ -386,7 +386,7 @@ function starSpecificationAdd(){
 	html += '<tr>';
 		html += '<td>';
 			html += '<span class="star-picture star-picture-square star-mr-10" style="background-image:url(/images/star-upload-image.png);">';
-				html += '<i class="star-picture-bd" onclick=starPicture("specifications['+i+'][picture]")></i>';
+				html += "<i class='star-picture-bd' onclick=starPicture('product','specifications["+i+"][picture]')></i>";
 				html += '<i class="star-picture-ft"></i>';
 				html += '<input class="form-control" type="hidden" name="specifications['+i+'][picture]" value="" placeholder="" autocomplete="off">';
 			html += '</span>';
